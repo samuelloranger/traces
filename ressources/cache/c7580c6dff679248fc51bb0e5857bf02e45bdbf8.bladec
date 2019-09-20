@@ -1,0 +1,40 @@
+
+
+ <!-- Si on est pas sur la première page et s'il y a plus d'une page -->
+ <?php if($numeroPage > 1): ?>
+ <a href= "<?php echo $urlPagination . "&page=" . 1; ?>">Premier</a>
+ <?php else: ?>
+ <span style="color:#999">Premier</span>
+ <?php endif; ?>
+
+ &nbsp;|&nbsp;
+
+ <?php if($numeroPage > 1): ?>
+ <a href="<?php echo $urlPagination . "&page=" . (htmlspecialchars($numeroPage) - 1); ?>">Précédent</a>
+ <?php else: ?>
+ <span style="color:#999">Précédent</span>
+ <?php endif; ?>
+
+ &nbsp;|&nbsp;
+
+ <?php echo static::e("Page " . ($numeroPage) . " de " . ($nombreTotalPages)); ?>
+
+
+ &nbsp;|&nbsp;
+
+ <?php if($numeroPage < $nombreTotalPages): ?>
+ <a href="<?php echo $urlPagination . "&page=" . (htmlspecialchars($numeroPage) + 1); ?>">Suivant</a>
+ <?php else: ?>
+ <span style="color:#999">Suivant</span>
+ <?php endif; ?>
+
+ &nbsp;|&nbsp;
+
+ <?php if($numeroPage < $nombreTotalPages): ?>
+ <a href="<?php echo $urlPagination . "&page=" . htmlspecialchars($nombreTotalPages); ?>">Dernier</a>
+ <?php else: ?>
+ <span style="color:#999">Dernier</span>
+ <?php endif; ?>
+
+
+

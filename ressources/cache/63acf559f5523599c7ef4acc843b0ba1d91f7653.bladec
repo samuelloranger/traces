@@ -1,0 +1,8 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('contenu'); ?>
+ <h3>Je suis la page <?php echo static::e($nomPage); ?> et je parle de l'accueil!</h3>
+<?php $this->stopSection(); ?>
+
+
+<?php if (@$_shouldextend[1]) { echo $this->runChild('gabarit'); } ?>
