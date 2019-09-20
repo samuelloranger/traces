@@ -1,0 +1,38 @@
+/**
+ * @author Prénom Nom courriel
+**/
+
+/**
+ * ------------------
+ * TABLE DES MATIÈRES
+ * ------------------
+ * BIBLIOTHÈQUES (dans le dossier bower_components)
+ ** Normalize
+ ** Susy
+ * UTILITAIRES
+ ** variables
+ ** mixins
+ * BASE
+ ** Charte typographique responsive
+ *
+ * ...
+ */
+
+
+
+/*** Normalize ***/
+@import '../../../node_modules/normalize.scss/normalize';
+
+/*** Utilitaires ***/
+@import "utilitaires/mixins";
+@import "utilitaires/variables";
+
+/*** Base ***/
+@import "base/typo";
+
+/*** Modules ***/
+@import "modules/general";
+@import "modules/header";
+@import "modules/footer";
+
+

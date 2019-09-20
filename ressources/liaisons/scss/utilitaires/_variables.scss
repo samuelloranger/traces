@@ -1,0 +1,41 @@
+/**
+ * @author Samuel Loranger <samuelloranger@gmail.com>
+ * ------------------
+ * TABLE DES MATIÈRES
+ * ------------------
+ * Polices de caractères
+ * Palette de couleurs
+ * Points de rupture
+ **/
+
+/** Polices de caractères **/
+
+@font-face {
+  font-family: "Police-Primaire"; src: url('../chemin-acces.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Police-Secondaire"; src: url('../chemin-acces.ttf') format('truetype');
+}
+
+$policeTitres: "Kanit-Bold", Arial-Black, sans-serif;
+$policeCorps: "Kanit-Regular", Arial, serif;
+
+/** Palette de couleurs **/
+// Au besoin utiliser http://chir.ag/projects/name-that-color pour nommer les couleurs
+
+//Couleurs perso
+$rouge: #EB3125;
+$gris: #707070;
+$vert: #00C000;
+
+//Couleurs de base
+$noir: #000;
+$blanc: #fff;
+
+/** Points de rupture **/
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+$tablette : 600px;
+
+/* hi-res laptops and desktops */
+$desktop : 1000px;

@@ -1,0 +1,30 @@
+/**
+ * @author Nom Prénom <courriel>
+ */
+.conteneur-fluid{
+  width: 100%;
+}
+
+.conteneur{
+  max-width: $desktop;
+  margin: 0 auto;
+}
+
+noscript{
+  p{
+    width: 100%;
+    background-color: $rouge;
+    text-align: center;
+    color: white;
+    font-family: $policeTitres;
+    @include fontSize(20px);
+    margin: 0;
+  }
+}
+
+.bouton {
+
+  &:hover{
+
+  }
+}

@@ -11,6 +11,9 @@ node_modules/
 #Dossier caché de fichiers temporaires créé par sass
 .sass-cache/
 
+#Gulpfile
+gulpfile.js
+
 #Dossiers de compilation
 assets/css/
 assets/js/
