@@ -7,8 +7,7 @@ namespace App;
 use App\Controleurs\ControleurLivre;
 use App\Controleurs\ControleurSite;
 use \PDO;
-use eftec\bladeone\Bladeone;
-
+use eftec\bladeone\BladeOne;
 
 class App
 {
@@ -51,10 +50,10 @@ class App
             if($this->getServeur() === 'serveur-local')
             {
                 $maConnexionBD = new ConnexionBD('localhost','demo','demo_mdp','demo_bd');
-                $this->pdo = $maConnexionBD->getNouvelleConnexionPDO();
-            }else if($this->getServeur() === 'serveur-production'){
-                echo "Erreur: Vous devez configurer la connexion du serveur de production (timunix2).";
+            }else if($this -> getServeur() === 'serveur-production'){
+                $maConnexionBD = new ConnexionBD('timunix2.cegep-ste-foy.qc.ca','19_saladsquad','lionvert','19_rpni3_saladsquad');
             }
+            $this -> pdo = $maConnexionBD -> getNouvelleConnexionPDO();
         }
         return $this->pdo;
     }
