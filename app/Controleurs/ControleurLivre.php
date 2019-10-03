@@ -10,26 +10,27 @@ class ControleurLivre
 {
     private $blade = null;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->blade = App::getInstance() -> getBlade();
     }
 
     /**
      * Fonction index qui call la view
      */
-    public function index(): void
-    {
-        ini_get("upload_max_filesize");
-
-        $tDonnees = array_merge($this -> getDonnees(), ControleurSite::getDonneeFragmentPiedDePage());;
+    public function index(): void{
+        $tDonnees = array_merge($this -> getDonneesLivres(), ControleurSite::getDonneeFragmentPiedDePage());;
         echo $this->blade->run("livres.index", $tDonnees);
+    }
+
+    public function livre():void{
+        $tDonnees = array_merge($this -> getDonneesUnLivre(), ControleurSite::getDonneeFragmentPiedDePage());;
+        echo $this->blade->run("livres.fiche", $tDonnees);
     }
 
     /**
      * @return array
      */
-    public function getDonnees():array{
+    public function getDonneesLivres():array{
         /**
          * Définition du nombre de pages
          */
@@ -69,6 +70,17 @@ class ControleurLivre
         );
 
         return $arrDonnees;
+    }
+
+    public function getDonneesUnLivre():array{
+        $idLivre = 0;
+        if(isset($_GET["idLivre"])){
+            $idLivre = (int)$_GET["idLivre"];
+        }
+
+        $infosLivre = array("livre" => Livre::trouverParId($idLivre));
+
+        return $infosLivre;
     }
 }
 

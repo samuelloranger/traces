@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="utf-8">
     </head>
@@ -12,7 +11,7 @@
             @yield('contenu')
         </main>
 
-        <footer>
+        <footer class="footer">
             @include('fragments.pieddepage')
         </footer>
     </body>

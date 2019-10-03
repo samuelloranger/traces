@@ -49,7 +49,7 @@ class App
         {
             if($this->getServeur() === 'serveur-local')
             {
-                $maConnexionBD = new ConnexionBD('localhost','demo','demo_mdp','demo_bd');
+                $maConnexionBD = new ConnexionBD('localhost','traces','traces_mdp','traces');
             }else if($this -> getServeur() === 'serveur-production'){
                 $maConnexionBD = new ConnexionBD('timunix2.cegep-ste-foy.qc.ca','19_saladsquad','lionvert','19_rpni3_saladsquad');
             }
@@ -124,6 +124,9 @@ class App
             switch ($action) {
                 case "index":
                     $this -> monControleur -> index();
+                    break;
+                case "fiche":
+                    $this -> monControleur -> livre();
                     break;
                 default:
                     echo 'Erreur 404';

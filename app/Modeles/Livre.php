@@ -72,6 +72,34 @@ class Livre{
         return (int)$nbrLivre[0];
     }
 
+    /**
+     * Va chercher les infos d'un seul livre
+     * @param int $idLivre ID du livre recherche
+     */
+    public static function trouverParId(int $id):Livre{
+        $pdo = App::getInstance() -> getPDO();
+
+        //Requête SQL
+        $sql = "SELECT * FROM livres WHERE id = :id";
+
+        //On prépare la requête
+        $requetePreparee = $pdo -> prepare($sql);
+
+        // Définir le mode de récupération
+        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Livre::class);
+
+        // On bind le paramètre id
+        $requetePreparee -> bindParam(":id", $id, PDO::PARAM_INT);
+
+        //On éxécute la requête
+        $requetePreparee -> execute();
+
+        //Définition de la variable
+        $infosLivre = $requetePreparee -> fetch();
+
+        return $infosLivre;
+    }
+
     public static function trouverParLimite(int $unIndex, int $uneQte):array{
         $pdo = App::getInstance() -> getPDO();
 
@@ -110,6 +138,10 @@ class Livre{
 
     public function getAuteurs():array{
         return Auteur::trouverAuteurLivre($this -> id);
+    }
+
+    public function getDescriptionNettoyee():string{
+        return strip_tags($this -> description);
     }
 
     public function __get($property) {
