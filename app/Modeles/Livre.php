@@ -30,6 +30,18 @@ class Livre{
 
     }
 
+    public function __get($property) {
+        if (property_exists($this, $property)) {
+            return $this -> $property;
+        }
+    }
+
+    public function __set($property, $value) {
+        if (property_exists($this, $property)) {
+            $this -> $property = $value;
+        }
+    }
+
     public static function trouverTout():array{
         $pdo = App::getInstance() -> getPDO();
 
@@ -144,16 +156,20 @@ class Livre{
         return strip_tags($this -> description);
     }
 
-    public function __get($property) {
-        if (property_exists($this, $property)) {
-            return $this -> $property;
-        }
+    public static function getCoupsCoeur(): array {
+        $pdo = App::getInstance()->getPDO();
+        $chaineRequete = "SELECT *
+                          FROM livres  
+                          WHERE est_coup_de_coeur = 1";
+
+        $requete = $pdo->prepare($chaineRequete);
+        $requete->setFetchMode(PDO::FETCH_CLASS, Livre::class);
+
+        $requete->execute();
+
+        $arrCoupsCoeur = $requete->fetchAll();
+
+        return $arrCoupsCoeur;
     }
 
-    public function __set($property, $value) {
-        if (property_exists($this, $property)) {
-            $this -> $property = $value;
-        }
-    }
 }
-?>

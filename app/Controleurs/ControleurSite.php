@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controleurs;
 
 use App\App;
+use App\Modeles\Livre;
 use \DateTime;
 
 class ControleurSite
@@ -20,6 +22,11 @@ class ControleurSite
     {
         $tDonnees = array("nomPage"=>"Accueil");
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
+        $arrCoupsCoeur = Livre::getCoupsCoeur();
+        shuffle($arrCoupsCoeur);
+
+        $tDonnees = array_merge($tDonnees, ["arrCoupsCoeur" => $arrCoupsCoeur]);
+
         echo $this->blade->run("accueil",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
     }
 
