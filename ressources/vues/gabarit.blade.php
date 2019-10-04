@@ -10,11 +10,11 @@
             @include('fragments.entete')
         </header>
 
-        <main>
+        <main class="container">
             @yield('contenu')
         </main>
 
-        <footer class="footer">
+        <footer class="footer container-fluid">
             @include('fragments.pieddepage')
         </footer>
     </body>

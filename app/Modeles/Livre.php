@@ -152,6 +152,10 @@ class Livre{
         return Auteur::trouverAuteurLivre($this -> id);
     }
 
+    public function getHonneurs():array{
+        return Honneur::trouverHonneursLivre($this -> id);
+    }
+
     public function getImageUrl($format = "rectangle"):string{
         if($format == "carre"){
             $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn) . "1_carre.jpg";
