@@ -3,7 +3,7 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <header >
+        <header class="header">
             @include('fragments.entete')
         </header>
 

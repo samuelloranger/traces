@@ -59,6 +59,10 @@ class ControleurLivre
          */
         $arrLivres = Livre::trouverParLimite(intval($numeroPage) -1 , $livresParPage);
 
+        foreach($arrLivres as $livre){
+            $livre -> isbn = Livre::ISBNToEAN($livre -> isbn);
+        }
+
         /**
          * Définition de l'array retourné avec toutes les données
          */
@@ -78,7 +82,11 @@ class ControleurLivre
             $idLivre = (int)$_GET["idLivre"];
         }
 
-        $infosLivre = array("livre" => Livre::trouverParId($idLivre));
+        $infosLivre = Livre::trouverParId($idLivre);
+
+        $infosLivre -> __set("isbn", Livre::ISBNToEAN($infosLivre -> isbn));
+
+        $infosLivre = array("livre" => $infosLivre);
 
         return $infosLivre;
     }

@@ -152,8 +152,19 @@ class Livre{
         return Auteur::trouverAuteurLivre($this -> id);
     }
 
-    public function getImageUrl():string{
-        return "../public/liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn) . ".jpg";
+    public function getImageUrl($format = "rectangle"):string{
+        if($format == "carre"){
+            $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn) . "1_carre.jpg";
+        }
+        else{
+            $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn) . "1.jpg";
+        }
+
+        if(!file_exists($url)){
+            $url = "./liaisons/images/couvertures-livres/imageNonTrouvee.jpg";
+        }
+
+        return $url;
     }
 
     public function getDescriptionNettoyee():string{
@@ -193,14 +204,14 @@ class Livre{
             $myEan = "978" . substr($strISBN, 0, 9);
             $myFirstPart = intval(substr($myEan, 1, 1)) + intval(substr($myEan, 3, 1)) + intval(substr($myEan, 5, 1)) + intval(substr($myEan, 7, 1)) + intval(substr($myEan, 9, 1)) + intval(substr($myEan, 11, 1));
             $mySecondPart = intval(substr($myEan, 0, 1)) + intval(substr($myEan, 2, 1)) + intval(substr($myEan, 4, 1)) + intval(substr($myEan, 6, 1)) + intval(substr($myEan, 8, 1)) + intval(substr($myEan, 10, 1));
-            $tmp = intval(substr((3 * $myFirstPart + $mySecondPart), -1));
+            $tmp = intval(substr((string)(3 * $myFirstPart + $mySecondPart), -1));
             $myControl = ($tmp == 0) ? 0 : 10 - $tmp;
 
             return $myEan . $myControl;
         }
         // ISBN-13
         else if (strlen($strISBN) == 13) return $strISBN;
-        // Autre
+        // Autres
         else return false;
     }
 }
