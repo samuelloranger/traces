@@ -1,9 +1,22 @@
+<div class="logoTraces">
+   <a href="index.php?controleur=site&action=accueil">
+       <img class="image" src="../public/liaisons/images/logo-traces.svg" alt="Logo librairie Traces">
+   </a>
+</div>
 
-<h3>Je suis l'entête.</h3>
-<ul>
-    <li><a href="index.php?controleur=site&action=accueil">Accueil</a></li>
-    <li><a href="index.php?controleur=site&action=apropos">À propos</a></li>
-    <li><a href="index.php?controleur=livre&action=index">Index</a></li>
-</ul>
+<nav class="navigation">
+    <ul class="menu">
+        <li><a href="index.php?controleur=livre&action=index">Catalogue</a></li>
+        <li><a href="index.php?controleur=site&action=accueil#meilleurs-vendeurs">Meilleurs vendeurs</a></li>
+        <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
+        <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
+        <li class="icone__panier"><a href="index.php?controleur=livre&action=index">Panier</a></li>
+        <li class="icone__rechercher">Recherche</li>
+        <li><a href="index.php?controleur=accueil&action=index">Se connecter</a></li>
+        <li><a href="index.php?controleur=accueil&action=index">En</a></li>
+    </ul>
+</nav>
+
+
 
 
