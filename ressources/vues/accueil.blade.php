@@ -53,8 +53,9 @@
                 <h4>{{$arrActualites[$indexArticle]->titre}}</h4>
                 <h5>{{$arrActualites[$indexArticle]->getAuteur()->getNomPrenom()}}</h5>
                 <div>
-                    {{$arrActualites[$indexArticle]->getTexteClean()}}
+                    {{$arrActualites[$indexArticle]->getTexteTronque()}}
                 </div>
+                <a href="#">LIRE LA SUITE</a>
             </div>
         @endfor
     </div>

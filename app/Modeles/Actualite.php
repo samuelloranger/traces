@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Modeles;
 
 use App\App;
+use App\Util;
 use \PDO;
 
 class Actualite {
@@ -49,5 +50,9 @@ class Actualite {
 
     public function getTexteClean(): string {
         return strip_tags($this->texte);
+    }
+
+    public function getTexteTronque() {
+        return Util::couperParagraphe($this->texte, 800);
     }
 }
