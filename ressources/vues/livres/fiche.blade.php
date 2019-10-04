@@ -1,9 +1,12 @@
 @extends('gabarit')
 
 @section('contenu')
-    <div class="infoPrincipales">
-        <img style="max-width: 200px" src="{{ $livre -> getImageUrl() }}" alt="Couverture du livre {{ $livre -> titre }}">
-        <div class="info__principales">
+    <div class="infosPrincipales row">
+        <div class="col-sm-12 col-md-3">
+            <img style="max-width: 200px" src="{{ $livre -> getImageUrl() }}" alt="Couverture du livre {{ $livre -> titre }}">
+        </div>
+
+        <div class="info__principales col-sm-12 col-md-9">
             <div class="infosPrincipales">
                     <p class="infosPrincipales__auteurs">
                         @foreach($livre -> getAuteurs() as $auteur)
@@ -15,13 +18,13 @@
                     <h2 class="infosPrincipales__sousTitre">{{ $livre -> sous_titre }}</h2>
                 </div>
 
-            <div class="zonePanier">
-                <div class="zonePanier__prix">
+            <div class="zonePanier row">
+                <div class="zonePanier__prix col-sm-12 col-md-3">
                     <p>{{ $livre -> prix }}$</p>
                     <p>{{ $livre -> getParution() }}</p>
                 </div>
-                <form class="zonePanier__optionsPanier">
-                    <div class="options">
+                <form class="zonePanier__optionsPanier col-sm-12 col-md-9 row">
+                    <div class="options col-sm-12 col-md-6">
                         <label for="formatLivre">Choisir un format...</label>
                         <select id="formatLivre">
                             <option>Sélectionnez un format...</option>
@@ -41,16 +44,16 @@
                         </select>
                     </div>
 
-                    <input type="submit" class="zonePanier__bouton btn btnPanier" value="Ajouter au panier">
+                    <input type="submit" class="zonePanier__bouton btn btnPanier col-sm-12 col-md-6" value="Ajouter au panier">
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="infos">
-        <p class="infos__description">{{ $livre -> getDescriptionNettoyee() }}</p>
+    <div class="infosSecondaires row">
+        <p class="infos__description col-sm-12 col-md-6">{{ $livre -> getDescriptionNettoyee() }}</p>
 
-        <div class="conteneurTiroir">
+        <div class="conteneurTiroir col-sm-12 col-md-6">
             <h2>Voir plus d'informations</h2>
             <ul>
                 <li><b>Nombre de pages:</b> {{ $livre -> nbre_pages }}</li>
@@ -67,14 +70,27 @@
         </div>
     </div>
 
-    <div class="zoneReview">
-        <h2>Prix remportés</h2>
-        @foreach($livre -> getHonneurs() as $honneur)
-            <div class="review">
-                <h3 class="review__titre">{{ $honneur -> nom }}</h3>
-                <p class="review__description">{{ $honneur -> getDescriptionNettoyee }}</p>
-
+    <div class="infosTerciaires row">
+        <div class="infosTerciaires__zoneGauche col-sm-12 col-md-6">
+            <div class="">
+                <p>test</p>
             </div>
-        @endforeach
+        </div>
+
+        <div class="col-md-1"></div>
+
+        <div class="infosTerciaires__zoneDroite col-sm-12 col-md-5">
+            @if(count($livre -> getHonneurs()) > 0)
+                <div class="zoneReview">
+                    <h2>Prix remportés</h2>
+                    @foreach($livre -> getHonneurs() as $honneur)
+                        <div class="review">
+                            <h3 class="review__titre">{{ $honneur -> nom }}</h3>
+                            <p class="review__description">{{ $honneur -> getDescriptionNettoyee() }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
     </div>
 @endsection

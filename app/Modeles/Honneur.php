@@ -28,7 +28,7 @@ class Honneur{
         $requetePreparee = $pdo -> prepare($sql);
 
         // Définir le mode de récupération
-        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Auteur::class);
+        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Honneur::class);
 
         //On bind le paramètre idAueur
         $requetePreparee -> bindParam(":idLivre", $idLivre, PDO::PARAM_INT);
@@ -37,9 +37,9 @@ class Honneur{
         $requetePreparee -> execute();
 
         // Récupérer une seule occurrence à la fois
-        $arrHonneur = $requetePreparee -> fetchAll();
+        $arrHonneurs = $requetePreparee -> fetchAll();
 
-        return $arrHonneur;
+        return $arrHonneurs;
     }
 
     public function getDescriptionNettoyee():string{
