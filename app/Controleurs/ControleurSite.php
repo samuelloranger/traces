@@ -22,9 +22,14 @@ class ControleurSite
     {
         $tDonnees = array("nomPage"=>"Accueil");
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
+
+        $arrNouveautes = Livre::getNouveautes();
+        shuffle($arrNouveautes);
+
         $arrCoupsCoeur = Livre::getCoupsCoeur();
         shuffle($arrCoupsCoeur);
 
+        $tDonnees = array_merge($tDonnees, ["arrNouveautes" => $arrNouveautes]);
         $tDonnees = array_merge($tDonnees, ["arrCoupsCoeur" => $arrCoupsCoeur]);
 
         echo $this->blade->run("accueil",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
