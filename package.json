@@ -25,6 +25,7 @@
     "not dead"
   ],
   "dependencies": {
+    "jquery": "^3.4.1",
     "normalize.scss": "^0.1.0",
     "picturefill": "^3.0.3",
     "requirejs": "^2.3.6"
