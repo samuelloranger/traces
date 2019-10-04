@@ -45,5 +45,18 @@
             </div>
         @endfor
     </div>
+
+    <div class="actualites">
+        <h2>ACTUALITES</h2>
+        @for($indexArticle = 0; $indexArticle < 3; $indexArticle++)
+            <div class="actualites__vignette">
+                <h4>{{$arrActualites[$indexArticle]->titre}}</h4>
+                <h5>{{$arrActualites[$indexArticle]->getAuteur()->getNomPrenom()}}</h5>
+                <div>
+                    {{$arrActualites[$indexArticle]->getTexteClean()}}
+                </div>
+            </div>
+        @endfor
+    </div>
 @endsection
 

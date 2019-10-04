@@ -65,7 +65,22 @@ class Auteur{
         return $arrAuteur;
     }
 
-    public function getNomPrenom():string{
+    public static function trouverAuteurActualite(int $idAuteur): Auteur {
+        $pdo = App::getInstance()->getPDO();
+
+        $chaine = "SELECT * FROM auteurs INNER JOIN actualites ON auteurs.id = actualites.id_auteur WHERE actualites.id_auteur = :idAuteur";
+
+        $requete = $pdo->prepare($chaine);
+        $requete->setFetchMode(PDO::FETCH_CLASS, Auteur::class);
+        $requete->bindParam(":idAuteur", $idAuteur, PDO::PARAM_INT);
+        $requete->execute();
+
+        $auteur = $requete->fetch();
+
+        return $auteur;
+    }
+
+    public function getNomPrenom(): string {
         return $this -> prenom . " " . $this -> nom;
     }
 
@@ -81,4 +96,3 @@ class Auteur{
         }
     }
 }
-?>

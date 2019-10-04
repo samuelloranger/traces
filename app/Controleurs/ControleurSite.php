@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
+use App\Modeles\Actualite;
 use App\Modeles\Livre;
 use \DateTime;
 
@@ -29,8 +30,13 @@ class ControleurSite
         $arrCoupsCoeur = Livre::getCoupsCoeur();
         shuffle($arrCoupsCoeur);
 
+        $arrActualites = Actualite::trouverTout();
+        shuffle($arrActualites);
+        //print_r($arrActualites);
+
         $tDonnees = array_merge($tDonnees, ["arrNouveautes" => $arrNouveautes]);
         $tDonnees = array_merge($tDonnees, ["arrCoupsCoeur" => $arrCoupsCoeur]);
+        $tDonnees = array_merge($tDonnees, ["arrActualites" => $arrActualites]);
 
         echo $this->blade->run("accueil",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
     }

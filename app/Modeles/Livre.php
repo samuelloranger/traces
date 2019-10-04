@@ -26,7 +26,7 @@ class Livre{
     private $collection_id = 0;
     private $pdo = null;
 
-    public function __construct(){
+    public function __construct() {
 
     }
 
