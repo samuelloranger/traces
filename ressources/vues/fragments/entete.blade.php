@@ -7,7 +7,7 @@
     </div>
 
     <ul class="menu">
-        <li><a href="index.php?controleur=livre&action=index">Catalogue</a></li>
+        <li><a href="index.php?controleur=livre&action=catalogue">Catalogue</a></li>
         <li><a href="index.php?controleur=site&action=accueil#meilleurs-vendeurs">Meilleurs vendeurs</a></li>
         <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
         <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
@@ -42,7 +42,7 @@
     <div class="menu__mobile menu__mobile--ferme">
         <h2>Menu</h2>
         <ul>
-            <li><a href="index.php?controleur=livre&action=index">Catalogue</a></li>
+            <li><a href="index.php?controleur=livre&action=catalogue">Catalogue</a></li>
             <li><a href="index.php?controleur=site&action=accueil#meilleurs-vendeurs">Meilleurs vendeurs</a></li>
             <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
             <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
