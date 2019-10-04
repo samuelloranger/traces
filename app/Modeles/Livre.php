@@ -140,6 +140,10 @@ class Livre{
         return Auteur::trouverAuteurLivre($this -> id);
     }
 
+    public function getImageUrl():string{
+        return "../public/liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn) . ".jpg";
+    }
+
     public function getDescriptionNettoyee():string{
         return strip_tags($this -> description);
     }
@@ -154,6 +158,34 @@ class Livre{
         if (property_exists($this, $property)) {
             $this -> $property = $value;
         }
+    }
+
+    /*
+    * @method ISBNToEAN
+    * @desc Convertit un ISBN en format EAN
+    * @param string - ISBN à convertir
+    * @return string - ISBN converti en EAN, ou FALSE si erreur dans le format ou la conversion
+    */
+    public static function ISBNToEAN ($strISBN){
+        $myFirstPart = $mySecondPart = $myEan = $myTotal = "";
+        if ($strISBN == "")
+            return false;
+        $strISBN = str_replace("-", "", $strISBN);
+        // ISBN-10
+        if (strlen($strISBN) == 10)
+        {
+            $myEan = "978" . substr($strISBN, 0, 9);
+            $myFirstPart = intval(substr($myEan, 1, 1)) + intval(substr($myEan, 3, 1)) + intval(substr($myEan, 5, 1)) + intval(substr($myEan, 7, 1)) + intval(substr($myEan, 9, 1)) + intval(substr($myEan, 11, 1));
+            $mySecondPart = intval(substr($myEan, 0, 1)) + intval(substr($myEan, 2, 1)) + intval(substr($myEan, 4, 1)) + intval(substr($myEan, 6, 1)) + intval(substr($myEan, 8, 1)) + intval(substr($myEan, 10, 1));
+            $tmp = intval(substr((3 * $myFirstPart + $mySecondPart), -1));
+            $myControl = ($tmp == 0) ? 0 : 10 - $tmp;
+
+            return $myEan . $myControl;
+        }
+        // ISBN-13
+        else if (strlen($strISBN) == 13) return $strISBN;
+        // Autre
+        else return false;
     }
 }
 ?>

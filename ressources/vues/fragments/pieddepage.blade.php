@@ -1,5 +1,5 @@
 <div class="iconeTraces">
-    <img class="image" src="../assets/images/logo-traces.svg" alt="Logo librairie Traces">
+    <img class="image" src="../public/liaisons/images/logo-traces.svg" alt="Logo librairie Traces">
 </div>
 
 <div class="infosFooter">
@@ -8,17 +8,17 @@
         <ul class="reseauxSociaux__liste">
             <li class="reseauxSociaux__liste__facebook">
                 <a class="lien" href="https://facebook.com">
-                    <img class="lien__image" src="../assets/images/icones/logo-facebook.png" alt="Icone Facebook">
+                    <img class="lien__image" src="../public/liaisons/images/icones/logo-facebook.png" alt="Icone Facebook">
                 </a>
             </li>
             <li class="reseauxSociaux__liste__twitter">
                 <a class="lien" href="https://twitter.com">
-                    <img class="lien__image" src="../assets/images/icones/logo-twitter.png" alt="Icone Twitter">
+                    <img class="lien__image" src="../public/liaisons/images/icones/logo-twitter.png" alt="Icone Twitter">
                 </a>
             </li>
             <li class="reseauxSociaux__liste__youtube">
                 <a class="lien" href="https://facebook.com">
-                    <img class="lien__image" src="../assets/images/icones/logo-youtube.png" alt="Icone Youtube">
+                    <img class="lien__image" src="../public/liaisons/images/icones/logo-youtube.png" alt="Icone Youtube">
                 </a>
             </li>
         </ul>

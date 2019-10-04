@@ -2,23 +2,23 @@
 
 @section('contenu')
     <div>
-        <img src="../assets/images/couvertures-livres/L978289{{ $livre -> isbn }}.jpg" alt="Couverture du livre {{ $livre -> titre }}">
+        <img src="{{ $livre -> getImageUrl() }}" alt="Couverture du livre {{ $livre -> titre }}">
         <div class="infosPrincipales">
-            <p>
+            <p class="infosPrincipales__auteurs">
                 @foreach($livre -> getAuteurs() as $auteur)
                     {{ $auteur -> getNomPrenom() }}
                 @endforeach
             </p>
 
-            <h1>{{ $livre -> titre }}</h1>
-            <h2>{{ $livre -> sous_titre }}</h2>
+            <h1 class="infosPrincipales__titre">{{ $livre -> titre }}</h1>
+            <h2 class="infosPrincipales__sousTitre">{{ $livre -> sous_titre }}</h2>
         </div>
         <div class="zonePanier">
-            <div class="prix">
+            <div class="zonePanier__prix">
                 <p>{{ $livre -> prix }}$</p>
                 <p>{{ $livre -> getParution() }}</p>
             </div>
-            <form class="optionsPanier">
+            <form class="zonePanier__optionsPanier">
                 <div class="options">
                     <label for="formatLivre">Choisir un format...</label>
                     <select id="formatLivre">
@@ -39,13 +39,13 @@
                     </select>
                 </div>
 
-                <input type="submit" class="btn btnPanier" value="Ajouter au panier">
+                <input type="submit" class="zonePanier__bouton btn btnPanier" value="Ajouter au panier">
             </form>
         </div>
     </div>
 
     <div class="infos">
-        <p>{{ $livre -> getDescriptionNettoyee() }}</p>
+        <p class="infos__description">{{ $livre -> getDescriptionNettoyee() }}</p>
 
         <div class="conteneurTiroir">
             <h2>Voir plus d'informations</h2>
