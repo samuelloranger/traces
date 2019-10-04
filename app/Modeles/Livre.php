@@ -176,6 +176,22 @@ class Livre{
         return $arrCoupsCoeur;
     }
 
+    public static function getNouveautes(): array {
+        $pdo = App::getInstance()->getPDO();
+        $chaineRequete = "SELECT *
+                          FROM livres  
+                          WHERE parution_id = 3";
+
+        $requete = $pdo->prepare($chaineRequete);
+        $requete->setFetchMode(PDO::FETCH_CLASS, Livre::class);
+
+        $requete->execute();
+
+        $arrNouveautes = $requete->fetchAll();
+
+        return $arrNouveautes;
+    }
+
     /*
     * @method ISBNToEAN
     * @desc Convertit un ISBN en format EAN
