@@ -1,8 +1,8 @@
 @extends('gabarit')
 
 @section('contenu')
-    <div class="">
-        <img style="max-width: 150px" src="{{ $livre -> getImageUrl() }}" alt="Couverture du livre {{ $livre -> titre }}">
+    <div class="infoPrincipales">
+        <img style="max-width: 200px" src="{{ $livre -> getImageUrl() }}" alt="Couverture du livre {{ $livre -> titre }}">
         <div class="info__principales">
             <div class="infosPrincipales">
                     <p class="infosPrincipales__auteurs">
@@ -67,5 +67,14 @@
         </div>
     </div>
 
+    <div class="zoneReview">
+        <h2>Prix remportés</h2>
+        @foreach($livre -> getHonneurs() as $honneur)
+            <div class="review">
+                <h3 class="review__titre">{{ $honneur -> nom }}</h3>
+                <p class="review__description">{{ $honneur -> getDescriptionNettoyee }}</p>
 
+            </div>
+        @endforeach
+    </div>
 @endsection
