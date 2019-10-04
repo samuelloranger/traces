@@ -6,7 +6,7 @@ namespace App;
 
 class Util {
 
-    public static function couperParagraphe(string $paragraphe, int $nombreMax) {
+    public static function couperParagraphe(string $paragraphe, int $nombreMax = 800):string {
         $string = strip_tags($paragraphe);
         if (strlen($string) > $nombreMax) {
 
@@ -18,6 +18,6 @@ class Util {
             $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
             $string .= '...';
         }
-        echo $string;
+        return $string;
     }
 }

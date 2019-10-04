@@ -5,6 +5,7 @@ namespace App\Modeles;
 
 use App\App;
 use \PDO;
+use App\Util;
 
 class Livre{
     //Attributs
@@ -172,7 +173,7 @@ class Livre{
     }
 
     public function getDescriptionNettoyee():string{
-        return strip_tags($this -> description);
+        return Util::couperParagraphe($this -> description, 300);
     }
 
     public static function getCoupsCoeur(): array {
