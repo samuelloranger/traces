@@ -4,10 +4,9 @@ declare(strict_types=1);
 namespace App\Modeles;
 
 use App\App;
-use App\ConnexionBD;
 use \PDO;
 
-class Rescension{
+class Recension{
     //Attributs
     private $pdo = null;
     private $id = 0;
@@ -22,17 +21,18 @@ class Rescension{
 
     }
 
-    public static function trouverHonneursLivre($idLivre){
+
+    public static function trouverRecensionsLivre($idLivre){
         $pdo = App::getInstance() -> getPDO();
 
         //Requête SQL
-        $sql = "SELECT * FROM recensions WHERE livre_id = :idLivre";
+        $sql = "SELECT * FROM recensions WHERE livre_id = :idLivre LIMIT 4";
 
         //On prépare la requête
         $requetePreparee = $pdo -> prepare($sql);
 
         // Définir le mode de récupération
-        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Rescension::class);
+        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Recension::class);
 
         //On bind le paramètre idAueur
         $requetePreparee -> bindParam(":idLivre", $idLivre, PDO::PARAM_INT);
@@ -41,9 +41,9 @@ class Rescension{
         $requetePreparee -> execute();
 
         // Récupérer une seule occurrence à la fois
-        $arrRecensions = $requetePreparee -> fetchAll();
+        $arrHonneurs = $requetePreparee -> fetchAll();
 
-        return $arrRecensions;
+        return $arrHonneurs;
     }
 
     public function getDescriptionNettoyee():string{

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Modeles;
 
 use App\App;
-use App\ConnexionBD;
 use \PDO;
 
 class Honneur{
@@ -40,10 +39,6 @@ class Honneur{
         $arrHonneurs = $requetePreparee -> fetchAll();
 
         return $arrHonneurs;
-    }
-
-    public function getDescriptionNettoyee():string{
-        return strip_tags($this -> description);
     }
 
     public function __get($property) {

@@ -4,14 +4,11 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
-<<<<<<< HEAD
 use App\Util;
 use App\Modeles\Honneur;
-=======
 use App\Modeles\Categories;
->>>>>>> 5ae86595e515836baf39a2a219ad3a1889d02b25
 use App\Modeles\Livre;
-use App\Modeles\Rescension;
+use App\Modeles\Recension;
 use DateTime;
 
 class ControleurLivre
@@ -92,14 +89,16 @@ class ControleurLivre
             $idLivre = (int)$_GET["idLivre"];
         }
 
+        //Infos du livre
         $infosLivre = Livre::trouverParId($idLivre);
 
         $infosLivre -> __set("isbn", Livre::ISBNToEAN($infosLivre -> __get("isbn")));
-        $arrRecensions = Rescension::trouverHonneursLivre($infosLivre -> __get("is"));
+
+        //Recensions
+        $arrRecensions = Recension::trouverRecensionsLivre($infosLivre -> __get("id"));
         foreach($arrRecensions as $rescension){
-            $rescension -> description = Util::couperParagraphe($rescension -> description);
-            $rescension -> date = new DateTime($rescension -> date);
-            $rescension -> date -> format("");
+            $rescension -> description = "« " . Util::couperParagraphe($rescension -> description) . " »";
+            $rescension -> date = strftime("%d %B %Y", strtotime($rescension -> date));
         }
 
         //Honneurs
@@ -107,6 +106,7 @@ class ControleurLivre
         foreach($arrRecensions as $rescension){
             $rescension -> description = Util::couperParagraphe($rescension -> description);
         }
+
         $arrInfos = array_merge(array("livre" => $infosLivre),
                                 array("arrRecensions" => $arrRecensions),
                                 array("arrHonneurs" => $arrHonneurs));

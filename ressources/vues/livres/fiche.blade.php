@@ -19,12 +19,12 @@
                 </div>
 
             <div class="zonePanier row">
-                <div class="zonePanier__prix col-sm-12 col-md-3">
+                <div class="zonePanier__prix col-sm-12 col-md-2">
                     <p>{{ $livre -> prix }}$</p>
                     <p>{{ $livre -> getParution() }}</p>
                 </div>
-                <form class="zonePanier__optionsPanier col-sm-12 col-md-9 row">
-                    <div class="options col-sm-12 col-md-6">
+                <form class="zonePanier__optionsPanier col-sm-12 col-md-10 row">
+                    <div class="options col-sm-12 col-md-10">
                         <label for="formatLivre">Choisir un format...</label>
                         <select id="formatLivre">
                             <option>Sélectionnez un format...</option>
@@ -44,7 +44,7 @@
                         </select>
                     </div>
 
-                    <input type="submit" class="zonePanier__bouton btn btnPanier col-sm-12 col-md-6" value="Ajouter au panier">
+                    <input type="submit" class="zonePanier__bouton btn btnPanier col-sm-12 col-md-2" value="Ajouter au panier">
                 </form>
             </div>
         </div>
@@ -78,8 +78,10 @@
                         <h2>Ce livre a fait parler de lui...</h2>
                         @foreach($arrRecensions as $recension)
                             <div class="review">
+                                <p>{{ $recension -> date }}</p>
                                 <h3 class="review__titre">{{ $recension -> nom }}</h3>
                                 <p class="review__description">{{ $recension -> description }}</p>
+                                <p>{{ $recension -> nom_journaliste }}, {{ $recension -> nom_media }}</p>
                             </div>
                         @endforeach
                     </div>
@@ -96,11 +98,38 @@
                     @foreach($arrHonneurs as $honneur)
                         <div class="review">
                             <h3 class="review__titre">{{ $honneur -> nom }}</h3>
-                            <p class="review__description">{{ $honneur -> getDescriptionNettoyee() }}</p>
+                            <p class="review__description">{{ $honneur -> description }}</p>
                         </div>
                     @endforeach
                 </div>
             @endif
+
+            <div class="zoneCommentaires">
+                <h2>Commentaires</h2>
+                <div class="commentaire">
+                    <h3>Adoré ce livre!</h3>
+                    <p class="auteur">Samuel Loranger</p>
+                    <div class="zoneEtoiles zoneEtoiles3"></div>
+                    <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
+                    <p><span class="achatVerif">Achat vérifié</span></p>
+                </div>
+
+                <div class="commentaire">
+                    <h3>Adoré ce livre!</h3>
+                    <p class="auteur">Zachary Nicol</p>
+                    <div class="zoneEtoiles zoneEtoiles2"></div>
+                    <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
+                    <p><span class="achatVerif">Achat vérifié</span></p>
+                </div>
+
+                <div class="commentaire">
+                    <h3>Adoré ce livre!</h3>
+                    <p class="auteur">Olivier Papineau</p>
+                    <div class="zoneEtoiles zoneEtoiles5"></div>
+                    <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
+                    <p><span class="achatVerif">Achat vérifié</span></p>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
