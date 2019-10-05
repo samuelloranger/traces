@@ -4,7 +4,11 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
+use App\Util;
+use App\Modeles\Honneur;
 use App\Modeles\Livre;
+use App\Modeles\Rescension;
+use DateTime;
 
 class ControleurLivre
 {
@@ -84,11 +88,23 @@ class ControleurLivre
 
         $infosLivre = Livre::trouverParId($idLivre);
 
-        $infosLivre -> __set("isbn", Livre::ISBNToEAN($infosLivre -> isbn));
+        $infosLivre -> __set("isbn", Livre::ISBNToEAN($infosLivre -> __get("isbn")));
+        $arrRecensions = Rescension::trouverHonneursLivre($infosLivre -> __get("is"));
+        foreach($arrRecensions as $rescension){
+            $rescension -> description = Util::couperParagraphe($rescension -> description);
+            $rescension -> date = new DateTime($rescension -> date);
+            $rescension -> date -> format("");
+        }
 
-        $infosLivre = array("livre" => $infosLivre);
-
-        return $infosLivre;
+        //Honneurs
+        $arrHonneurs = Honneur::trouverHonneursLivre($infosLivre -> __get("id"));
+        foreach($arrRecensions as $rescension){
+            $rescension -> description = Util::couperParagraphe($rescension -> description);
+        }
+        $arrInfos = array_merge(array("livre" => $infosLivre),
+                                array("arrRecensions" => $arrRecensions),
+                                array("arrHonneurs" => $arrHonneurs));
+        return $arrInfos;
     }
 }
 

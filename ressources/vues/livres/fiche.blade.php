@@ -73,17 +73,27 @@
     <div class="infosTerciaires row">
         <div class="infosTerciaires__zoneGauche col-sm-12 col-md-6">
             <div class="">
-                <p>test</p>
+                @if(count($arrRecensions) > 0)
+                    <div class="zoneRecensions">
+                        <h2>Ce livre a fait parler de lui...</h2>
+                        @foreach($arrRecensions as $recension)
+                            <div class="review">
+                                <h3 class="review__titre">{{ $recension -> nom }}</h3>
+                                <p class="review__description">{{ $recension -> description }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
 
         <div class="col-md-1"></div>
 
         <div class="infosTerciaires__zoneDroite col-sm-12 col-md-5">
-            @if(count($livre -> getHonneurs()) > 0)
+            @if(count($arrHonneurs) > 0)
                 <div class="zoneReview">
                     <h2>Prix remportés</h2>
-                    @foreach($livre -> getHonneurs() as $honneur)
+                    @foreach($arrHonneurs as $honneur)
                         <div class="review">
                             <h3 class="review__titre">{{ $honneur -> nom }}</h3>
                             <p class="review__description">{{ $honneur -> getDescriptionNettoyee() }}</p>
