@@ -122,8 +122,8 @@ class App
         else if($controleur === 'livre'){
             $this -> monControleur = new ControleurLivre();
             switch ($action) {
-                case "index":
-                    $this -> monControleur -> index();
+                case "catalogue":
+                    $this -> monControleur -> catalogue();
                     break;
                 case "fiche":
                     $this -> monControleur -> livre();

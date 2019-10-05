@@ -4,8 +4,12 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
+<<<<<<< HEAD
 use App\Util;
 use App\Modeles\Honneur;
+=======
+use App\Modeles\Categories;
+>>>>>>> 5ae86595e515836baf39a2a219ad3a1889d02b25
 use App\Modeles\Livre;
 use App\Modeles\Rescension;
 use DateTime;
@@ -21,9 +25,9 @@ class ControleurLivre
     /**
      * Fonction index qui call la view
      */
-    public function index(): void{
+    public function catalogue(): void{
         $tDonnees = array_merge($this -> getDonneesLivres(), ControleurSite::getDonneeFragmentPiedDePage());;
-        echo $this->blade->run("livres.index", $tDonnees);
+        echo $this->blade->run("livres.catalogue", $tDonnees);
     }
 
     public function livre():void{
@@ -67,11 +71,13 @@ class ControleurLivre
             $livre -> isbn = Livre::ISBNToEAN($livre -> isbn);
         }
 
+        $arrCategories = Categories::trouverTout();
         /**
          * Définition de l'array retourné avec toutes les données
          */
         $arrDonnees = array_merge(
             array("arrLivres" => $arrLivres),
+            array("arrCategories" => $arrCategories),
             array("nombreTotalPages" => $nombreTotalPages),
             array("numeroPage" => $numeroPage),
             array("urlPagination" => $urlModif)
