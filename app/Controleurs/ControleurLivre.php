@@ -91,8 +91,8 @@ class ControleurLivre
 
         //Infos du livre
         $infosLivre = Livre::trouverParId($idLivre);
-
         $infosLivre -> __set("isbn", Livre::ISBNToEAN($infosLivre -> __get("isbn")));
+        $infosLivre -> __set("description", Util::couperParagraphe($infosLivre -> __get("description"), 10000));
 
         //Recensions
         $arrRecensions = Recension::trouverRecensionsLivre($infosLivre -> __get("id"));

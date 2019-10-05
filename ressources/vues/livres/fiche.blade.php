@@ -51,7 +51,7 @@
     </div>
 
     <div class="infosSecondaires row">
-        <p class="infos__description col-sm-12 col-md-6">{{ $livre -> getDescriptionNettoyee() }}</p>
+        <p class="infos__description col-sm-12 col-md-6">{{ $livre -> description }}</p>
 
         <div class="conteneurTiroir col-sm-12 col-md-6">
             <h2>Voir plus d'informations</h2>
