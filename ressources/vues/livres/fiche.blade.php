@@ -78,7 +78,9 @@
                         <h2>Ce livre a fait parler de lui...</h2>
                         @foreach($arrRecensions as $recension)
                             <div class="review">
-                                <h3 class="review__titre">{{ $recension -> nom }}</h3>
+                                <p class="review__titre">{{ $recension -> date }}</p>
+                                <h3>{{ $recension -> titre }}</h3>
+                                <h3>{{ $recension -> nom_journaliste }}, {{ $recension -> nom_media }}</h3>
                                 <p class="review__description">{{ $recension -> description }}</p>
                             </div>
                         @endforeach

@@ -4,10 +4,9 @@ declare(strict_types=1);
 namespace App\Modeles;
 
 use App\App;
-use App\ConnexionBD;
 use \PDO;
 
-class Rescension{
+class Recension{
     //Attributs
     private $pdo = null;
     private $id = 0;
@@ -44,10 +43,6 @@ class Rescension{
         $arrRecensions = $requetePreparee -> fetchAll();
 
         return $arrRecensions;
-    }
-
-    public function getDescriptionNettoyee():string{
-        return strip_tags($this -> description);
     }
 
     public function __get($property) {
