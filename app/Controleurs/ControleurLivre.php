@@ -4,12 +4,9 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
-<<<<<<< HEAD
 use App\Util;
 use App\Modeles\Honneur;
-=======
 use App\Modeles\Categories;
->>>>>>> 5ae86595e515836baf39a2a219ad3a1889d02b25
 use App\Modeles\Livre;
 use App\Modeles\Rescension;
 use DateTime;
@@ -22,7 +19,7 @@ class ControleurLivre
         $this->blade = App::getInstance() -> getBlade();
     }
 
-    /**
+    /**s
      * Fonction index qui call la view
      */
     public function catalogue(): void{
@@ -43,7 +40,7 @@ class ControleurLivre
          * Définition du nombre de pages
          */
         $nbrLivres = Livre::compter();
-        $livresParPage = 5;
+        $livresParPage = 9;
         $nombreTotalPages = ceil($nbrLivres/$livresParPage);
 
         /**

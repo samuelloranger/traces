@@ -47,7 +47,7 @@ class Livre{
         $pdo = App::getInstance() -> getPDO();
 
         // Définir la chaine SQL
-        $chaineSQL = 'SELECT livres.id, titre, nbre_pages, parution_id FROM livres';
+        $chaineSQL = 'SELECT * FROM livres';
 
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo -> prepare($chaineSQL);
