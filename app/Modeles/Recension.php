@@ -21,17 +21,17 @@ class Recension{
 
     }
 
-    public static function trouverHonneursLivre($idLivre){
+    public static function trouverRecensions($idLivre){
         $pdo = App::getInstance() -> getPDO();
 
         //Requête SQL
-        $sql = "SELECT * FROM recensions WHERE livre_id = :idLivre";
+        $sql = "SELECT * FROM recensions WHERE livre_id = :idLivre LIMIT 2";
 
         //On prépare la requête
         $requetePreparee = $pdo -> prepare($sql);
 
         // Définir le mode de récupération
-        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Rescension::class);
+        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Recension::class);
 
         //On bind le paramètre idAueur
         $requetePreparee -> bindParam(":idLivre", $idLivre, PDO::PARAM_INT);
@@ -41,6 +41,8 @@ class Recension{
 
         // Récupérer une seule occurrence à la fois
         $arrRecensions = $requetePreparee -> fetchAll();
+
+        shuffle($arrRecensions);
 
         return $arrRecensions;
     }

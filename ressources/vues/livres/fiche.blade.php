@@ -79,10 +79,10 @@
                         @foreach($arrRecensions as $recension)
                             <div class="review">
                                 <p class="review__titre">{{ $recension -> date }}</p>
-                                <h3>{{ $recension -> titre }}</h3>
-                                <h3>{{ $recension -> nom_journaliste }}, {{ $recension -> nom_media }}</h3>
                                 <p class="review__description">{{ $recension -> description }}</p>
-                            </div>
+                                <p>{{ $recension -> nom_journaliste }}, {{ $recension -> nom_media }}</p>
+
+à                            </div>
                         @endforeach
                     </div>
                 @endif
