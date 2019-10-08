@@ -9,7 +9,7 @@ use App\Modeles\Honneur;
 use App\Modeles\Categories;
 use App\Modeles\Livre;
 use App\Modeles\Recension;
-use DateTime;
+use \DateTime;
 
 class ControleurLivre
 {
@@ -92,18 +92,18 @@ class ControleurLivre
         $infosLivre = Livre::trouverParIsbn($isbnLivre);
 
         $infosLivre -> __set("isbn13", Livre::ISBNToEAN($infosLivre -> __get("isbn")));
-        $arrRecensions = Recension::trouverHonneursLivre($infosLivre -> __get("isbn"));
 
+        $arrRecensions = Recension::trouverRecensions($infosLivre -> __get("id"));
         foreach($arrRecensions as $rescension){
             $rescension -> description = Util::couperParagraphe($rescension -> description);
             $rescension -> date = new DateTime($rescension -> date);
-            $rescension -> date -> format("");
+            $rescension -> date -> format("d M Y");
         }
 
         //Honneurs
         $arrHonneurs = Honneur::trouverHonneursLivre($infosLivre -> __get("id"));
-        foreach($arrRecensions as $rescension){
-            $rescension -> description = Util::couperParagraphe($rescension -> description);
+        foreach($arrHonneurs as $honneur){
+            $honneur -> description = Util::couperParagraphe($honneur -> description);
         }
         $arrInfos = array_merge(array("livre" => $infosLivre),
                                 array("arrRecensions" => $arrRecensions),
