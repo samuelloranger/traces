@@ -1,31 +1,46 @@
 .catalogue {
-  &__affichage {
-    border: black 2px solid;
+    &__affichage {
+      border: black 2px solid;
+    }
+
+    &__categories {
+      background-color: #EEEEEE;
+    }
+
+    &__lesLivres {
+      border: #0c5460 solid 2px;
+    }
+
+    &__livre {
+      background-color: #9fcdff;
+      list-style-type: none;
+    }
+
+    &__nbParPages {
+      border: pink 2px solid;
+    }
+
+    &__rangee--1 {
+      background-color: #17a2b8;
+    }
+
+    &__rangee--2 {
+      background-color: greenyellow;;
+    }
+    &__rechercher {
+      display: none;
+    }
+  @media (min-width: $TABLETTE) {
+    &__rechercher {
+      display: inline;
+    }
   }
 
-  &__categories {
-    background-color: #EEEEEE;
+  @media (min-width: $DESKTOP-NORMAL) {
+
   }
 
-  &__lesLivres {
-border: #0c5460 solid 2px;
-  }
+  @media (min-width: $DESKTOP-LARGE) {
 
-  &__livre {
-    background-color: #9fcdff;
-    list-style-type: none;
-  }
-
-  &__nbParPages {
-    border: pink 2px solid;
-  }
-
-  &__rangee--1 {
-    background-color: #17a2b8;
-  }
-
-  &__rangee--2 {
-    background-color: greenyellow;
-  ;
   }
 }
