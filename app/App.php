@@ -126,7 +126,7 @@ class App
                     $this -> monControleur -> catalogue();
                     break;
                 case "fiche":
-                    $this -> monControleur -> livre();
+                    $this -> monControleur -> fiche();
                     break;
                 default:
                     echo 'Erreur 404';

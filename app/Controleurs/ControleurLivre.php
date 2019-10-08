@@ -8,7 +8,7 @@ use App\Util;
 use App\Modeles\Honneur;
 use App\Modeles\Categories;
 use App\Modeles\Livre;
-use App\Modeles\Rescension;
+use App\Modeles\Recension;
 use DateTime;
 
 class ControleurLivre
@@ -27,7 +27,7 @@ class ControleurLivre
         echo $this->blade->run("livres.catalogue", $tDonnees);
     }
 
-    public function livre():void{
+    public function fiche():void{
         $tDonnees = array_merge($this -> getDonneesUnLivre(), ControleurSite::getDonneeFragmentPiedDePage());;
         echo $this->blade->run("livres.fiche", $tDonnees);
     }
@@ -65,7 +65,7 @@ class ControleurLivre
         $arrLivres = Livre::trouverParLimite(intval($numeroPage) -1 , $livresParPage);
 
         foreach($arrLivres as $livre){
-            $livre -> isbn = Livre::ISBNToEAN($livre -> isbn);
+            $livre -> isbn13 = Livre::ISBNToEAN($livre -> isbn);
         }
 
         $arrCategories = Categories::trouverTout();
@@ -84,15 +84,16 @@ class ControleurLivre
     }
 
     public function getDonneesUnLivre():array{
-        $idLivre = 0;
-        if(isset($_GET["idLivre"])){
-            $idLivre = (int)$_GET["idLivre"];
+        $isbnLivre = "0";
+        if(isset($_GET["isbn"])){
+            $isbnLivre = $_GET["isbn"];
         }
 
-        $infosLivre = Livre::trouverParId($idLivre);
+        $infosLivre = Livre::trouverParIsbn($isbnLivre);
 
-        $infosLivre -> __set("isbn", Livre::ISBNToEAN($infosLivre -> __get("isbn")));
-        $arrRecensions = Rescension::trouverHonneursLivre($infosLivre -> __get("is"));
+        $infosLivre -> __set("isbn13", Livre::ISBNToEAN($infosLivre -> __get("isbn")));
+        $arrRecensions = Recension::trouverHonneursLivre($infosLivre -> __get("isbn"));
+
         foreach($arrRecensions as $rescension){
             $rescension -> description = Util::couperParagraphe($rescension -> description);
             $rescension -> date = new DateTime($rescension -> date);

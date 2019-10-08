@@ -11,6 +11,9 @@
  * Hiérarchie responsive
  */
 
+/** Importation des polices **/
+@import url('https://fonts.googleapis.com/css?family=Lato|Playfair+Display&display=swap');
+
 /** Base décimale **/
 html{
   font-size: 62.5%;
@@ -21,22 +24,24 @@ body {
   /* facteur multiplicateur de la taille de la police 1.375x16 = 22 */
   line-height: 1.375;
 
-  @media (min-width: $tablette) {
+  @media (min-width: $TABLETTE) {
     line-height: 1.5;
-  }
-  @media (min-width: $desktop) {
-    line-height: 1.75;
   }
 }
 
 /** Hiérarchie responsive **/
 /*  plus proche = plus petit  &  plus loin = plus grand */
 
-h1, h2, h3, h4, h5{
+h1, h2 {
   font-family: $policeTitres;
+  font-weight: 900 !important;
 }
 
-body, p, span, input, label, a{
+h3, h4, h5 {
+  font-weight: bold !important;
+}
+
+body, p, span, input, label, a, h3, h4, h5{
   font-family: $policeCorps;
 }
 
@@ -44,8 +49,8 @@ label{
   @include fontSize(24px);
 }
 
-a{
-  color: $rouge;
+a {
+  color: $ROUGE;
   text-decoration: none;
   transition: 0.15s ease-in-out;
 
@@ -58,25 +63,25 @@ a{
 /* TITRES NIVEAU 1 */
 h1,
 .h1 { /* = 32px */
-  @include fontSize(38px);
+  @include fontSize(50px);
 }
 
 /* TITRES NIVEAU 2 */
 h2,
 .h2 { /* = 24px */
-  @include fontSize(22px);
+  @include fontSize(32px);
 }
 @media (min-width: $tablette) {
   h2,
   .h2 { /* = 32px */
-    @include fontSize(30px);
+    @include fontSize(36px);
   }
 }
 
 /* TITRES NIVEAU 3 */
 h3,
 .h3 { /* = 18px */
-  @include fontSize(20px);
+  @include fontSize(21px);
 }
 @media (min-width: $tablette) {
   h3,

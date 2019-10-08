@@ -19,6 +19,7 @@ class Livre{
     private $sous_titre = "";
     private $mots_cles = "";
     private $isbn = "";
+    private $isbn13 = "";
     private $description = "";
     private $autres_caracteristiques = "";
     private $est_coup_de_coeur = 0;
@@ -89,11 +90,11 @@ class Livre{
      * Va chercher les infos d'un seul livre
      * @param int $idLivre ID du livre recherche
      */
-    public static function trouverParId(int $id):Livre{
+    public static function trouverParIsbn(string $isbn):Livre{
         $pdo = App::getInstance() -> getPDO();
 
         //Requête SQL
-        $sql = "SELECT * FROM livres WHERE id = :id";
+        $sql = "SELECT * FROM livres WHERE isbn = :isbn";
 
         //On prépare la requête
         $requetePreparee = $pdo -> prepare($sql);
@@ -102,7 +103,7 @@ class Livre{
         $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Livre::class);
 
         // On bind le paramètre id
-        $requetePreparee -> bindParam(":id", $id, PDO::PARAM_INT);
+        $requetePreparee -> bindParam(":isbn", $isbn, PDO::PARAM_INT);
 
         //On éxécute la requête
         $requetePreparee -> execute();
@@ -159,10 +160,10 @@ class Livre{
 
     public function getImageUrl($format = "rectangle"):string{
         if($format == "carre"){
-            $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn) . "1_carre.jpg";
+            $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1_carre.jpg";
         }
         else{
-            $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn) . "1.jpg";
+            $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1.jpg";
         }
 
         if(!file_exists($url)){
