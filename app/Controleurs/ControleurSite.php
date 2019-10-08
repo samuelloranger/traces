@@ -25,9 +25,15 @@ class ControleurSite
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
 
         $arrNouveautes = Livre::getNouveautes();
+        foreach ($arrNouveautes as $livre) {
+            $livre -> isbn13 = Livre::ISBNToEAN($livre -> isbn);
+        }
         shuffle($arrNouveautes);
 
         $arrCoupsCoeur = Livre::getCoupsCoeur();
+        foreach ($arrCoupsCoeur as $livre) {
+            $livre -> isbn13 = Livre::ISBNToEAN($livre -> isbn);
+        }
         shuffle($arrCoupsCoeur);
 
         $arrActualites = Actualite::trouverTout();

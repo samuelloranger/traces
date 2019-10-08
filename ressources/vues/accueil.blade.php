@@ -7,21 +7,27 @@
         <h2>NOUVEAUTES</h2>
         <div class="nouveautes__groupe row">
             @for($indexLivre = 0; $indexLivre < 2; $indexLivre++)
+{{--                <p>{{$arrNouveautes[$indexLivre]->isbn}}</p>--}}
                 <div class="nouveautes__vignette col-md-6">
-                    <ul>
-                        <li>{{$arrNouveautes[$indexLivre]->titre}}</li>
-                        <li>
-                            Auteurs:
-                            <ul>
-                                @foreach($arrNouveautes[$indexLivre]->getAuteurs() as $auteur)
-                                    <li>{{$auteur->getNomPrenom()}}</li>
-                                @endforeach
-                            </ul>
-                        </li>
-                        <li>Prix: {{$arrNouveautes[$indexLivre]->prix}}$</li>
-                    </ul>
-                    <a href="#">EN SAVOIR PLUS</a>
-                    <a href="#">AJOUTER AU PANIER</a>
+                    <div class="nouveautes__vignette__image">
+                        <img src="{{$arrNouveautes[$indexLivre]->getImageUrl("carre")}}" alt="">
+                    </div>
+                    <div class="nouveautes__vignette__details">
+                        <ul>
+                            <li>{{$arrNouveautes[$indexLivre]->titre}}</li>
+                            <li>
+                                Auteurs:
+                                <ul>
+                                    @foreach($arrNouveautes[$indexLivre]->getAuteurs() as $auteur)
+                                        <li>{{$auteur->getNomPrenom()}}</li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li>Prix: {{$arrNouveautes[$indexLivre]->prix}}$</li>
+                        </ul>
+                        <a href="#">EN SAVOIR PLUS</a>
+                        <a href="#">AJOUTER AU PANIER</a>
+                    </div>
                 </div>
             @endfor
         </div>
@@ -32,6 +38,7 @@
         <div class="coupsCoeur__groupe row">
             @for($indexLivre = 0; $indexLivre < 3; $indexLivre++)
                 <div class="coupsCoeur__vignette col-md-4">
+                    <img src="{{$arrCoupsCoeur[$indexLivre]->getImageUrl("carre")}}" alt="">
                     <ul>
                         <li>{{$arrCoupsCoeur[$indexLivre]->titre}}</li>
                         <li>
