@@ -88,7 +88,8 @@ class Livre{
 
     /**
      * Va chercher les infos d'un seul livre
-     * @param int $idLivre ID du livre recherche
+     * @param string $isbnLivre
+     * @return Livre
      */
     public static function trouverParIsbn(string $isbnLivre):Livre{
         $pdo = App::getInstance() -> getPDO();
