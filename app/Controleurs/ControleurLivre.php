@@ -91,6 +91,10 @@ class ControleurLivre
 
         $infosLivre = Livre::trouverParIsbn($isbnLivre);
 
+        if($infosLivre == false){
+            header('Location: 404.php');
+        }
+
         $infosLivre -> __set("isbn13", Livre::ISBNToEAN($infosLivre -> __get("isbn")));
 
         $arrRecensions = Recension::trouverRecensions($infosLivre -> __get("id"));

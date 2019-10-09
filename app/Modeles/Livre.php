@@ -90,7 +90,7 @@ class Livre{
      * Va chercher les infos d'un seul livre
      * @param int $idLivre ID du livre recherche
      */
-    public static function trouverParIsbn(string $isbn):Livre{
+    public static function trouverParIsbn(string $isbnLivre):Livre{
         $pdo = App::getInstance() -> getPDO();
 
         //Requête SQL
@@ -99,11 +99,12 @@ class Livre{
         //On prépare la requête
         $requetePreparee = $pdo -> prepare($sql);
 
+        // On bind le paramètre id
+        $requetePreparee -> bindParam(":isbn", $isbnLivre, PDO::PARAM_INT);
+
         // Définir le mode de récupération
         $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Livre::class);
 
-        // On bind le paramètre id
-        $requetePreparee -> bindParam(":isbn", $isbn, PDO::PARAM_INT);
 
         //On éxécute la requête
         $requetePreparee -> execute();
