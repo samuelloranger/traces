@@ -1,13 +1,15 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Modeles;
 
 use App\App;
 use \PDO;
 use App\Util;
 
-class Livre{
+class Livre
+{
     //Attributs
     private $id = 0;
     private $nbre_pages = 0;
@@ -28,36 +30,40 @@ class Livre{
     private $collection_id = 0;
     private $pdo = null;
 
-    public function __construct() {
+    public function __construct()
+    {
 
     }
 
-    public function __get($property) {
+    public function __get($property)
+    {
         if (property_exists($this, $property)) {
-            return $this -> $property;
+            return $this->$property;
         }
     }
 
-    public function __set($property, $value) {
+    public function __set($property, $value)
+    {
         if (property_exists($this, $property)) {
-            $this -> $property = $value;
+            $this->$property = $value;
         }
     }
 
-    public static function trouverTout():array{
-        $pdo = App::getInstance() -> getPDO();
+    public static function trouverTout(): array
+    {
+        $pdo = App::getInstance()->getPDO();
 
         // Définir la chaine SQL
         $chaineSQL = 'SELECT * FROM livres';
 
         // Préparer la requête (optimisation)
-        $requetePreparee = $pdo -> prepare($chaineSQL);
+        $requetePreparee = $pdo->prepare($chaineSQL);
 
         // Définir le mode de récupération
-        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Livre::class);
+        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Livre::class);
 
         // Exécuter la requête
-        $requetePreparee -> execute();
+        $requetePreparee->execute();
 
         // Récupérer une seule occurrence à la fois
         $arrayLivres = $requetePreparee->fetchAll();
@@ -65,21 +71,22 @@ class Livre{
         return $arrayLivres;
     }
 
-    public static function compter():int{
+    public static function compter(): int
+    {
         //On va chercher le pdo
-        $pdo = App::getInstance() -> getPDO();
+        $pdo = App::getInstance()->getPDO();
 
         //Requête SQL
         $sql = "SELECT COUNT(*) FROM livres";
 
         //On prépare la requête
-        $requetePreparee = $pdo -> prepare($sql);
+        $requetePreparee = $pdo->prepare($sql);
 
         //On éxécute la requête
-        $requetePreparee -> execute();
+        $requetePreparee->execute();
 
         //Définition de la variable
-        $nbrLivre = $requetePreparee -> fetch();
+        $nbrLivre = $requetePreparee->fetch();
 
         //On retourne nbrLivres de type int, à la valeur 0 puisque
         //$nbrLivre est
@@ -91,37 +98,55 @@ class Livre{
      * @param string $isbnLivre
      * @return Livre
      */
-    public static function trouverParIsbn(string $isbnLivre):Livre
+    public static function trouverParIsbn(string $isbnLivre): Livre
     {
-        $pdo = App::getInstance() -> getPDO();
+        $pdo = App::getInstance()->getPDO();
 
         $requeteSQL = "SELECT * FROM livres WHERE isbn = :isbn";
 
-        $requetePreparee = $pdo -> prepare($requeteSQL);
+        $requetePreparee = $pdo->prepare($requeteSQL);
 
         // Définir le mode de récupération
-        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Livre::class);
+        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Livre::class);
 
         //Bind du paramètre
-        $requetePreparee -> bindValue(':isbn', $isbnLivre, PDO::PARAM_STR);
+        $requetePreparee->bindValue(':isbn', $isbnLivre, PDO::PARAM_STR);
 
-        $requetePreparee -> execute();
+        $requetePreparee->execute();
 
-        $livre = $requetePreparee -> fetch();
+        $livre = $requetePreparee->fetch();
 
         return $livre;
     }
 
-    public static function trouverParLimite(int $unIndex, int $uneQte, int $categorie):array{
-        $pdo = App::getInstance() -> getPDO();
+    public static function trouverParLimite(int $unIndex, int $uneQte, int $categorie, string $trierPar): array
+    {
+        $pdo = App::getInstance()->getPDO();
 
         // Définir la chaine SQL
-        if($categorie != 0){
-            $chaineSQL = 'SELECT * FROM livres INNER JOIN categories_livres ON livres.id = categories_livres.livre_id WHERE categorie_id= :categorie LIMIT :unIndex, :uneQte';
+
+        if ($categorie != 0 OR $trierPar != "") {
+            if ($trierPar != "") {
+                if($trierPar == "aucun"){
+                    $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
+                }
+                if($trierPar == "alphabetique"){
+                    $chaineSQL = 'SELECT * FROM livres ORDER BY livres.titre ASC LIMIT :unIndex, :uneQte';
+                }
+                if($trierPar == "prixCroissant"){
+                    $chaineSQL = 'SELECT * FROM livres ORDER BY livres.prix ASC LIMIT :unIndex, :uneQte';
+                }
+                if($trierPar == "prixDecroissant"){
+                    $chaineSQL = 'SELECT * FROM livres ORDER BY livres.prix DESC LIMIT :unIndex, :uneQte';
+                }
+            }
+            if($categorie != 0){
+                $chaineSQL = 'SELECT * FROM livres INNER JOIN categories_livres ON livres.id = categories_livres.livre_id WHERE categorie_id= :categorie LIMIT :unIndex, :uneQte';
+            }
+
         }
         else{
             $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
-
         }
 
         // Préparer la requête (optimisation)
@@ -140,7 +165,6 @@ class Livre{
 
         $requetePreparee -> bindParam(":unIndex", $unIndex, PDO::PARAM_INT);
         $requetePreparee -> bindParam(":uneQte", $uneQte, PDO::PARAM_INT);
-
         if($categorie != 0){
             $requetePreparee -> bindParam(":categorie", $categorie, PDO::PARAM_INT);
         }
@@ -168,18 +192,18 @@ class Livre{
 
     public function getImageUrl($format = "carre"):string{
         if($format === "carre"){
-            $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1_carre.jpg";
+            $url = " ./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1_carre.jpg";
         }
         else{
-            $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1.jpg";
+            $url = " ./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1.jpg";
         }
 
         if(!file_exists($url)){
             if($format !== "carre"){
-                $url = "./liaisons/images/couvertures-livres/imageNonTrouvee.svg";
+                $url = " ./liaisons/images/couvertures-livres/imageNonTrouvee.svg";
             }
             else{
-                $url = "./liaisons/images/couvertures-livres/imageNonTrouvee_carre.svg";
+                $url = " ./liaisons/images/couvertures-livres/imageNonTrouvee_carre.svg";
             }
         }
 
@@ -193,7 +217,7 @@ class Livre{
     public static function getCoupsCoeur(): array {
         $pdo = App::getInstance()->getPDO();
         $chaineRequete = "SELECT *
-                          FROM livres  
+                FROM livres  
                           WHERE est_coup_de_coeur = 1";
 
         $requete = $pdo->prepare($chaineRequete);
@@ -209,7 +233,7 @@ class Livre{
     public static function getNouveautes(): array {
         $pdo = App::getInstance()->getPDO();
         $chaineRequete = "SELECT *
-                          FROM livres  
+                FROM livres  
                           WHERE parution_id = 3";
 
         $requete = $pdo->prepare($chaineRequete);
@@ -232,7 +256,7 @@ class Livre{
         $myFirstPart = $mySecondPart = $myEan = $myTotal = "";
         if ($strISBN == "")
             return false;
-        $strISBN = str_replace("-", "", $strISBN);
+        $strISBN = str_replace(" - ", "", $strISBN);
         // ISBN-10
         if (strlen($strISBN) == 10)
         {

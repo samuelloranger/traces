@@ -45,10 +45,16 @@ class ControleurLivre
          * Définition de la catégorie séléctionnée
          */
         $id_categorie = 0;
-        if(isset($_GET["categorie"])) {
+        if (isset($_GET["categorie"])) {
             $id_categorie = intval($_GET["categorie"]);
         }
-
+        /**
+         * Définition du tri
+         */
+        $trierPar = "";
+        if (isset($_GET["trierPar"])) {
+            $trierPar = $_GET["trierPar"];
+        }
         /**
          * Définition du nombre de pages
          */
@@ -87,7 +93,7 @@ class ControleurLivre
         /**
          * Définition du array de données à envoyer dans la page
          */
-        $arrLivres = Livre::trouverParLimite(intval($numeroPage) - 1, $livresParPage, $id_categorie);
+        $arrLivres = Livre::trouverParLimite(intval($numeroPage) - 1, $livresParPage, $id_categorie, $trierPar);
 
         foreach ($arrLivres as $livre) {
             $livre->isbn13 = Livre::ISBNToEAN($livre->isbn);

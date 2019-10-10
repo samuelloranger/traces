@@ -8,7 +8,7 @@
 
         <div class="conteneurMenu">
             <ul class="conteneurMenu__menu">
-                <li><a href="index.php?controleur=livre&action=catalogue">Catalogue</a></li>
+                <li><a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar=aucun&nbParPages=9">Catalogue</a></li>
                 <li><a href="index.php?controleur=site&action=accueil#meilleurs-vendeurs">Meilleurs vendeurs</a></li>
                 <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
                 <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
@@ -47,7 +47,7 @@
         <div class="navigation__mobile__menu navigation__mobile__menu--ferme">
             <h2>Menu</h2>
             <ul class="conteneurMenu__menu">
-                <li><a href="index.php?controleur=livre&action=catalogue">Catalogue</a></li>
+                <li><a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar=aucun&nbParPages=9">Catalogue</a></li>
                 <li><a href="index.php?controleur=site&action=accueil#meilleurs-vendeurs">Meilleurs vendeurs</a></li>
                 <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
                 <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
