@@ -4,32 +4,189 @@
 header{
   background-color: $GRIS_FONCE;
   margin-bottom: 25px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
 
+  /**
+   * CONTENEUR DU HEADER
+   */
   .conteneur-header{
     padding: 22px 15px 22px 10px;
     display: flex;
 
+    &--petit{
+      padding-top: 8px;
+    }
+
+    /**
+     * CONTENEUR NAVIGATIO
+     */
     .navigation{
       display: flex;
 
+      /**
+       * EN-TÊTE MODE MOBILE
+       */
       &__mobile{
-        @media(min-width: $MOBILE){
+        @media(min-width: 850px){
           display: none;
         }
+
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        /**
+          * SECTION DU HAUT DU HADER MOBILE
+          */
+        &__top{
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          position: relative;
+
+          /**
+            * LOGO TRACES
+            */
+          .logoTraces{
+            width: 45%;
+            transition: 0.15s ease-in-out;
+
+            &--petit{
+              width: 30%;
+            }
+
+            img{
+              max-width: 100%;
+            }
+          }
+
+          .zoneIcones{
+            width: 30%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .icone{
+              display: block;
+              width: 32px;
+              height: 32px;
+              background-size: contain;
+              background-repeat: no-repeat;
+              transition: 0.15s ease-in-out;
+              opacity: 1;
+
+              &--inactif{
+                opacity: 0;
+                pointer-events: none;
+              }
+
+              &__panier{
+                background-image: url("../images/icones/icone-panier.svg");
+              }
+
+              &__rechercher{
+                background-image: url("../images/icones/icone-loupe.svg");
+              }
+            }
+          }
+
+          .zoneLangue{
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            transition: 0.15s ease-in-out;
+
+            &--inactif{
+              top: -50px;
+            }
+
+            a{
+              color: $PEAU;
+              text-transform: uppercase;
+            }
+          }
+
+        }
+
+        &__menu{
+          position: relative;
+          transform-origin: top;
+          overflow: hidden;
+
+          &--ferme{
+            height: 0;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: 0.15s ease-out;
+          }
+
+          &--ouvert{
+            height: 200vw;
+            transform: scaleY(1);
+            transition: 0.25s ease-in;
+          }
+
+
+          h2{
+            width: 90%;
+            text-align: center;
+            margin: 0 auto;
+            color: $PEAU;
+            padding: 5% 0;
+            border-bottom: 1px solid $PEAU;
+            font-family: $policeTitres;
+            text-transform: uppercase;
+          }
+
+          .conteneurMenu{
+            &__menu{
+              margin-top: 10%;
+              list-style-type: none;
+              padding: 0;
+
+              li{
+                text-align: center;
+                margin-bottom: 10%;
+
+                a{
+                  color: $PEAU;
+                  text-transform: uppercase;
+                }
+              }
+            }
+          }
+        }
+
       }
 
+      /**
+       * EN-TÊTE MODE DESKTOP
+       */
       &__desktop{
+        @media(max-width: 850px){
+          display: none;
+        }
+
         justify-content: space-between;
         width: 100%;
 
+        /**
+         * LOGO TRACES
+         */
         .logoTraces{
           width: 12%;
 
           img{
             max-width: 100%;
           }
-        }
+         }
 
+        /**
+         * Conteneur du menu
+         */
         .conteneurMenu{
           width: 100%;
           display: flex;
@@ -40,6 +197,12 @@ header{
             display: flex;
             justify-content: space-between;
             margin: 0;
+            height: 100%;
+            padding-left: 15px;
+
+            @media(min-width: $DESKTOP-LARGE){
+              padding-left: 30px;
+            }
 
             li{
               @include fontSize(13px);
@@ -73,18 +236,27 @@ header{
                 display: block;
                 background-size: contain;
                 background-repeat: no-repeat;
+                transition: 0.15s ease-in-out;
 
                 @media(min-width: $DESKTOP-LARGE){
-                  //width: 28px;
-                  //height: 28px;
+                  width: 30px;
+                  height: 30px;
                 }
 
                 &__rechercher{
                   background-image: url("../images/icones/icone-loupe.svg");
+
+                  &:hover{
+                    background-image: url("../images/icones/icone-loupe-white.svg");
+                  }
                 }
 
                 &__panier{
                   background-image: url("../images/icones/icone-panier.svg");
+
+                  &:hover{
+                    background-image: url("../images/icones/icone-panier-white.svg");
+                  }
                 }
               }
             }

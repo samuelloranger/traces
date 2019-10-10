@@ -21,6 +21,12 @@
 @import "utilitaires/mixins";
 @import "utilitaires/variables";
 
+//Hamburger Menu
+$hamburger-layer-color: #FFE9D0;
+$hamburger-layer-height: 1px;
+$hamburger-layer-spacing: 10px;
+@import "../../../node_modules/hamburgers/_sass/hamburgers/hamburgers";
+
 /*** Base ***/
 @import "base/typo";
 
@@ -33,6 +39,6 @@
 @import "modules/footer";
 
 /*** Pages ***/
-//@import "pages/catalogue";
+@import "pages/catalogue";
 
 
