@@ -6,7 +6,7 @@
             <div class="row dropdown">
                 <button onclick="ouvrirFermerCategories()" class="align-self-center dropbtn">CATÉGORIES</button>
                 <div id="myDropdown" class="dropdown-content">
-                    <form>
+                    <form method="post" action="{{$urlPagination}}">
                         <input type="submit" value="APPLIQUER" class="catalogue__categories__appliquer catalogue__btn catalogue__btn--categories" />
                         <a href="{{$urlPagination}}" class="catalogue__categories__reinitialiser catalogue__btn catalogue__btn--categories">RÉINITIALISER</a>
                         <ul class="catalogue__categories__liste">
