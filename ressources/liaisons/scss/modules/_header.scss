@@ -1,6 +1,96 @@
 /**
- * @author Nom Prénom <courriel>
+ * @author Samuel Loranger
  */
 header{
+  background-color: $GRIS_FONCE;
+  margin-bottom: 25px;
 
+  .conteneur-header{
+    padding: 22px 15px 22px 10px;
+    display: flex;
+
+    .navigation{
+      display: flex;
+
+      &__mobile{
+        @media(min-width: $MOBILE){
+          display: none;
+        }
+      }
+
+      &__desktop{
+        justify-content: space-between;
+        width: 100%;
+
+        .logoTraces{
+          width: 12%;
+
+          img{
+            max-width: 100%;
+          }
+        }
+
+        .conteneurMenu{
+          width: 100%;
+          display: flex;
+          flex-direction: column-reverse;
+
+          &__menu{
+            list-style-type: none;
+            display: flex;
+            justify-content: space-between;
+            margin: 0;
+
+            li{
+              @include fontSize(13px);
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+
+              @media(min-width: $DESKTOP-NORMAL){
+                @include fontSize(14px);
+              }
+
+              @media(min-width: $DESKTOP-LARGE){
+                @include fontSize(16px);
+              }
+
+              a{
+                color: $BEIGE;
+                text-transform: uppercase;
+                transition: 0.15s ease-in-out;
+                text-decoration: none;
+
+                &:hover{
+                  color: white;
+                  text-decoration: none;
+                }
+              }
+
+              .icone{
+                width: 25px;
+                height: 25px;
+                display: block;
+                background-size: contain;
+                background-repeat: no-repeat;
+
+                @media(min-width: $DESKTOP-LARGE){
+                  //width: 28px;
+                  //height: 28px;
+                }
+
+                &__rechercher{
+                  background-image: url("../images/icones/icone-loupe.svg");
+                }
+
+                &__panier{
+                  background-image: url("../images/icones/icone-panier.svg");
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

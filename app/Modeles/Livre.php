@@ -88,30 +88,28 @@ class Livre{
 
     /**
      * Va chercher les infos d'un seul livre
-     * @param int $idLivre ID du livre recherche
+     * @param string $isbnLivre
+     * @return Livre
      */
-    public static function trouverParIsbn(string $isbn):Livre{
+    public static function trouverParIsbn(string $isbnLivre):Livre
+    {
         $pdo = App::getInstance() -> getPDO();
 
-        //Requête SQL
-        $sql = "SELECT * FROM livres WHERE isbn = :isbn";
+        $requeteSQL = "SELECT * FROM livres WHERE isbn = :isbn";
 
-        //On prépare la requête
-        $requetePreparee = $pdo -> prepare($sql);
+        $requetePreparee = $pdo -> prepare($requeteSQL);
 
         // Définir le mode de récupération
         $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Livre::class);
 
-        // On bind le paramètre id
-        $requetePreparee -> bindParam(":isbn", $isbn, PDO::PARAM_INT);
+        //Bind du paramètre
+        $requetePreparee -> bindValue(':isbn', $isbnLivre, PDO::PARAM_STR);
 
-        //On éxécute la requête
         $requetePreparee -> execute();
 
-        //Définition de la variable
-        $infosLivre = $requetePreparee -> fetch();
+        $livre = $requetePreparee -> fetch();
 
-        return $infosLivre;
+        return $livre;
     }
 
     public static function trouverParLimite(int $unIndex, int $uneQte):array{
@@ -159,7 +157,7 @@ class Livre{
     }
 
     public function getImageUrl($format = "rectangle"):string{
-        if($format == "carre"){
+        if($format === "carre"){
             $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1_carre.jpg";
         }
         else{
@@ -167,7 +165,12 @@ class Livre{
         }
 
         if(!file_exists($url)){
-            $url = "./liaisons/images/couvertures-livres/imageNonTrouvee.jpg";
+            if($format !== "carre"){
+                $url = "./liaisons/images/couvertures-livres/imageNonTrouvee.svg";
+            }
+            else{
+                $url = "./liaisons/images/couvertures-livres/imageNonTrouvee_carre.svg";
+            }
         }
 
         return $url;

@@ -79,7 +79,7 @@
                             </li>
                             <li><b>ID:</b> {{ $livre -> id }}</li>
                             <li><b>Titre:</b> <a
-                                        href="index.php?controleur=livre&action=fiche&idLivre={{ $livre -> id }}">{{ $livre -> titre }}</a>
+                                        href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">{{ $livre -> titre }}</a>
                             </li>
                             <li><b>Nombre de pages:</b> {{ $livre -> nbre_pages }}</li>
                             <li><b>Parution:</b> {{ $livre -> getParution() }}</li>

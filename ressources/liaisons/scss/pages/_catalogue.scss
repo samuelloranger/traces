@@ -1,6 +1,7 @@
 .catalogue {
   &__affichage {
     display: none;
+
     @media(min-width: $DESKTOP-NORMAL){
       display:flex;
       flex-wrap: wrap;
