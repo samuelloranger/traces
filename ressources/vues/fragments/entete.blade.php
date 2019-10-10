@@ -24,7 +24,11 @@
 
     <nav class="navigation navigation__mobile">
         <div class="navigation__mobile__top">
-            <button class="button__menuMobile"></button>
+            <button class="hamburger hamburger--squeeze" type="button" id="btnMenuMobile">
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
+            </button>
 
             <div class="logoTraces">
                 <a href="index.php?controleur=site&action=accueil">
@@ -32,17 +36,17 @@
                 </a>
             </div>
 
-            <span class="menu__mobile__zoneLangue"><a href="index.php?controleur=accueil&action=index">EN</a></span>
-
-            <div class="menu__mobile__zoneIcones">
-                <span class="icone__panier"><a href="index.php?controleur=livre&action=index">Panier</a></span>
-                <span class="icone__rechercher">Recherche</span>
+            <div class="zoneIcones">
+                <span class="icone icone__panier"><a href="index.php?controleur=livre&action=index"></a></span>
+                <span class="icone icone__rechercher"></span>
             </div>
+
+            <span class="zoneLangue zoneLangue--inactif"><a href="index.php?controleur=accueil&action=index">EN</a></span>
         </div>
 
-        <div class="menu__mobile menu__mobile--ferme">
+        <div class="navigation__mobile__menu navigation__mobile__menu--ferme">
             <h2>Menu</h2>
-            <ul>
+            <ul class="conteneurMenu__menu">
                 <li><a href="index.php?controleur=livre&action=catalogue">Catalogue</a></li>
                 <li><a href="index.php?controleur=site&action=accueil#meilleurs-vendeurs">Meilleurs vendeurs</a></li>
                 <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
