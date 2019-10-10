@@ -112,11 +112,17 @@ class Livre{
         return $livre;
     }
 
-    public static function trouverParLimite(int $unIndex, int $uneQte):array{
+    public static function trouverParLimite(int $unIndex, int $uneQte, int $categorie):array{
         $pdo = App::getInstance() -> getPDO();
 
         // Définir la chaine SQL
-        $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
+        if($categorie != 0){
+            $chaineSQL = 'SELECT * FROM livres INNER JOIN categories_livres ON livres.id = categories_livres.livre_id WHERE categorie_id= :categorie LIMIT :unIndex, :uneQte';
+        }
+        else{
+            $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
+
+        }
 
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo -> prepare($chaineSQL);
@@ -134,6 +140,10 @@ class Livre{
 
         $requetePreparee -> bindParam(":unIndex", $unIndex, PDO::PARAM_INT);
         $requetePreparee -> bindParam(":uneQte", $uneQte, PDO::PARAM_INT);
+
+        if($categorie != 0){
+            $requetePreparee -> bindParam(":categorie", $categorie, PDO::PARAM_INT);
+        }
 
         // Exécuter la requête
         $requetePreparee -> execute();
@@ -156,7 +166,7 @@ class Livre{
         return Honneur::trouverHonneursLivre($this -> id);
     }
 
-    public function getImageUrl($format = "rectangle"):string{
+    public function getImageUrl($format = "carre"):string{
         if($format === "carre"){
             $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1_carre.jpg";
         }

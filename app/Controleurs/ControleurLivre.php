@@ -20,7 +20,7 @@ class ControleurLivre
         $this->blade = App::getInstance()->getBlade();
     }
 
-    /**s
+    /**
      * Fonction index qui call la view
      */
     public function catalogue(): void
@@ -38,8 +38,17 @@ class ControleurLivre
     /**
      * @return array
      */
+
     public function getDonneesLivres(): array
     {
+        /**
+         * Définition de la catégorie séléctionnée
+         */
+        $id_categorie = 0;
+        if(isset($_GET["categorie"])) {
+            $id_categorie = intval($_GET["categorie"]);
+        }
+
         /**
          * Définition du nombre de pages
          */
@@ -58,8 +67,6 @@ class ControleurLivre
         } else {
             $livresParPage = 9;
         }
-
-
         $nombreTotalPages = ceil($nbrLivres / $livresParPage);
 
         /**
@@ -80,7 +87,7 @@ class ControleurLivre
         /**
          * Définition du array de données à envoyer dans la page
          */
-        $arrLivres = Livre::trouverParLimite(intval($numeroPage) - 1, $livresParPage);
+        $arrLivres = Livre::trouverParLimite(intval($numeroPage) - 1, $livresParPage, $id_categorie);
 
         foreach ($arrLivres as $livre) {
             $livre->isbn13 = Livre::ISBNToEAN($livre->isbn);
@@ -94,6 +101,7 @@ class ControleurLivre
             array("arrLivres" => $arrLivres),
             array("arrCategories" => $arrCategories),
             array("nombreTotalPages" => $nombreTotalPages),
+            array("livresParPage" => $livresParPage),
             array("numeroPage" => $numeroPage),
             array("urlPagination" => $urlModif)
         );
@@ -110,7 +118,7 @@ class ControleurLivre
 
         $infosLivre = Livre::trouverParIsbn($isbnLivre);
 
-        if($infosLivre == false){
+        if ($infosLivre == false) {
             header('Location: 404.php');
         }
 
@@ -127,7 +135,7 @@ class ControleurLivre
         //Honneurs
         $arrHonneurs = Honneur::trouverHonneursLivre($infosLivre->__get("id"));
         foreach ($arrHonneurs as $honneur) {
-            $honneur -> description = Util::couperParagraphe($honneur->description);
+            $honneur->description = Util::couperParagraphe($honneur->description);
         }
         $arrInfos = array_merge(array("livre" => $infosLivre),
             array("arrRecensions" => $arrRecensions),

@@ -2,10 +2,21 @@
   &__affichage {
     display: none;
 
-    @media(min-width: $DESKTOP-NORMAL){
-      display:flex;
+    @media(min-width: $DESKTOP-NORMAL) {
+      display: flex;
       flex-wrap: wrap;
     }
+  }
+
+  &__auteurs {
+    list-style-type: none;
+    color: $BLANC;
+    padding: 0;
+    font-size: 18px;
+    @media(min-width: $DESKTOP-NORMAL) {
+      color: $BEIGE;
+    }
+
   }
 
   &__btn {
@@ -16,13 +27,27 @@
     border: none;
     border-radius: 50px;
 
-    &--categories {
-      margin: 8px;
+    &:hover {
+      text-decoration: none;
     }
 
     &--ajouterPanier {
       margin: 10px;
       display: inline-block;
+
+      &:hover {
+        background-color: darken($TURQUOISE, 5);
+        color: $BLANC;
+      }
+    }
+
+    &--categories {
+      margin: 8px;
+
+      &:hover {
+        color: white;
+        background-color: darken($TURQUOISE, 5);
+      }
     }
 
     &--enSavoirPlus {
@@ -30,6 +55,20 @@
       background-color: $PEAU;
       margin: 10px;
       display: inline-block;
+
+      &:hover {
+        color: black;
+        background-color: darken($PEAU, 5);
+      }
+    }
+
+    &--reinitialiser {
+      color: white;
+
+      &:hover {
+        color: white;
+        background-color: darken($TURQUOISE, 5);
+      }
     }
   }
 
@@ -42,12 +81,25 @@
       padding: 0;
     }
 
+    &__lien {
+      color: black;
+      &:hover {
+        color: $ROUGE;
+        text-decoration: none;
+      }
+    }
+
     @media(min-width: $TABLETTE) {
       display: inline;
     }
   }
 
+  &__couverture {
+    width: 100%;
+  }
+
   &__lesLivres {
+
   }
 
   &__lien {
@@ -64,8 +116,21 @@
   }
 
   &__livre {
-    background-color: lightgrey;
     list-style-type: none;
+    background-color: $GRIS_FONCE;
+    width: 100%;
+    margin-bottom: 5%;
+
+    &__titreEtAuteur {
+      padding-left: 5%;
+      margin-top: 5%;
+    }
+
+    &__boutons {
+      display: grid;
+      text-align: center;
+      margin: 5% 5%;
+    }
   }
 
   &__nbParPages {
@@ -77,10 +142,22 @@
   }
 
   &__rangee--2 {
+    margin-bottom: 5%;
   }
 
   &__rechercher {
     display: none;
+  }
+
+  &__titre {
+    color: white;
+    font-size: 24px;
+
+    &:hover {
+      color: $ROUGE;
+      text-decoration: none;
+    }
+
   }
 
   @media (min-width: $DESKTOP-NORMAL) {
@@ -114,7 +191,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
+  background-color: $GRIS_PALE;
   min-width: 360px;
   overflow: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -122,14 +199,9 @@
 }
 
 .dropdown-content a {
-  color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
-}
-
-.dropdown a:hover {
-  background-color: #ddd;
 }
 
 .show {
