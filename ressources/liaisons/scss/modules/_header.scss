@@ -53,6 +53,8 @@ header{
           .logoTraces{
             width: 45%;
             transition: 0.15s ease-in-out;
+            display: flex;
+            justify-content: center;
 
             &--petit{
               width: 30%;
