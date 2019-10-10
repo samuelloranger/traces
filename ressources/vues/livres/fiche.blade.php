@@ -83,7 +83,7 @@
                                     <p class="review__description">{{ $recension -> description }}</p>
                                     <p>{{ $recension -> nom_journaliste }}, {{ $recension -> nom_media }}</p>
 
-        à                            </div>
+                                    </div>
                             @endforeach
                         </div>
                     @endif

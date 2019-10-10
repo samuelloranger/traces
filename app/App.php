@@ -39,7 +39,9 @@ class App
             error_reporting(E_ALL | E_STRICT);
         }
         date_default_timezone_set('America/Montreal');
-
+        setlocale(LC_TIME, "fr_CA");
+        setlocale(LC_ALL, "fr_CA");
+        setlocale(LC_MONETARY, "fr_CA.UTF-8");
     }
 
     public function getPDO():PDO
