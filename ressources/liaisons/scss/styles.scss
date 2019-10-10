@@ -39,6 +39,9 @@ $hamburger-layer-spacing: 10px;
 @import "modules/footer";
 
 /*** Pages ***/
+
+//@import "pages/catalogue";
+@import "pages/accueil";
 @import "pages/catalogue";
 
 
