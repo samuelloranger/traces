@@ -7,9 +7,14 @@
 {{--                <h1>Traces</h1>--}}
                 <div class="image_accueil__conteneur__contenu__logo">
                     <img src="../public/liaisons/images/logo-traces.svg" alt="">
-                </div>
+                    <h1>L'histoire de l'avant</h1>
 
+                </div>
+                <div class="lien_contenu">
+                    <a href="#nouveautes">DÉCOUVREZ NOS NOUVEAUTÉS</a>
+                </div>
             </div>
+
         </div>
         <picture class="image_accueil__picture">
             <source media="(max-width: 850px)" srcset="../public/liaisons/images/accueil/background_accueil_mobile.jpg">
@@ -20,7 +25,7 @@
 @endsection
 @section('contenu')
     <div class="accueil">
-        <div class="nouveautes">
+        <div class="nouveautes" id="nouveautes">
             <h2>NOUVEAUTES</h2>
             <div class="nouveautes__groupe row">
                 @for($indexLivre = 0; $indexLivre < 2; $indexLivre++)
