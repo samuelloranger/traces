@@ -10,7 +10,7 @@
                 <div id="myDropdown" class="dropdown-content">
                     <form method="post" action="{{$urlPagination}}">
                         <a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar={{$_GET['trierPar']}}&nbParPages={{ $_GET['nbParPages'] }}"
-                           class="catalogue__btn catalogue__btn--reinitialiser">RÉINITIALISER</a>
+                           class="catalogue__btn catalogue__btn--reinitialiser row justify-content-center">RÉINITIALISER</a>
                         <ul class="catalogue__categories__liste">
                             @foreach($arrCategories as $categorie)
                                 <li class="catalogue__categories__liste__item">
@@ -22,11 +22,11 @@
                 </div>
             </div>
             <div class="catalogue__categories col-md-3">
-                <p class="catalogue__categories__titre">
+                <p class="catalogue__categories__titre text-center">
                     CATÉGORIES
                 </p>
                 <a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar={{$_GET['trierPar']}}&nbParPages={{ $_GET['nbParPages'] }}"
-                   class="catalogue__btn catalogue__categories--reinitialiser">RÉINITIALISER</a>
+                        class="catalogue__btn catalogue__categories--reinitialiser">RÉINITIALISER</a>
                 <ul class="catalogue__categories__liste">
                     @foreach($arrCategories as $categorie)
                         <li class="catalogue__categories__liste__item">
@@ -44,9 +44,9 @@
                         <a class="catalogue__lien catalogue__lien"
                            href="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar={{$_GET['trierPar']}}&nbParPages=9">9</a>
                         <a class="catalogue__lien"
-                           href="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar={{$_GET['trierPar']}}&nbParPages=36">36</a>
+                           href="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar={{$_GET['trierPar']}}&nbParPages=18">18</a>
                         <a class="catalogue__lien"
-                           href="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar={{$_GET['trierPar']}}&nbParPages=72">72</a>
+                           href="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar={{$_GET['trierPar']}}&nbParPages=36">36</a>
                     </div>
                 </div>
                 <div class="row catalogue__rangee--2">

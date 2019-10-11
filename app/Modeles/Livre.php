@@ -71,28 +71,6 @@ class Livre
         return $arrayLivres;
     }
 
-    public static function compter(): int
-    {
-        //On va chercher le pdo
-        $pdo = App::getInstance()->getPDO();
-
-        //Requête SQL
-        $sql = "SELECT COUNT(*) FROM livres";
-
-        //On prépare la requête
-        $requetePreparee = $pdo->prepare($sql);
-
-        //On éxécute la requête
-        $requetePreparee->execute();
-
-        //Définition de la variable
-        $nbrLivre = $requetePreparee->fetch();
-
-        //On retourne nbrLivres de type int, à la valeur 0 puisque
-        //$nbrLivre est
-        return (int)$nbrLivre[0];
-    }
-
     /**
      * Va chercher les infos d'un seul livre
      * @param string $isbnLivre
@@ -127,50 +105,48 @@ class Livre
 
         if ($categorie != 0 OR $trierPar != "") {
             if ($trierPar != "") {
-                if($trierPar == "aucun"){
+                if ($trierPar == "aucun") {
                     $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
                 }
-                if($trierPar == "alphabetique"){
+                if ($trierPar == "alphabetique") {
                     $chaineSQL = 'SELECT * FROM livres ORDER BY livres.titre ASC LIMIT :unIndex, :uneQte';
                 }
-                if($trierPar == "prixCroissant"){
+                if ($trierPar == "prixCroissant") {
                     $chaineSQL = 'SELECT * FROM livres ORDER BY livres.prix ASC LIMIT :unIndex, :uneQte';
                 }
-                if($trierPar == "prixDecroissant"){
+                if ($trierPar == "prixDecroissant") {
                     $chaineSQL = 'SELECT * FROM livres ORDER BY livres.prix DESC LIMIT :unIndex, :uneQte';
                 }
             }
-            if($categorie != 0){
+            if ($categorie != 0) {
                 $chaineSQL = 'SELECT * FROM livres INNER JOIN categories_livres ON livres.id = categories_livres.livre_id WHERE categorie_id= :categorie LIMIT :unIndex, :uneQte';
             }
 
-        }
-        else{
+        } else {
             $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
         }
 
         // Préparer la requête (optimisation)
-        $requetePreparee = $pdo -> prepare($chaineSQL);
+        $requetePreparee = $pdo->prepare($chaineSQL);
 
         // Définir le mode de récupération
-        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Livre::class);
+        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Livre::class);
 
         //Bind des paramètres
-        if($unIndex > 0){
+        if ($unIndex > 0) {
             $unIndex = $unIndex * $uneQte;
-        }
-        else{
+        } else {
             $unIndex = 0;
         }
 
-        $requetePreparee -> bindParam(":unIndex", $unIndex, PDO::PARAM_INT);
-        $requetePreparee -> bindParam(":uneQte", $uneQte, PDO::PARAM_INT);
-        if($categorie != 0){
-            $requetePreparee -> bindParam(":categorie", $categorie, PDO::PARAM_INT);
+        $requetePreparee->bindParam(":unIndex", $unIndex, PDO::PARAM_INT);
+        $requetePreparee->bindParam(":uneQte", $uneQte, PDO::PARAM_INT);
+        if ($categorie != 0) {
+            $requetePreparee->bindParam(":categorie", $categorie, PDO::PARAM_INT);
         }
 
         // Exécuter la requête
-        $requetePreparee -> execute();
+        $requetePreparee->execute();
 
         // Récupérer une seule occurrence à la fois
         $arrayLivres = $requetePreparee->fetchAll();
@@ -178,31 +154,64 @@ class Livre
         return $arrayLivres;
     }
 
-    public function getParution():string{
-        return Parution::trouver($this -> parution_id);
-    }
+    public static function compter(int $categorie): int
+    {
+        //On va chercher le pdo
+        $pdo = App::getInstance()->getPDO();
 
-    public function getAuteurs():array{
-        return Auteur::trouverAuteurLivre($this -> id);
-    }
+        //Requête SQL
 
-    public function getHonneurs():array{
-        return Honneur::trouverHonneursLivre($this -> id);
-    }
-
-    public function getImageUrl($format = "carre"):string{
-        if($format === "carre"){
-            $url = " ./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1_carre.jpg";
-        }
-        else{
-            $url = " ./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1.jpg";
+        if ($categorie != 0) {
+            $sql = 'SELECT * FROM livres INNER JOIN categories_livres ON livres.id = categories_livres.livre_id WHERE categorie_id= :categorie';
+        } else {
+            $sql = "SELECT COUNT(*) FROM livres";
         }
 
-        if(!file_exists($url)){
-            if($format !== "carre"){
+        //On prépare la requête
+        $requetePreparee = $pdo->prepare($sql);
+
+        if ($categorie != 0) {
+            $requetePreparee->bindParam(":categorie", $categorie, PDO::PARAM_INT);
+        }
+
+        //On éxécute la requête
+        $requetePreparee->execute();
+
+        //Définition de la variable
+        $nbrLivre = $requetePreparee->fetch();
+
+        //On retourne nbrLivres de type int, à la valeur 0 puisque
+        //$nbrLivre est
+        return (int)$nbrLivre[0];
+    }
+
+    public function getParution(): string
+    {
+        return Parution::trouver($this->parution_id);
+    }
+
+    public function getAuteurs(): array
+    {
+        return Auteur::trouverAuteurLivre($this->id);
+    }
+
+    public function getHonneurs(): array
+    {
+        return Honneur::trouverHonneursLivre($this->id);
+    }
+
+    public function getImageUrl($format = "carre"): string
+    {
+        if ($format === "carre") {
+            $url = " ./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this->isbn13) . "1_carre.jpg";
+        } else {
+            $url = " ./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this->isbn13) . "1.jpg";
+        }
+
+        if (!file_exists($url)) {
+            if ($format !== "carre") {
                 $url = " ./liaisons/images/couvertures-livres/imageNonTrouvee.svg";
-            }
-            else{
+            } else {
                 $url = " ./liaisons/images/couvertures-livres/imageNonTrouvee_carre.svg";
             }
         }
@@ -210,15 +219,15 @@ class Livre
         return $url;
     }
 
-    public function getDescriptionNettoyee():string{
-        return Util::couperParagraphe($this -> description, 300);
+    public function getDescriptionNettoyee(): string
+    {
+        return Util::couperParagraphe($this->description, 300);
     }
 
-    public static function getCoupsCoeur(): array {
+    public static function getCoupsCoeur(): array
+    {
         $pdo = App::getInstance()->getPDO();
-        $chaineRequete = "SELECT *
-                FROM livres  
-                          WHERE est_coup_de_coeur = 1";
+        $chaineRequete = "SELECT * FROM livres WHERE est_coup_de_coeur = 1";
 
         $requete = $pdo->prepare($chaineRequete);
         $requete->setFetchMode(PDO::FETCH_CLASS, Livre::class);
@@ -230,7 +239,8 @@ class Livre
         return $arrCoupsCoeur;
     }
 
-    public static function getNouveautes(): array {
+    public static function getNouveautes(): array
+    {
         $pdo = App::getInstance()->getPDO();
         $chaineRequete = "SELECT *
                 FROM livres  
@@ -252,14 +262,14 @@ class Livre
     * @param string - ISBN à convertir
     * @return string - ISBN converti en EAN, ou FALSE si erreur dans le format ou la conversion
     */
-    public static function ISBNToEAN ($strISBN){
+    public static function ISBNToEAN($strISBN)
+    {
         $myFirstPart = $mySecondPart = $myEan = $myTotal = "";
         if ($strISBN == "")
             return false;
         $strISBN = str_replace(" - ", "", $strISBN);
         // ISBN-10
-        if (strlen($strISBN) == 10)
-        {
+        if (strlen($strISBN) == 10) {
             $myEan = "978" . substr($strISBN, 0, 9);
             $myFirstPart = intval(substr($myEan, 1, 1)) + intval(substr($myEan, 3, 1)) + intval(substr($myEan, 5, 1)) + intval(substr($myEan, 7, 1)) + intval(substr($myEan, 9, 1)) + intval(substr($myEan, 11, 1));
             $mySecondPart = intval(substr($myEan, 0, 1)) + intval(substr($myEan, 2, 1)) + intval(substr($myEan, 4, 1)) + intval(substr($myEan, 6, 1)) + intval(substr($myEan, 8, 1)) + intval(substr($myEan, 10, 1));
@@ -267,8 +277,7 @@ class Livre
             $myControl = ($tmp == 0) ? 0 : 10 - $tmp;
 
             return $myEan . $myControl;
-        }
-        // ISBN-13
+        } // ISBN-13
         else if (strlen($strISBN) == 13) return $strISBN;
         // Autres
         else return false;

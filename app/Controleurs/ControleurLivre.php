@@ -48,6 +48,7 @@ class ControleurLivre
         if (isset($_GET["categorie"])) {
             $id_categorie = intval($_GET["categorie"]);
         }
+
         /**
          * Définition du tri
          */
@@ -55,25 +56,6 @@ class ControleurLivre
         if (isset($_GET["trierPar"])) {
             $trierPar = $_GET["trierPar"];
         }
-        /**
-         * Définition du nombre de pages
-         */
-        $nbrLivres = Livre::compter();
-
-        if (isset($_GET["nbParPages"])) {
-            if ($_GET["nbParPages"] == '9') {
-                $livresParPage = 9;
-            }
-            if ($_GET["nbParPages"] == '36') {
-                $livresParPage = 36;
-            }
-            if ($_GET["nbParPages"] == '72') {
-                $livresParPage = 72;
-            }
-        } else {
-            $livresParPage = 9;
-        }
-        $nombreTotalPages = ceil($nbrLivres / $livresParPage);
 
         /**
          * Définition de la page courante
@@ -85,19 +67,36 @@ class ControleurLivre
         }
 
         /**
-         * Définition du url présent
+         * Définition du nombre de pages
          */
-        $stringURl = $_SERVER['REQUEST_URI'];
-        $urlModif = str_replace("&page=" . $numeroPage, "", $stringURl);
-
+        if (isset($_GET["nbParPages"])) {
+            if ($_GET["nbParPages"] == '9') {
+                $livresParPage = 9;
+            }
+            if ($_GET["nbParPages"] == '18') {
+                $livresParPage = 18;
+            }
+            if ($_GET["nbParPages"] == '36') {
+                $livresParPage = 36;
+            }
+        } else {
+            $livresParPage = 9;
+        }
         /**
          * Définition du array de données à envoyer dans la page
          */
         $arrLivres = Livre::trouverParLimite(intval($numeroPage) - 1, $livresParPage, $id_categorie, $trierPar);
-
         foreach ($arrLivres as $livre) {
             $livre->isbn13 = Livre::ISBNToEAN($livre->isbn);
         }
+
+        $nbrLivres = Livre::compter($id_categorie);
+        $nombreTotalPages = ceil($nbrLivres / $livresParPage);
+        /**
+         * Définition du url présent
+         */
+        $stringURl = $_SERVER['REQUEST_URI'];
+        $urlModif = str_replace("&page=" . $numeroPage, "", $stringURl);
 
         $arrCategories = Categories::trouverTout();
         /**
