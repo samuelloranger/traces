@@ -13,7 +13,9 @@
         <header class="header">
             @include('fragments.entete')
         </header>
-
+        <div class="image">
+            @yield("image_accueil")
+        </div>
         <main class="container">
             @yield('contenu')
         </main>

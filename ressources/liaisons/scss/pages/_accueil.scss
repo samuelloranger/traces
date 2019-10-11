@@ -1,9 +1,63 @@
+.image_accueil {
+  width: 100%;
+  position: relative;
+  &__conteneur {
+    width: 100%;
+    height: 100%;
+    //background-color: black;
+    position: absolute;
+    &__contenu {
+      width: 100%;
+      height: 100%;
+      //background-color: brown;
+      position: relative;
+      &__logo {
+        position: absolute;
+        display: block;
+        text-align: center;
+        width: 100%;
+        top: 30%;
+        img {
+          width: 50%;
+          height: auto;
+          @media (min-width: $TABLETTE) and (max-width: $DESKTOP-NORMAL) {
+            width: 35%;
+          }
+          @media (min-width: $DESKTOP-NORMAL) {
+            width: 20%;
+          }
+        }
+      }
+      h1 {
+        font-family: "Lato", Arial, serif;
+        color: white;
+        position: absolute;
+        display: block;
+        text-align: center;
+        width: 100%;
+        top: 30%;
+      }
+    }
+  }
+  &__picture {
+    padding: 0;
+    img {
+      width: 100%;
+    }
+  }
+}
+
 .accueil {
   ul {
     list-style: none;
     padding: 0;
   }
+
   .nouveautes {
+    margin-top: 50px;
+    h2 {
+      margin-bottom: 40px;
+    }
     &__vignette {
       margin-bottom: 20px;
       &__image {
@@ -86,6 +140,10 @@
   }
 
   .coupsCoeur {
+    margin-top: 50px;
+    h2 {
+      margin-bottom: 40px;
+    }
     &__groupe {
       &__vignette {
         margin: 0 0 20px 0;
@@ -106,6 +164,7 @@
             z-index: 998;
           }
           img {
+            width: 100%;
             max-width: 100%;
           }
         }
@@ -156,6 +215,49 @@
             //margin: 0;
           }
         }
+      }
+    }
+  }
+
+  .actualites {
+    margin-top: 50px;
+    h2 {
+      margin-bottom: 40px;
+    }
+    &__groupe {
+    }
+    &__vignette {
+      margin-bottom: 20px;
+      &__contenu {
+        background-color: $GRIS_PALE;
+        padding: 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 450px;
+        &__auteur {
+          display: block;
+          color: $TURQUOISE;
+        }
+        &__texte {
+          margin-top: 30px;
+        }
+        @media (min-width: $TABLETTE) and (max-width: $DESKTOP-NORMAL) {
+          min-height: 660px;
+        }
+        @media (min-width: $DESKTOP-NORMAL) {
+          min-height: 640px;
+        }
+      }
+      &__bouton_suite {
+        display: block;
+        width: 70%;
+        margin: 20px auto 0 auto;
+        text-align: center;
+        background-color: $GRIS_FONCE;
+        color: white;
+        border-radius: 50px;
+        padding: 7px;
       }
     }
   }

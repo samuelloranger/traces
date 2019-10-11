@@ -1,5 +1,23 @@
 @extends('gabarit')
 
+@section('image_accueil')
+    <div class="image_accueil">
+        <div class="image_accueil__conteneur">
+            <div class="image_accueil__conteneur__contenu">
+{{--                <h1>Traces</h1>--}}
+                <div class="image_accueil__conteneur__contenu__logo">
+                    <img src="../public/liaisons/images/logo-traces.svg" alt="">
+                </div>
+
+            </div>
+        </div>
+        <picture class="image_accueil__picture">
+            <source media="(max-width: 850px)" srcset="../public/liaisons/images/accueil/background_accueil_mobile.jpg">
+            <source media="(min-width: 850px)" srcset="../public/liaisons/images/accueil/background_accueil_desktop.jpg">
+            <img src="../public/liaisons/images/accueil/background_accueil_desktop.jpg" alt="image de la librairie">
+        </picture>
+    </div>
+@endsection
 @section('contenu')
     <div class="accueil">
         <div class="nouveautes">
@@ -77,13 +95,20 @@
             <h2>ACTUALITES</h2>
             <div class="actualites__groupe row">
                 @for($indexArticle = 0; $indexArticle < 3; $indexArticle++)
-                    <div class="actualites__vignette col-md-4">
-                        <h4>{{$arrActualites[$indexArticle]->titre}}</h4>
-                        <h5>{{$arrActualites[$indexArticle]->getAuteur()->getNomPrenom()}}</h5>
-                        <div>
-                            {{$arrActualites[$indexArticle]->getTexteTronque()}}
+                    <div class="actualites__vignette col-md-6 col-lg-4">
+                        <div class="actualites__vignette__contenu">
+                            <div>
+                                <h3>{{$arrActualites[$indexArticle]->titre}}</h3>
+                                <span class="actualites__vignette__contenu__auteur">{{$arrActualites[$indexArticle]->getAuteur()->getNomPrenom()}}</span>
+                                <div class="actualites__vignette__contenu__texte">
+                                    {{$arrActualites[$indexArticle]->getTexteTronque()}}
+                                </div>
+                            </div>
+                            <div>
+
+                                <a href="#" class="actualites__vignette__bouton_suite">LIRE LA SUITE</a>
+                            </div>
                         </div>
-                        <a href="#">LIRE LA SUITE</a>
                     </div>
                 @endfor
             </div>
