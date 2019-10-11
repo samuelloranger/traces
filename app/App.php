@@ -17,6 +17,10 @@ class App
     private static $instance = null;
     private $pdo = null;
     private $blade = null;
+    private $cookie = null;
+    private $session = null;
+    private $panier = null;
+    private $monControleur = null;
 
     private function __construct()
     {
