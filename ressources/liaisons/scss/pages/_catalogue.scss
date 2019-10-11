@@ -64,6 +64,11 @@
 
     &--reinitialiser {
       color: white;
+      width: 70%;
+      text-align: center;
+      margin-left: 15%;
+      margin-top: 5%;
+      margin-bottom: 5%;
 
       &:hover {
         color: white;
@@ -76,6 +81,10 @@
     background-color: #EEEEEE;
     display: none;
 
+    &__titre {
+      padding: 10%;
+    }
+
     &__liste {
       list-style-type: none;
       padding: 0;
@@ -83,6 +92,7 @@
 
     &__lien {
       color: black;
+
       &:hover {
         color: $ROUGE;
         text-decoration: none;
@@ -135,6 +145,12 @@
 
   &__nbParPages {
 
+  }
+
+  &__prix {
+    font-size: 42px;
+    color: white;
+    padding-left: 60%;
   }
 
   &__rangee--1 {
