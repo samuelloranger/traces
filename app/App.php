@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App;
 
 use App\Controleurs\ControleurLivre;
+use App\Controleurs\ControleurPanier;
 use App\Controleurs\ControleurSite;
+use App\Session\Session;
+use App\Session\SessionPanier;
 use \PDO;
 use eftec\bladeone\BladeOne;
 
@@ -29,8 +32,9 @@ class App
 
     public function demarrer():void
     {
-        $this->configurerEnvironnement();
-        $this->routerLaRequete();
+        $this -> getSession() -> demarrer();
+        $this -> configurerEnvironnement();
+        $this -> routerLaRequete();
     }
 
     private function configurerEnvironnement():void
@@ -71,6 +75,26 @@ class App
         return $this->blade;
     }
 
+    public function getCookie(){
+        if($this -> cookie == null){
+            $this -> cookie = new Cookie();
+        }
+        return $this -> cookie;
+    }
+
+    public function getPanier(){
+        if($this -> panier == null){
+            $this -> panier = new SessionPanier();
+        }
+        return $this -> panier;
+    }
+
+    public function getSession(){
+        if($this -> session == null){
+            $this -> session = new Session();
+        }
+        return $this -> session;
+    }
 
     public function getServeur(): string
     {
@@ -130,8 +154,25 @@ class App
                 case "fiche":
                     $this -> monControleur -> fiche();
                     break;
+                case "ajoutPanier":
+                    $this -> monControleur -> ajoutPanier();
+                    break;
                 default:
                     echo 'Erreur 404';
+            }
+        }
+        else if($controleur === "panier"){
+            $this->monControleur = new ControleurPanier();
+            switch($action){
+                case "supprimerItem":
+                    $this->monControleur->supprimerItem();
+                    break;
+                case "updateItem":
+                    $this->monControleur->updateItem();
+                    break;
+                case "panier":
+                    $this->monControleur->panier();
+                    break;
             }
         }
         else{

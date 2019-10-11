@@ -12,7 +12,8 @@ define(["require", "exports"], function (require, exports) {
             this.btnMenu = document.querySelector("#btnMenuMobile");
             this.conteneneurMenu = document.querySelector(".navigation__mobile__menu");
             this.zoneLangue = document.querySelector(".zoneLangue");
-            this.arrIcones = Array.apply(null, document.querySelectorAll(".navigation__mobile__top .zoneIcones .icone"));
+            this.zoneIcones = document.querySelector(".navigation__mobile__top .zoneIcones");
+            this.arrIcones = Array.apply(null, this.zoneIcones.querySelectorAll(".icone"));
             this.ajouterEcouteursEvements = function () {
                 _this.btnMenu.addEventListener("click", function () {
                     _this.gererMenu();
@@ -24,6 +25,7 @@ define(["require", "exports"], function (require, exports) {
                     _this.conteneneurMenu.classList.add("navigation__mobile__menu--ouvert");
                     _this.btnMenu.classList.add("is-active");
                     _this.zoneLangue.classList.remove("zoneLangue--inactif");
+                    _this.zoneIcones.classList.add("zoneIcones--inactif");
                     _this.arrIcones.forEach(function (icone) {
                         icone.classList.add("icone--inactif");
                     });
@@ -33,6 +35,7 @@ define(["require", "exports"], function (require, exports) {
                     _this.conteneneurMenu.classList.remove("navigation__mobile__menu--ouvert");
                     _this.btnMenu.classList.remove("is-active");
                     _this.zoneLangue.classList.add("zoneLangue--inactif");
+                    _this.zoneIcones.classList.remove("zoneIcones--inactif");
                     _this.arrIcones.forEach(function (icone) {
                         icone.classList.remove("icone--inactif");
                     });

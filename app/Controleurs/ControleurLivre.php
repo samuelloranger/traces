@@ -20,6 +20,18 @@ class ControleurLivre
         $this->blade = App::getInstance()->getBlade();
     }
 
+    public function ajoutPanier(){
+        if(isset($_GET["isbn"]) && isset($_GET["qte"])){
+            $isbn = $_GET["isbn"];
+            $qte = intval($_GET["qte"]);
+
+            $livre = Livre::trouverParIsbn($isbn);
+            App::getInstance()->getPanier()->ajouterItem($livre, $qte);
+        }
+
+        header("Location: index.php?controleur=livre&action=fiche&isbn=" . $isbn);
+    }
+
     /**
      * Fonction index qui call la view
      */

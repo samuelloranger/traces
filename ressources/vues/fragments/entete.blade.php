@@ -13,9 +13,9 @@
                 <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
                 <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
                 <li><a href="index.php?controleur=site&action=index">Nous joindre</a></li>
-                <li><a aria-label="Panier" href="index.php?controleur=livre&action=index"><span aria-label="Panier" class="icone icone__panier"></span></a></li>
+                <li><a aria-label="Panier" href="index.php?controleur=panier&action=panier"><span aria-label="Panier" class="icone icone__panier"></span></a></li>
                 <li><span aria-label="Rechercher" class="icone icone__rechercher"></span></li>
-                <li><a href="index.php?controleur=accueil&action=index">Se connecter</a></li>
+                <li class="btnSeConnecter"><a href="index.php?controleur=accueil&action=index">Se connecter</a></li>
                 <li><a href="index.php?controleur=accueil&action=index">En</a></li>
             </ul>
         </div>

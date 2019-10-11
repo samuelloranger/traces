@@ -166,6 +166,10 @@ class Livre{
         return Honneur::trouverHonneursLivre($this -> id);
     }
 
+    public function getPrix():string{
+        return Util::formaterArgent(floatval($this->prix));
+    }
+
     public function getImageUrl($format = "carre"):string{
         if($format === "carre"){
             $url = "./liaisons/images/couvertures-livres/L" . Livre::ISBNToEAN($this -> isbn13) . "1_carre.jpg";

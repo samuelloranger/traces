@@ -15,7 +15,7 @@ node_modules/
 gulpfile.js
 
 #Dossiers de compilation
-public/liaisons/css
+public/liaisons/css/styles.css
 assets/js/
 
 #Dossiers cache de Blade

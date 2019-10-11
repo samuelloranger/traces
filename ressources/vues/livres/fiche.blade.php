@@ -26,6 +26,10 @@
                     </div>
                     <form class="zonePanier__optionsPanier col-sm-12 col-md-9 row">
                         <div class="options col-sm-12 col-md-6">
+                            <input type="hidden" name="isbn" value="{{ $livre -> isbn }}" hidden>
+                            <input type="hidden" name="controleur" value="livre" hidden>
+                            <input type="hidden" name="action" value="ajoutPanier" hidden>
+
                             <label for="formatLivre">Choisir un format...</label>
                             <select id="formatLivre">
                                 <option>Sélectionnez un format...</option>
@@ -35,13 +39,10 @@
                             </select>
 
                             <label for="Quantité">Quantité</label>
-                            <select id="quantite">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
+                            <select id="quantite" name="qte">
+                                @for ($intCtr = 1; $intCtr <= 10; $intCtr++)
+                                    <option>{{ $intCtr }}</option>
+                                @endfor
                             </select>
                         </div>
 
@@ -82,8 +83,7 @@
                                     <p class="review__titre">{{ $recension -> date }}</p>
                                     <p class="review__description">{{ $recension -> description }}</p>
                                     <p>{{ $recension -> nom_journaliste }}, {{ $recension -> nom_media }}</p>
-
-                                    </div>
+                                </div>
                             @endforeach
                         </div>
                     @endif

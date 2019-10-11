@@ -9,6 +9,13 @@ header{
   top: 0;
   z-index: 999;
 
+
+  .btnSeConnecter{
+    border: 2px solid $PEAU;
+    border-radius: 25px;
+    padding: 5px 10px;
+  }
+
   /**
    * CONTENEUR DU HEADER
    */
@@ -70,6 +77,11 @@ header{
             display: flex;
             justify-content: space-around;
             align-items: center;
+            transition: 0.15s ease-in-out;
+
+            &--inactif{
+              width: 20%;
+            }
 
             .icone{
               display: block;
@@ -97,7 +109,7 @@ header{
 
           .zoneLangue{
             position: absolute;
-            top: 15px;
+            top: 35%;
             right: 10px;
             transition: 0.15s ease-in-out;
 
@@ -266,5 +278,6 @@ header{
         }
       }
     }
+
   }
 }

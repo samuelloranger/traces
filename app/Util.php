@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use NumberFormatter;
+
 class Util {
 
     public static function couperParagraphe(string $paragraphe, int $nombreMax = 800):string {
@@ -19,5 +21,21 @@ class Util {
             $string .= '...';
         }
         return $string;
+    }
+
+    public static function validerISBN(string $isbn):bool {
+        $isbnValide = false;
+
+        if(preg_match("#^[0-9]\-[0-9]{5}\-[0-9]{3}\-[0-9]$#", $isbn) || preg_match("#^[0-9]\-[0-9]{6}\-[0-9]{2}\-[0-9]$#", $isbn)){
+            $isbnValide = true;
+        }
+
+        return $isbnValide;
+    }
+
+    public static function formaterArgent(float $prix):string{
+        $moneyFormatter = new NumberFormatter('fr_CA', NumberFormatter::CURRENCY);
+        $prixFormate = $moneyFormatter->formatCurrency($prix, "CAD");
+        return $prixFormate;
     }
 }
