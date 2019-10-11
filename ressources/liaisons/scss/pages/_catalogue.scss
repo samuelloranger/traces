@@ -1,18 +1,18 @@
 .catalogue {
-  &__affichage {
-    display: none;
-
-    @media(min-width: $DESKTOP-NORMAL) {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  }
+  //&__affichage {
+  //  display: none;
+  //
+  //  @media(min-width: $DESKTOP-NORMAL) {
+  //    display: flex;
+  //    flex-wrap: wrap;
+  //  }
+  //}
 
   &__auteurs {
     list-style-type: none;
     color: $BLANC;
-    padding: 0;
     font-size: 18px;
+    padding-left: 15px;
     @media(min-width: $DESKTOP-NORMAL) {
       color: $BEIGE;
     }
@@ -81,6 +81,14 @@
     background-color: #EEEEEE;
     display: none;
 
+    &__contenu {
+      margin-left: 5%;
+    }
+
+    @media(min-width: $DESKTOP-NORMAL) {
+      display: inline;
+    }
+
     &__titre {
       padding: 10%;
     }
@@ -88,6 +96,11 @@
     &__liste {
       list-style-type: none;
       padding: 0;
+      margin-top: 10%;
+
+      &__item {
+        margin-bottom: 5%;
+      }
     }
 
     &__lien {
@@ -97,10 +110,6 @@
         color: $ROUGE;
         text-decoration: none;
       }
-    }
-
-    @media(min-width: $TABLETTE) {
-      display: inline;
     }
   }
 
@@ -130,10 +139,11 @@
     background-color: $GRIS_FONCE;
     width: 100%;
     margin-bottom: 5%;
+    height: 350px;
 
     &__titreEtAuteur {
       padding-left: 5%;
-      margin-top: 5%;
+      padding-top: 5%;
     }
 
     &__boutons {
@@ -144,25 +154,20 @@
   }
 
   &__nbParPages {
-
+    font-size: 16px;
+    padding-left: 5%;
   }
 
   &__prix {
     font-size: 42px;
     color: white;
-    padding-left: 60%;
-  }
-
-  &__rangee--1 {
-
-  }
-
-  &__rangee--2 {
-    margin-bottom: 5%;
   }
 
   &__rechercher {
     display: none;
+    @media (min-width: $DESKTOP-NORMAL) {
+      display: inline;
+    }
   }
 
   &__titre {
@@ -176,32 +181,37 @@
 
   }
 
-  @media (min-width: $DESKTOP-NORMAL) {
-    .dropbtn {
-      display: none;
-    }
-    &__rechercher {
-      display: inline;
+  &__trier {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding-left: 5%;
+
+    & label {
+      font-size: 14px;
+      padding-right: 10px;
+
     }
   }
+
 }
 
 // CATÉGORIES
 .dropbtn {
+  display: inline;
   background-color: $TURQUOISE;
   color: white;
   padding: 10px 32px;
   font-size: 16px;
   border: none;
   border-radius: 50px;
-  @media (min-width: $TABLETTE) {
+  @media (min-width: $DESKTOP-NORMAL) {
     display: none;
   }
 }
 
 .dropdown {
   position: relative;
-  display: inline-block;
+  display: inline;
 }
 
 .dropdown-content {
