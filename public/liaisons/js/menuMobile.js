@@ -6,8 +6,8 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MenuMobile = /** @class */ (function () {
-        function MenuMobile() {
+    var Menu = /** @class */ (function () {
+        function Menu() {
             var _this = this;
             this.btnMenu = document.querySelector("#btnMenuMobile");
             this.conteneneurMenu = document.querySelector(".navigation__mobile__menu");
@@ -43,8 +43,8 @@ define(["require", "exports"], function (require, exports) {
             };
             this.ajouterEcouteursEvements();
         }
-        return MenuMobile;
+        return Menu;
     }());
-    exports.MenuMobile = MenuMobile;
+    exports.Menu = Menu;
 });
-//# sourceMappingURL=menuMobile.js.map
+//# sourceMappingURL=MenuMobile.js.map

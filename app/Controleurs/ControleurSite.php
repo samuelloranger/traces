@@ -7,6 +7,7 @@ namespace App\Controleurs;
 use App\App;
 use App\Modeles\Actualite;
 use App\Modeles\Livre;
+use App\Util;
 use \DateTime;
 
 class ControleurSite
@@ -26,13 +27,13 @@ class ControleurSite
 
         $arrNouveautes = Livre::getNouveautes();
         foreach ($arrNouveautes as $livre) {
-            $livre -> isbn13 = Livre::ISBNToEAN($livre -> isbn);
+            $livre -> isbn13 = Util::ISBNToEAN($livre -> isbn);
         }
         shuffle($arrNouveautes);
 
         $arrCoupsCoeur = Livre::getCoupsCoeur();
         foreach ($arrCoupsCoeur as $livre) {
-            $livre -> isbn13 = Livre::ISBNToEAN($livre -> isbn);
+            $livre -> isbn13 = Util::ISBNToEAN($livre -> isbn);
         }
         shuffle($arrCoupsCoeur);
 

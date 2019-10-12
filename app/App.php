@@ -61,7 +61,7 @@ class App
             {
                 $maConnexionBD = new ConnexionBD('localhost','traces','traces_mdp','traces');
             }else if($this -> getServeur() === 'serveur-production'){
-                $maConnexionBD = new ConnexionBD('timunix2.cegep-ste-foy.qc.ca','19_saladsquad','lionvert','19_rpni3_saladsquad');
+                $maConnexionBD = new ConnexionBD('localhost','19_saladsquad','lionvert','19_rpni3_saladsquad');
             }
             $this -> pdo = $maConnexionBD -> getNouvelleConnexionPDO();
         }

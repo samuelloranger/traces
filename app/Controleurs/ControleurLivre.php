@@ -61,6 +61,7 @@ class ControleurLivre
             $id_categorie = intval($_GET["categorie"]);
         }
 
+
         /**
          * Définition du tri
          */
@@ -68,6 +69,7 @@ class ControleurLivre
         if (isset($_GET["trierPar"])) {
             $trierPar = $_GET["trierPar"];
         }
+
 
         /**
          * Définition de la page courante
@@ -77,6 +79,7 @@ class ControleurLivre
         } else {
             $numeroPage = 1;
         }
+
 
         /**
          * Définition du nombre de pages
@@ -94,23 +97,32 @@ class ControleurLivre
         } else {
             $livresParPage = 9;
         }
+
+
         /**
          * Définition du array de données à envoyer dans la page
          */
         $arrLivres = Livre::trouverParLimite(intval($numeroPage) - 1, $livresParPage, $id_categorie, $trierPar);
         foreach ($arrLivres as $livre) {
-            $livre->isbn13 = Livre::ISBNToEAN($livre->isbn);
+            $livre->isbn13 = Util::ISBNToEAN($livre->isbn);
         }
 
         $nbrLivres = Livre::compter($id_categorie);
         $nombreTotalPages = ceil($nbrLivres / $livresParPage);
+
+
         /**
          * Définition du url présent
          */
         $stringURl = $_SERVER['REQUEST_URI'];
         $urlModif = str_replace("&page=" . $numeroPage, "", $stringURl);
 
+        /**
+         * Définition du array des catégories
+         */
         $arrCategories = Categories::trouverTout();
+
+
         /**
          * Définition de l'array retourné avec toutes les données
          */
@@ -139,7 +151,7 @@ class ControleurLivre
             header('Location: 404.php');
         }
 
-        $infosLivre->__set("isbn13", Livre::ISBNToEAN($infosLivre->__get("isbn")));
+        $infosLivre->__set("isbn13", Util::ISBNToEAN($infosLivre->__get("isbn")));
 
         $arrRecensions = Recension::trouverRecensions($infosLivre->__get("id"));
         foreach ($arrRecensions as $rescension) {

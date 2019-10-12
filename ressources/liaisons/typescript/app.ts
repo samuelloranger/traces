@@ -1,3 +1,3 @@
-import {MenuMobile} from "./MenuMobile";
+import {Menu} from "./Menu";
 
-const menuMobile = new MenuMobile();
+const menuMobile = new Menu();

@@ -1,6 +1,6 @@
-define(["require", "exports", "./MenuMobile"], function (require, exports, MenuMobile_1) {
+define(["require", "exports", "./Menu"], function (require, exports, Menu_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var menuMobile = new MenuMobile_1.MenuMobile();
+    var menuMobile = new Menu_1.Menu();
 });
 //# sourceMappingURL=app.js.map
