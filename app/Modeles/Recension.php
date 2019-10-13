@@ -21,12 +21,13 @@ class Recension{
 
     }
 
-
     public static function trouverRecensionsLivre($idLivre){
         $pdo = App::getInstance() -> getPDO();
 
         //Requête SQL
         $sql = "SELECT * FROM recensions WHERE livre_id = :idLivre LIMIT 4";
+
+        $pdo = App::getInstance() -> getPDO();
 
         //On prépare la requête
         $requetePreparee = $pdo -> prepare($sql);
@@ -41,13 +42,11 @@ class Recension{
         $requetePreparee -> execute();
 
         // Récupérer une seule occurrence à la fois
-        $arrHonneurs = $requetePreparee -> fetchAll();
+        $arrRecensions = $requetePreparee -> fetchAll();
 
-        return $arrHonneurs;
-    }
+        shuffle($arrRecensions);
 
-    public function getDescriptionNettoyee():string{
-        return strip_tags($this -> description);
+        return $arrRecensions;
     }
 
     public function __get($property) {

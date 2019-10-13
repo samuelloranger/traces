@@ -1,6 +1,318 @@
 /**
- * @author Nom Prénom <courriel>
+ * @author Samuel Loranger
  */
-header{
+.header{
+  background-color: $GRIS_FONCE;
+  margin-bottom: 25px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  transition: 0.50s ease-in-out;
+  min-height: 0;
 
+  &--transparent{
+    background: rgb(68,68,68);
+    background: linear-gradient(180deg, rgba(68,68,68,0.2007177871148459) 67%, rgba(68,68,68,0) 100%);
+  }
+
+  &--menuMobileOuvert{
+    min-height: 100%;
+  }
+
+  .btnSeConnecter{
+    border: 2px solid $PEAU;
+    border-radius: 25px;
+    padding: 5px 10px;
+    height: 40px;
+    text-align: center;
+    width: 250px;
+    margin: 25% auto 0 auto;
+
+    @media(min-width: $DESKTOP-NORMAL){
+      width: 150px;
+      margin: 0;
+    }
+  }
+
+  /**
+   * CONTENEUR DU HEADER
+   */
+  .conteneur-header{
+    padding: 8px 2px;
+    display: flex;
+
+    @media(min-width: $DESKTOP-NORMAL){
+      padding: 22px 15px 22px 10px;
+    }
+
+    /**
+     * CONTENEUR NAVIGATIO
+     */
+    .navigation{
+      display: flex;
+      position: relative;
+
+      /**
+       * EN-TÊTE MODE MOBILE
+       */
+      &__mobile{
+        @media(min-width: 850px){
+          display: none;
+        }
+
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        /**
+          * SECTION DU HAUT DU HADER MOBILE
+          */
+        &__top{
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          position: relative;
+
+          .logoTraces{
+            width: 38%;
+            transition: 0.15s ease-in-out;
+            display: flex;
+            justify-content: center;
+            opacity: 1;
+
+            &--petit{
+              width: 30%;
+            }
+
+            &--cache{
+              opacity: 0;
+            }
+
+            img{
+              max-width: 100%;
+            }
+          }
+
+          .zoneIcones{
+            width: 30%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            transition: 0.15s ease-in-out;
+
+            &--inactif{
+              width: 20%;
+            }
+
+            .icone{
+              display: block;
+              width: 32px;
+              height: 32px;
+              background-size: contain;
+              background-repeat: no-repeat;
+              transition: 0.15s ease-in-out;
+              opacity: 1;
+
+              &--inactif{
+                opacity: 0;
+                pointer-events: none;
+              }
+
+              &__panier{
+                background-image: url("../images/icones/icone-panier.svg");
+              }
+
+              &__rechercher{
+                background-image: url("../images/icones/icone-loupe.svg");
+              }
+            }
+          }
+
+          .zoneLangue{
+            position: absolute;
+            top: 35%;
+            right: 10px;
+            transition: 0.15s ease-in-out;
+
+            &--inactif{
+              top: -50px;
+            }
+
+            a{
+              color: $PEAU;
+              text-transform: uppercase;
+            }
+          }
+
+        }
+
+        &__menu{
+          position: relative;
+          transform-origin: top;
+          overflow: hidden;
+
+          &--ferme{
+            height: 0;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: 0.15s ease-out;
+          }
+
+          &--ouvert{
+            //height: 200vw;
+            transform: scaleY(1);
+            transition: 0.25s ease-in;
+          }
+
+
+          h2{
+            width: 90%;
+            text-align: center;
+            margin: 0 auto;
+            color: $PEAU;
+            padding: 5% 0;
+            border-bottom: 1px solid $PEAU;
+            font-family: $policeTitres;
+            text-transform: uppercase;
+          }
+
+          .conteneurMenu{
+            &__menu{
+              margin-top: 10%;
+              list-style-type: none;
+              padding: 0;
+
+              li{
+                text-align: center;
+                margin-bottom: 10%;
+
+                a{
+                  color: $PEAU;
+                  text-transform: uppercase;
+                }
+              }
+            }
+          }
+        }
+
+      }
+
+      /**
+       * EN-TÊTE MODE DESKTOP
+       */
+      &__desktop{
+        @media(max-width: 850px){
+          display: none;
+        }
+
+        justify-content: space-between;
+        width: 100%;
+        max-height: 40px;
+
+        .logoTraces{
+          width: 8%;
+          transition: 0.50s ease-in-out;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          top: -18px;
+          left: 0;
+
+          &--cache{
+            left: -240px;
+          }
+
+          img{
+            max-width: 100%;
+          }
+
+         }
+
+        /**
+         * Conteneur du menu
+         */
+        .conteneurMenu{
+          width: 100%;
+          display: flex;
+          flex-direction: column-reverse;
+          padding-left: 10%;
+          transition: 0.50s ease-in-out;
+
+          &--grand{
+            padding-left: 0;
+          }
+
+          &__menu{
+            list-style-type: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+            height: 100%;
+            padding: 0 20px;
+
+            li{
+              @include fontSize(13px);
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+
+              @media(min-width: $DESKTOP-NORMAL){
+                @include fontSize(14px);
+              }
+
+              @media(min-width: $DESKTOP-LARGE){
+                @include fontSize(16px);
+              }
+
+              a{
+                color: $BEIGE;
+                text-transform: uppercase;
+                transition: 0.15s ease-in-out;
+                text-decoration: none;
+
+                &:hover{
+                  color: white;
+                  text-decoration: none;
+                }
+              }
+
+              .icone{
+                width: 25px;
+                height: 25px;
+                display: block;
+                background-size: contain;
+                background-repeat: no-repeat;
+                transition: 0.15s ease-in-out;
+
+                @media(min-width: $DESKTOP-LARGE){
+                  width: 30px;
+                  height: 30px;
+                }
+
+                &__rechercher{
+                  background-image: url("../images/icones/icone-loupe.svg");
+
+                  &:hover{
+                    background-image: url("../images/icones/icone-loupe-white.svg");
+                  }
+                }
+
+                &__panier{
+                  background-image: url("../images/icones/icone-panier.svg");
+
+                  &:hover{
+                    background-image: url("../images/icones/icone-panier-white.svg");
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
 }

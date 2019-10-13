@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App;
 
 use App\Controleurs\ControleurLivre;
+use App\Controleurs\ControleurPanier;
 use App\Controleurs\ControleurSite;
+use App\Session\Session;
+use App\Session\SessionPanier;
 use \PDO;
 use eftec\bladeone\BladeOne;
 
@@ -14,6 +17,10 @@ class App
     private static $instance = null;
     private $pdo = null;
     private $blade = null;
+    private $cookie = null;
+    private $session = null;
+    private $panier = null;
+    private $monControleur = null;
 
     private function __construct()
     {
@@ -29,8 +36,9 @@ class App
 
     public function demarrer():void
     {
-        $this->configurerEnvironnement();
-        $this->routerLaRequete();
+        $this -> getSession() -> demarrer();
+        $this -> configurerEnvironnement();
+        $this -> routerLaRequete();
     }
 
     private function configurerEnvironnement():void
@@ -38,9 +46,11 @@ class App
         if($this->getServeur() === 'serveur-local'){
             error_reporting(E_ALL | E_STRICT);
         }
+
         date_default_timezone_set('America/Montreal');
         setlocale(LC_TIME, "fr_CA");
-
+        setlocale(LC_ALL, "fr_CA");
+        setlocale(LC_MONETARY, "fr_CA.UTF-8");
     }
 
     public function getPDO():PDO
@@ -52,7 +62,7 @@ class App
             {
                 $maConnexionBD = new ConnexionBD('localhost','traces','traces_mdp','traces');
             }else if($this -> getServeur() === 'serveur-production'){
-                $maConnexionBD = new ConnexionBD('timunix2.cegep-ste-foy.qc.ca','19_saladsquad','lionvert','19_rpni3_saladsquad');
+                $maConnexionBD = new ConnexionBD('localhost','19_saladsquad','lionvert','19_rpni3_saladsquad');
             }
             $this -> pdo = $maConnexionBD -> getNouvelleConnexionPDO();
         }
@@ -70,6 +80,26 @@ class App
         return $this->blade;
     }
 
+    public function getCookie(){
+        if($this -> cookie == null){
+            $this -> cookie = new Cookie();
+        }
+        return $this -> cookie;
+    }
+
+    public function getPanier(){
+        if($this -> panier == null){
+            $this -> panier = new SessionPanier();
+        }
+        return $this -> panier;
+    }
+
+    public function getSession(){
+        if($this -> session == null){
+            $this -> session = new Session();
+        }
+        return $this -> session;
+    }
 
     public function getServeur(): string
     {
@@ -127,10 +157,27 @@ class App
                     $this -> monControleur -> catalogue();
                     break;
                 case "fiche":
-                    $this -> monControleur -> livre();
+                    $this -> monControleur -> fiche();
+                    break;
+                case "ajoutPanier":
+                    $this -> monControleur -> ajoutPanier();
                     break;
                 default:
                     echo 'Erreur 404';
+            }
+        }
+        else if($controleur === "panier"){
+            $this->monControleur = new ControleurPanier();
+            switch($action){
+                case "supprimerItem":
+                    $this->monControleur->supprimerItem();
+                    break;
+                case "updateItem":
+                    $this->monControleur->updateItem();
+                    break;
+                case "panier":
+                    $this->monControleur->panier();
+                    break;
             }
         }
         else{

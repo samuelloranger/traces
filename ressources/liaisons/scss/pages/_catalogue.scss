@@ -1,0 +1,235 @@
+.catalogue {
+  //&__affichage {
+  //  display: none;
+  //
+  //  @media(min-width: $DESKTOP-NORMAL) {
+  //    display: flex;
+  //    flex-wrap: wrap;
+  //  }
+  //}
+
+  &__auteurs {
+    list-style-type: none;
+    color: $BLANC;
+    font-size: 18px;
+    padding-left: 15px;
+    @media(min-width: $DESKTOP-NORMAL) {
+      color: $BEIGE;
+    }
+
+  }
+
+  &__btn {
+    background-color: $TURQUOISE;
+    color: white;
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &--ajouterPanier {
+      margin: 10px;
+      display: inline-block;
+
+      &:hover {
+        background-color: darken($TURQUOISE, 5);
+        color: $BLANC;
+      }
+    }
+
+    &--categories {
+      margin: 8px;
+
+      &:hover {
+        color: white;
+        background-color: darken($TURQUOISE, 5);
+      }
+    }
+
+    &--enSavoirPlus {
+      color: black;
+      background-color: $PEAU;
+      margin: 10px;
+      display: inline-block;
+
+      &:hover {
+        color: black;
+        background-color: darken($PEAU, 5);
+      }
+    }
+
+    &--reinitialiser {
+      color: white;
+      width: 70%;
+      text-align: center;
+      margin-left: 15%;
+      margin-top: 5%;
+      margin-bottom: 5%;
+
+      &:hover {
+        color: white;
+        background-color: darken($TURQUOISE, 5);
+      }
+    }
+  }
+
+  &__categories {
+    background-color: #EEEEEE;
+    display: none;
+
+    &__contenu {
+      margin-left: 5%;
+    }
+
+    @media(min-width: $DESKTOP-NORMAL) {
+      display: inline;
+    }
+
+    &__titre {
+      padding: 10%;
+    }
+
+    &__liste {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 10%;
+
+      &__item {
+        margin-bottom: 5%;
+      }
+    }
+
+    &__lien {
+      color: black;
+
+      &:hover {
+        color: $ROUGE;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__couverture {
+    width: 100%;
+  }
+
+  &__lesLivres {
+
+  }
+
+  &__lien {
+    padding-left: 10px;
+    color: $ROUGE;
+    text-decoration: underline;
+
+    &--actif {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+      text-decoration: none;
+    }
+  }
+
+  &__livre {
+    list-style-type: none;
+    background-color: $GRIS_FONCE;
+    width: 100%;
+    margin-bottom: 5%;
+    height: 350px;
+
+    &__titreEtAuteur {
+      padding-left: 5%;
+      padding-top: 5%;
+    }
+
+    &__boutons {
+      display: grid;
+      text-align: center;
+      margin: 5% 5%;
+    }
+  }
+
+  &__nbParPages {
+    font-size: 16px;
+    padding-left: 5%;
+  }
+
+  &__prix {
+    font-size: 42px;
+    color: white;
+  }
+
+  &__rechercher {
+    display: none;
+    @media (min-width: $DESKTOP-NORMAL) {
+      display: inline;
+    }
+  }
+
+  &__titre {
+    color: white;
+    font-size: 24px;
+
+    &:hover {
+      color: $ROUGE;
+      text-decoration: none;
+    }
+
+  }
+
+  &__trier {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding-left: 5%;
+
+    & label {
+      font-size: 14px;
+      padding-right: 10px;
+
+    }
+  }
+
+}
+
+// CATÉGORIES
+.dropbtn {
+  display: inline;
+  background-color: $TURQUOISE;
+  color: white;
+  padding: 10px 32px;
+  font-size: 16px;
+  border: none;
+  border-radius: 50px;
+  @media (min-width: $DESKTOP-NORMAL) {
+    display: none;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $GRIS_PALE;
+  min-width: 360px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.show {
+  display: block;
+}

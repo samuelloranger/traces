@@ -90,8 +90,8 @@
 }
 // Mixin qui inclus la solution de repli en pixel suivi par la valeur calculée en rem
 @mixin fontSize($size) {
-    font-size: $size;
-    font-size: calculateRem($size);
+    font-size: $size !important;
+    font-size: calculateRem($size) !important;
 }
 
 //Pour UTILISER:

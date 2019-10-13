@@ -1,5 +1,5 @@
 /**
- * @author Samuel Loranger <samuelloranger@gmail.com>
+ * @authors: Samuel Loranger <samuelloranger@gmail.com>, Olivier Papineau <olivier.12.papineau@gmail.com>
  * ------------------
  * TABLE DES MATIÈRES
  * ------------------
@@ -11,27 +11,34 @@
 /** Polices de caractères **/
 
 @font-face {
-  font-family: "Police-Primaire"; src: url('../chemin-acces.ttf') format('truetype');
+  font-family: 'Playfair Display', serif;
 }
 
 @font-face {
-  font-family: "Police-Secondaire"; src: url('../chemin-acces.ttf') format('truetype');
+  font-family: 'Lato', sans-serif;
 }
 
-$policeTitres: "Kanit-Bold", Arial-Black, sans-serif;
-$policeCorps: "Kanit-Regular", Arial, serif;
+$policeTitres: "Playfair Display", Arial-Black, sans-serif;
+$policeCorps: "Lato", Arial, serif;
 
 /** Palette de couleurs **/
 // Au besoin utiliser http://chir.ag/projects/name-that-color pour nommer les couleurs
 
 //Couleurs perso
-$rouge: #EB3125;
-$gris: #707070;
-$vert: #00C000;
+$PEAU: #FFE9D0;
+$BEIGE: #E9B693;
+$GRIS_PALE: #EEE;
+$TURQUOISE: #008571;
+$BLANC: #FFF;
+$GRIS_FONCE: #444;
+$ROUGE: #BC441E;
 
 //Couleurs de base
 $noir: #000;
 $blanc: #fff;
+$rouge: #EB3125;
+$gris: #707070;
+$vert: #00C000;
 
 /** Points de rupture **/
 /* tablet, landscape iPad, lo-res laptops ands desktops */
@@ -39,3 +46,9 @@ $tablette : 600px;
 
 /* hi-res laptops and desktops */
 $desktop : 1000px;
+
+/* Points de rupture pour Bootstrap */
+$DESKTOP-LARGE: 1200px;
+$DESKTOP-NORMAL: 992px;
+$TABLETTE: 768px;
+$MOBILE: 576px;
