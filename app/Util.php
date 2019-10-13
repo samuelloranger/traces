@@ -84,8 +84,10 @@ class Util {
      * @return string - retourne le montant d'argent formater
      */
     public static function formaterArgent(float $prix):string{
-        $moneyFormatter = new NumberFormatter('fr_CA', NumberFormatter::CURRENCY);
-        $prixFormate = $moneyFormatter->formatCurrency($prix, "CAD");
+//        $moneyFormatter = new NumberFormatter('fr_CA', NumberFormatter::CURRENCY);
+//        $prixFormate = $moneyFormatter->formatCurrency($prix, "CAD");
+
+        $prixFormate = number_format($prix, 2) . " $";
         return $prixFormate;
     }
 }

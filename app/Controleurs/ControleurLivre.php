@@ -150,7 +150,7 @@ class ControleurLivre
         }
 
         //Infos du livre
-        $infosLivre -> __set("isbn", Util::ISBNToEAN($infosLivre -> __get("isbn")));
+        $infosLivre -> __set("isbn13", Util::ISBNToEAN($infosLivre -> __get("isbn")));
         $infosLivre -> __set("description", Util::couperParagraphe($infosLivre -> __get("description")));
 
 
@@ -165,7 +165,7 @@ class ControleurLivre
         //Honneurs
         $arrHonneurs = Honneur::trouverHonneursLivre($infosLivre->__get("id"));
         foreach ($arrHonneurs as $honneur) {
-            $honneur->description = Util::couperParagraphe($honneur->description);
+            $honneur->description = Util::couperParagraphe($honneur->description, 200);
         }
 
         $arrInfos = array_merge(array("livre" => $infosLivre),

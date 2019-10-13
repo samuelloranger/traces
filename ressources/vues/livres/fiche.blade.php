@@ -54,7 +54,10 @@
         </div>
 
         <div class="infosSecondaires row">
-            <p class="infos__description col-sm-12 col-md-6">{{ $livre -> description }}</p>
+            <div class="infos__description col-sm-12 col-md-6">
+                <h2>Résumé</h2>
+                <p>{{ $livre -> description }}</p>
+            </div>
 
             <div class="col-md-1"></div>
 
@@ -99,7 +102,7 @@
 
             <div @if(count($arrRecensions) > 0) class="infosTerciaires__zoneDroite col-sm-12 col-md-5" @else class="infosTerciaires__zoneDroite col-sm-12 col-md-12" @endif>
                 @if(count($arrHonneurs) > 0)
-                    <div class="zoneReview col-md-6">
+                    <div class="zonePrix">
                         <h2>Prix remportés</h2>
                         @foreach($arrHonneurs as $honneur)
                             <div class="review">
@@ -108,14 +111,14 @@
                                 <p class="review__description">{{ $recension -> description }}</p>
                                 <p>{{ $recension -> nom_journaliste }}, {{ $recension -> nom_media }}</p>
                                 <h3 class="review__titre">{{ $honneur -> nom }}</h3>
-                                <p class="review__description">{{ $honneur -> getDescriptionNettoyee() }}</p>
+                                <p class="review__description">{{ $honneur -> description }}</p>
                             </div>
                         @endforeach
                     </div>
                 @endif
 
                 <div class="zoneCommentaires">
-                    <h2>Commentaires</h2>
+                    <h2>Commentaires de lecteurs</h2>
                     <div class="commentaire">
                         <h3>Adoré ce livre!</h3>
                         <p class="auteur">Samuel Loranger</p>

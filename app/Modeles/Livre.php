@@ -204,7 +204,7 @@ class Livre
         return Util::formaterArgent(floatval($this->prix));
     }
 
-    public function getImageUrl($format = "carre"): string{
+    public function getImageUrl($format = "rectangle"): string{
         if ($format === "carre") {
             $url = "liaisons/images/couvertures-livres/L" . Util::ISBNToEAN($this->isbn13) . "1_carre.jpg";
         } else {

@@ -32,6 +32,7 @@
 
             <p>Sous-total: {{ $montantSousTotal }}</p>
             <p>Livraison: {{ $fraisLivraison }}</p>
+            <p>Taxes: {{ $montantTPS }}</p>
             <p>Total: {{ $montantTotal }}</p>
         @else
             <h2>Le panier est vide.</h2>

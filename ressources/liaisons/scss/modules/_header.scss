@@ -57,7 +57,7 @@
        * EN-TÊTE MODE MOBILE
        */
       &__mobile{
-        @media(min-width: 850px){
+        @media(min-width: 1000px){
           display: none;
         }
 
@@ -202,7 +202,7 @@
        * EN-TÊTE MODE DESKTOP
        */
       &__desktop{
-        @media(max-width: 850px){
+        @media(max-width: 1000px){
           display: none;
         }
 
