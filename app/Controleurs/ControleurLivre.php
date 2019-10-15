@@ -19,7 +19,7 @@ class ControleurLivre
         $this->blade = App::getInstance()->getBlade();
     }
 
-    public function ajoutPanier(){
+    public function ajoutPanier($redirection = "ficheLivre"){
         if(isset($_GET["isbn"]) && isset($_GET["qte"])){
             $isbn = $_GET["isbn"];
             $qte = intval($_GET["qte"]);
@@ -28,7 +28,15 @@ class ControleurLivre
             App::getInstance()->getPanier()->ajouterItem($livre, $qte);
         }
 
-        header("Location: index.php?controleur=livre&action=fiche&isbn=" . $isbn);
+        if($redirection == "catalogue"){
+            header("Location: index.php?controleur=livre&action=catalogue");
+        }
+        elseif($redirection == "accueil"){
+            header("Location: index.php");
+        }
+        else{
+            header("Location: index.php?controleur=livre&action=fiche&isbn=" . $isbn);
+        }
     }
 
     /**
@@ -163,9 +171,9 @@ class ControleurLivre
         }
 
         //Honneurs
-        $arrHonneurs = Honneur::trouverHonneursLivre($infosLivre->__get("id"));
-        foreach ($arrHonneurs as $honneur) {
-            $honneur->description = Util::couperParagraphe($honneur->description, 200);
+        $arrHonneurs = Honneur::trouverHonneursLivre($infosLivre -> __get("id"));
+        foreach($arrHonneurs as $honneur) {
+            $honneur->description = Util::couperParagraphe($honneur->description, 100);
         }
 
         $arrInfos = array_merge(array("livre" => $infosLivre),

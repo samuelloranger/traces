@@ -3,8 +3,8 @@
 @section('contenu')
     <div class="fiche">
         <div class="infosPrincipales row">
-            <div class="col-sm-12 col-md-3">
-                <img style="max-width: 200px" src="{{ $livre -> getImageUrl() }}" alt="Couverture du livre {{ $livre -> titre }}">
+            <div class="zoneImage col-sm-12 col-md-3">
+                <img class="zoneImage__image" style="" src="{{ $livre -> getImageUrl() }}" alt="Couverture du livre {{ $livre -> titre }}">
             </div>
 
             <div class="info__principales col-sm-12 col-md-9">
@@ -106,10 +106,6 @@
                         <h2>Prix remportés</h2>
                         @foreach($arrHonneurs as $honneur)
                             <div class="review">
-                                <p>{{ $recension -> date }}</p>
-                                <h3 class="review__titre">{{ $recension -> nom }}</h3>
-                                <p class="review__description">{{ $recension -> description }}</p>
-                                <p>{{ $recension -> nom_journaliste }}, {{ $recension -> nom_media }}</p>
                                 <h3 class="review__titre">{{ $honneur -> nom }}</h3>
                                 <p class="review__description">{{ $honneur -> description }}</p>
                             </div>
@@ -122,7 +118,7 @@
                     <div class="commentaire">
                         <h3>Adoré ce livre!</h3>
                         <p class="auteur">Samuel Loranger</p>
-                        <div class="zoneEtoiles zoneEtoiles3"></div>
+                        <div class="zoneEtoiles zoneEtoiles4"></div>
                         <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
                         <p><span class="achatVerif">Achat vérifié</span></p>
                     </div>
@@ -130,7 +126,7 @@
                     <div class="commentaire">
                         <h3>Adoré ce livre!</h3>
                         <p class="auteur">Zachary Nicol</p>
-                        <div class="zoneEtoiles zoneEtoiles2"></div>
+                        <div class="zoneEtoiles zoneEtoiles5"></div>
                         <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
                         <p><span class="achatVerif">Achat vérifié</span></p>
                     </div>
@@ -138,7 +134,7 @@
                     <div class="commentaire">
                         <h3>Adoré ce livre!</h3>
                         <p class="auteur">Olivier Papineau</p>
-                        <div class="zoneEtoiles zoneEtoiles5"></div>
+                        <div class="zoneEtoiles zoneEtoiles3"></div>
                         <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
                         <p><span class="achatVerif">Achat vérifié</span></p>
                     </div>

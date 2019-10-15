@@ -19,15 +19,20 @@ export class CommentairesEtoiles {
             let nbrEtoilesPleines = Number(classeNbr[1].replace("zoneEtoiles", ""));
 
             //Si le nombre d'elements est plus élevé que 5, on fixe à 5
-            if(nbrEtoilesPleines > 5) nbrEtoilesPleines = 5;
+            if(nbrEtoilesPleines > 5)
+                nbrEtoilesPleines = 5;
 
             //On boucle nbrElements fois pour ajouter l'élément
             for(let intCtr = 0; intCtr < nbrEtoilesPleines; intCtr++){
                 //On creer l'element span, on lui insere une classe
                 const elementEtoile:HTMLElement = document.createElement("span");
-                elementEtoile.classList.add("etoilePleine");
+                elementEtoile.classList.add("etoile", "etoilePleine");
 
-                /** POUR DEV AVANT CSS */elementEtoile.innerText = "Etoile pleine";
+                const elementSVG:HTMLElement = document.createElement("img");
+                elementSVG.setAttribute("src", "./liaisons/images/icones/etoile-pleine.svg");
+                elementSVG.setAttribute("alt", "Étoile pleine");
+
+                elementEtoile.appendChild(elementSVG);
 
                 //On envoie l'element dans la zone d'etoiles
                 zoneEtoile.appendChild(elementEtoile);
@@ -36,9 +41,13 @@ export class CommentairesEtoiles {
             for(let intCtr = 0; intCtr < 5 - nbrEtoilesPleines; intCtr++){
                 //On creer l'element span, on lui insere une classe
                 const elementEtoile:HTMLElement = document.createElement("span");
-                elementEtoile.classList.add("etoileVite");
+                elementEtoile.classList.add("etoile", "etoileVite");
 
-                /** POUR DEV AVANT CSS */elementEtoile.innerText = "Etoile vide";
+                const elementSVG:HTMLElement = document.createElement("img");
+                elementSVG.setAttribute("src", "./liaisons/images/icones/etoile-vide.svg");
+                elementSVG.setAttribute("alt", "Étoile pleine");
+
+                elementEtoile.appendChild(elementSVG);
 
                 //On envoie l'element dans la zone d'etoiles
                 zoneEtoile.appendChild(elementEtoile);

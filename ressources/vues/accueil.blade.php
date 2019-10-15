@@ -54,7 +54,7 @@
                             </ul>
                             <div class="nouveautes__vignette__details__boutons">
                                 <a href="index.php?controleur=livre&action=fiche&isbn={{$arrNouveautes[$indexLivre]->isbn}}" class="nouveautes__vignette__bouton_plus">EN SAVOIR PLUS</a>
-                                <a href="#" class="nouveautes__vignette__bouton_panier">AJOUTER AU PANIER</a>
+                                <a class="nouveautes__vignette__bouton_panier" href="index.php?controleur=livre&action=ajoutPanierAcccueil&isbn={{ $arrNouveautes[$indexLivre] -> isbn }}">AJOUTER AU PANIER</a>
                             </div>
                         </div>
                     </div>
@@ -89,6 +89,7 @@
                                 <h3 class="coupsCoeur__groupe__vignette__details__prix">{{$arrCoupsCoeur[$indexLivre]->prix}}$</h3>
                                 <a href="index.php?controleur=livre&action=fiche&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" class="coupsCoeur__groupe__vignette__boutons__bouton_plus">EN SAVOIR PLUS</a>
                                 <a href="#" class="coupsCoeur__groupe__vignette__boutons__bouton_panier">AJOUTER AU PANIER</a>
+                                <a class="coupsCoeur__groupe__vignette__boutons__bouton_panier" href="index.php?controleur=livre&action=ajoutPanierAcccueil&isbn={{ $arrCoupsCoeur[$indexLivre] -> isbn }}">AJOUTER AU PANIER</a>
                             </div>
                         </div>
                     </div>

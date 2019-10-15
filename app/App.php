@@ -162,6 +162,12 @@ class App
                 case "ajoutPanier":
                     $this -> monControleur -> ajoutPanier();
                     break;
+                case "ajoutPanierCatalogue":
+                    $this -> monControleur -> ajoutPanier("catalogue");
+                    break;
+                case "ajoutPanierAccueil":
+                    $this -> monControleur -> ajoutPanier("accueil");
+                    break;
                 default:
                     echo 'Erreur 404';
             }

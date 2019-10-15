@@ -90,7 +90,7 @@
             <div class="row">
                 @foreach($arrLivres as $livre)
                     <div class="catalogue__lesLivres col-md-6 col-lg-4">
-                        <img src="{{ $livre -> getImageUrl() }}" alt="Couverture du livre {{ $livre -> titre }}"
+                        <img src="{{ $livre -> getImageUrl("carre") }}" alt="Couverture du livre {{ $livre -> titre }}"
                              class="catalogue__couverture">
                         <div class="catalogue__livre">
                             <div class="catalogue__livre__titreEtAuteur">
@@ -103,11 +103,9 @@
                                 </div>
                                 <p class="catalogue__prix">{{$livre-> prix}}$</p>
                             </div>
-                            <div class="catalogue__livre__boutons"><a
-                                        class="catalogue__btn catalogue__btn--enSavoirPlus"
-                                        href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">EN
-                                    SAVOIR PLUS</a>
-                                <a class="catalogue__btn catalogue__btn--ajouterPanier" href="">AJOUTER AU PANIER</a>
+                            <div class="catalogue__livre__boutons">
+                                <a class="catalogue__btn catalogue__btn--enSavoirPlus" href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">EN SAVOIR PLUS</a>
+                                <a class="catalogue__btn catalogue__btn--ajouterPanier" href="index.php?controleur=livre&action=ajoutPanierCatalogue&isbn={{ $livre -> isbn }}">AJOUTER AU PANIER</a>
                             </div>
 
                         </div>

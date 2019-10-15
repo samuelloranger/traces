@@ -22,16 +22,22 @@ define(["require", "exports"], function (require, exports) {
                     for (var intCtr = 0; intCtr < nbrEtoilesPleines; intCtr++) {
                         //On creer l'element span, on lui insere une classe
                         var elementEtoile = document.createElement("span");
-                        elementEtoile.classList.add("etoilePleine");
-                        /** POUR DEV AVANT CSS */ elementEtoile.innerText = "Etoile pleine";
+                        elementEtoile.classList.add("etoile", "etoilePleine");
+                        var elementSVG = document.createElement("img");
+                        elementSVG.setAttribute("src", "./liaisons/images/icones/etoile-pleine.svg");
+                        elementSVG.setAttribute("alt", "Étoile pleine");
+                        elementEtoile.appendChild(elementSVG);
                         //On envoie l'element dans la zone d'etoiles
                         zoneEtoile.appendChild(elementEtoile);
                     }
                     for (var intCtr = 0; intCtr < 5 - nbrEtoilesPleines; intCtr++) {
                         //On creer l'element span, on lui insere une classe
                         var elementEtoile = document.createElement("span");
-                        elementEtoile.classList.add("etoileVite");
-                        /** POUR DEV AVANT CSS */ elementEtoile.innerText = "Etoile vide";
+                        elementEtoile.classList.add("etoile", "etoileVite");
+                        var elementSVG = document.createElement("img");
+                        elementSVG.setAttribute("src", "./liaisons/images/icones/etoile-vide.svg");
+                        elementSVG.setAttribute("alt", "Étoile pleine");
+                        elementEtoile.appendChild(elementSVG);
                         //On envoie l'element dans la zone d'etoiles
                         zoneEtoile.appendChild(elementEtoile);
                     }

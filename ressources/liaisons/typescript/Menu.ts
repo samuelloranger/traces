@@ -6,6 +6,7 @@
 
 export class Menu{
     private header:HTMLElement = document.querySelector(".header");
+    private body:HTMLElement = document.querySelector("body");
     private conteneurMenu:HTMLElement = this.header.querySelector(".conteneurMenu");
     private logoTraces:Array<HTMLElement> = Array.apply(null, document.querySelectorAll(".logoTraces"));
     private btnMenu:HTMLElement = document.querySelector("#btnMenuMobile");

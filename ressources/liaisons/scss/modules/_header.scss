@@ -212,13 +212,12 @@
 
         .logoTraces{
           width: 8%;
-          transition: 0.50s ease-in-out;
+          position: absolute;
+          left: 0;
           display: flex;
           justify-content: center;
           align-items: center;
-          position: absolute;
-          top: -18px;
-          left: 0;
+          transition: 0.50s ease-in-out;
 
           &--cache{
             left: -240px;

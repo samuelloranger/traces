@@ -1,0 +1,45 @@
+/**
+ * @author Samuel Loranger <samuelloranger@gmail.com>
+ */
+
+.fiche{
+  .infos{
+    &Principales{
+      .zoneImage{
+        max-width: 200px;
+
+        &__image{
+          max-width: 100%;
+        }
+      }
+    }
+
+    &Secondaires{
+
+    }
+
+    &Terciaires{
+      &__zoneGauche{
+
+      }
+
+      &__zoneDroite{
+        .zoneCommentaires{
+          .commentaire{
+            .zoneEtoiles{
+              display: flex;
+
+              .etoile{
+                width: 32px;
+
+                img{
+                  max-width: 100%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,6 +10,7 @@ define(["require", "exports"], function (require, exports) {
         function Menu() {
             var _this = this;
             this.header = document.querySelector(".header");
+            this.body = document.querySelector("body");
             this.conteneurMenu = this.header.querySelector(".conteneurMenu");
             this.logoTraces = Array.apply(null, document.querySelectorAll(".logoTraces"));
             this.btnMenu = document.querySelector("#btnMenuMobile");

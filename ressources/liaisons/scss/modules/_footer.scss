@@ -1,6 +1,87 @@
 /**
- * @author Nom Prénom <courriel>
+ * @author Samuel Loranger <samuelloranger@gmail.com>
  */
 
-footer{
+.footer{
+  background-color: $GRIS_FONCE;
+  padding-bottom: 2%;
+
+  .container{
+    .logoTraces{
+      display: flex;
+      padding-top: 2%;
+
+      img{
+        margin: 0 auto;
+      }
+    }
+
+    .infosFooter{
+      display: flex;
+      flex-direction: column;
+
+      @media(min-width: $DESKTOP-NORMAL){
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      h2{
+        color: $PEAU;
+      }
+
+      &__reseauxSociaux{
+        @media(max-width: $DESKTOP-NORMAL){
+          margin-bottom: 5%;
+
+        }
+
+        &__liste{
+          display: flex;
+          justify-content: space-between;
+          list-style-type: none;
+          padding-left: 0;
+          width: 256px;
+
+
+          &__item{
+            display: block;
+            transform: scale(0.9);
+            transition: 0.25s ease-in-out;
+
+            &:hover{
+              transform: scale(1);
+            }
+          }
+        }
+      }
+
+      &__liensUtiles{
+        &__liste{
+          list-style-type: none;
+          padding: 0;
+
+          @media(min-width: $DESKTOP-NORMAL){
+            text-align: right;
+          }
+
+          a{
+            color: $BLANC;
+            transition: 0.25s ease-in-out;
+
+            &:hover{
+              color: $BEIGE;
+            }
+          }
+        }
+      }
+    }
+
+    .credits{
+      display: block;
+      width: 100%;
+      color: $PEAU;
+      text-align: center;
+      padding-top: 3%;
+    }
+  }
 }
