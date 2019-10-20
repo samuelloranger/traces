@@ -11,6 +11,10 @@
       display: flex;
       padding-top: 2%;
 
+      @media(max-width: 800px){
+        padding: 5%;
+      }
+
       img{
         margin: 0 auto;
       }
@@ -30,9 +34,8 @@
       }
 
       &__reseauxSociaux{
-        @media(max-width: $DESKTOP-NORMAL){
-          margin-bottom: 5%;
-
+        @media(max-width: 500px){
+          margin: 12% 0;
         }
 
         &__liste{
@@ -56,6 +59,10 @@
       }
 
       &__liensUtiles{
+        @media(max-width: $DESKTOP-NORMAL){
+          margin: 12% 0;
+        }
+
         &__liste{
           list-style-type: none;
           padding: 0;

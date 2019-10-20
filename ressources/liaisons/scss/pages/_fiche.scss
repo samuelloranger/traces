@@ -6,10 +6,104 @@
   .infos{
     &Principales{
       .zoneImage{
-        max-width: 200px;
+        width: 100%;
+
+        @media(max-width: $DESKTOP-NORMAL){
+          margin-bottom: 4%;
+        }
 
         &__image{
           max-width: 100%;
+        }
+      }
+
+      .zoneInfos {
+        &__infosLivre{
+          &__auteurs {
+            color: $ROUGE;
+            @include fontSize(22px);
+          }
+          &__titre{
+            @include fontSize(38px);
+            margin-bottom: 3%;
+          }
+
+          &__sousTitre{
+            @include fontSize(26px);
+            margin-bottom: 3%;
+          }
+        }
+
+        &__zonePanier{
+          background-color: $GRIS_PALE;
+          margin: 0 0 4% 0;
+          padding: 4%;
+          border-radius: 35px;
+
+          &__prixDispo{
+            font-weight: bold;
+
+            .prix{
+              @include fontSize(35px);
+            }
+
+            .disponibilite{
+              color: $TURQUOISE;
+            }
+          }
+
+          &__optionsPanier{
+            .options{
+              label{
+                @include fontSize(18px);
+                font-weight: bold;
+              }
+
+              select{
+                border-radius: 35px;
+                padding: 2% 5%;
+                width: 100%;
+                margin-bottom: 5%;
+              }
+            }
+
+            .zoneBouton{
+              align-items: center;
+
+              .btnPanier{
+                width: 100%;
+                padding: 4%;
+                color: white;
+                background-color: $TURQUOISE;
+                border-radius: 35px;
+                margin: 18% auto 0 auto;
+                @include fontSize(18px);
+
+                @media(min-width: 360px){
+                  @include fontSize(22px);
+                }
+
+                &::after{
+                  content: "";
+                  display: inline-block;
+                  background-image: url("../../liaisons/images/icones/shopping-cart.svg");
+                  width: 22px;
+                  height: 23px;
+                  margin-left: 5px;
+                }
+              }
+
+              .texteFraisLivraison{
+                @include fontSize(12px);
+                font-weight: bold;
+                margin-top: 2%;
+
+                @media(min-width: $DESKTOP-NORMAL){
+                  margin-left: 5%
+                }
+              }
+            }
+          }
         }
       }
     }

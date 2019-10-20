@@ -7,25 +7,25 @@
                 <img class="zoneImage__image" style="" src="{{ $livre -> getImageUrl() }}" alt="Couverture du livre {{ $livre -> titre }}">
             </div>
 
-            <div class="info__principales col-sm-12 col-md-9">
-                <div class="infosPrincipales">
-                        <p class="infosPrincipales__auteurs">
+            <div class="zoneInfos col-sm-12 col-md-9">
+                <div class="zoneInfos__infosLivre">
+                        <p class="zoneInfos__infosLivre__auteurs">
                             @foreach($livre -> getAuteurs() as $auteur)
                                 {{ $auteur -> getNomPrenom() }}
                             @endforeach
                         </p>
 
-                    <h1 class="infosPrincipales__titre">{{ $livre -> titre }}</h1>
-                    <h2 class="infosPrincipales__sousTitre">{{ $livre -> sous_titre }}</h2>
+                    <h1 class="zoneInfos__infosLivre__titre">{{ $livre -> titre }}</h1>
+                    <h2 class="zoneInfos__infosLivre__sousTitre">{{ $livre -> sous_titre }}</h2>
                 </div>
 
-                <div class="zonePanier row">
-                    <div class="zonePanier__prix col-sm-12 col-md-3">
-                        <p>{{ $livre -> prix }}$</p>
-                        <p>{{ $livre -> getParution() }}</p>
+                <div class="zoneInfos__zonePanier row">
+                    <div class="zoneInfos__zonePanier__prixDispo col-sm-12 col-md-3">
+                        <p class="prix">{{ $livre -> getPrix() }}*</p>
+                        <p class="disponibilite">{{ $livre -> getParution() }}</p>
                     </div>
 
-                    <form class="zonePanier__optionsPanier col-sm-12 col-md-9 row">
+                    <form class="zoneInfos__zonePanier__optionsPanier col-sm-12 col-md-9 row">
                         <div class="options col-sm-12 col-md-6">
                             <input type="hidden" name="isbn" value="{{ $livre -> isbn }}" hidden>
                             <input type="hidden" name="controleur" value="livre" hidden>
@@ -47,7 +47,11 @@
                             </select>
                         </div>
 
-                        <input type="submit" class="zonePanier__bouton btn btnPanier col-sm-12 col-md-6" value="Ajouter au panier">
+                        <div class="zoneBouton col-sm-12 col-md-6">
+                            <button class="btn btnPanier">Ajouter au panier</button>
+                            <p class="texteFraisLivraison">* Frais de livraison calculés au panier</p>
+                        </div>
+
                     </form>
                 </div>
             </div>

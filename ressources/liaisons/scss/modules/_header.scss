@@ -3,13 +3,14 @@
  */
 .header{
   background-color: $GRIS_FONCE;
-  margin-bottom: 25px;
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 999;
   transition: 0.50s ease-in-out;
   min-height: 0;
+
+
 
   &--transparent{
     background: rgb(68,68,68);
@@ -211,13 +212,23 @@
         max-height: 40px;
 
         .logoTraces{
-          width: 8%;
+          width: 115px;
           position: absolute;
+          top: 0px;
           left: 0;
           display: flex;
           justify-content: center;
           align-items: center;
           transition: 0.50s ease-in-out;
+
+          @media(min-width: 1125px){
+            width: 124px;
+            top: -8px;
+          }
+
+          @media(min-width: 1400px){
+            width: 148px;
+          }
 
           &--cache{
             left: -240px;
