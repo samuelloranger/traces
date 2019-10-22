@@ -1,0 +1,63 @@
+.panier{
+  &__items{
+    border: 2px solid #000;
+    padding: 2% 0;
+    margin-bottom: 5%;
+
+    &__item{
+      border-bottom: 2px solid #000;
+
+      .infosLivre{
+        &__titreLivre{
+          font-family: $policeTitres;
+          font-weight: bold;
+          @include fontSize(24px);
+        }
+
+        &__auteurLivre{
+
+        }
+      }
+
+      .formLivre{
+        form{
+          display: flex;
+          flex-direction: column;
+
+          select{
+            margin-bottom: 4%;
+          }
+
+          #updatePanier{
+            color: #fff;
+            padding: 5% 0;
+            background-color: $TURQUOISE;
+            border: none;
+            border-radius: 35px;
+          }
+        }
+      }
+
+      .prixLivre{
+
+      }
+
+      &:last-child{
+        border-bottom: none;
+      }
+    }
+  }
+
+  &__infosPanier{
+    position: relative;
+
+    .contenu{
+      position: sticky;
+      top: 12%;
+
+      @media(min-width: $DESKTOP-NORMAL){
+
+      }
+    }
+  }
+}
