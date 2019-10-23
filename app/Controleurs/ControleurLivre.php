@@ -19,25 +19,6 @@ class ControleurLivre
         $this->blade = App::getInstance()->getBlade();
     }
 
-    public function ajoutPanier($redirection = "ficheLivre"){
-        if(isset($_GET["isbn"]) && isset($_GET["qte"])){
-            $isbn = $_GET["isbn"];
-            $qte = intval($_GET["qte"]);
-
-            $livre = Livre::trouverParIsbn($isbn);
-            App::getInstance()->getPanier()->ajouterItem($livre, $qte);
-        }
-
-        if($redirection == "catalogue"){
-            header("Location: index.php?controleur=livre&action=catalogue");
-        }
-        elseif($redirection == "accueil"){
-            header("Location: index.php");
-        }
-        else{
-            header("Location: index.php?controleur=livre&action=fiche&isbn=" . $isbn);
-        }
-    }
 
     /**
      * Fonction index qui call la view

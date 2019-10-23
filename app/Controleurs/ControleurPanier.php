@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
+use App\Modeles\Livre;
 use App\Util;
 
 class ControleurPanier{
@@ -13,6 +14,35 @@ class ControleurPanier{
     public function __construct(){
         $this->blade = App::getInstance()->getBlade();
         $this->panier = App::getInstance()->getPanier();
+    }
+
+    public function ajoutPanier(){
+        if(isset($_GET["isbn"]) && isset($_GET["qte"])){
+            $isbn = $_GET["isbn"];
+            $qte = intval($_GET["qte"]);
+
+            $livre = Livre::trouverParIsbn($isbn);
+            App::getInstance()->getPanier()->ajouterItem($livre, $qte);
+        }
+
+        //Validation de la redirection
+        if(isset($_GET["redirection"])){
+            $redirection = $_GET["redirection"];
+        }
+
+        //Redirection selon l'emplacement de la fonction appellée
+        if($redirection == "catalogue"){
+            header("Location: index.php?controleur=livre&action=catalogue");
+        }
+        elseif($redirection == "accueil"){
+            header("Location: index.php");
+        }
+        elseif($redirection == "fiche"){
+            header("Location: index.php?controleur=livre&action=fiche&isbn=" . $isbn);
+        }
+        else{
+            header("Location: index.php?controleur=panier&action=panier");
+        }
     }
 
     public function updateItem(){
@@ -30,7 +60,12 @@ class ControleurPanier{
 
 
         if(Util::validerISBN($isbn)){
-            $this->panier->setQuantiteItem($isbn, $qte);
+            if($qte != 0){
+                $this->panier->setQuantiteItem($isbn, $qte);
+            }
+            else{
+                $this->supprimerItem();
+            }
             header("Location: index.php?controleur=panier&action=panier");
         }
         else{

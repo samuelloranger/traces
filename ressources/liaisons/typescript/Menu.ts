@@ -5,6 +5,7 @@
  */
 
 export class Menu{
+    //Éléments HTML
     private header:HTMLElement = document.querySelector(".header");
     private body:HTMLElement = document.querySelector("body");
     private conteneurMenu:HTMLElement = this.header.querySelector(".conteneurMenu");
@@ -14,6 +15,9 @@ export class Menu{
     private zoneLangue:HTMLElement = document.querySelector(".zoneLangue");
     private zoneIcones:HTMLElement = document.querySelector(".navigation__mobile__top .zoneIcones");
     private arrIcones:Array<HTMLElement> = Array.apply(null, this.zoneIcones.querySelectorAll(".icone"));
+
+    //Éléments personnalisation
+    private hauteurChangementMenuAccueil = 525;
 
     private urlParams:URLSearchParams = new URLSearchParams(window.location.search);
 
@@ -54,7 +58,7 @@ export class Menu{
     private gererMenuAccueil = () => {
         const height = window.pageYOffset;
 
-        if(height > 645){
+        if(height > this.hauteurChangementMenuAccueil){
             if(this.header.classList.contains("header--transparent")){
                 this.header.classList.remove("header--transparent");
                 this.conteneurMenu.classList.remove("conteneurMenu--grand")

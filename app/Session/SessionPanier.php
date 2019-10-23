@@ -20,6 +20,7 @@ class SessionPanier
     public function ajouterItem(Livre $unLivre, int $uneQte):void
     {
         $this->items = $this->getItems();
+
         $livreAjoute = new SessionItem($unLivre, $uneQte);
 
         $livreExiste = false;
@@ -30,15 +31,15 @@ class SessionPanier
         }
 
         if($livreExiste){
-            if(($this->getQuantiteItem($livreAjoute->livre->isbn) + $uneQte) <= 10){
-                $this->setQuantiteItem($livreAjoute->livre->isbn, $this->getQuantiteItem($livreAjoute->livre->isbn) + $uneQte);
+            if(($this->getQuantiteItem($livreAjoute->__get("livre")->isbn) + $uneQte) <= 10){
+                $this->setQuantiteItem($livreAjoute->__get("livre")->isbn, $this->getQuantiteItem($livreAjoute->__get("livre")->isbn) + $uneQte);
             }
             else{
-                $this->setQuantiteItem($livreAjoute->livre->isbn, 10);
+                $this->setQuantiteItem($livreAjoute->__get("livre")->isbn, 10);
             }
         }
         else{
-            $this->items[$livreAjoute->livre->isbn] = $livreAjoute;
+            $this->items[$livreAjoute->__get("livre")->isbn] = $livreAjoute;
         }
 
         //Sauvegarde du panier
@@ -59,8 +60,8 @@ class SessionPanier
     // Retourner le tableau d'items du panier
     public function getItems():array
     {
-        if(App::getInstance()->getSession()->getItem("panier") != null){
-            return App::getInstance()->getSession()->getItem("panier");
+        if($this->session->getItem("panier") != null){
+            return $this->session->getItem("panier");
         }
         else{
             return array();
@@ -153,7 +154,7 @@ class SessionPanier
     // Sauvegarder le panier en variable session nommée: panier
     public function sauvegarder():void
     {
-        App::getInstance()->getSession()->setItem("panier", $this->items);
+        $this->session->setItem("panier", $this->items);
     }
 
     // Supprimer le panier en variable session nommée: panier

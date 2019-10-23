@@ -28,8 +28,9 @@
                     <form class="zoneInfos__zonePanier__optionsPanier col-sm-12 col-md-9 row">
                         <div class="options col-sm-12 col-md-6">
                             <input type="hidden" name="isbn" value="{{ $livre -> isbn }}" hidden>
-                            <input type="hidden" name="controleur" value="livre" hidden>
+                            <input type="hidden" name="controleur" value="panier" hidden>
                             <input type="hidden" name="action" value="ajoutPanier" hidden>
+                            <input type="hidden" name="redirection" value="fiche" hidden>
 
                             <label for="formatLivre">Choisir un format...</label>
                             <select id="formatLivre">
@@ -42,7 +43,7 @@
                             <label for="Quantité">Quantité</label>
                             <select id="quantite" name="qte">
                                 @for ($intCtr = 1; $intCtr <= 10; $intCtr++)
-                                    <option>{{ $intCtr }}</option>
+                                    <option value="{{ $intCtr }}">{{ $intCtr }}</option>
                                 @endfor
                             </select>
                         </div>

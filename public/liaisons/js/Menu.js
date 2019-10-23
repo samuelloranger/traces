@@ -9,6 +9,7 @@ define(["require", "exports"], function (require, exports) {
     var Menu = /** @class */ (function () {
         function Menu() {
             var _this = this;
+            //Éléments HTML
             this.header = document.querySelector(".header");
             this.body = document.querySelector("body");
             this.conteneurMenu = this.header.querySelector(".conteneurMenu");
@@ -18,6 +19,8 @@ define(["require", "exports"], function (require, exports) {
             this.zoneLangue = document.querySelector(".zoneLangue");
             this.zoneIcones = document.querySelector(".navigation__mobile__top .zoneIcones");
             this.arrIcones = Array.apply(null, this.zoneIcones.querySelectorAll(".icone"));
+            //Éléments personnalisation
+            this.hauteurChangementMenuAccueil = 525;
             this.urlParams = new URLSearchParams(window.location.search);
             this.ajouterEcouteursEvements = function () {
                 _this.btnMenu.addEventListener("click", function () {
@@ -43,7 +46,7 @@ define(["require", "exports"], function (require, exports) {
             };
             this.gererMenuAccueil = function () {
                 var height = window.pageYOffset;
-                if (height > 645) {
+                if (height > _this.hauteurChangementMenuAccueil) {
                     if (_this.header.classList.contains("header--transparent")) {
                         _this.header.classList.remove("header--transparent");
                         _this.conteneurMenu.classList.remove("conteneurMenu--grand");

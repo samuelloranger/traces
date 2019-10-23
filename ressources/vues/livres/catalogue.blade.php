@@ -141,7 +141,15 @@
                             </div>
                             <div class="catalogue__livre__boutons">
                                 <a class="catalogue__btn catalogue__btn--enSavoirPlus" href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">EN SAVOIR PLUS</a>
-                                <a class="catalogue__btn catalogue__btn--ajouterPanier" href="index.php?controleur=livre&action=ajoutPanierCatalogue&isbn={{ $livre -> isbn }}">AJOUTER AU PANIER</a>
+                                <form>
+                                    <input type="hidden" name="isbn" value="{{ $livre -> isbn }}" hidden>
+                                    <input type="hidden" name="controleur" value="panier" hidden>
+                                    <input type="hidden" name="action" value="ajoutPanier" hidden>
+                                    <input type="hidden" name="qte" value="1" hidden>
+                                    <input type="hidden" name="redirection" value="catalogue" hidden>
+
+                                    <button class="catalogue__btn catalogue__btn--ajouterPanier">AJOUTER AU PANIER</button>
+                                </form>
                             </div>
 
                         </div>

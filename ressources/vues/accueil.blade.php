@@ -54,7 +54,15 @@
                             </ul>
                             <div class="nouveautes__vignette__details__boutons">
                                 <a href="index.php?controleur=livre&action=fiche&isbn={{$arrNouveautes[$indexLivre]->isbn}}" class="nouveautes__vignette__bouton_plus">EN SAVOIR PLUS</a>
-                                <a class="nouveautes__vignette__bouton_panier" href="index.php?controleur=livre&action=ajoutPanierAcccueil&isbn={{ $arrNouveautes[$indexLivre] -> isbn }}">AJOUTER AU PANIER</a>
+                                <form>
+                                    <input type="hidden" name="isbn" value="{{ $arrNouveautes[$indexLivre] -> isbn }}" hidden>
+                                    <input type="hidden" name="controleur" value="panier" hidden>
+                                    <input type="hidden" name="action" value="ajoutPanier" hidden>
+                                    <input type="hidden" name="qte" value="1" hidden>
+                                    <input type="hidden" name="redirection" value="accueil" hidden>
+
+                                    <button class="nouveautes__vignette__bouton_panier">AJOUTER AU PANIER</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -88,8 +96,15 @@
                             <div class="coupsCoeur__groupe__vignette__boutons">
                                 <h3 class="coupsCoeur__groupe__vignette__details__prix">{{$arrCoupsCoeur[$indexLivre]->prix}}$</h3>
                                 <a href="index.php?controleur=livre&action=fiche&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" class="coupsCoeur__groupe__vignette__boutons__bouton_plus">EN SAVOIR PLUS</a>
-                                <a href="#" class="coupsCoeur__groupe__vignette__boutons__bouton_panier">AJOUTER AU PANIER</a>
-                                <a class="coupsCoeur__groupe__vignette__boutons__bouton_panier" href="index.php?controleur=livre&action=ajoutPanierAcccueil&isbn={{ $arrCoupsCoeur[$indexLivre] -> isbn }}">AJOUTER AU PANIER</a>
+                                <form>
+                                    <input type="hidden" name="isbn" value="{{ $arrCoupsCoeur[$indexLivre] -> isbn }}" hidden>
+                                    <input type="hidden" name="controleur" value="panier" hidden>
+                                    <input type="hidden" name="action" value="ajoutPanier" hidden>
+                                    <input type="hidden" name="qte" value="1" hidden>
+                                    <input type="hidden" name="redirection" value="accueil" hidden>
+
+                                    <button class="coupsCoeur__groupe__vignette__boutons__bouton_panier">AJOUTER AU PANIER</button>
+                                </form>
                             </div>
                         </div>
                     </div>
