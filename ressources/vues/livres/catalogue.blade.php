@@ -87,6 +87,42 @@
                 {{--                           href="index.php?controleur=livre&action=catalogue&affichage=cartes">Cartes</a>--}}
                 {{--                    </div>--}}
             </div>
+
+{{--            <div class="coupsCoeur">--}}
+{{--                <h2>COUPS DE COEUR</h2>--}}
+{{--                <div class="coupsCoeur__groupe row">--}}
+{{--                    @for($indexLivre = 0; $indexLivre < 3; $indexLivre++)--}}
+{{--                        <div class="coupsCoeur__groupe__vignette col-md-6 col-lg-4">--}}
+{{--                            <div class="coupsCoeur__groupe__vignette__image">--}}
+{{--                                <div class="coupsCoeur__groupe__vignette__image__foreground">--}}
+{{--                                </div>--}}
+{{--                                <img src="{{$arrCoupsCoeur[$indexLivre]->getImageUrl("carre")}}" alt="">--}}
+{{--                            </div>--}}
+{{--                            <div class="coupsCoeur__groupe__vignette__details">--}}
+{{--                                <div class="coupsCoeur__groupe__vignette__details__info">--}}
+{{--                                    <h3 class="coupsCoeur__groupe__vignette__details__titre">{{$arrCoupsCoeur[$indexLivre]->titre}}</h3>--}}
+{{--                                    <ul>--}}
+{{--                                        <li>--}}
+{{--                                            <ul>--}}
+{{--                                                @foreach($arrCoupsCoeur[$indexLivre]->getAuteurs() as $auteur)--}}
+{{--                                                    <li class="coupsCoeur__groupe__vignette__details__auteur">{{$auteur->getNomPrenom()}}</li>--}}
+{{--                                                @endforeach--}}
+{{--                                            </ul>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </div>--}}
+{{--                                <div class="coupsCoeur__groupe__vignette__boutons">--}}
+{{--                                    <h3 class="coupsCoeur__groupe__vignette__details__prix">{{$arrCoupsCoeur[$indexLivre]->prix}}$</h3>--}}
+{{--                                    <a href="index.php?controleur=livre&action=fiche&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" class="coupsCoeur__groupe__vignette__boutons__bouton_plus">EN SAVOIR PLUS</a>--}}
+{{--                                    <a href="#" class="coupsCoeur__groupe__vignette__boutons__bouton_panier">AJOUTER AU PANIER</a>--}}
+{{--                                    <a class="coupsCoeur__groupe__vignette__boutons__bouton_panier" href="index.php?controleur=livre&action=ajoutPanierAcccueil&isbn={{ $arrCoupsCoeur[$indexLivre] -> isbn }}">AJOUTER AU PANIER</a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @endfor--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
             <div class="row">
                 @foreach($arrLivres as $livre)
                     <div class="catalogue__lesLivres col-md-6 col-lg-4">
