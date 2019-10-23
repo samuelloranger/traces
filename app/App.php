@@ -20,6 +20,7 @@ class App
     private $cookie = null;
     private $session = null;
     private $panier = null;
+    private $filAriane = null;
     private $monControleur = null;
 
     private function __construct()
@@ -99,6 +100,14 @@ class App
             $this -> session = new Session();
         }
         return $this -> session;
+    }
+
+    public function getFilAriane():FilAriane
+    {
+        if($this->filAriane === null){
+            $this->filAriane = new FilAriane();
+        }
+        return $this->filAriane;
     }
 
     public function getServeur(): string

@@ -25,7 +25,7 @@ class SessionPanier
 
         $livreExiste = false;
         forEach($this->items as $item){
-            if($livreAjoute->livre->isbn === $item->livre->isbn){
+            if($livreAjoute->__get("livre")->isbn === $item->livre->isbn){
                 $livreExiste = true;
             }
         }

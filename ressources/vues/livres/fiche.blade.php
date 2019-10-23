@@ -1,6 +1,8 @@
 @extends('gabarit')
 
 @section('contenu')
+    @include('fragments.filAriane')
+
     <div class="fiche">
         <div class="infosPrincipales row">
             <div class="zoneImage col-sm-12 col-md-3">
@@ -10,8 +12,8 @@
             <div class="zoneInfos col-sm-12 col-md-9">
                 <div class="zoneInfos__infosLivre">
                         <p class="zoneInfos__infosLivre__auteurs">
-                            @foreach($livre -> getAuteurs() as $auteur)
-                                {{ $auteur -> getNomPrenom() }}
+                            @foreach($livre -> getAuteurs() as $id => $auteur)
+                                {{ $auteur -> getNomPrenom() }}@if($id < count($livre->getAuteurs())-1), @endif
                             @endforeach
                         </p>
 

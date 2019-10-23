@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" href="./liaisons/bootstrap-4.3.1-dist/css/bootstrap.min.css">
     </head>
     <body>
-        <header class="header">
+        <header class="header" role="banner">
             @include('fragments.entete')
         </header>
         <div class="image">
@@ -20,7 +20,7 @@
             @yield('contenu')
         </main>
 
-        <footer class="footer container-fluid">
+        <footer class="footer container-fluid" role="contentinfo">
             @include('fragments.pieddepage')
         </footer>
     </body>

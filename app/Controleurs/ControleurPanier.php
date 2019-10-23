@@ -104,7 +104,6 @@ class ControleurPanier{
 
         $tDonnees = array_merge(
             array("elementsPanier" => $itemsPanier),
-            array("elementsPanier" => $itemsPanier),
             array("fraisLivraison" => $fraisLivraison),
             array("montantTPS" => $montantTPS),
             array("montantSousTotal" => $montantSousTotal),

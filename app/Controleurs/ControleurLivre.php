@@ -128,6 +128,9 @@ class ControleurLivre
 
     public function getDonneesUnLivre(): array
     {
+        $filAriane = App::getInstance()->getFilAriane();
+        $filAriane = $filAriane::majFilAriane();
+
         $isbnLivre = "0";
         if (isset($_GET["isbn"])) {
             $isbnLivre = $_GET["isbn"];
@@ -157,9 +160,11 @@ class ControleurLivre
             $honneur->description = Util::couperParagraphe($honneur->description, 100);
         }
 
-        $arrInfos = array_merge(array("livre" => $infosLivre),
+        $arrInfos = array_merge(
+            array("livre" => $infosLivre),
             array("arrRecensions" => $arrRecensions),
-            array("arrHonneurs" => $arrHonneurs));
+            array("arrHonneurs" => $arrHonneurs),
+            array("filAriane" => $filAriane));
         return $arrInfos;
     }
 }

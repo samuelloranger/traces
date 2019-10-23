@@ -53,7 +53,7 @@
                                 <li><h3 class="nouveautes__vignette__details__prix">{{$arrNouveautes[$indexLivre]->prix}}$</h3></li>
                             </ul>
                             <div class="nouveautes__vignette__details__boutons">
-                                <a href="index.php?controleur=livre&action=fiche&isbn={{$arrNouveautes[$indexLivre]->isbn}}" class="nouveautes__vignette__bouton_plus">EN SAVOIR PLUS</a>
+                                <a href="index.php?controleur=livre&action=fiche&nouveaute&isbn={{$arrNouveautes[$indexLivre]->isbn}}" class="nouveautes__vignette__bouton_plus">EN SAVOIR PLUS</a>
                                 <form>
                                     <input type="hidden" name="isbn" value="{{ $arrNouveautes[$indexLivre] -> isbn }}" hidden>
                                     <input type="hidden" name="controleur" value="panier" hidden>
@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        <div class="coupsCoeur">
+        <div class="coupsCoeur" id="coupdecoeurs">
             <h2>COUPS DE COEUR</h2>
             <div class="coupsCoeur__groupe row">
                 @for($indexLivre = 0; $indexLivre < 3; $indexLivre++)
@@ -95,7 +95,7 @@
                             </div>
                             <div class="coupsCoeur__groupe__vignette__boutons">
                                 <h3 class="coupsCoeur__groupe__vignette__details__prix">{{$arrCoupsCoeur[$indexLivre]->prix}}$</h3>
-                                <a href="index.php?controleur=livre&action=fiche&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" class="coupsCoeur__groupe__vignette__boutons__bouton_plus">EN SAVOIR PLUS</a>
+                                <a href="index.php?controleur=livre&action=fiche&coupCoeur&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" class="coupsCoeur__groupe__vignette__boutons__bouton_plus">EN SAVOIR PLUS</a>
                                 <form>
                                     <input type="hidden" name="isbn" value="{{ $arrCoupsCoeur[$indexLivre] -> isbn }}" hidden>
                                     <input type="hidden" name="controleur" value="panier" hidden>
