@@ -41,6 +41,9 @@ class ControleurLivre
 
     public function getDonneesLivres(): array
     {
+        $filAriane = App::getInstance()->getFilAriane();
+        $filAriane = $filAriane::majFilAriane();
+
         /**
          * Définition de la catégorie séléctionnée
          */
@@ -120,6 +123,7 @@ class ControleurLivre
             array("nombreTotalPages" => $nombreTotalPages),
             array("livresParPage" => $livresParPage),
             array("numeroPage" => $numeroPage),
+            array("filAriane" => $filAriane),
             array("urlPagination" => $urlModif)
         );
 

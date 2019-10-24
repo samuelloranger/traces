@@ -25,18 +25,19 @@ class FilAriane
                 $action = $_GET["action"];
                 switch(true){
                     //Si l'action est d'afficher une liste de livres
-                    case $action === 'index' :
+                    case $action === 'catalogue' :
 
                         //Lien de retour vers l'accueil
-                        $lien0 = array("titre"=>"Accueil","lien"=>"index.php?controleur=site&action=accueil");
-
-                        //@todo adapter cet algo pour les catéries...
+                        $lien0 = array(
+                            "titre" => "Accueil",
+                            "lien" => "index.php?controleur=site&action=accueil"
+                        );
 
                         //Titre de la page
                         if(isset($_GET["nouveau"])){
                             $lien1 = array("titre"=>"Nouveautés");
                         }else{
-                            $lien1 = array("titre"=>"Livres");
+                            $lien1 = array("titre"=>"Catalogue");
                         }
 
                         $fil[0] = $lien0;
@@ -52,12 +53,12 @@ class FilAriane
                             "lien"=>"index.php?controleur=site&action=accueil"
                         );
 
+                        //Definition du premier lien
+                        $fil[0] = $lien0;
+
                         //Lien vers la liste des pages se qualifiant (catégorie, nouveauté...)
-
-                        //@todo adapter cet algo pour les catégories...
-
                         if(isset($_GET["nouveaute"])){
-                            $lien1 = array(
+                            $lien2 = array(
                                 "titre" => "Nouveautés",
                                 "lien" => "index.php?controleur=site&action=accueil#nouveautes"
                             );
@@ -75,13 +76,25 @@ class FilAriane
                             );
                         }
 
-                        $fil[0] = $lien0;
+                        //Definition du 2e lien
                         $fil[1] = $lien1;
 
+                        //Definition du titre du livre
                         if(isset($_GET["isbn"])) {
                             $livre = Livre::trouverParIsbn($_GET["isbn"]);
 
-                            $fil[2]=array(
+                            //Definition du 3e lien (si necessaire)
+                            if($lien1["titre"] == "Catalogue"){
+                                $infosCategories = $livre->getInfosCategorieLivre();
+                                $lien3 = array(
+                                    "titre" => $infosCategories["nom_fr"],
+                                    "lien" => "index.php?controleur=livre&action=catalogue&categorie=" . $infosCategories["id"]
+                                );
+
+                                $fil[2] = $lien3;
+                            }
+
+                            $fil[3] = array(
                                 "titre" => $livre->__get("titre")
                             );
                         }

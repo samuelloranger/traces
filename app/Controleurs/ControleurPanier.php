@@ -88,7 +88,6 @@ class ControleurPanier{
             header("Location: index.php?controleur=panier&action=panier");
         }
         else{
-
             echo "Erreur isbn non-valide";
         }
     }

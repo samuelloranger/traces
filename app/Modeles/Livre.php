@@ -35,20 +35,10 @@ class Livre
 
     }
 
-    public function __get($property)
-    {
-        if (property_exists($this, $property)) {
-            return $this->$property;
-        }
-    }
-
-    public function __set($property, $value)
-    {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
-        }
-    }
-
+    /**
+     * Fonction trouverTout
+     * @return array Retourne tous les livres
+     */
     public static function trouverTout(): array
     {
         $pdo = App::getInstance()->getPDO();
@@ -72,9 +62,9 @@ class Livre
     }
 
     /**
-     * Va chercher les infos d'un seul livre
-     * @param string $isbnLivre
-     * @return Livre
+     * Fonction trrouverParIsbn
+     * @param string $isbnLivre L'isbn du livre recherche
+     * @return Livre Retourne les infos d'un seul livre selon son isbn
      */
     public static function trouverParIsbn(string $isbnLivre): Livre
     {
@@ -97,12 +87,21 @@ class Livre
         return $livre;
     }
 
+    /**
+     * Fonction trouverParLimite
+     * @param int $unIndex L'index de debut de la recherche
+     * @param int $uneQte La quantite a rechercher
+     * @param int $categorie L'id de la cateogie
+     * @param string $trierPar Type de tri
+     * @return array Retourne un array de livres filtre
+     */
     public static function trouverParLimite(int $unIndex, int $uneQte, int $categorie, string $trierPar): array
     {
         $pdo = App::getInstance()->getPDO();
 
         // Définir la chaine SQL
 
+        $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
         if ($categorie != 0 OR $trierPar != "") {
             if ($trierPar != "") {
                 if ($trierPar == "aucun") {
@@ -121,9 +120,6 @@ class Livre
             if ($categorie != 0) {
                 $chaineSQL = 'SELECT * FROM livres INNER JOIN categories_livres ON livres.id = categories_livres.livre_id WHERE categorie_id= :categorie LIMIT :unIndex, :uneQte';
             }
-
-        } else {
-            $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
         }
 
         // Préparer la requête (optimisation)
@@ -154,6 +150,11 @@ class Livre
         return $arrayLivres;
     }
 
+    /**
+     * Fonction compter
+     * @param int $categorie l'id de la categorie
+     * @return int Retourne un compte du nombre de livres total affiches
+     */
     public static function compter(int $categorie): int
     {
         //On va chercher le pdo
@@ -185,25 +186,105 @@ class Livre
         return (int)$nbrLivre[0];
     }
 
+    /**
+     * Fonction getCoupsCoeurs
+     * @return array Retourne un tableau des livres qui font partie des coups de coeur
+     */
+    public static function getCoupsCoeur(): array
+    {
+        $pdo = App::getInstance()->getPDO();
+        $chaineRequete = "SELECT * FROM livres WHERE est_coup_de_coeur = 1";
+
+        $requete = $pdo->prepare($chaineRequete);
+        $requete->setFetchMode(PDO::FETCH_CLASS, Livre::class);
+
+        $requete->execute();
+
+        $arrCoupsCoeur = $requete->fetchAll();
+
+        return $arrCoupsCoeur;
+    }
+
+    /**
+     * Fonction
+     * @return array Retourne les livres dont la parution est de type 3 (nouveutees)
+     */
+    public static function getNouveautes(): array
+    {
+        $pdo = App::getInstance()->getPDO();
+        $chaineRequete = "SELECT *
+                          FROM livres  
+                          WHERE parution_id = 3";
+
+        $requete = $pdo->prepare($chaineRequete);
+
+        $requete->setFetchMode(PDO::FETCH_CLASS, Livre::class);
+
+        $requete->execute();
+
+        $arrNouveautes = $requete->fetchAll();
+
+        return $arrNouveautes;
+    }
+
+    /**
+     * Fonction getCategorieLivre
+     * @return array Retourne le id et le nom de la categorie du livre
+     */
+    public function getInfosCategorieLivre():array{
+        $pdo = App::getInstance()->getPDO();
+
+        $sql = "SELECT categories.id, nom_fr FROM categories INNER JOIN categories_livres ON categories_livres.categorie_id = categories.id WHERE categories_livres.livre_id = :livreId";
+
+        $requetePreparee = $pdo->prepare($sql);
+
+        $requetePreparee->bindParam(":livreId", $this->id, PDO::PARAM_INT);
+
+        $requetePreparee->execute();
+
+        return $requetePreparee->fetch();
+    }
+
+    /**
+     * Fonction getParution
+     * @return string retourne le type de parution
+     */
     public function getParution(): string
     {
         return Parution::trouver($this->parution_id);
     }
 
+    /**
+     * Fonction getAuteurs
+     * @return array Retourne un array des noms des auteurs
+     */
     public function getAuteurs(): array
     {
         return Auteur::trouverAuteurLivre($this->id);
     }
 
+    /**
+     * Fonction getHonneurs
+     * @return array Retourne un array des Honneurs
+     */
     public function getHonneurs(): array
     {
         return Honneur::trouverHonneursLivre($this->id);
     }
 
+    /**
+     * Fonction getPrix
+     * @return string Retourne le prix du livre formate
+     */
     public function getPrix():string{
         return Util::formaterArgent(floatval($this->prix));
     }
 
+    /**
+     * Fonction getImageUrl
+     * @param string $format le format entre desire, par defaut "rectangle"
+     * @return string Retourne l'url de l'image
+     */
     public function getImageUrl($format = "rectangle"): string{
         if ($format === "carre") {
             $url = "liaisons/images/couvertures-livres/L" . Util::ISBNToEAN($this->isbn13) . "1_carre.jpg";
@@ -222,41 +303,39 @@ class Livre
         return $url;
     }
 
+    /**
+     * Fonction getDescriptionNettoyee
+     * @return string Retourne la description du livre coupee
+     */
     public function getDescriptionNettoyee(): string
     {
         return Util::couperParagraphe($this->description, 300);
     }
 
-    public static function getCoupsCoeur(): array
+    /**
+     * Fonction __get
+     * @param $property mixed La propriete recherche
+     * @return mixed Retourne la valeur recherche
+     */
+    public function __get($property)
     {
-        $pdo = App::getInstance()->getPDO();
-        $chaineRequete = "SELECT * FROM livres WHERE est_coup_de_coeur = 1";
-
-        $requete = $pdo->prepare($chaineRequete);
-        $requete->setFetchMode(PDO::FETCH_CLASS, Livre::class);
-
-        $requete->execute();
-
-        $arrCoupsCoeur = $requete->fetchAll();
-
-        return $arrCoupsCoeur;
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
+        return null;
     }
 
-    public static function getNouveautes(): array
+    /**
+     * Fonction __set
+     * @param $property mixed La propriete a changer
+     * @param $value mixed La nouvelle valeur de la propriete a changer
+     */
+    public function __set($property, $value)
     {
-        $pdo = App::getInstance()->getPDO();
-        $chaineRequete = "SELECT *
-                          FROM livres  
-                          WHERE parution_id = 3";
-
-        $requete = $pdo->prepare($chaineRequete);
-        $requete->setFetchMode(PDO::FETCH_CLASS, Livre::class);
-
-        $requete->execute();
-
-        $arrNouveautes = $requete->fetchAll();
-
-        return $arrNouveautes;
+        if (property_exists($this, $property)) {
+            $this->$property = $value;
+        }
     }
+
 
 }

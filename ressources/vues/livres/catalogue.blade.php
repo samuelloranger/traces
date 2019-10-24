@@ -1,6 +1,8 @@
 @extends('gabarit')
 
 @section('contenu')
+    @include('fragments.filAriane')
+
     <div class="row">
 
         <div class="catalogue__categories col-lg-3">
