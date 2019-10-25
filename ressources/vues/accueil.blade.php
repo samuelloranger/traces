@@ -61,7 +61,7 @@
                                     <input type="hidden" name="qte" value="1" hidden>
                                     <input type="hidden" name="redirection" value="accueil" hidden>
 
-                                    <button class="nouveautes__vignette__bouton_panier">AJOUTER AU PANIER</button>
+                                    <button class="nouveautes__vignette__bouton_panier bouton_panier">AJOUTER AU PANIER</button>
                                 </form>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                                     <input type="hidden" name="qte" value="1" hidden>
                                     <input type="hidden" name="redirection" value="accueil" hidden>
 
-                                    <button class="coupsCoeur__groupe__vignette__boutons__bouton_panier">AJOUTER AU PANIER</button>
+                                    <button class="coupsCoeur__groupe__vignette__boutons__bouton_panier bouton_panier">AJOUTER AU PANIER</button>
                                 </form>
                             </div>
                         </div>
