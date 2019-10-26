@@ -101,7 +101,21 @@ class ControleurPanier{
         $montantTPS = Util::formaterArgent($this->panier->getMontantTPS());
         $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
 
+
+        /**
+         * Données du panier
+         */
+        $nbrItemsPanier = $this->panier -> getNombreTotalItemsDifferents();
+
+        $panierVide = true;
+        if($nbrItemsPanier){
+            $panierVide = false;
+        }
+
+
         $tDonnees = array_merge(
+            array("panierVide" => $panierVide),
+            array("nbrItemsPanier" => $nbrItemsPanier),
             array("elementsPanier" => $itemsPanier),
             array("fraisLivraison" => $fraisLivraison),
             array("montantTPS" => $montantTPS),

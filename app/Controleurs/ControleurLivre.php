@@ -115,9 +115,22 @@ class ControleurLivre
 
 
         /**
+         * Données du panier
+         */
+        $panier = App::getInstance()->getPanier();
+        $nbrItemsPanier = $panier -> getNombreTotalItemsDifferents();
+
+        $panierVide = true;
+        if($nbrItemsPanier){
+            $panierVide = false;
+        }
+
+        /**
          * Définition de l'array retourné avec toutes les données
          */
         $arrDonnees = array_merge(
+            array("panierVide" => $panierVide),
+            array("nbrItemsPanier" => $nbrItemsPanier),
             array("arrLivres" => $arrLivres),
             array("arrCategories" => $arrCategories),
             array("nombreTotalPages" => $nombreTotalPages),
@@ -164,7 +177,21 @@ class ControleurLivre
             $honneur->description = Util::couperParagraphe($honneur->description, 100);
         }
 
+
+        /**
+         * Données du panier
+         */
+        $panier = App::getInstance()->getPanier();
+        $nbrItemsPanier = $panier -> getNombreTotalItemsDifferents();
+
+        $panierVide = true;
+        if($nbrItemsPanier){
+            $panierVide = false;
+        }
+
         $arrInfos = array_merge(
+            array("panierVide" => $panierVide),
+            array("nbrItemsPanier" => $nbrItemsPanier),
             array("livre" => $infosLivre),
             array("arrRecensions" => $arrRecensions),
             array("arrHonneurs" => $arrHonneurs),

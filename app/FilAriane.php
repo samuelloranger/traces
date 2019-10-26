@@ -58,7 +58,7 @@ class FilAriane
 
                         //Lien vers la liste des pages se qualifiant (catégorie, nouveauté...)
                         if(isset($_GET["nouveaute"])){
-                            $lien2 = array(
+                            $lien1 = array(
                                 "titre" => "Nouveautés",
                                 "lien" => "index.php?controleur=site&action=accueil#nouveautes"
                             );

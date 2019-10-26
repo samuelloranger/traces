@@ -90,14 +90,12 @@ class SessionPanier
     // Retourner le nombre d'item différents (unique) dans le panier
     public function getNombreTotalItemsDifferents():int
     {
+        $this->items = $this->getItems();
         $nbrItemsDifferents = 0;
-        $dernierItem = null;
         forEach($this->items as $item){
-            if($item === $dernierItem){
-                $nbrItemsDifferents++;
-            }
-            $dernierItem = $item;
+            $nbrItemsDifferents += $item->quantite;
         }
+
         return $nbrItemsDifferents;
     }
 
