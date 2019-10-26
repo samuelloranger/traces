@@ -59,13 +59,47 @@
                 font-weight: bold;
               }
 
-              select{
-                border-radius: 35px;
-                padding: 2% 5%;
-                width: 100%;
-                margin-bottom: 5%;
+              .select{
+                position: relative;
+
+                select {
+                  display: block;
+                  @include fontSize(14px);
+                  padding: .35em 1.4em .35em 0.6em;
+                  width: 100%;
+                  max-width: 100%;
+                  border: 1px solid black;
+                  border-radius: 35px;
+                  appearance: none;
+                  margin-bottom: 4%;
+                }
+
+                .fleche{
+                  position: absolute;
+                  top: 0;
+                  right: -3px;
+                  width: 32px;
+                  height: 100%;
+                  background-color: $TURQUOISE;
+                  border-radius: 35px;
+                  pointer-events: none;
+
+                  &:after{
+                    content: "";
+                    position: absolute;
+                    top: 12px;
+                    right: 8px;
+                    width: 0;
+                    height: 0;
+                    border-left: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-top: 10px solid white;
+                  }
+                }
               }
+
             }
+
 
             .zoneBouton{
               align-items: center;

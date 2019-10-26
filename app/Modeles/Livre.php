@@ -286,10 +286,11 @@ class Livre
      * @return string Retourne l'url de l'image
      */
     public function getImageUrl($format = "rectangle"): string{
+
         if ($format === "carre") {
-            $url = "liaisons/images/couvertures-livres/L" . Util::ISBNToEAN($this->isbn13) . "1_carre.jpg";
+            $url = "liaisons/images/couvertures-livres/L" . Util::ISBNToEAN($this->isbn) . "1_carre.jpg";
         } else {
-            $url = "liaisons/images/couvertures-livres/L" . Util::ISBNToEAN($this->isbn13) . "1.jpg";
+            $url = "liaisons/images/couvertures-livres/L" . Util::ISBNToEAN($this->isbn) . "1.jpg";
         }
 
         if (!file_exists($url)) {
@@ -300,7 +301,7 @@ class Livre
             }
         }
 
-        return $url;
+        return "$url";
     }
 
     /**

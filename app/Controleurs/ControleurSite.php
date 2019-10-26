@@ -7,6 +7,7 @@ namespace App\Controleurs;
 use App\App;
 use App\Modeles\Actualite;
 use App\Modeles\Livre;
+use App\Session\SessionPanier;
 use App\Util;
 use \DateTime;
 
@@ -41,9 +42,22 @@ class ControleurSite
         shuffle($arrActualites);
         //print_r($arrActualites);
 
+        /**
+         * Données du panier
+         */
+        $panier = App::getInstance()->getPanier();
+        $nbrItemsPanier = $panier -> getNombreTotalItemsDifferents();
+
+        $panierVide = true;
+        if($nbrItemsPanier){
+            $panierVide = false;
+        }
+
         $tDonnees = array_merge($tDonnees, ["arrNouveautes" => $arrNouveautes]);
         $tDonnees = array_merge($tDonnees, ["arrCoupsCoeur" => $arrCoupsCoeur]);
         $tDonnees = array_merge($tDonnees, ["arrActualites" => $arrActualites]);
+        $tDonnees = array_merge($tDonnees, ["panierVide" => $panierVide]);
+        $tDonnees = array_merge($tDonnees, ["nbrItemsPanier" => $nbrItemsPanier]);
 
         echo $this->blade->run("accueil",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
     }
@@ -54,7 +68,6 @@ class ControleurSite
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
         echo $this->blade->run("apropos",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
     }
-
 
     public static function getDonneeFragmentPiedDePage()
     {

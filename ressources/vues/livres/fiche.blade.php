@@ -35,19 +35,25 @@
                             <input type="hidden" name="redirection" value="fiche" hidden>
 
                             <label for="formatLivre">Choisir un format...</label>
-                            <select id="formatLivre">
-                                <option>Sélectionnez un format...</option>
-                                <option value="papier">Papier</option>
-                                <option value="papier">E-Pub</option>
-                                <option value="papier">PDF</option>
-                            </select>
+                            <div class="select">
+                                <select id="formatLivre">
+                                    <option>Sélectionnez un format...</option>
+                                    <option value="papier">Papier</option>
+                                    <option value="papier">E-Pub</option>
+                                    <option value="papier">PDF</option>
+                                </select>
+                                <span class="fleche"></span>
+                            </div>
 
                             <label for="Quantité">Quantité</label>
-                            <select id="quantite" name="qte">
-                                @for ($intCtr = 1; $intCtr <= 10; $intCtr++)
-                                    <option value="{{ $intCtr }}">{{ $intCtr }}</option>
-                                @endfor
-                            </select>
+                            <div class="select">
+                                <select id="quantite" name="qte">
+                                    @for ($intCtr = 1; $intCtr <= 10; $intCtr++)
+                                        <option value="{{ $intCtr }}">{{ $intCtr }}</option>
+                                    @endfor
+                                </select>
+                                <span class="fleche"></span>
+                            </div>
                         </div>
 
                         <div class="zoneBouton col-sm-12 col-md-6">

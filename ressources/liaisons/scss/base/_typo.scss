@@ -32,16 +32,16 @@ body {
 /** Hiérarchie responsive **/
 /*  plus proche = plus petit  &  plus loin = plus grand */
 
-h1, h2 {
-  font-family: $policeTitres;
+h1, .h1, h2, .h2 {
+  font-family: $policeTitres !important;
   font-weight: 900 !important;
 }
 
-h3, h4, h5 {
+h3, .h3, h4, .h4, h5, .h5 {
   font-weight: bold !important;
 }
 
-body, p, span, input, label, a, h3, h4, h5{
+body, p, span, input, label, h3, h4, h5{
   font-family: $policeCorps;
 }
 

@@ -22,7 +22,7 @@
   }
 
   .btnSeConnecter{
-    border: 2px solid $PEAU;
+    border: 2px solid $BEIGE;
     border-radius: 25px;
     padding: 5px 10px;
     height: 40px;
@@ -289,9 +289,23 @@
                 }
               }
 
+              .iconePanier{
+                position: relative;
+                width: 42px;
+                height: 32px;
+
+                .nbrItemsPanier{
+                  position: absolute;
+                  display: block;
+                  @include fontSize(16px);
+                  top: 6px;
+                  left: 36px;
+                }
+              }
+
               .icone{
-                width: 25px;
-                height: 25px;
+                width: 32px;
+                height: 32px;
                 display: block;
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -312,6 +326,8 @@
 
                 &__panier{
                   background-image: url("../images/icones/icone-panier.svg");
+                  //position: absolute;
+                  //left: -5px;
 
                   &:hover{
                     background-image: url("../images/icones/icone-panier-white.svg");
