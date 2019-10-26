@@ -18,7 +18,7 @@
       }
 
       .section{
-        &Droite{
+        &Gauche {
           &__image {
 
             img {
@@ -37,13 +37,22 @@
             .boutons{
 
               .select{
+                display: block;
+
                 select{
                   width: 100%;
+                  height: 36px;
                   appearance: none;
                   padding: 5px 12px;
                   border-radius: 35px;
                   margin-bottom: 2%;
                   position: relative;
+                  transition: 0.15s ease-in-out;
+                  border: 2px solid lightgrey;
+
+                  &:hover, &:focus{
+                    border: 2px solid $TURQUOISE;
+                  }
                 }
 
                 &::after{
@@ -60,32 +69,136 @@
                   background-color: #008571;
                   pointer-events: none;
                 }
+
+
               }
 
-              #updatePanier{
+              .updatePanier{
+                height: 36px;
+                border: 2px solid $TURQUOISE;
+                border-radius: 35px;
+                color: white;
+                font-weight: bold;
+                background-color: $TURQUOISE;
+                transition: 0.15s ease-in-out;
 
+                &:hover{
+                  background-color: transparent;
+                  color: $TURQUOISE;
+                }
               }
             }
           }
         }
-      }
-      .infosLivre{
 
+        &Droite{
+          text-align: right;
+          display: flex;
+          justify-content: space-between;
+          flex-direction: column;
+
+          .prixLivre{
+            @include fontSize(22px);
+            font-weight: bold;
+          }
+
+          .sousTotal{
+
+          }
+        }
       }
     }
   }
 
   &__infosPanier{
     position: relative;
-    border: 1px solid black;
-    padding: 2%;
 
     .contenu{
-      position: sticky;
+      position: sticky !important;
+      margin-top: 2%;
+      padding: 5%;
       top: 12%;
+      border: 1px solid black;
+      max-height: 450px;
 
-      @media(min-width: $DESKTOP-NORMAL){
+      .h2{
+        @include fontSize(18px);
+        margin-bottom: 5%;
+      }
 
+      .fraisLivraironSelect{
+        display: flex;
+        justify-content: space-between;
+
+        label{
+          font-weight: normal;
+          @include fontSize(16px);
+        }
+      }
+
+      p{
+        display: flex;
+        justify-content: space-between;
+
+        .texteDroit{
+          font-weight: bold;
+        }
+      }
+
+      .fraisLivraison{
+        .texteDroit{
+          .fraisCaches{
+            display: none;
+          }
+        }
+      }
+
+      .dateLivraisonEstimee{
+        display: flex;
+        flex-direction: column;
+        margin-top: 2%;
+
+        .date{
+          font-weight: bold;
+        }
+
+        .dateCachee{
+          display: none;
+        }
+      }
+
+
+      .zoneBoutons{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-top: 15%;
+
+        .btn{
+          width: 90%;
+          height: 36px;
+          margin-bottom: 5%;
+          border: 2px solid $TURQUOISE;
+          border-radius: 35px;
+          @include fontSize(16px);
+          color: $TURQUOISE;
+          font-weight: bold;
+
+          &Commander{
+            color: white;
+            background-color: $TURQUOISE;
+
+            &:hover{
+              background-color: $BEIGE;
+              border: 2px solid $BEIGE;
+            }
+          }
+
+          &ViderPanier:hover{
+            color: $BEIGE;
+            border: 2px solid $BEIGE;
+          }
+        }
       }
     }
   }

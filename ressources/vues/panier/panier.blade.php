@@ -14,8 +14,8 @@
             <div class="panier__items col-md-9">
                 @foreach($elementsPanier as $item)
                     <div class="panier__items__item row">
-                        <div class="sectionDroite col-md-3">
-                            <div class="sectionDroite__image">
+                        <div class="sectionGauche col-md-3">
+                            <div class="sectionGauche__image">
                                 <img src="{{ $item -> livre -> getImageUrl("carre") }}" alt="Image de {{ $item -> livre -> titre }}"/>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                         </select>
                                     </div>
 
-                                    <input class="col-md-6" id="updatePanier" type="submit" value="Mettre à jour">
+                                    <button class="updatePanier col-md-6" id="updatePanier">Mettre à jour</button>
                                 </div>
                             </form>
 
@@ -49,19 +49,39 @@
                         </div>
 
                         <div class="sectionDroite col-md-3">
-                            <p>{{ $item->livre->getPrix() }}</p>
-                            <p>Prix total livre: {{ $item->getMontantTotalFormate() }}</p>
+                            <p class="prixLivre">{{ $item->livre->getPrix() }}</p>
+                            <p class="sousTotal">Sous-total: {{ $item->getMontantTotalFormate() }}</p>
                         </div>
                     </div>
                 @endforeach
             </div>
             <div class="panier__infosPanier col-md-3">
                 <div class="contenu">
-                    <p>Sous-total: {{ $montantSousTotal }}</p>
-                    <p>Livraison: {{ $fraisLivraison }}</p>
-                    <p>Taxes: {{ $montantTPS }}</p>
-                    <p>Total: {{ $montantTotal }}</p>
-                    <button class="">Payer</button>
+                    <p class="h2">Résumé de la commande</p>
+                    <p><span class="texteGauche">Sous-total ({{ count($elementsPanier) }} items):</span> <span class="texteDroit">{{ $montantSousTotal }}</span></p>
+
+                    <p class="fraisLivraison"><span class="texteGauche">Frais de livraison:</span><span class="texteDroit">{{ $fraisLivraison }}</span></p>
+
+                    <div class="fraisLivraironSelect">
+                        <label for="fraisLivraironSelect">Livraison</label>
+                        <select id="fraisLivraisonSelect">
+                            <option @if($typeLivraison == "payante") selected @endif>Rapide</option>
+                            <option @if($typeLivraison == "gratuite") selected @endif>Gratuite</option>
+                        </select>
+                    </div>
+
+                    <p class="dateLivraisonEstimee">
+                        <span>Date de livraison estimée:</span>
+                        <span class="date datePayante">{{ $dateLivraisonEstimee }}</span>
+                    </p>
+
+                    <p><span class="texteGauche">Taxes:</span> <span class="texteDroit">{{ $montantTPS }}</span></p>
+                    <p><span class="texteGauche">Total:</span> <span class="texteDroit">{{ $montantTotal }}</span></p>
+
+                    <div class="zoneBoutons">
+                        <a href="" class="btn btnCommander">Passer la commande</a>
+                        <a href="" class="btn btnViderPanier">Vider le panier</a>
+                    </div>
                 </div>
             </div>
 

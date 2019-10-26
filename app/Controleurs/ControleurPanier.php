@@ -6,6 +6,11 @@ namespace App\Controleurs;
 use App\App;
 use App\Modeles\Livre;
 use App\Util;
+use DateInterval;
+use DateTime;
+use DateTimeZone;
+use IntlDateFormatter;
+use Locale;
 
 class ControleurPanier{
     private $blade = null;
@@ -94,14 +99,6 @@ class ControleurPanier{
 
     public function panier():void{
 
-        //Éléments à afficher
-        $itemsPanier = $this->panier->getItems();
-        $montantSousTotal = Util::formaterArgent($this->panier->getMontantSousTotal());
-        $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
-        $montantTPS = Util::formaterArgent($this->panier->getMontantTPS());
-        $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
-
-
         /**
          * Données du panier
          */
@@ -113,6 +110,27 @@ class ControleurPanier{
         }
 
 
+        //Éléments à afficher
+        $itemsPanier = $this->panier->getItems();
+        $montantSousTotal = Util::formaterArgent($this->panier->getMontantSousTotal());
+        $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
+        $montantTPS = Util::formaterArgent($this->panier->getMontantTPS());
+        $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
+
+        /**
+         * Dates de livraison
+         */
+        $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
+        $typeLivraison = "payante";
+
+        if(isset($_GET["livraisonGratuite"])){
+            $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("7 days"));
+            $typeLivraison = "gratuite";
+            $fraisLivraison = "0.00 $";
+            $montantTotal = Util::formaterArgent($this->panier->getMontantTotal(false));
+        }
+
+
         $tDonnees = array_merge(
             array("panierVide" => $panierVide),
             array("nbrItemsPanier" => $nbrItemsPanier),
@@ -120,6 +138,8 @@ class ControleurPanier{
             array("fraisLivraison" => $fraisLivraison),
             array("montantTPS" => $montantTPS),
             array("montantSousTotal" => $montantSousTotal),
+            array("dateLivraisonEstimee" => $dateLivraisonEstimee),
+            array("typeLivraison" => $typeLivraison),
             array("montantTotal" => $montantTotal)
         );
 

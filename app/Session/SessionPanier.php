@@ -141,9 +141,13 @@ class SessionPanier
     }
 
     // Retourner le montant total de la commande (montant sous-total + TPS + montant livraison)
-    public function getMontantTotal():float
+    public function getMontantTotal(bool $livraison = true):float
     {
-        $montantTotal = $this->getMontantTPS() + $this->getMontantSousTotal() + $this->getMontantFraisLivraison();
+        if($livraison === false)
+            $montantTotal = $this->getMontantTPS() + $this->getMontantSousTotal();
+        else
+            $montantTotal = $this->getMontantTPS() + $this->getMontantSousTotal() + $this->getMontantFraisLivraison();
+
         return round($montantTotal, 2);
     }
 
