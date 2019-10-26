@@ -73,7 +73,6 @@ class SessionPanier
     {
         $this->items = $this->getItems();
 
-
         $this->items[$isbn]->quantite = $uneQte;
 
         //Sauvegarde du panier
