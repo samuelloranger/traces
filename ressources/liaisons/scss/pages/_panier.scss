@@ -1,4 +1,49 @@
 .panier{
+  &__resumeCourt{
+    display: none;
+
+    @media(max-width: $DESKTOP-NORMAL){
+      display: block;
+      background-color: $GRIS_PALE;
+      padding: 3%;
+    }
+
+    .sous-total{
+      display: flex;
+      justify-content: space-between;
+
+      &__texteDroit{
+        font-weight: bold;
+      }
+    }
+
+    .texteLivraisonGratuite{
+      color: $TURQUOISE;
+    }
+
+    .btnCommander {
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 1%;
+      width: 80%;
+      height: 36px;
+      border: 2px solid $TURQUOISE;
+      border-radius: 35px;
+      @include fontSize(16px);
+      color: white;
+      font-weight: bold;
+      background-color: $TURQUOISE;
+
+      &:hover {
+        color: white !important;
+        text-transform: none;
+        background-color: $BEIGE;
+        border: 2px solid $BEIGE;
+      }
+    }
+  }
+
   .infosLivraison{
     color: $ROUGE;
 
@@ -6,28 +51,92 @@
       font-weight: bold;
     }
   }
+
   &__items{
     margin-bottom: 5%;
 
     &__item{
       border-bottom: 2px solid #000;
-      padding: 2% 0;
+      position: relative;
+      padding: 2% 0 5% 0;
+
+      @media(min-width: $DESKTOP-NORMAL){
+        padding: 2% 0;
+      }
 
       &:last-child{
         border-bottom: 0;
       }
 
+      /**
+       * Sections des items pour diviser la fiche de l'item
+       */
       .section{
         &Gauche {
+          display: flex;
+
           &__image {
+            display: block;
+            width: 100%;
+            margin-right: 15px;
+
+            @media(min-width: $TABLETTE){
+              min-width: 100px;
+              width: 150px;
+              margin-right: 0px;
+            }
 
             img {
               max-width: 100%;
             }
           }
+
+          &__contenuMobile{
+            display: block;
+
+            @media (min-width: $TABLETTE){
+              display: none;
+            }
+
+            .infosLivre{
+              &__titreLivre{
+                a{
+                  color: black;
+                }
+              }
+
+              &__auteurLivre{
+                color: $ROUGE;
+              }
+            }
+          }
         }
 
         &Centre{
+          .infosLivre{
+            display: none;
+
+            @media(min-width: $TABLETTE){
+              display: block;
+            }
+
+            &__titreLivre{
+              a{
+                color: black;
+              }
+            }
+
+            &__auteurLivre{
+              color: $ROUGE;
+            }
+
+            &__btnSupprimer{
+              a{
+                color: red;
+              }
+            }
+          }
+
           form{
             label{
               @include fontSize(18px);
@@ -35,6 +144,11 @@
             }
 
             .boutons{
+              width: 60%;
+
+              @media(min-width: $TABLETTE){
+                width: 100%;
+              }
 
               .select{
                 display: block;
@@ -74,6 +188,7 @@
               }
 
               .updatePanier{
+                margin: 0 3%;
                 height: 36px;
                 border: 2px solid $TURQUOISE;
                 border-radius: 35px;
@@ -82,6 +197,10 @@
                 background-color: $TURQUOISE;
                 transition: 0.15s ease-in-out;
 
+                @media(min-width: $TABLETTE){
+                  margin: 0;
+                }
+
                 &:hover{
                   background-color: transparent;
                   color: $TURQUOISE;
@@ -89,6 +208,7 @@
               }
             }
           }
+
         }
 
         &Droite{
@@ -96,14 +216,16 @@
           display: flex;
           justify-content: space-between;
           flex-direction: column;
+          position: absolute;
+          bottom: 0;
+
+          @media(min-width: $TABLETTE){
+            position: initial;
+          }
 
           .prixLivre{
             @include fontSize(22px);
             font-weight: bold;
-          }
-
-          .sousTotal{
-
           }
         }
       }
@@ -119,7 +241,8 @@
       padding: 5%;
       top: 12%;
       border: 1px solid black;
-      max-height: 450px;
+      //max-height: 450px;
+      margin-bottom: 5%;
 
       .h2{
         @include fontSize(18px);
@@ -175,6 +298,7 @@
         margin-top: 15%;
 
         .btn{
+          max-width: 250px;
           width: 90%;
           height: 36px;
           margin-bottom: 5%;
@@ -184,6 +308,10 @@
           color: $TURQUOISE;
           font-weight: bold;
 
+          @media(min-width: $DESKTOP-NORMAL){
+            width: 100%;
+          }
+
           &Commander{
             color: white;
             background-color: $TURQUOISE;
@@ -191,11 +319,12 @@
             &:hover{
               background-color: $BEIGE;
               border: 2px solid $BEIGE;
+              color: white !important;
             }
           }
 
           &ViderPanier:hover{
-            color: $BEIGE;
+            color: $BEIGE !important;
             border: 2px solid $BEIGE;
           }
         }

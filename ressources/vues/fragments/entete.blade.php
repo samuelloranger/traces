@@ -41,7 +41,7 @@
             </div>
 
             <div class="zoneIcones">
-                <span class="icone icone__panier"><a href="index.php?controleur=livre&action=index"></a></span>
+                <a href="index.php?controleur=panier&action=panier" class="icone icone__panier">@if(!$panierVide)<span class="nbrItemsPanier">{{ $nbrItemsPanier }}</span>@endif</a>
                 <span class="icone icone__rechercher"></span>
             </div>
 

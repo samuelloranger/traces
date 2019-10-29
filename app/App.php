@@ -46,6 +46,10 @@ class App
     {
         if($this->getServeur() === 'serveur-local'){
             error_reporting(E_ALL | E_STRICT);
+            ini_set("display_errors", "On");
+        }
+        else{
+            ini_set("display_errors", "Off");
         }
 
         date_default_timezone_set('America/Montreal');

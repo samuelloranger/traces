@@ -29,10 +29,20 @@
     text-align: center;
     width: 250px;
     margin: 25% auto 0 auto;
+    transition: 0.15s ease-in-out;
 
     @media(min-width: $DESKTOP-NORMAL){
       width: 150px;
       margin: 0;
+    }
+
+    &:hover{
+      color: $ROUGE !important;
+      border: 2px solid $ROUGE;
+
+      a{
+        color: $ROUGE !important;
+      }
     }
   }
 
@@ -122,6 +132,15 @@
 
               &__panier{
                 background-image: url("../images/icones/icone-panier.svg");
+                position: relative;
+                width: 46px;
+
+                .nbrItemsPanier{
+                  position: absolute;
+                  right: 0;
+                  top: 6px;
+                  color: $BEIGE;
+                }
               }
 
               &__rechercher{
@@ -300,6 +319,7 @@
                   @include fontSize(16px);
                   top: 6px;
                   left: 36px;
+                  pointer-events: none;
                 }
               }
 
@@ -320,17 +340,16 @@
                   background-image: url("../images/icones/icone-loupe.svg");
 
                   &:hover{
-                    background-image: url("../images/icones/icone-loupe-white.svg");
+                    background-image: url("../images/icones/icone-loupe-hover.svg");
                   }
                 }
 
                 &__panier{
                   background-image: url("../images/icones/icone-panier.svg");
-                  //position: absolute;
-                  //left: -5px;
+                  width: 46px;
 
                   &:hover{
-                    background-image: url("../images/icones/icone-panier-white.svg");
+                    background-image: url("../images/icones/icone-panier-hover.svg");
                   }
                 }
               }
