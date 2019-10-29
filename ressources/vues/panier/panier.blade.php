@@ -79,7 +79,7 @@
                     <p><span class="texteGauche">Total:</span> <span class="texteDroit">{{ $montantTotal }}</span></p>
 
                     <div class="zoneBoutons">
-                        <a href="" class="btn btnCommander">Passer la commande</a>
+                        <a href="index.php?controleur=transaction&action=transaction" class="btn btnCommander">Passer la commande</a>
                         <a href="" class="btn btnViderPanier">Vider le panier</a>
                     </div>
                 </div>

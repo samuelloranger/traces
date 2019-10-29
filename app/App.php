@@ -7,6 +7,7 @@ namespace App;
 use App\Controleurs\ControleurLivre;
 use App\Controleurs\ControleurPanier;
 use App\Controleurs\ControleurSite;
+use App\Controleurs\ControleurTransaction;
 use App\Session\Session;
 use App\Session\SessionPanier;
 use \PDO;
@@ -186,6 +187,17 @@ class App
                     break;
                 case "ajoutPanier":
                     $this->monControleur->ajoutPanier();
+                    break;
+            }
+        }
+        else if($controleur === "transaction"){
+            $this->monControleur = new ControleurTransaction();
+            switch($action){
+                case "livraison":
+                    $this->monControleur->transaction();
+                    break;
+                case "facturation":
+                    $this->monControleur->facturation();
                     break;
             }
         }

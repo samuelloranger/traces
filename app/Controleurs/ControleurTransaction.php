@@ -18,9 +18,9 @@ class ControleurTransaction
 
     public function transaction(): void
     {
-        $tDonnees = array("nomPage"=>"Transaction");
+        $tDonnees = array("nomPage"=>"Livraison");
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
-        echo $this->blade->run("transaction.transaction",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
+        echo $this->blade->run("transaction.livraison",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
     }
 
     public function facturation():void
