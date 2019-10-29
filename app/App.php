@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Controleurs\ControleurCompte;
 use App\Controleurs\ControleurLivre;
 use App\Controleurs\ControleurPanier;
 use App\Controleurs\ControleurSite;
@@ -36,17 +37,20 @@ class App
         return App::$instance;
     }
 
-    public function demarrer():void
+    public function demarrer(): void
     {
-        $this -> getSession() -> demarrer();
-        $this -> configurerEnvironnement();
-        $this -> routerLaRequete();
+        $this->getSession()->demarrer();
+        $this->configurerEnvironnement();
+        $this->routerLaRequete();
     }
 
-    private function configurerEnvironnement():void
+    private function configurerEnvironnement(): void
     {
-        if($this->getServeur() === 'serveur-local'){
+        if ($this->getServeur() === 'serveur-local') {
             error_reporting(E_ALL | E_STRICT);
+            ini_set("display_errors", "On");
+        } else {
+            ini_set("display_errors", "Off");
         }
 
         date_default_timezone_set('America/Montreal');
@@ -55,57 +59,58 @@ class App
         setlocale(LC_MONETARY, "fr_CA.UTF-8");
     }
 
-    public function getPDO():PDO
+    public function getPDO(): PDO
     {
         // C'est plus performant en ram de récupérer toujours la même connexion PDO dans toute l'application.
-        if($this->pdo === null)
-        {
-            if($this->getServeur() === 'serveur-local')
-            {
-                $maConnexionBD = new ConnexionBD('localhost','traces','traces_mdp','traces');
-            }else if($this -> getServeur() === 'serveur-production'){
-                $maConnexionBD = new ConnexionBD('localhost','19_saladsquad','lionvert','19_rpni3_saladsquad');
+        if ($this->pdo === null) {
+            if ($this->getServeur() === 'serveur-local') {
+                $maConnexionBD = new ConnexionBD('localhost', 'traces', 'traces_mdp', 'traces');
+            } else if ($this->getServeur() === 'serveur-production') {
+                $maConnexionBD = new ConnexionBD('localhost', '19_saladsquad', 'lionvert', '19_rpni3_saladsquad');
             }
-            $this -> pdo = $maConnexionBD -> getNouvelleConnexionPDO();
+            $this->pdo = $maConnexionBD->getNouvelleConnexionPDO();
         }
         return $this->pdo;
     }
 
 
-    public function getBlade():BladeOne
+    public function getBlade(): BladeOne
     {
-        if($this->blade === null){
+        if ($this->blade === null) {
             $cheminDossierVues = '../ressources/vues';
             $cheminDossierCache = '../ressources/cache';
-            $this->blade = new BladeOne($cheminDossierVues,$cheminDossierCache,BladeOne::MODE_AUTO);
+            $this->blade = new BladeOne($cheminDossierVues, $cheminDossierCache, BladeOne::MODE_AUTO);
         }
         return $this->blade;
     }
 
-    public function getCookie(){
-        if($this -> cookie == null){
-            $this -> cookie = new Cookie();
-        }
-        return $this -> cookie;
-    }
-
-    public function getPanier(){
-        if($this -> panier == null){
-            $this -> panier = new SessionPanier();
-        }
-        return $this -> panier;
-    }
-
-    public function getSession(){
-        if($this -> session == null){
-            $this -> session = new Session();
-        }
-        return $this -> session;
-    }
-
-    public function getFilAriane():FilAriane
+    public function getCookie()
     {
-        if($this->filAriane === null){
+        if ($this->cookie == null) {
+            $this->cookie = new Cookie();
+        }
+        return $this->cookie;
+    }
+
+    public function getPanier()
+    {
+        if ($this->panier == null) {
+            $this->panier = new SessionPanier();
+        }
+        return $this->panier;
+    }
+
+    public function getSession()
+    {
+        if ($this->session == null) {
+            $this->session = new Session();
+        }
+        return $this->session;
+    }
+
+    public function getFilAriane(): FilAriane
+    {
+        if ($this->filAriane === null) {
             $this->filAriane = new FilAriane();
         }
         return $this->filAriane;
@@ -116,9 +121,8 @@ class App
         // Vérifier la nature du serveur (local VS production)
         $env = 'null';
         if ((substr($_SERVER['HTTP_HOST'], 0, 9) == 'localhost') ||
-            (substr($_SERVER['HTTP_HOST'], 0, 7) == '192.168')  ||
-            (substr($_SERVER['SERVER_ADDR'], 0, 7) == '192.168'))
-        {
+            (substr($_SERVER['HTTP_HOST'], 0, 7) == '192.168') ||
+            (substr($_SERVER['SERVER_ADDR'], 0, 7) == '192.168')) {
             $env = 'serveur-local';
         } else {
             $env = 'serveur-production';
@@ -127,28 +131,28 @@ class App
     }
 
 
-    public function routerLaRequete():void
+    public function routerLaRequete(): void
     {
         $controleur = null;
         $action = null;
 
         // Déterminer le controleur responsable de traiter la requête
-        if (isset($_GET['controleur'])){
+        if (isset($_GET['controleur'])) {
             $controleur = $_GET['controleur'];
-        }else{
+        } else {
             $controleur = 'site';
         }
 
         // Déterminer l'action du controleur
-        if (isset($_GET['action'])){
+        if (isset($_GET['action'])) {
             $action = $_GET['action'];
-        }else{
+        } else {
             $action = 'accueil';
         }
 
         // Instantier le bon controleur selon la page demandée
-        if ($controleur === 'site'){
-            $this -> monControleur = new ControleurSite();
+        if ($controleur === 'site') {
+            $this->monControleur = new ControleurSite();
             switch ($action) {
                 case 'accueil':
                     $this->monControleur->accueil();
@@ -159,23 +163,21 @@ class App
                 default:
                     echo 'Erreur 404';
             }
-        }
-        else if($controleur === 'livre'){
-            $this -> monControleur = new ControleurLivre();
+        } else if ($controleur === 'livre') {
+            $this->monControleur = new ControleurLivre();
             switch ($action) {
                 case "catalogue":
-                    $this -> monControleur -> catalogue();
+                    $this->monControleur->catalogue();
                     break;
                 case "fiche":
-                    $this -> monControleur -> fiche();
+                    $this->monControleur->fiche();
                     break;
                 default:
                     echo 'Erreur 404';
             }
-        }
-        else if($controleur === "panier"){
+        } else if ($controleur === "panier") {
             $this->monControleur = new ControleurPanier();
-            switch($action){
+            switch ($action) {
                 case "supprimerItem":
                     $this->monControleur->supprimerItem();
                     break;
@@ -189,21 +191,29 @@ class App
                     $this->monControleur->ajoutPanier();
                     break;
             }
-        }
-        else if($controleur === "transaction"){
+        } else if ($controleur === "transaction") {
             $this->monControleur = new ControleurTransaction();
-            switch($action){
+            switch ($action) {
                 case "livraison":
                     $this->monControleur->transaction();
                     break;
                 case "facturation":
                     $this->monControleur->facturation();
-                    break;
             }
-        }
-        else{
-            echo 'Erreur 404';
-        }
+        } else
+            if ($controleur === "compte") {
+                $this->monControleur = new ControleurCompte();
+                switch ($action) {
+                    case "connexion":
+                        $this->monControleur->connexion();
+                        break;
+                    case "inscription":
+                        $this->monControleur->inscription();
+                        break;
+                }
+            } else {
+                echo 'Erreur 404';
+            }
     }
 
 }

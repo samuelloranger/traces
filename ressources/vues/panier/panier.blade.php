@@ -4,25 +4,49 @@
 
     <h1>Panier</h1>
 
-    <div class="infosLivraison row">
-        <p class="infosLivraison__titre col-12">Calcul des frais de livraison:</p>
-        <p class="infosLivraison__description col-12">Un coût de base de 4$ sera ajouté au taux de 3,50$ par item.</p>
+    <div class="panier__resumeCourt">
+        <p class="sous-total">
+            <span class="sous-total__texteGauche">Sous-total ({{ count($elementsPanier) }} items):</span>
+            <span class="sous-total__texteDroit">{{ $montantSousTotal }}</span>
+        </p>
+
+        <p class="texteLivraisonGratuite">Admissible à la livraison gratuite</p>
+
+        <a href="" class="btnCommander">Passer la commande</a>
     </div>
 
     <div class="panier row">
         @if(count($elementsPanier) != 0)
-            <div class="panier__items col-md-9">
+            <div class="panier__items col-md-12 col-lg-9">
                 @foreach($elementsPanier as $item)
                     <div class="panier__items__item row">
-                        <div class="sectionGauche col-md-3">
-                            <div class="sectionGauche__image">
+                        <div class="sectionGauche col-md-3 col-lg-3">
+                            <a class="sectionGauche__image" href="index.php?controleur=livre&action=fiche&isbn={{ $item -> livre -> isbn }}">
                                 <img src="{{ $item -> livre -> getImageUrl("carre") }}" alt="Image de {{ $item -> livre -> titre }}"/>
+                            </a>
+
+                            <div class="sectionGauche__contenuMobile">
+                                <p class="h2 infosLivre__titreLivre"><a href="index.php?controleur=livre&action=fiche&isbn={{ $item -> livre -> isbn }}">{{ $item -> livre -> titre }}</a></p>
+                                <p class="infosLivre__auteurLivre">
+                                    @foreach($item -> livre -> getAuteurs() as $id => $auteur)
+                                        {{ $auteur->getNomPrenom() }}@if($id !== count($item -> livre -> getAuteurs())-1),@endif
+                                    @endforeach
+                                </p>
+
                             </div>
                         </div>
 
-                        <div class="sectionCentre col-md-6">
-                            <p class="h2 infosLivre__titreLivre"><a href="index.php?controleur=livre&action=fiche&isbn={{ $item -> livre -> isbn }}">{{ $item -> livre -> titre }}</a></p>
-                            <p class="infosLivre__auteurLivre">Par @foreach($item -> livre -> getAuteurs() as $auteur) {{ $auteur->getNomPrenom() }} @endforeach</p>
+                        <div class="sectionCentre col-md-6 col-lg-6">
+                            <div class="infosLivre">
+                                <p class="h2 infosLivre__titreLivre"><a href="index.php?controleur=livre&action=fiche&isbn={{ $item -> livre -> isbn }}">{{ $item -> livre -> titre }}</a></p>
+                                <p class="infosLivre__auteurLivre">
+                                    @foreach($item -> livre -> getAuteurs() as $id => $auteur)
+                                        {{ $auteur->getNomPrenom() }}@if($id !== count($item -> livre -> getAuteurs())-1),@endif
+                                    @endforeach
+                                </p>
+                            </div>
+
+                            <p class="infosLivre__btnSupprimer"><a href="index.php?controleur=panier&action=supprimerItem&isbn={{ $item->livre->isbn }}">Supprimer l'item du panier</a></p>
 
                             <form>
                                 <input type="hidden" name="controleur" value="panier">
@@ -32,7 +56,7 @@
                                 <label for="qte">Quantité</label>
 
                                 <div class="boutons row">
-                                    <div class="select col-md-6">
+                                    <div class="select col-sm-12 col-md-6">
                                         <select name="qte">
                                             <option value="0">0 (supprimer)</option>
                                             @for($intCtr = 1; $intCtr <= 10; $intCtr++)
@@ -41,21 +65,20 @@
                                         </select>
                                     </div>
 
-                                    <button class="updatePanier col-md-6" id="updatePanier">Mettre à jour</button>
+                                    <button class="updatePanier col-sm-12 col-md-6" id="updatePanier">Mettre à jour</button>
                                 </div>
                             </form>
 
-                            <p><a href="index.php?controleur=panier&action=supprimerItem&isbn={{ $item->livre->isbn }}">Supprimer l'item du panier</a></p>
                         </div>
 
-                        <div class="sectionDroite col-md-3">
+                        <div class="sectionDroite col-md-3 col-lg-3">
                             <p class="prixLivre">{{ $item->livre->getPrix() }}</p>
                             <p class="sousTotal">Sous-total: {{ $item->getMontantTotalFormate() }}</p>
                         </div>
                     </div>
                 @endforeach
             </div>
-            <div class="panier__infosPanier col-md-3">
+            <div class="panier__infosPanier col-md-12 col-lg-3">
                 <div class="contenu">
                     <p class="h2">Résumé de la commande</p>
                     <p><span class="texteGauche">Sous-total ({{ count($elementsPanier) }} items):</span> <span class="texteDroit">{{ $montantSousTotal }}</span></p>

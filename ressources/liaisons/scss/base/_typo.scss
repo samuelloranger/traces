@@ -55,7 +55,8 @@ a {
   transition: 0.15s ease-in-out;
 
   &:hover, visited{
-    color: $rouge;
+    color: $rouge !important;
+    text-decoration: none !important;
   }
 }
 
