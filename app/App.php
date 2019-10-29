@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Controleurs\ControleurCompte;
 use App\Controleurs\ControleurLivre;
 use App\Controleurs\ControleurPanier;
 use App\Controleurs\ControleurSite;
@@ -190,6 +191,17 @@ class App
                     break;
                 case "ajoutPanier":
                     $this->monControleur->ajoutPanier();
+                    break;
+            }
+        }
+        else if($controleur === "compte"){
+            $this->monControleur = new ControleurCompte();
+            switch($action){
+                case "connexion":
+                    $this->monControleur->connexion();
+                    break;
+                case "inscription":
+                    $this->monControleur->inscription();
                     break;
             }
         }

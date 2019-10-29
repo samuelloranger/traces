@@ -19,8 +19,8 @@
                         <span aria-label="Rechercher" class="icone icone__rechercher"></span>
                     </div>
                 </li>
-                <li class="btnSeConnecter"><a href="index.php?controleur=accueil&action=index">Se connecter</a></li>
-                <li><a href="index.php?controleur=accueil&action=index">En</a></li>
+                <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=connexion">Se connecter</a></li>
+                <li><a href="index.php?controleur=compte&action=connexion">En</a></li>
             </ul>
         </div>
     </nav>
@@ -56,7 +56,7 @@
                 <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
                 <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
                 <li><a href="index.php?controleur=site&action=index">Nous joindre</a></li>
-                <li class="btnSeConnecter"><a href="index.php?controleur=accueil&action=index">Se connecter</a></li>
+                <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=connexion">Se connecter</a></li>
             </ul>
         </div>
     </nav>
