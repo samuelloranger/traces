@@ -47,7 +47,6 @@ class ControleurCompte {
     }
 
     public function inscrire() {
-        //var_dump($_POST);
         $formulaireValide = $this->validerInscription();
 
         $prenom = $_POST["prenom"];
@@ -71,7 +70,15 @@ class ControleurCompte {
         header("Location: index.php?controleur=accueil&action=accueil");
     }
 
+    public function connecter() {
+        $formulaireValide = $this->validerConnexion();
+    }
+
     public function validerInscription() {
+        return true;
+    }
+
+    public function validerConnexion() {
         return true;
     }
 }
