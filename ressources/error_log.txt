@@ -1,0 +1,5 @@
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/Controleurs/ControleurCompte.php(47): App\Modeles\User::insererUser('Test', 'Test', NULL, 'mdp')
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(214): App\Controleurs\ControleurCompte->inscrire()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#4 {main}
