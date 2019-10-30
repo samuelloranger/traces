@@ -210,6 +210,9 @@ class App
                     case "inscription":
                         $this->monControleur->inscription();
                         break;
+                    case "inscrire":
+                        $this->monControleur->inscrire();
+                        break;
                 }
             } else {
                 echo 'Erreur 404';
