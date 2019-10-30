@@ -100,27 +100,27 @@ class Livre
         $pdo = App::getInstance()->getPDO();
 
         // Définir la chaine SQL
-
-        $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
-        if ($categorie != 0 OR $trierPar != "") {
-            if ($trierPar != "") {
-                if ($trierPar == "aucun") {
-                    $chaineSQL = 'SELECT * FROM livres LIMIT :unIndex, :uneQte';
-                }
-                if ($trierPar == "alphabetique") {
-                    $chaineSQL = 'SELECT * FROM livres ORDER BY livres.titre ASC LIMIT :unIndex, :uneQte';
-                }
-                if ($trierPar == "prixCroissant") {
-                    $chaineSQL = 'SELECT * FROM livres ORDER BY livres.prix ASC LIMIT :unIndex, :uneQte';
-                }
-                if ($trierPar == "prixDecroissant") {
-                    $chaineSQL = 'SELECT * FROM livres ORDER BY livres.prix DESC LIMIT :unIndex, :uneQte';
-                }
+        $triChaine = "";
+        if ($trierPar != "") {
+            if ($trierPar == "alphabetique") {
+                $triChaine = ' ORDER BY livres.titre ASC';
             }
-            if ($categorie != 0) {
-                $chaineSQL = 'SELECT * FROM livres INNER JOIN categories_livres ON livres.id = categories_livres.livre_id WHERE categorie_id= :categorie LIMIT :unIndex, :uneQte';
+            if ($trierPar == "prixCroissant") {
+                $triChaine = ' ORDER BY livres.prix ASC';
+            }
+            if ($trierPar == "prixDecroissant") {
+                $triChaine = ' ORDER BY livres.prix DESC';
             }
         }
+
+        $chaineCategorie = "";
+        if ($categorie !== 0) {
+            $chaineCategorie = " INNER JOIN categories_livres ON categories_livres.livre_id = livres.id WHERE categorie_id= :categorie";
+        }
+
+        $limite = " LIMIT :unIndex, :uneQte";
+
+        $chaineSQL = 'SELECT * FROM livres' . $chaineCategorie . $triChaine . $limite;
 
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($chaineSQL);
@@ -163,7 +163,7 @@ class Livre
         //Requête SQL
 
         if ($categorie != 0) {
-            $sql = 'SELECT * FROM livres INNER JOIN categories_livres ON livres.id = categories_livres.livre_id WHERE categorie_id= :categorie';
+            $sql = 'SELECT COUNT(livres.id) FROM livres INNER JOIN categories_livres ON livres.id = categories_livres.livre_id WHERE categorie_id= :categorie';
         } else {
             $sql = "SELECT COUNT(*) FROM livres";
         }
@@ -178,11 +178,9 @@ class Livre
         //On éxécute la requête
         $requetePreparee->execute();
 
-        //Définition de la variable
+        //Définition de la variables
         $nbrLivre = $requetePreparee->fetch();
 
-        //On retourne nbrLivres de type int, à la valeur 0 puisque
-        //$nbrLivre est
         return (int)$nbrLivre[0];
     }
 
