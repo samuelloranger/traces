@@ -52,7 +52,7 @@ class ControleurCompte {
         echo $this->blade->run("compte.inscription", $tDonnees);
     }
 
-    public function inscrire() {
+    public function inscrire(): void {
         $formulaireValide = $this->validerInscription();
 
         $prenom = $_POST["prenom"];
@@ -76,11 +76,55 @@ class ControleurCompte {
         }
     }
 
-    public function validerInscription() {
-        return true;
+    public function validerInscription(): bool {
+        $formulaireValide = true;
+
+        $prenom = null;
+        if (isset($_POST["prenom"])) {
+            $prenom = $_POST["prenom"];
+        }
+        $nom = null;
+        if (isset($_POST["nom"])) {
+            $nom = $_POST["nom"];
+        }
+        $courriel = null;
+        if (isset($_POST["email"])) {
+            $courriel = $_POST["email"];
+        }
+        $mdp = null;
+        if (isset($_POST["mdp"])) {
+            $mdp = $_POST["mdp"];
+        }
+
+        $regex = [
+            "prenom" => "#[a-zA-Z]{3,30}$#",
+            "nom" => "#[a-zA-Z]{3,30}$#",
+            "courriel" => "#^[a-zA-Z0-9][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,}$#",
+            "mdp" => "#(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$#"
+        ];
+
+        if (!preg_match($regex["prenom"], $prenom)) $formulaireValide = false;
+        if (preg_match($regex["prenom"], $prenom)) echo "prenom valide <br>";
+
+        if (!preg_match($regex["nom"], $nom)) $formulaireValide = false;
+        if (preg_match($regex["nom"], $nom)) echo "nom valide <br>";
+
+        if (!preg_match($regex["courriel"], $courriel)) $formulaireValide = false;
+        if (preg_match($regex["courriel"], $courriel)) echo "courriel valide <br>";
+
+        if (!preg_match($regex["mdp"], $mdp)) $formulaireValide = false;
+        if (preg_match($regex["mdp"], $mdp)) echo "mot de passe valide <br>";
+
+        if ($formulaireValide) {
+            echo "Formulaire valide";
+        } else {
+            echo "Invalide";
+        }
+
+        return $formulaireValide;
     }
 
-    public function validerConnexion() {
+    public function validerConnexion(): bool {
         return true;
     }
 }
