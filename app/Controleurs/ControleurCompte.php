@@ -12,7 +12,6 @@ use DateTime;
 use DateTimeZone;
 use IntlDateFormatter;
 use Locale;
-use mysql_xdevapi\Exception;
 
 class ControleurCompte {
     private $blade = null;
@@ -26,6 +25,24 @@ class ControleurCompte {
     public function connexion(): void {
         $tDonnees = array_merge(Util::getInfosPanier(), ControleurSite::getDonneeFragmentPiedDePage());
         echo $this->blade->run("compte.connexion", $tDonnees);
+    }
+
+    public function connecter() {
+        $formulaireValide = $this->validerConnexion();
+
+        $courriel = $_POST["email"];
+        $mdp = $_POST["mdp"];
+        $user = User::trouverParConnexion($courriel, $mdp);
+
+        if ($formulaireValide && $user !== null) {
+            $this->session->setItem("courriel", $user->__get("courriel"));
+            $this->session->setItem("estConnecte", true);
+
+            //echo "Connexion reussie";
+            header("Location: index.php?controleur=site&action=accueil");
+        } else {
+            echo "Connexion echouee";
+        }
     }
 
     public function inscription(): void {
@@ -47,20 +64,16 @@ class ControleurCompte {
             try {
                 User::insererUser($prenom, $nom, $courriel, $mdp);
                 echo "Compte cree";
+                $this->session->setItem("courriel", $courriel);
+                $this->session->setItem("estConnecte", true);
+
+                header("Location: index.php?controleur=site&action=accueil");
+
             } catch (\Exception $e) {
                 echo "<br> Erreur de requete <br>";
                 echo $e;
             }
         }
-
-        $this->session->setItem("courriel", $courriel);
-        $this->session->setItem("estConnecte", true);
-
-        header("Location: index.php?controleur=accueil&action=accueil");
-    }
-
-    public function connecter() {
-        $formulaireValide = $this->validerConnexion();
     }
 
     public function validerInscription() {

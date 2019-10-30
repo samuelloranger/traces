@@ -40,6 +40,26 @@ class User {
         return $user;
     }
 
+    public static function trouverParConnexion(string $courriel, string $mdp) {
+        $pdo = App::getInstance()->getPDO();
+
+        $chaineRequete = "SELECT * FROM t_client WHERE courriel = :courriel AND mot_de_passe = :mdp";
+
+        $requete = $pdo->prepare($chaineRequete);
+
+        //Parametres de recuperation
+        $requete->setFetchMode(PDO::FETCH_CLASS, User::class);
+
+        //Bind du parametre de courriel
+        $requete->bindValue(":courriel", $courriel, PDO::PARAM_STR);
+        $requete->bindValue(":mdp", $mdp, PDO::PARAM_STR);
+
+        $requete->execute();
+        $user = $requete->fetch();
+
+        return $user;
+    }
+
     public static function insererUser(string $prenom, string $nom, string $courriel, string $mot_de_passe) {
 //        if (User::trouverParCourriel($courriel) !== null) {
 //            return;
