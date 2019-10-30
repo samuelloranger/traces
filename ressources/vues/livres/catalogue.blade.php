@@ -59,7 +59,7 @@
                 <div class="row catalogue__trier">
                     <div class="row">
                         <p class="catalogue__trier__label">Trier par :</p>
-                        <select class="catalogue__trier--select" id="catalogue__trier" onchange=" location = this.value">
+                        <select class="catalogue__trier--select" id="catalogue__trier" onchange="location = this.value">
                             <option value="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar=aucun&nbParPages={{$_GET['nbParPages']}}"
                                     @if(isset($_GET["trierPar"])== 'aucun' OR !isset($_GET["trierPar"]))
                                     selected

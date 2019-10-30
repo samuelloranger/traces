@@ -31,7 +31,22 @@ class Util {
     }
 
 
-    /*
+    /**
+     * Données du panier
+     */
+    public static function getInfosPanier():array{
+        $nbrItemsPanier = App::getInstance()->getPanier() -> getNombreTotalItemsDifferents();
+
+        $panierVide = true;
+        if($nbrItemsPanier > 0){
+            $panierVide = false;
+        }
+
+        return array("nbrItemsPanier" => $nbrItemsPanier, "panierVide" => $panierVide);
+    }
+
+
+    /**
     * @method ISBNToEAN
     * @desc Convertit un ISBN en format EAN
     * @param string - ISBN à convertir

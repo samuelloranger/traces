@@ -99,17 +99,6 @@ class ControleurPanier{
 
     public function panier():void{
 
-        /**
-         * Données du panier
-         */
-        $nbrItemsPanier = $this->panier -> getNombreTotalItemsDifferents();
-
-        $panierVide = true;
-        if($nbrItemsPanier){
-            $panierVide = false;
-        }
-
-
         //Éléments à afficher
         $itemsPanier = $this->panier->getItems();
         $montantSousTotal = Util::formaterArgent($this->panier->getMontantSousTotal());
@@ -130,10 +119,8 @@ class ControleurPanier{
             $montantTotal = Util::formaterArgent($this->panier->getMontantTotal(false));
         }
 
-
         $tDonnees = array_merge(
-            array("panierVide" => $panierVide),
-            array("nbrItemsPanier" => $nbrItemsPanier),
+            Util::getInfosPanier(),
             array("elementsPanier" => $itemsPanier),
             array("fraisLivraison" => $fraisLivraison),
             array("montantTPS" => $montantTPS),
