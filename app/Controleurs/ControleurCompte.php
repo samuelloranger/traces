@@ -17,32 +17,21 @@ use mysql_xdevapi\Exception;
 class ControleurCompte {
     private $blade = null;
     private $session = null;
-    private $panier = null;
 
     public function __construct() {
         $this->blade = App::getInstance()->getBlade();
         $this->session = App::getInstance()->getSession();
-        $this->panier = App::getInstance()->getPanier();
     }
 
     public function connexion(): void {
-        $tDonnees = array_merge([], ControleurSite::getDonneeFragmentPiedDePage());
+        $tDonnees = array_merge(Util::getInfosPanier(), ControleurSite::getDonneeFragmentPiedDePage());
         echo $this->blade->run("compte.connexion", $tDonnees);
     }
 
     public function inscription(): void {
-        $nbrItemsPanier = $this->panier -> getNombreTotalItemsDifferents();
-
-        $panierVide = true;
-        if($nbrItemsPanier){
-            $panierVide = false;
-        }
-
         $tDonnees = array_merge(
             ControleurSite::getDonneeFragmentPiedDePage(),
-            ["nbrItemsPanier" => $nbrItemsPanier],
-            ["panierVide" => $panierVide]
-        );
+            Util::getInfosPanier());
         echo $this->blade->run("compte.inscription", $tDonnees);
     }
 
