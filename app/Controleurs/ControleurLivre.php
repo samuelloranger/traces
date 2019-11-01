@@ -99,7 +99,6 @@ class ControleurLivre
         }
 
         $nbrLivres = Livre::compter($id_categorie);
-        var_dump($nbrLivres);
         $nombreTotalPages = ceil($nbrLivres / $livresParPage);
 
 

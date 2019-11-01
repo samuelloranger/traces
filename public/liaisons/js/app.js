@@ -4,6 +4,7 @@ define(["require", "exports", "./CommentairesEtoiles", "./Menu", "./GestionPanie
     var commentairesEtoiles = new CommentairesEtoiles_1.CommentairesEtoiles();
     var menuMobile = new Menu_1.Menu();
     var gestionPanier = new GestionPanier_1.GestionPanier();
-    var gestionFiche = new GestionFiche_1.GestionFiche();
+    var gestionFiche = new GestionFiche_1.GestionFiche(gestionPanier);
+    document.querySelector("body").classList.add("js");
 });
 //# sourceMappingURL=app.js.map

@@ -46,12 +46,13 @@
                                 </p>
                             </div>
 
-                            <p class="infosLivre__btnSupprimer"><a href="index.php?controleur=panier&action=supprimerItem&isbn={{ $item->livre->isbn }}">Supprimer l'item du panier</a></p>
+                            <p class="infosLivre__btnSupprimer">
+                                <a class="lienSupprItemNoScript" href="index.php?controleur=panier&action=supprimerItem&isbn={{ $item->livre->isbn }}">Supprimer l'item du panier</a>
+                                <button type="button" value="{{ $item -> livre -> isbn }}" class="lienSupprItemScript">Supprimer l'item du panier</button>
+                            </p>
 
-                            <form>
-                                <input type="hidden" name="controleur" value="panier">
-                                <input type="hidden" name="action" value="updateItem">
-                                <input type="hidden" name="isbn" value="{{$item->livre->isbn}}">
+                            <form action="index.php?controleur=panier&action=updateItem">
+                                <input type="hidden" id="isbnLivre" name="isbn" value="{{$item->livre->isbn}}">
 
                                 <label for="qte">Quantité</label>
 

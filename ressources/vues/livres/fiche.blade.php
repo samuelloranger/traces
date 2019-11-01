@@ -32,15 +32,15 @@
                             <label for="formatLivre">Choisir un format...</label>
                             <div class="select">
                                 <select id="formatLivre">
-                                    <option>Sélectionnez un format...</option>
+                                    <option>Format...</option>
                                     <option value="papier">Papier</option>
                                     <option value="papier">E-Pub</option>
                                     <option value="papier">PDF</option>
                                 </select>
-                                <span class="fleche">⯆</span>
+                                <span class="fleche"><span class="arrow-down"></span></span>
                             </div>
 
-                            <label for="Quantité">Quantité</label>
+                            <label class="labelQte" for="Quantité">Quantité</label>
                             <div class="selectionQte">
                                 <span class="btnChangementQte btnChangementQte__soustraire">-</span>
                                 <input type="text" min="1" max="10" maxlength="2" class="qteCourante" value="1">
@@ -49,7 +49,8 @@
                         </div>
 
                         <div class="zoneBouton col-sm-12 col-md-6">
-                            <button class="btn btnPanier">Ajouter au panier</button>
+                            <button type="button" class="btn btnPanier btnAjoutPanierScript">Ajouter au panier</button>
+                            <button class="btn btnPanier btnAjoutPanierNoScript">Ajouter au panier</button>
                             <p class="texteFraisLivraison">* Frais de livraison calculés au panier</p>
                         </div>
                     </form>

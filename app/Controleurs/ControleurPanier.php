@@ -27,7 +27,7 @@ class ControleurPanier{
             $qte = intval($_POST["qte"]);
 
             $livre = Livre::trouverParIsbn($isbn);
-            App::getInstance()->getPanier()->ajouterItem($livre, $qte);
+            $this->panier->ajouterItem($livre, $qte);
         }
 
         //Validation de la redirection
@@ -36,17 +36,24 @@ class ControleurPanier{
         }
 
         //Redirection selon l'emplacement de la fonction appellée
-        if($redirection == "catalogue"){
-            header("Location: index.php?controleur=livre&action=catalogue");
-        }
-        elseif($redirection == "accueil"){
-            header("Location: index.php");
-        }
-        elseif($redirection == "fiche"){
-            header("Location: index.php?controleur=livre&action=fiche&isbn=" . $isbn);
-        }
-        else{
-            header("Location: index.php?controleur=panier&action=panier");
+        switch($redirection) {
+            case "catalogue":
+                header("Location: index.php?controleur=livre&action=catalogue");
+                break;
+            case "accueil":
+                header("Location: index.php");
+                break;
+            case "fiche":
+                header("Location: index.php?controleur=livre&action=fiche&isbn=" . $isbn);
+                break;
+            case "panier":
+                header("Location: index.php?controleur=panier&action=panier");
+                break;
+            case "aucune":
+                echo Util::getInfosPanier()["nbrItemsPanier"];
+                break;
+            default:
+                break;
         }
     }
 

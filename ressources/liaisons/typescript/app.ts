@@ -6,4 +6,6 @@ import {GestionFiche} from "./GestionFiche";
 const commentairesEtoiles = new CommentairesEtoiles();
 const menuMobile = new Menu();
 const gestionPanier = new GestionPanier();
-const gestionFiche = new GestionFiche();
+const gestionFiche = new GestionFiche(gestionPanier);
+
+document.querySelector("body").classList.add("js");

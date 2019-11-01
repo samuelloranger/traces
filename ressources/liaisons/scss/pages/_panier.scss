@@ -1,3 +1,13 @@
+.js{
+  .lienSupprItemScript{
+    display: block !important;
+  }
+
+  .lienSupprItemNoScript{
+    display: none !important;
+  }
+}
+
 .panier{
   &__resumeCourt{
     display: none;
@@ -136,8 +146,26 @@
             }
 
             &__btnSupprimer{
-              a{
-                color: red;
+              color: red;
+
+              .lienSupprItemNoScript{
+                display: block;
+                color: red !important;
+              }
+
+              .lienSupprItemScript{
+                display: none;
+                background: none;
+                border: none;
+                padding: 0;
+
+                &:focus{
+                  outline: none;
+                }
+
+                &:hover{
+                  cursor: pointer;
+                }
               }
             }
           }
