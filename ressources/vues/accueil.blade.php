@@ -54,12 +54,8 @@
                             </ul>
                             <div class="nouveautes__vignette__details__boutons">
                                 <a href="index.php?controleur=livre&action=fiche&nouveaute&isbn={{$arrNouveautes[$indexLivre]->isbn}}" class="nouveautes__vignette__bouton_plus">EN SAVOIR PLUS</a>
-                                <form>
-                                    <input type="hidden" name="isbn" value="{{ $arrNouveautes[$indexLivre] -> isbn }}" hidden>
-                                    <input type="hidden" name="controleur" value="panier" hidden>
-                                    <input type="hidden" name="action" value="ajoutPanier" hidden>
+                                <form action="index.php?controleur=panier&action=ajoutPanier&redirection=accueil&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" method="POST">
                                     <input type="hidden" name="qte" value="1" hidden>
-                                    <input type="hidden" name="redirection" value="accueil" hidden>
 
                                     <button class="nouveautes__vignette bouton_panier">AJOUTER AU PANIER</button>
                                 </form>
@@ -96,12 +92,8 @@
                             <div class="coupsCoeur__groupe__vignette__boutons">
                                 <h3 class="coupsCoeur__groupe__vignette__details__prix">{{$arrCoupsCoeur[$indexLivre]->prix}}$</h3>
                                 <a href="index.php?controleur=livre&action=fiche&coupCoeur&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" class="coupsCoeur__groupe__vignette__boutons__bouton_plus">EN SAVOIR PLUS</a>
-                                <form>
-                                    <input type="hidden" name="isbn" value="{{ $arrCoupsCoeur[$indexLivre] -> isbn }}" hidden>
-                                    <input type="hidden" name="controleur" value="panier" hidden>
-                                    <input type="hidden" name="action" value="ajoutPanier" hidden>
+                                <form action="index.php?controleur=panier&action=ajoutPanier&redirection=accueil&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" method="POST">
                                     <input type="hidden" name="qte" value="1" hidden>
-                                    <input type="hidden" name="redirection" value="accueil" hidden>
 
                                     <button class="coupsCoeur__groupe__vignette__boutons bouton_panier">AJOUTER AU PANIER</button>
                                 </form>

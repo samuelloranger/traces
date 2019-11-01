@@ -22,9 +22,9 @@ class ControleurPanier{
     }
 
     public function ajoutPanier(){
-        if(isset($_GET["isbn"]) && isset($_GET["qte"])){
+        if(isset($_GET["isbn"]) && isset($_POST["qte"])){
             $isbn = $_GET["isbn"];
-            $qte = intval($_GET["qte"]);
+            $qte = intval($_POST["qte"]);
 
             $livre = Livre::trouverParIsbn($isbn);
             App::getInstance()->getPanier()->ajouterItem($livre, $qte);

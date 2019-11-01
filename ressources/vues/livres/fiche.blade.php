@@ -27,13 +27,8 @@
                         <p class="disponibilite">{{ $livre -> getParution() }}</p>
                     </div>
 
-                    <form class="zoneInfos__zonePanier__optionsPanier col-sm-12 col-md-9 row">
+                    <form action="index.php?controleur=panier&action=ajoutPanier&redirection=fiche&isbn={{ $livre -> isbn }}" method="POST" class="zoneInfos__zonePanier__optionsPanier col-sm-12 col-md-9 row">
                         <div class="options col-sm-12 col-md-6">
-                            <input type="hidden" name="isbn" value="{{ $livre -> isbn }}" hidden>
-                            <input type="hidden" name="controleur" value="panier" hidden>
-                            <input type="hidden" name="action" value="ajoutPanier" hidden>
-                            <input type="hidden" name="redirection" value="fiche" hidden>
-
                             <label for="formatLivre">Choisir un format...</label>
                             <div class="select">
                                 <select id="formatLivre">
@@ -42,17 +37,14 @@
                                     <option value="papier">E-Pub</option>
                                     <option value="papier">PDF</option>
                                 </select>
-                                <span class="fleche"></span>
+                                <span class="fleche">⯆</span>
                             </div>
 
                             <label for="Quantité">Quantité</label>
-                            <div class="select">
-                                <select id="quantite" name="qte">
-                                    @for ($intCtr = 1; $intCtr <= 10; $intCtr++)
-                                        <option value="{{ $intCtr }}">{{ $intCtr }}</option>
-                                    @endfor
-                                </select>
-                                <span class="fleche"></span>
+                            <div class="selectionQte">
+                                <span class="btnChangementQte btnChangementQte__soustraire">-</span>
+                                <input type="text" min="1" max="10" maxlength="2" class="qteCourante" value="1">
+                                <span class="btnChangementQte btnChangementQte__additionner">+</span>
                             </div>
                         </div>
 
@@ -60,7 +52,6 @@
                             <button class="btn btnPanier">Ajouter au panier</button>
                             <p class="texteFraisLivraison">* Frais de livraison calculés au panier</p>
                         </div>
-
                     </form>
                 </div>
             </div>

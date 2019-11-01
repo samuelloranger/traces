@@ -111,7 +111,7 @@
                                 <a class="catalogue__btn catalogue__btn--enSavoirPlus"
                                    href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">EN SAVOIR
                                     PLUS</a>
-                                <form class="catalogue__btn--form">
+                                <form  action="index.php?controleur=panier&action=ajoutPanier&redirection=catalogue&isbn={{ $livre -> isbn }}" method="POST" class="catalogue__btn--form">
                                     <input type="hidden" name="isbn" value="{{ $livre -> isbn }}" hidden>
                                     <input type="hidden" name="controleur" value="panier" hidden>
                                     <input type="hidden" name="action" value="ajoutPanier" hidden>
