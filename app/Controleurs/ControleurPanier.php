@@ -22,9 +22,9 @@ class ControleurPanier{
     }
 
     public function ajoutPanier(){
-        if(isset($_GET["isbn"]) && isset($_GET["qte"])){
+        if(isset($_GET["isbn"]) && isset($_POST["qte"])){
             $isbn = $_GET["isbn"];
-            $qte = intval($_GET["qte"]);
+            $qte = intval($_POST["qte"]);
 
             $livre = Livre::trouverParIsbn($isbn);
             App::getInstance()->getPanier()->ajouterItem($livre, $qte);
@@ -99,17 +99,6 @@ class ControleurPanier{
 
     public function panier():void{
 
-        /**
-         * Données du panier
-         */
-        $nbrItemsPanier = $this->panier -> getNombreTotalItemsDifferents();
-
-        $panierVide = true;
-        if($nbrItemsPanier){
-            $panierVide = false;
-        }
-
-
         //Éléments à afficher
         $itemsPanier = $this->panier->getItems();
         $montantSousTotal = Util::formaterArgent($this->panier->getMontantSousTotal());
@@ -130,10 +119,8 @@ class ControleurPanier{
             $montantTotal = Util::formaterArgent($this->panier->getMontantTotal(false));
         }
 
-
         $tDonnees = array_merge(
-            array("panierVide" => $panierVide),
-            array("nbrItemsPanier" => $nbrItemsPanier),
+            Util::getInfosPanier(),
             array("elementsPanier" => $itemsPanier),
             array("fraisLivraison" => $fraisLivraison),
             array("montantTPS" => $montantTPS),

@@ -99,6 +99,7 @@ class ControleurLivre
         }
 
         $nbrLivres = Livre::compter($id_categorie);
+        var_dump($nbrLivres);
         $nombreTotalPages = ceil($nbrLivres / $livresParPage);
 
 
@@ -115,22 +116,10 @@ class ControleurLivre
 
 
         /**
-         * Données du panier
-         */
-        $panier = App::getInstance()->getPanier();
-        $nbrItemsPanier = $panier -> getNombreTotalItemsDifferents();
-
-        $panierVide = true;
-        if($nbrItemsPanier){
-            $panierVide = false;
-        }
-
-        /**
          * Définition de l'array retourné avec toutes les données
          */
         $arrDonnees = array_merge(
-            array("panierVide" => $panierVide),
-            array("nbrItemsPanier" => $nbrItemsPanier),
+            Util::getInfosPanier(),
             array("arrLivres" => $arrLivres),
             array("arrCategories" => $arrCategories),
             array("nombreTotalPages" => $nombreTotalPages),
@@ -178,20 +167,8 @@ class ControleurLivre
         }
 
 
-        /**
-         * Données du panier
-         */
-        $panier = App::getInstance()->getPanier();
-        $nbrItemsPanier = $panier -> getNombreTotalItemsDifferents();
-
-        $panierVide = true;
-        if($nbrItemsPanier){
-            $panierVide = false;
-        }
-
         $arrInfos = array_merge(
-            array("panierVide" => $panierVide),
-            array("nbrItemsPanier" => $nbrItemsPanier),
+            Util::getInfosPanier(),
             array("livre" => $infosLivre),
             array("arrRecensions" => $arrRecensions),
             array("arrHonneurs" => $arrHonneurs),

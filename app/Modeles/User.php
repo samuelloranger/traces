@@ -40,22 +40,44 @@ class User {
         return $user;
     }
 
+    public static function trouverParConnexion(string $courriel, string $mdp) {
+        $pdo = App::getInstance()->getPDO();
+
+        $chaineRequete = "SELECT * FROM t_client WHERE courriel = :courriel AND mot_de_passe = :mdp";
+
+        $requete = $pdo->prepare($chaineRequete);
+
+        //Parametres de recuperation
+        $requete->setFetchMode(PDO::FETCH_CLASS, User::class);
+
+        //Bind du parametre de courriel
+        $requete->bindValue(":courriel", $courriel, PDO::PARAM_STR);
+        $requete->bindValue(":mdp", $mdp, PDO::PARAM_STR);
+
+        $requete->execute();
+        $user = $requete->fetch();
+
+        return $user;
+    }
+
     public static function insererUser(string $prenom, string $nom, string $courriel, string $mot_de_passe) {
 //        if (User::trouverParCourriel($courriel) !== null) {
 //            return;
 //        }
+        $telephone = 9999999;
         //Importation de l'objet PDO
         $pdo = App::getInstance()->getPDO();
         //Construction de la chaine de requete
         $chaineRequete = "INSERT INTO t_client (prenom, nom, courriel, telephone, mot_de_passe) 
-                          VALUES (:prenom, :nom, :courriel, 9999999999, :mot_de_passe)";
+                          VALUES (?, ?, ?, ?, ?)";
         //Preparation de la requete
         $requete = $pdo->prepare($chaineRequete);
         //Attachement des valeurs personnalisees
-        $requete->bindValue(":prenom", $prenom, PDO::PARAM_STR);
-        $requete->bindValue(":nom", $nom, PDO::PARAM_STR);
-        $requete->bindValue(":courriel", $courriel, PDO::PARAM_STR);
-        $requete->bindValue(":mot_de_passe", $mot_de_passe, PDO::PARAM_STR);
+        $requete->bindParam(1, $prenom, PDO::PARAM_STR);
+        $requete->bindParam(2, $nom, PDO::PARAM_STR);
+        $requete->bindParam(3, $courriel, PDO::PARAM_STR);
+        $requete->bindParam(4, $telephone, PDO::PARAM_INT);
+        $requete->bindParam(5, $mot_de_passe, PDO::PARAM_STR);
         //Execution de la requete
         $requete->execute();
     }

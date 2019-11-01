@@ -59,7 +59,7 @@
                 <div class="row catalogue__trier">
                     <div class="row">
                         <p class="catalogue__trier__label">Trier par :</p>
-                        <select class="catalogue__trier--select" id="catalogue__trier" onchange=" location = this.value">
+                        <select class="catalogue__trier--select" id="catalogue__trier" onchange="location = this.value">
                             <option value="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar=aucun&nbParPages={{$_GET['nbParPages']}}"
                                     @if(isset($_GET["trierPar"])== 'aucun' OR !isset($_GET["trierPar"]))
                                     selected
@@ -110,7 +110,7 @@
                                 <a class="catalogue__btn catalogue__btn--enSavoirPlus"
                                    href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">EN SAVOIR
                                     PLUS</a>
-                                <form class="catalogue__btn--form">
+                                <form  action="index.php?controleur=panier&action=ajoutPanier&redirection=catalogue&isbn={{ $livre -> isbn }}" method="POST" class="catalogue__btn--form">
                                     <input type="hidden" name="isbn" value="{{ $livre -> isbn }}" hidden>
                                     <input type="hidden" name="controleur" value="panier" hidden>
                                     <input type="hidden" name="action" value="ajoutPanier" hidden>

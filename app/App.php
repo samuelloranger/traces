@@ -216,6 +216,12 @@ class App
                     case "inscription":
                         $this->monControleur->inscription();
                         break;
+                    case "inscrire":
+                        $this->monControleur->inscrire();
+                        break;
+                    case "connecter":
+                        $this->monControleur->connecter();
+                        break;
                 }
             } else {
                 echo 'Erreur 404';
