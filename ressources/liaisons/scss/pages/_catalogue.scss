@@ -6,9 +6,16 @@
     padding-left: 15px;
     @media(min-width: $DESKTOP-NORMAL) {
       color: $BEIGE;
-      font-size: 16px;
+      font-size: 14px;
       padding: 0;
       margin: 0;
+    }
+  }
+
+  &__alignementDesktop {
+    @media(min-width: $DESKTOP-NORMAL) {
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 
@@ -86,7 +93,7 @@
         padding: 2px 50px;
         font-size: 14px;
       }
-      @media(min-width: $DESKTOP-LARGE){
+      @media(min-width: $DESKTOP-LARGE) {
         padding: 2px 74px;
       }
     }
@@ -214,12 +221,11 @@
 
   &__nbParPages {
     font-size: 16px;
-    padding-left: 5%;
+    }
 
-    &__label {
-      @media(min-width: $DESKTOP-NORMAL) {
-        padding-left: 50px;
-      }
+  &__nbResultats {
+    @media(min-width: $DESKTOP-NORMAL) {
+      margin-left: 15px;
     }
   }
 
@@ -246,7 +252,6 @@
     @media (min-width: $DESKTOP-NORMAL) {
       height: 25px;
       display: inline;
-      margin-left: 10px;
     }
   }
 
@@ -260,24 +265,27 @@
     }
 
     @media(min-width: $DESKTOP-NORMAL) {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 
   &__trier {
-    margin-top: 2%;
-    margin-bottom: 2%;
-    padding-left: 5%;
-
     &__label {
-      margin-left: 10px;
+      @media(min-width: $DESKTOP-NORMAL) {
+        margin-left: 15px;
+      }
+
     }
 
     &--select {
-      @media(min-width: $DESKTOP-NORMAL) {
-        height: 25px;
-        margin-left: 3px;
+      margin-left: 3px;
+      height: 25px;
       }
+
+
+    &__alignement {
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 
@@ -292,9 +300,9 @@
   font-size: 16px;
   border: none;
   border-radius: 50px;
-  margin-left: 30%;
+  margin-left: 20%;
   @media(min-width: $TABLETTE) {
-    margin-left: 0;
+    margin-left: 28%;
   }
 
   @media (min-width: $DESKTOP-NORMAL) {
