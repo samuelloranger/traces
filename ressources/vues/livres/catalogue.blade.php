@@ -80,8 +80,7 @@
                                     @if(isset($_GET["trierPar"]) AND $_GET["trierPar"] == 'prixDecroissant')
                                     selected
                                     @endif
-                            >Prix: $$$ -> $
-                            </option>
+                            >Prix: $$$ -> $</option>
                         </select>
                     </div>
 

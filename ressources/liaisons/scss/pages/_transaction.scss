@@ -1,0 +1,35 @@
+.transaction {
+  &__background {
+    background-color: $GRIS_PALE;
+    border-radius: 20px;
+    padding: 10%;
+    margin-bottom: 5%;
+  }
+
+  &__bouton {
+    background-color: $TURQUOISE;
+    display: flex;
+    text-align: center;
+    color: white;
+    border-radius: 50px;
+    padding: 7px;
+    border: none;
+    margin-top: 5%;
+  }
+
+  &__centrer {
+    justify-content: center;
+    align-items: baseline;
+  }
+
+  &__sous-titre {
+    color: $ROUGE;
+    text-align: center;
+    font-size: 22px;
+  }
+
+  &__titre {
+    text-align: center;
+    margin: 5% 0 8% 0;
+  }
+}

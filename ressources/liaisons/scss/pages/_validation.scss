@@ -1,0 +1,18 @@
+.validation{
+  &__etape{
+    display: flex;
+    &__actif {
+      font-size: 18px;
+      background-color: $ROUGE;
+      color: $BLANC;
+      border-radius: 10px;
+      margin-right: 10px;
+      padding: 5px 10px;
+    }
+
+    &__non-actif {
+      color: $GRIS_FONCE;
+      margin-right: 10px;
+    }
+  }
+}

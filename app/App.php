@@ -199,6 +199,12 @@ class App
                     break;
                 case "facturation":
                     $this->monControleur->facturation();
+                    break;
+                case "validation":
+                    $this->monControleur->validation();
+                    break;
+                case "confirmation":
+                    $this->monControleur->confirmation();
             }
         } else
             if ($controleur === "compte") {
