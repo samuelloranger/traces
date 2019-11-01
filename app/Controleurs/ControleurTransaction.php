@@ -20,13 +20,27 @@ class ControleurTransaction
     {
         $tDonnees = array("nomPage"=>"Livraison");
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
-        echo $this->blade->run("transaction.livraison",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
+        echo $this->blade->run("transaction.livraison",$tDonnees);
     }
 
     public function facturation():void
     {
         $tDonnees = array("nomPage"=>"Facturation");
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
-        echo $this->blade->run("transaction.facturation",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
+        echo $this->blade->run("transaction.facturation",$tDonnees);
+    }
+
+    public function validation():void
+    {
+        $tDonnees = array("nomPage"=>"Validation");
+        $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
+        echo $this->blade->run("transaction.validation",$tDonnees);
+    }
+
+    public function confirmation():void
+    {
+        $tDonnees = array("nomPage"=>"Confirmation");
+        $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
+        echo $this->blade->run("transaction.confirmation",$tDonnees);
     }
 }

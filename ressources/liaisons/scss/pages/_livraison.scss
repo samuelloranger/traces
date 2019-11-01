@@ -1,0 +1,40 @@
+.livraison {
+  &__checkbox{
+    display: flex;
+    align-items: baseline;
+    margin-top: 3%;
+    &--label {
+      margin-left: 1%;
+    }
+  }
+  &__etape {
+    display: flex;
+
+    &__actif {
+      font-size: 18px;
+      background-color: $ROUGE;
+      color: $BLANC;
+      border-radius: 10px;
+      margin-right: 10px;
+      padding: 5px 10px;
+    }
+
+    &__non-actif {
+      color: $GRIS_FONCE;
+      margin-right: 10px;
+    }
+  }
+  &__label {
+    margin:4% 0 0 0;
+    font-size: 18px;
+    &--exemple {
+      color: $GRIS_FONCE;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+  }
+  &__input {
+    width: 100%;
+    height: 40px;
+  }
+}

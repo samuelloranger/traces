@@ -104,16 +104,9 @@ class ControleurCompte {
         ];
 
         if (!preg_match($regex["prenom"], $prenom)) $formulaireValide = false;
-        if (preg_match($regex["prenom"], $prenom)) echo "prenom valide <br>";
-
         if (!preg_match($regex["nom"], $nom)) $formulaireValide = false;
-        if (preg_match($regex["nom"], $nom)) echo "nom valide <br>";
-
         if (!preg_match($regex["courriel"], $courriel)) $formulaireValide = false;
-        if (preg_match($regex["courriel"], $courriel)) echo "courriel valide <br>";
-
         if (!preg_match($regex["mdp"], $mdp)) $formulaireValide = false;
-        if (preg_match($regex["mdp"], $mdp)) echo "mot de passe valide <br>";
 
         if ($formulaireValide) {
             echo "Formulaire valide";
