@@ -26,6 +26,8 @@
     font-size: 16px;
     border: none;
     border-radius: 50px;
+    display: block;
+    text-align: center;
 
     &:hover {
       text-decoration: none;
@@ -221,7 +223,7 @@
 
   &__nbParPages {
     font-size: 16px;
-    }
+  }
 
   &__nbResultats {
     @media(min-width: $DESKTOP-NORMAL) {
@@ -234,8 +236,8 @@
     margin-left: 20px;
     margin-top: 23px;
     @media(min-width: $DESKTOP-NORMAL) {
-      margin-top: 15px;
-      margin-left: 60px;
+      margin-top: 10px;
+      text-align: center;
     }
   }
 
@@ -280,7 +282,7 @@
     &--select {
       margin-left: 3px;
       height: 25px;
-      }
+    }
 
 
     &__alignement {
