@@ -190,6 +190,8 @@ class App
                 case "ajoutPanier":
                     $this->monControleur->ajoutPanier();
                     break;
+                case "nbrItemsPanier":
+                    $this->monControleur->retournerNbrItemsPanier();
             }
         } else if ($controleur === "transaction") {
             $this->monControleur = new ControleurTransaction();

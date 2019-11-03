@@ -138,9 +138,6 @@ class ControleurLivre
 
     public function getDonneesUnLivre(): array
     {
-        $filAriane = App::getInstance()->getFilAriane();
-        $filAriane = $filAriane::majFilAriane();
-
         $isbnLivre = "0";
         if (isset($_GET["isbn"])) {
             $isbnLivre = $_GET["isbn"];
@@ -150,6 +147,9 @@ class ControleurLivre
         if ($infosLivre == false) {
             header('Location: 404.php');
         }
+
+        $filAriane = App::getInstance()->getFilAriane();
+        $filAriane = $filAriane::majFilAriane();
 
         //Infos du livre
         $infosLivre->__set("isbn13", Util::ISBNToEAN($infosLivre->__get("isbn")));

@@ -43,7 +43,7 @@
                             <label class="labelQte" for="Quantité">Quantité</label>
                             <div class="selectionQte">
                                 <span class="btnChangementQte btnChangementQte__soustraire">-</span>
-                                <input type="text" min="1" max="10" maxlength="2" class="qteCourante" value="1">
+                                <input name="qte" type="text" min="1" max="10" maxlength="2" class="qteCourante" value="1">
                                 <span class="btnChangementQte btnChangementQte__additionner">+</span>
                             </div>
                         </div>

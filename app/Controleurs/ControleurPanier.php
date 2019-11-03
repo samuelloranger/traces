@@ -22,6 +22,7 @@ class ControleurPanier{
     }
 
     public function ajoutPanier(){
+        $isbn = "0";
         if(isset($_GET["isbn"]) && isset($_POST["qte"])){
             $isbn = $_GET["isbn"];
             $qte = intval($_POST["qte"]);
@@ -50,61 +51,90 @@ class ControleurPanier{
                 header("Location: index.php?controleur=panier&action=panier");
                 break;
             case "aucune":
-                echo Util::getInfosPanier()["nbrItemsPanier"];
+                $this->retournerNbrItemsPanier();
                 break;
             default:
                 break;
         }
     }
 
+    public function retournerNbrItemsPanier(){
+        echo Util::getInfosPanier()["nbrItemsPanier"];
+    }
+
     public function updateItem(){
-        if(isset($_GET["isbn"])){
-            $isbn = $_GET["isbn"];
+        if(isset($_POST["isbn"])){
+            $isbn = $_POST["isbn"];
         }
         else{
             $isbn = "-1";
         }
 
         $qte = 0;
-        if(is_numeric($_GET["qte"])){
-            $qte = intval($_GET["qte"]);
+        if(isset($_POST["qte"])){
+            $qte = intval($_POST["qte"]);
         }
 
+        $isAjax = false;
+        if(isset($_POST["isAjax"])){
+            $isAjax = true;
+        }
 
         if(Util::validerISBN($isbn)){
             if($qte != 0){
                 $this->panier->setQuantiteItem($isbn, $qte);
+
+                if(!$isAjax){
+                    header("Location: index.php?controleur=panier&action=panier");
+                }
+                else{
+                    $this->panier(false);
+                }
             }
             else{
-                $this->supprimerItem();
+                $this->supprimerItem($isbn);
             }
-            header("Location: index.php?controleur=panier&action=panier");
+
         }
         else{
-
             echo "Erreur isbn non-valide";
         }
     }
 
-    public function supprimerItem(){
+    public function supprimerItem($isbnArgument = 0){
         if(isset($_GET["isbn"])){
             $isbn = $_GET["isbn"];
         }
         else{
-            $isbn = "-1";
+            if($isbnArgument != 0){
+                $isbn = $isbnArgument;
+            }
+            else{
+                $isbn = "-1";
+            }
+        }
+
+        $ajaxCall = false;
+        if(isset($_POST["isAjax"])){
+            $ajaxCall = true;
         }
 
         if(Util::validerISBN($isbn)){
             $this->panier->supprimerItem($isbn);
 
-            header("Location: index.php?controleur=panier&action=panier");
+            if(!$ajaxCall){
+                header("Location: index.php?controleur=panier&action=panier");
+            }
+            else{
+                $this->panier(false);
+            }
         }
         else{
             echo "Erreur isbn non-valide";
         }
     }
 
-    public function panier():void{
+    public function panier($pageComplete = true){
 
         //Éléments à afficher
         $itemsPanier = $this->panier->getItems();
@@ -137,6 +167,11 @@ class ControleurPanier{
             array("montantTotal" => $montantTotal)
         );
 
-        echo $this->blade->run("panier.panier", $tDonnees);
+        if($pageComplete){
+            echo $this->blade->run("panier.gabarit_panier", $tDonnees);
+        }
+        else{
+            echo $this->blade->run("panier.panier", $tDonnees);
+        }
     }
 }

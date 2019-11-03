@@ -85,7 +85,7 @@ class Util {
     public static function validerISBN(string $isbn):bool {
         $isbnValide = false;
 
-        if(preg_match("#^[0-9]\-[0-9]{6}\-[0-9]{2}\-[0-9]$#", $isbn) || preg_match("#^[0-9]-[0-9]{5}-[0-9]{3}-[0-9]$#", $isbn)){
+        if(preg_match("#^[0-9]\-[0-9]{6}\-[0-9]{2}\-[0-9]$#", $isbn) || preg_match("#^[0-9]-[0-9]{5}-[0-9]{3}-[0-9]$#", $isbn) || preg_match("#^[0-9]-[0-9]{5}-[0-9]{3}-[a-z]$#", $isbn)){
             $isbnValide = true;
         }
 
