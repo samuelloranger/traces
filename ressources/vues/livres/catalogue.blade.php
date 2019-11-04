@@ -9,13 +9,13 @@
             <p class="catalogue__categories__titre text-center">
                 CATÉGORIES
             </p>
-            <a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar={{$_GET['trierPar']}}&nbParPages={{ $_GET['nbParPages'] }}"
+            <a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar={{$trierPar}}&nbParPages={{$livresParPage}}"
                class="catalogue__btn catalogue__categories--reinitialiser">RÉINITIALISER</a>
             <div class="catalogue__categories__contenu">
                 <ul class="catalogue__categories__liste">
                     @foreach($arrCategories as $categorie)
                         <li class="catalogue__categories__liste__item">
-                            <a href="index.php?controleur=livre&action=catalogue&categorie={{$categorie -> id}}&trierPar={{$_GET['trierPar']}}&nbParPages={{ $_GET['nbParPages'] }}"
+                            <a href="index.php?controleur=livre&action=catalogue&categorie={{$categorie->id}}&trierPar={{$trierPar}}&nbParPages={{$livresParPage}}"
                                class="catalogue__categories__lien">{{$categorie -> nom_fr}}</a>
                         </li>
                     @endforeach
@@ -30,12 +30,12 @@
                     </button>
                     <div id="myDropdown" class="dropdown-content justify-content-center">
                         <form method="post" action="{{$urlPagination}}">
-                            <a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar={{$_GET['trierPar']}}&nbParPages={{ $_GET['nbParPages'] }}"
+                            <a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar={{$trierPar}}&nbParPages={{$livresParPage}}"
                                class="catalogue__btn catalogue__btn--reinitialiser">RÉINITIALISER</a>
                             <ul class="catalogue__categories__liste">
                                 @foreach($arrCategories as $categorie)
                                     <li class="catalogue__categories__liste__item">
-                                        <a href="index.php?controleur=livre&action=catalogue&categorie={{$categorie -> id}}&trierPar={{$_GET['trierPar']}}&nbParPages={{ $_GET['nbParPages'] }}"
+                                        <a href="index.php?controleur=livre&action=catalogue&categorie={{$categorie->id}}&trierPar={{$_GET["trierPar"]}}&nbParPages={{$livresParPage}}"
                                            class="catalogue__categories__lien">{{$categorie -> nom_fr}}</a>
                                     </li>
                                 @endforeach
@@ -52,25 +52,25 @@
                             <p class="catalogue__trier__label">Trier par :</p>
                             <div class="catalogue__trier--select">
                                 <select onchange="location = this.value">
-                                    <option value="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar=aucun&nbParPages={{$_GET['nbParPages']}}"
-                                            @if(isset($_GET["trierPar"])== 'aucun' OR !isset($_GET["trierPar"]))
+                                    <option value="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar=aucun&nbParPages={{$livresParPage}}"
+                                            @if($trierPar == 'aucun')
                                             selected
                                             @endif
                                     >Aucun
                                     </option>
-                                    <option value="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar=alphabetique&nbParPages={{$_GET['nbParPages']}}"
-                                            @if(isset($_GET["trierPar"]) AND $_GET["trierPar"] == 'alphabetique')
+                                    <option value="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar=alphabetique&nbParPages={{$livresParPage}}"
+                                            @if($trierPar == 'alphabetique')
                                             selected
 
                                             @endif>Ordre alphabétique
                                     </option>
-                                    <option value="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar=prixCroissant&nbParPages={{$_GET['nbParPages']}}"
-                                            @if(isset($_GET["trierPar"]) AND $_GET["trierPar"] == 'prixCroissant')
+                                    <option value="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar=prixCroissant&nbParPages={{$livresParPage}}"
+                                            @if($trierPar == 'prixCroissant')
                                             selected
                                             @endif>Prix: $ -> $$$
                                     </option>
-                                    <option value="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar=prixDecroissant&nbParPages={{$_GET['nbParPages']}}"
-                                            @if(isset($_GET["trierPar"]) AND $_GET["trierPar"] == 'prixDecroissant')
+                                    <option value="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar=prixDecroissant&nbParPages={{$livresParPage}}"
+                                            @if($trierPar == 'prixDecroissant')
                                             selected
                                             @endif
                                     >Prix: $$$ -> $
@@ -85,11 +85,11 @@
                     <div class="catalogue__trier__alignement">
                         <p class="catalogue__nbParPages__label">Nombre de livres par pages :</p>
                         <a class="catalogue__lien"
-                           href="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar={{$_GET['trierPar']}}&nbParPages=9">9</a>
+                           href="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar={{$trierPar}}&nbParPages=9">9</a>
                         <a class="catalogue__lien"
-                           href="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar={{$_GET['trierPar']}}&nbParPages=18">18</a>
+                           href="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar={{$trierPar}}&nbParPages=18">18</a>
                         <a class="catalogue__lien"
-                           href="index.php?controleur=livre&action=catalogue&categorie={{$_GET['categorie']}}&trierPar={{$_GET['trierPar']}}&nbParPages=36">36</a>
+                           href="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar={{$trierPar}}&nbParPages=36">36</a>
                     </div>
                     <div class="catalogue__nbResultats">
                         <p>Nombre de résultats : <b>{{$nbResultats}}</b></p>
@@ -119,15 +119,14 @@
                             </div>
                             <div class="catalogue__livre__boutons">
                                 <a class="catalogue__btn catalogue__btn--enSavoirPlus"
-                                   href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">EN SAVOIR
-                                    PLUS</a>
+                                   href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">EN SAVOIR PLUS</a>
                                 <form action="index.php?controleur=panier&action=ajoutPanier&redirection=catalogue&isbn={{ $livre -> isbn }}"
                                       method="POST" class="catalogue__btn--form">
                                     <input type="hidden" name="isbn" value="{{ $livre -> isbn }}" hidden>
                                     <input type="hidden" name="controleur" value="panier" hidden>
                                     <input type="hidden" name="action" value="ajoutPanier" hidden>
                                     <input type="hidden" name="qte" value="1" hidden>
-                                    <input type="hidden" name="redirection" value="catalogue" hidden>
+                                    <input type="hidden" name="redirection" value="catalogue&" hidden>
                                     <button class="catalogue__btn catalogue__btn--ajouterPanier">AJOUTER AU PANIER
                                     </button>
                                 </form>

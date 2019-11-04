@@ -34,7 +34,7 @@ class ControleurPanier{
         //Redirection selon l'emplacement de la fonction appellée
         switch($redirection) {
             case "catalogue":
-                header("Location: index.php?controleur=livre&action=catalogue");
+                header("Location: index.php?controleur=livre&action=catalogue&categorie=0&trierPar=aucun&nbParPages=9");
                 break;
             case "accueil":
                 header("Location: index.php");

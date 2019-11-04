@@ -128,3 +128,45 @@
 #2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
 #3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
 #4 {main}
+#0 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(97): App\Modeles\Livre::trouverParLimite(0, 9, 11, NULL)
+#1 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(31): App\Controleurs\ControleurLivre->getDonneesLivres()
+#2 /Users/zachary/Sites/traces/app/App.php(170): App\Controleurs\ControleurLivre->catalogue()
+#3 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(97): App\Modeles\Livre::trouverParLimite(0, 9, 11, NULL)
+#1 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(31): App\Controleurs\ControleurLivre->getDonneesLivres()
+#2 /Users/zachary/Sites/traces/app/App.php(170): App\Controleurs\ControleurLivre->catalogue()
+#3 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(154): App\Util::couperParagraphe(NULL)
+#1 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(39): App\Controleurs\ControleurLivre->getDonneesUnLivre()
+#2 /Users/zachary/Sites/traces/app/App.php(173): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(95): App\Modeles\Livre::trouverParLimite(0, NULL, 0, '')
+#1 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(31): App\Controleurs\ControleurLivre->getDonneesLivres()
+#2 /Users/zachary/Sites/traces/app/App.php(170): App\Controleurs\ControleurLivre->catalogue()
+#3 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(95): App\Modeles\Livre::trouverParLimite(0, NULL, 0, '')
+#1 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(31): App\Controleurs\ControleurLivre->getDonneesLivres()
+#2 /Users/zachary/Sites/traces/app/App.php(170): App\Controleurs\ControleurLivre->catalogue()
+#3 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(95): App\Modeles\Livre::trouverParLimite(0, NULL, 0, '')
+#1 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(31): App\Controleurs\ControleurLivre->getDonneesLivres()
+#2 /Users/zachary/Sites/traces/app/App.php(170): App\Controleurs\ControleurLivre->catalogue()
+#3 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(95): App\Modeles\Livre::trouverParLimite(0, NULL, 0, '')
+#1 /Users/zachary/Sites/traces/app/Controleurs/ControleurLivre.php(31): App\Controleurs\ControleurLivre->getDonneesLivres()
+#2 /Users/zachary/Sites/traces/app/App.php(170): App\Controleurs\ControleurLivre->catalogue()
+#3 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#5 {main}
