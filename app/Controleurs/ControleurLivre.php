@@ -25,7 +25,12 @@ class ControleurLivre
      */
     public function catalogue(): void
     {
-        $nbResultats = Livre::compter(intval($_GET['categorie']));
+        $nbResultats = Livre::compter(0);
+
+        if(isset($_GET['categorie'])){
+            $nbResultats = Livre::compter(intval($_GET['categorie']));
+        }
+
         $tDonnees = array_merge(
             array("nbResultats" => $nbResultats),
             $this->getDonneesLivres(),
@@ -52,7 +57,10 @@ class ControleurLivre
         /**
          * Définition de la catégorie séléctionnée
          */
-        $id_categorie = intval($_GET["categorie"]);
+        $id_categorie = 0;
+        if(isset($_GET["categorie"])){
+            $id_categorie = intval($_GET["categorie"]);
+        }
 
         /**
          * Définition du tri
@@ -74,14 +82,16 @@ class ControleurLivre
          * Définition du nombre de pages
          */
         $livresParPage = 9;
-        if ($_GET["nbParPages"] == '9') {
-            $livresParPage = 9;
-        }
-        if ($_GET["nbParPages"] == '18') {
-            $livresParPage = 18;
-        }
-        if ($_GET["nbParPages"] == '36') {
-            $livresParPage = 36;
+        if(isset($_GET["nbParPages"])){
+            if ($_GET["nbParPages"] == '9') {
+                $livresParPage = 9;
+            }
+            if ($_GET["nbParPages"] == '18') {
+                $livresParPage = 18;
+            }
+            if ($_GET["nbParPages"] == '36') {
+                $livresParPage = 36;
+            }
         }
 
         /**
