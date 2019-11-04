@@ -41,6 +41,7 @@ class User {
     }
 
     public static function trouverParConnexion(string $courriel, string $mdp) {
+        //echo password_hash($mdp, PASSWORD_DEFAULT) . "<br>";
         $pdo = App::getInstance()->getPDO();
 
         $chaineRequete = "SELECT * FROM t_client WHERE courriel = :courriel AND mot_de_passe = :mdp";
@@ -77,7 +78,7 @@ class User {
         $requete->bindParam(2, $nom, PDO::PARAM_STR);
         $requete->bindParam(3, $courriel, PDO::PARAM_STR);
         $requete->bindParam(4, $telephone, PDO::PARAM_INT);
-        $requete->bindParam(5, $mot_de_passe, PDO::PARAM_STR);
+        $requete->bindParam(5, password_hash($mot_de_passe, PASSWORD_DEFAULT), PDO::PARAM_STR);
         //Execution de la requete
         $requete->execute();
     }

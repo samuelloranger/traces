@@ -52,11 +52,7 @@ class ControleurLivre
         /**
          * Définition de la catégorie séléctionnée
          */
-        $id_categorie = 0;
-        if (isset($_GET["categorie"])) {
-            $id_categorie = intval($_GET["categorie"]);
-        }
-
+        $id_categorie = intval($_GET["categorie"]);
 
         /**
          * Définition du tri
@@ -66,34 +62,27 @@ class ControleurLivre
             $trierPar = $_GET["trierPar"];
         }
 
-
         /**
          * Définition de la page courante
          */
+        $numeroPage = 1;
         if (isset($_GET["page"])) {
             $numeroPage = $_GET["page"];
-        } else {
-            $numeroPage = 1;
         }
-
 
         /**
          * Définition du nombre de pages
          */
-        if (isset($_GET["nbParPages"])) {
-            if ($_GET["nbParPages"] == '9') {
-                $livresParPage = 9;
-            }
-            if ($_GET["nbParPages"] == '18') {
-                $livresParPage = 18;
-            }
-            if ($_GET["nbParPages"] == '36') {
-                $livresParPage = 36;
-            }
-        } else {
+        $livresParPage = 9;
+        if ($_GET["nbParPages"] == '9') {
             $livresParPage = 9;
         }
-
+        if ($_GET["nbParPages"] == '18') {
+            $livresParPage = 18;
+        }
+        if ($_GET["nbParPages"] == '36') {
+            $livresParPage = 36;
+        }
 
         /**
          * Définition du array de données à envoyer dans la page
@@ -118,7 +107,6 @@ class ControleurLivre
          */
         $arrCategories = Categories::trouverTout();
 
-
         /**
          * Définition de l'array retourné avec toutes les données
          */
@@ -126,6 +114,8 @@ class ControleurLivre
             Util::getInfosPanier(),
             array("arrLivres" => $arrLivres),
             array("arrCategories" => $arrCategories),
+            array("id_categorie" => $id_categorie),
+            array("trierPar" => $trierPar),
             array("nombreTotalPages" => $nombreTotalPages),
             array("livresParPage" => $livresParPage),
             array("numeroPage" => $numeroPage),
