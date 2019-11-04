@@ -16,3 +16,51 @@
 #4 C:\MAMP\htdocs\traces\app\App.php(44): App\App->routerLaRequete()
 #5 C:\MAMP\htdocs\traces\public\index.php(11): App\App->demarrer()
 #6 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(11): App\App->demarrer()
+#3 {main}

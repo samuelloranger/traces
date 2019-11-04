@@ -35,11 +35,16 @@ class ControleurCompte {
         $user = User::trouverParConnexion($courriel, $mdp);
 
         if ($formulaireValide && $user !== null) {
-            $this->session->setItem("courriel", $user->__get("courriel"));
-            $this->session->setItem("estConnecte", true);
+            echo "$mdp <br>";
+            //print_r($user);
+            //echo $user->mot_de_passe . "<br>";
+            if (password_verify($mdp, $user->__get("mot_de_passe"))) {
+                $this->session->setItem("courriel", $user->__get("courriel"));
+                $this->session->setItem("estConnecte", true);
 
-            //echo "Connexion reussie";
-            header("Location: index.php?controleur=site&action=accueil");
+                //echo "Connexion reussie";
+                header("Location: index.php?controleur=site&action=accueil");
+            }
         } else {
             echo "Connexion echouee";
         }
@@ -76,6 +81,9 @@ class ControleurCompte {
         }
     }
 
+
+    /* FONCTIONS DE VALIDATION */
+    /* Faire une fonction universelle plus tard */
     public function validerInscription(): bool {
         $formulaireValide = true;
 
@@ -118,6 +126,32 @@ class ControleurCompte {
     }
 
     public function validerConnexion(): bool {
-        return true;
+        $formulaireValide = true;
+
+        $courriel = null;
+        if (isset($_POST["email"])) {
+            $courriel = $_POST["email"];
+        }
+
+        $mdp = null;
+        if (isset($_POST["mdp"])) {
+            $mdp = $_POST["mdp"];
+        }
+
+        $regex = [
+            "courriel" => "#^[a-zA-Z0-9][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,}$#",
+            "mdp" => "#(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$#"
+        ];
+
+        if (!preg_match($regex["courriel"], $courriel)) $formulaireValide = false;
+        if (!preg_match($regex["mdp"], $mdp)) $formulaireValide = false;
+
+        if ($formulaireValide) {
+            echo "Formulaire valide";
+        } else {
+            echo "Invalide";
+        }
+
+        return $formulaireValide;
     }
 }
