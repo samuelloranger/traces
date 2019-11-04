@@ -8,7 +8,7 @@
 
         <div class="conteneurMenu">
             <ul class="conteneurMenu__menu">
-                <li><a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar=aucun&nbParPages=9">Catalogue</a></li>
+                <li><a href="index.php?controleur=livre&action=catalogue">Catalogue</a></li>
                 <li><a href="index.php?controleur=site&action=accueil#coupdecoeurs">Meilleurs vendeurs</a></li>
                 <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
                 <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
