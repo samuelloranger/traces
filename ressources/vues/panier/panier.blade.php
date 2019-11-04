@@ -86,8 +86,8 @@
                 <div class="fraisLivraironSelect">
                     <label for="fraisLivraisonSelect">Livraison</label>
                     <select id="fraisLivraisonSelect">
-                        <option @if($typeLivraison == "payante") selected @endif>Rapide</option>
-                        <option @if($typeLivraison == "gratuite") selected @endif>Gratuite</option>
+                        <option @if($modeLivraison == "payante") selected @endif value="payante">Rapide</option>
+                        <option @if($modeLivraison == "gratuite") selected @endif value="gratuite">Gratuite</option>
                     </select>
                 </div>
 

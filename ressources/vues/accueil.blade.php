@@ -4,7 +4,7 @@
     <div class="image_accueil">
         <div class="image_accueil__conteneur">
             <div class="image_accueil__conteneur__contenu">
-{{--                <h1>Traces</h1>--}}
+                <h1 style="display: none;">Traces</h1>
                 <div class="image_accueil__conteneur__contenu__logo">
                     <img src="../public/liaisons/images/logo-traces.svg" alt="">
                     <h1>L'histoire de l'avant</h1>
@@ -57,7 +57,8 @@
                                 <form action="index.php?controleur=panier&action=ajoutPanier&redirection=accueil&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" method="POST">
                                     <input type="hidden" name="qte" value="1" hidden>
 
-                                    <button class="nouveautes__vignette bouton_panier">AJOUTER AU PANIER</button>
+                                    <button class="nouveautes__vignette bouton_panier bouton_panierNoScript">AJOUTER AU PANIER</button>
+                                    <button type="button" class="nouveautes__vignette bouton_panier bouton_panierScript" value="{{ $arrNouveautes[$indexLivre]->isbn }}">AJOUTER AU PANIER</button>
                                 </form>
                             </div>
                         </div>
@@ -95,7 +96,8 @@
                                 <form action="index.php?controleur=panier&action=ajoutPanier&redirection=accueil&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" method="POST">
                                     <input type="hidden" name="qte" value="1" hidden>
 
-                                    <button class="coupsCoeur__groupe__vignette__boutons bouton_panier">AJOUTER AU PANIER</button>
+                                    <button class="coupsCoeur__groupe__vignette__boutons bouton_panier bouton_panierNoScript">AJOUTER AU PANIER</button>
+                                    <button type="button" class="coupsCoeur__groupe__vignette__boutons bouton_panier bouton_panierScript" value="{{ $arrNouveautes[$indexLivre]->isbn }}">AJOUTER AU PANIER</button>
                                 </form>
                             </div>
                         </div>

@@ -6,11 +6,6 @@ namespace App\Controleurs;
 use App\App;
 use App\Modeles\Livre;
 use App\Util;
-use DateInterval;
-use DateTime;
-use DateTimeZone;
-use IntlDateFormatter;
-use Locale;
 
 class ControleurPanier{
     private $blade = null;
@@ -139,21 +134,32 @@ class ControleurPanier{
         //Éléments à afficher
         $itemsPanier = $this->panier->getItems();
         $montantSousTotal = Util::formaterArgent($this->panier->getMontantSousTotal());
-        $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
         $montantTPS = Util::formaterArgent($this->panier->getMontantTPS());
-        $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
 
         /**
-         * Dates de livraison
+         * Frais de livraison
          */
-        $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
-        $typeLivraison = "payante";
+        if(isset($_POST["modeLivraison"])){
+            $modeLivraison = $_POST["modeLivraison"];
 
-        if(isset($_GET["livraisonGratuite"])){
-            $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("7 days"));
-            $typeLivraison = "gratuite";
-            $fraisLivraison = "0.00 $";
-            $montantTotal = Util::formaterArgent($this->panier->getMontantTotal(false));
+            if($modeLivraison == "payante"){
+                $pageComplete = false;
+                $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
+                $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
+                $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
+            }
+            elseif($modeLivraison == "gratuite"){
+                $pageComplete = false;
+                $fraisLivraison = Util::formaterArgent(0);
+                $montantTotal = Util::formaterArgent($this->panier->getMontantTotal(false));
+                $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("7 days"));
+            }
+        }
+        else{
+            $modeLivraison = "payante";
+            $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
+            $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
+            $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
         }
 
         $tDonnees = array_merge(
@@ -163,7 +169,7 @@ class ControleurPanier{
             array("montantTPS" => $montantTPS),
             array("montantSousTotal" => $montantSousTotal),
             array("dateLivraisonEstimee" => $dateLivraisonEstimee),
-            array("typeLivraison" => $typeLivraison),
+            array("modeLivraison" => $modeLivraison),
             array("montantTotal" => $montantTotal)
         );
 

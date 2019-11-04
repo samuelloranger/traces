@@ -4,3 +4,60 @@
 #3 C:\MAMP\htdocs\traces\app\App.php(44): App\App->routerLaRequete()
 #4 C:\MAMP\htdocs\traces\public\index.php(10): App\App->demarrer()
 #5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/eftec/bladeone/lib/BladeOne.php(869): eftec\bladeone\BladeOne->evaluatePath('../ressources/c...', Array)
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/eftec/bladeone/lib/BladeOne.php(826): eftec\bladeone\BladeOne->runInternal('fragments.filAr...', Array, false, false, 0)
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/ressources/cache/2f8fb54595f1f2758c683f4b5f1e1fa9d587122b.bladec(4): eftec\bladeone\BladeOne->runChild('fragments.filAr...')
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/eftec/bladeone/lib/BladeOne.php(927): include('/Users/samuel/S...')
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/eftec/bladeone/lib/BladeOne.php(869): eftec\bladeone\BladeOne->evaluatePath('../ressources/c...', Array)
+#5 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/eftec/bladeone/lib/BladeOne.php(1405): eftec\bladeone\BladeOne->runInternal('livres.catalogu...', Array, 0, true, 0)
+#6 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(34): eftec\bladeone\BladeOne->run('livres.catalogu...', Array)
+#7 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(170): App\Controleurs\ControleurLivre->catalogue()
+#8 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#9 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#10 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/Users/samuel/S...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(179): spl_autoload_call('App\\Controleurs...')
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurPanier.php(25): App\Modeles\Livre::trouverParIsbn('null')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(191): App\Controleurs\ControleurPanier->ajoutPanier()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurPanier.php(25): App\Modeles\Livre::trouverParIsbn('null')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(191): App\Controleurs\ControleurPanier->ajoutPanier()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurPanier.php(25): App\Modeles\Livre::trouverParIsbn('undefined')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(191): App\Controleurs\ControleurPanier->ajoutPanier()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurPanier.php(25): App\Modeles\Livre::trouverParIsbn('[object Text]')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(191): App\Controleurs\ControleurPanier->ajoutPanier()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurPanier.php(25): App\Modeles\Livre::trouverParIsbn('[object Text]')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(191): App\Controleurs\ControleurPanier->ajoutPanier()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurPanier.php(25): App\Modeles\Livre::trouverParIsbn('undefined')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(191): App\Controleurs\ControleurPanier->ajoutPanier()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurPanier.php(25): App\Modeles\Livre::trouverParIsbn('undefined')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(191): App\Controleurs\ControleurPanier->ajoutPanier()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurPanier.php(25): App\Modeles\Livre::trouverParIsbn('[object Text]')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(191): App\Controleurs\ControleurPanier->ajoutPanier()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}

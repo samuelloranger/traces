@@ -5,19 +5,27 @@
 export class GestionPanier {
     //Éléments définis une seule fois
     private urlParams = new URLSearchParams(window.location.search);
-    private selecteurFraisLivraison:HTMLElement = document.querySelector("#fraisLivraisonSelect");
     private iconesPanier:[HTMLElement] = Array.apply(null, document.querySelectorAll(".iconePanier"));
 
     //Éléments redéfinis
+    private selecteurFraisLivraison:HTMLInputElement = document.querySelector("#fraisLivraisonSelect");
     private nbrsItemsPanier:[HTMLElement] = Array.apply(null, document.querySelectorAll(".nbrItemsPanier"));
     private selecteursQteLivre:[HTMLInputElement] = Array.apply(null, document.querySelectorAll(".qteItem"));
     private arrBtnSupprimer:[HTMLInputElement] = Array.apply(null, document.querySelectorAll(".lienSupprItemScript"));
 
+    /**
+     * Constructeur
+     * @description ajoute les écouteurs d'évènements à l'instanciation
+     */
     constructor(){
         this.ajouterEcouteursEvenements();
     }
 
+    /**
+     * Fonction
+     */
     private ajouterEcouteursEvenements = () => {
+        this.selecteurFraisLivraison = document.querySelector("#fraisLivraisonSelect");
         this.arrBtnSupprimer = Array.apply(null, document.querySelectorAll(".lienSupprItemScript"));
         this.nbrsItemsPanier = Array.apply(null, document.querySelectorAll(".nbrItemsPanier"));
         this.selecteursQteLivre = Array.apply(null, document.querySelectorAll(".qteItem"));
@@ -27,6 +35,9 @@ export class GestionPanier {
 
         //Si on est presentement dans le panier
         if(controleur === "panier" && action === "panier"){
+            /**
+             * Suspression d'un item
+             */
             this.arrBtnSupprimer.forEach((element) => {
                 element.addEventListener("click", () => {
                     this.supprimerItemPanier(element.value);
@@ -38,11 +49,16 @@ export class GestionPanier {
                     this.majQteItem(element, Number(element.value));
                 });
             });
+
+            this.selecteurFraisLivraison.addEventListener("change", () =>{
+                this.changerFraisLivraison(this.selecteurFraisLivraison.value);
+            });
         }
     };
 
     /**
-     * Mets à jour le nombre d'items dans le panier dans le header du site
+     * Fonction majItemPanierHeader
+     * @description Mets à jour le nombre d'items dans le panier dans le header du site
      * @param data
      * @param textStatus
      * @param jqXHR
@@ -68,8 +84,15 @@ export class GestionPanier {
                 });
             }
         });
-    }
+    };
 
+    /**
+     * Fonction majPanier
+     * @description Met à jour la fiche du panier (tous les prix/livres)
+     * @param data
+     * @param textStatus
+     * @param jqXHR
+     */
     private majPanier = (data, textStatus, jqXHR) => {
         document.querySelector("main").innerHTML = data;
 
@@ -89,21 +112,12 @@ export class GestionPanier {
 
     };
 
-    private supprimerItemPanier = (isbnLivre:string) => {
-        const panier = this;
-
-        $.ajax({
-            url: "index.php?controleur=panier&action=supprimerItem&isbn=" + isbnLivre,
-            type: "POST",
-            data: "isAjax",
-            dataType: "html"
-        })
-            .done(function(data, textStatus, jqXHR){
-                panier.majPanier(data, textStatus, jqXHR);
-            }
-        )
-    };
-
+    /**
+     * Fonction majQteItem
+     * @description Mets à jour la quantité de l'item sélectionné
+     * @param element L'item sélectionné
+     * @param qte La nouvelle quantité du livre
+     */
     private majQteItem = (element:HTMLInputElement, qte:Number) => {
         const panier = this;
         const isbnLivre:HTMLInputElement = element.parentElement.parentElement.parentElement.querySelector(".isbn");
@@ -118,5 +132,41 @@ export class GestionPanier {
                     panier.majPanier(data, textStatus, jqXHR);
                 }
             )
+    };
+
+
+    /**
+     * Fonction supprimerItemPanier
+     * @description Supprime un livre du panier
+     * @param isbnLivre isbn du livre à supprimer
+     */
+    private supprimerItemPanier = (isbnLivre:string) => {
+        const panier = this;
+
+        $.ajax({
+            url: "index.php?controleur=panier&action=supprimerItem&isbn=" + isbnLivre,
+            type: "POST",
+            data: "isAjax",
+            dataType: "html"
+        })
+            .done(function(data, textStatus, jqXHR){
+                panier.majPanier(data, textStatus, jqXHR);
+            });
+    };
+
+    private changerFraisLivraison = (modeLivraison) => {
+        const panier = this;
+
+        $.ajax({
+            url: "index.php?controleur=panier&action=panier",
+            type: "POST",
+            data: "modeLivraison=" + modeLivraison,
+            dataType: "html"
+        })
+            .done((data, textStatus, jqXHR) => {
+                panier.majPanier(data, textStatus, jqXHR);
+                this.ajouterEcouteursEvenements();
+            });
+
     };
 }

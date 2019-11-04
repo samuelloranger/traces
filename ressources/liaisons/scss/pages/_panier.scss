@@ -249,12 +249,14 @@
         }
 
         &Droite{
+          width: 45%;
           text-align: right;
           display: flex;
           justify-content: space-between;
           flex-direction: column;
           position: absolute;
-          bottom: 0;
+          right: 0;
+          bottom: 10px;
 
           @media(min-width: $TABLETTE){
             position: initial;
