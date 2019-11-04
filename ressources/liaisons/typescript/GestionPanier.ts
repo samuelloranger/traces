@@ -6,7 +6,7 @@ export class GestionPanier {
     //Éléments définis une seule fois
     private urlParams = new URLSearchParams(window.location.search);
     private iconesPanier:[HTMLElement] = Array.apply(null, document.querySelectorAll(".iconePanier"));
-    private fenetreModale:HTMLElement = document.querySelectorAll(".modaleItemAjoute");
+    private fenetreModale:HTMLElement = document.querySelector(".modaleItemAjoute");
 
     //Éléments redéfinis
     private selecteurFraisLivraison:HTMLInputElement = document.querySelector("#fraisLivraisonSelect");
@@ -65,8 +65,6 @@ export class GestionPanier {
      * @param jqXHR
      */
     public majItemPanierHeader = (data, textStatus, jqXHR) =>{
-        //On parse le retour de data en json
-        //On va chercher la quantité retournée par le call Ajax
         const nbrItems = data;
 
         this.iconesPanier.forEach((element) => {
@@ -112,9 +110,22 @@ export class GestionPanier {
      * @param jqXHR
      */
     public changerInfosFenetreModale = (data, textStatus, jqXHR) => {
-        const infosLivre = data.json;
-        console.log(infosLivre);
-        console.log(data);
+        const infosLivre = JSON.parse(data);
+
+        const titre:string = infosLivre["titre"];
+        const url:string = infosLivre["url"];
+        const prix:string = parseFloat(infosLivre["prix"]).toFixed(2) + " $";
+        const sousTotal:string = parseFloat(infosLivre["sous-total"]).toFixed(2) + " $";
+
+        const zoneTitre:HTMLElement = this.fenetreModale.querySelector(".infos__titre");
+        const zonePrix:HTMLElement = this.fenetreModale.querySelector(".infos__prix");
+        const image:HTMLImageElement = this.fenetreModale.querySelector(".image");
+        const zoneSousTotal:HTMLElement = this.fenetreModale.querySelector(".sous-total");
+
+        zoneTitre.innerHTML = titre;
+        image.src = url;
+        zonePrix.innerHTML = prix;
+        zoneSousTotal.innerHTML = sousTotal;
 
         this.fenetreModale.classList.toggle("modaleItemAjoute--inactive");
     };
@@ -163,8 +174,6 @@ export class GestionPanier {
             .done(function(data, textStatus, jqXHR){
                     panier.majPanier(data, textStatus, jqXHR);
                 });
-
-        this.montrerFenetreModale(isbn);
     };
 
 
@@ -185,8 +194,6 @@ export class GestionPanier {
             .done(function(data, textStatus, jqXHR){
                 panier.majPanier(data, textStatus, jqXHR);
             });
-
-        this.montrerFenetreModale(isbnLivre);
     };
 
     /**

@@ -14,7 +14,7 @@ define(["require", "exports"], function (require, exports) {
             //Éléments définis une seule fois
             this.urlParams = new URLSearchParams(window.location.search);
             this.iconesPanier = Array.apply(null, document.querySelectorAll(".iconePanier"));
-            this.fenetreModale = document.querySelectorAll(".modaleItemAjoute");
+            this.fenetreModale = document.querySelector(".modaleItemAjoute");
             //Éléments redéfinis
             this.selecteurFraisLivraison = document.querySelector("#fraisLivraisonSelect");
             this.nbrsItemsPanier = Array.apply(null, document.querySelectorAll(".nbrItemsPanier"));
@@ -58,8 +58,6 @@ define(["require", "exports"], function (require, exports) {
              * @param jqXHR
              */
             this.majItemPanierHeader = function (data, textStatus, jqXHR) {
-                //On parse le retour de data en json
-                //On va chercher la quantité retournée par le call Ajax
                 var nbrItems = data;
                 _this.iconesPanier.forEach(function (element) {
                     if (element.querySelector(".nbrItemsPanier") == null) {
@@ -101,9 +99,19 @@ define(["require", "exports"], function (require, exports) {
              * @param jqXHR
              */
             this.changerInfosFenetreModale = function (data, textStatus, jqXHR) {
-                var infosLivre = data.json;
-                console.log(infosLivre);
-                console.log(data);
+                var infosLivre = JSON.parse(data);
+                var titre = infosLivre["titre"];
+                var url = infosLivre["url"];
+                var prix = parseFloat(infosLivre["prix"]).toFixed(2) + " $";
+                var sousTotal = parseFloat(infosLivre["sous-total"]).toFixed(2) + " $";
+                var zoneTitre = _this.fenetreModale.querySelector(".infos__titre");
+                var zonePrix = _this.fenetreModale.querySelector(".infos__prix");
+                var image = _this.fenetreModale.querySelector(".image");
+                var zoneSousTotal = _this.fenetreModale.querySelector(".sous-total");
+                zoneTitre.innerHTML = titre;
+                image.src = url;
+                zonePrix.innerHTML = prix;
+                zoneSousTotal.innerHTML = sousTotal;
                 _this.fenetreModale.classList.toggle("modaleItemAjoute--inactive");
             };
             /**
@@ -146,7 +154,6 @@ define(["require", "exports"], function (require, exports) {
                     .done(function (data, textStatus, jqXHR) {
                     panier.majPanier(data, textStatus, jqXHR);
                 });
-                _this.montrerFenetreModale(isbn);
             };
             /**
              * Fonction supprimerItemPanier
@@ -164,7 +171,6 @@ define(["require", "exports"], function (require, exports) {
                     .done(function (data, textStatus, jqXHR) {
                     panier.majPanier(data, textStatus, jqXHR);
                 });
-                _this.montrerFenetreModale(isbnLivre);
             };
             /**
              * Fonction changerFraisLivraison

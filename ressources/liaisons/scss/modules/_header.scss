@@ -37,12 +37,7 @@
     }
 
     &:hover{
-      color: $ROUGE !important;
-      border: 2px solid $ROUGE;
-
-      a{
-        color: $ROUGE !important;
-      }
+      border: 2px solid white;
     }
   }
 
@@ -61,11 +56,13 @@
     .modaleItemAjoute{
       position: absolute;
       background-color: white;
+      width: 35%;
       right: 15%;
-      top: 90%;
+      top: 75px;
       box-shadow: 0 0 4px black;
       border: 2px solid $ROUGE;
       transition: 0.45s ease-in-out;
+      padding: 0 2% 2% 2%;
 
       &--inactive{
         opacity: 0;
@@ -73,20 +70,55 @@
         pointer-events: none;
       }
 
-      .hamburger{
-        transition: 0.15s ease-in-out;
-
-        .hamburger-inner, .hamburger-inner:before, .hamburger-inner:after{
-          background-color: $ROUGE;
-          height: 2px;
-        }
-
-        &:hover{
-          transform: scale(1.08);
+      &__conteneurBouton{
+        .hamburger{
+          transition: 0.15s ease-in-out;
 
           .hamburger-inner, .hamburger-inner:before, .hamburger-inner:after{
             background-color: $ROUGE;
+            height: 2px;
           }
+
+          &:hover{
+            transform: scale(1.08);
+
+            .hamburger-inner, .hamburger-inner:before, .hamburger-inner:after{
+              background-color: $ROUGE;
+            }
+          }
+        }
+      }
+
+      .titreFenetreModale{
+        margin-bottom: 5%;
+      }
+
+      &__infosLivre{
+        display: flex;
+
+        .image{
+          width: 35%;
+        }
+
+        .infos{
+          margin-left: 4%;
+
+        }
+      }
+
+      &__infosPanier{
+        border-top: 2px solid black;
+        padding-top: 5%;
+        margin-top: 5%;
+
+        .bouton{
+          display: block;
+          appearance: unset;
+          text-align: center;
+          padding: 4%;
+          color: white;
+          border-radius: 35px;
+          background-color: $TURQUOISE;
         }
       }
     }

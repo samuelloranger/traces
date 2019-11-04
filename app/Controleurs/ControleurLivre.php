@@ -9,14 +9,17 @@ use App\Modeles\Honneur;
 use App\Modeles\Categories;
 use App\Modeles\Livre;
 use App\Modeles\Recension;
+use function MongoDB\BSON\toJSON;
 
 class ControleurLivre
 {
     private $blade = null;
+    private $panier = null;
 
     public function __construct()
     {
         $this->blade = App::getInstance()->getBlade();
+        $this->panier = App::getInstance()->getPanier();
     }
 
 
@@ -42,8 +45,16 @@ class ControleurLivre
     public function fiche(): void
     {
         if(isset($_POST["isAjax"])){
-            echo $_GET["isbn"];
-//            echo json_encode(Livre::trouverParIsbn($_GET["isbn"]));
+            $livre = Livre::trouverParIsbn($_GET["isbn"]);
+
+            $arrInfos = array(
+                "titre" => $livre->__get("titre"),
+                "url" => $livre->getImageUrl("carre"),
+                "prix" => $livre->__get("prix"),
+                "sous-total" => $this->panier->getMontantSousTotal()
+            );
+
+            echo json_encode($arrInfos);
         }
         else{
             $tDonnees = array_merge($this->getDonneesUnLivre(), ControleurSite::getDonneeFragmentPiedDePage());;
@@ -54,7 +65,6 @@ class ControleurLivre
     /**
      * @return array
      */
-
     public function getDonneesLivres(): array
     {
         $filAriane = App::getInstance()->getFilAriane();
@@ -175,7 +185,6 @@ class ControleurLivre
         foreach ($arrHonneurs as $honneur) {
             $honneur->description = Util::couperParagraphe($honneur->description, 100);
         }
-
 
         $arrInfos = array_merge(
             Util::getInfosPanier(),

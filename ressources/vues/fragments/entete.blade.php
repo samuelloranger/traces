@@ -61,24 +61,32 @@
         </div>
     </nav>
 
-    <div class="modaleItemAjoute">
-        <div class="modaleItemAjoute modaleItemAjoute--inactive">
-            <button class="hamburger hamburger--squeeze is-active" type="button" id="btnMenuMobile">
-              <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-              </span>
-            </button>
+    <div class="modaleItemAjoute modaleItemAjoute--inactive">
+        <div class="modaleItemAjouteConteneur">
+
+            <div class="modaleItemAjoute__conteneurBouton">
+                <button class="hamburger hamburger--squeeze is-active" type="button" id="btnMenuMobile">
+                  <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                  </span>
+                </button>
+            </div>
+
+            <p class="titreFenetreModale h3">L'item a ajouté au panier!</p>
 
             <div class="modaleItemAjoute__infosLivre">
-                <img class="image" src="" alt="Vignette ">
-                <p class="titre"></p>
+                <img class="image" src="" alt="Vignette">
+                <div class="infos">
+                    <p class="infos__titre h4"></p>
+                    <p class="infos__prix"></p>
+                </div>
             </div>
 
             <div class="modaleItemAjoute__infosPanier">
-                <p class="qte"></p>
-                <p class="sous-total"></p>
+                <p class="h4">Panier</p>
+                <p><strong>Sous-total:</strong> <span class="sous-total"></span></p>
 
-                <a class="bouton" type="button">Voir le panier</a>
+                <a href="index.php?controleur=panier&action=panier" class="bouton" type="button">Voir le panier</a>
             </div>
 
         </div>
