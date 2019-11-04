@@ -35,7 +35,6 @@ define(["require", "exports"], function (require, exports) {
              * Méthodes
              */
             this.instancierMenuAccueil = function () {
-                console.log("test3");
                 if (_this.getPageAccueil()) {
                     _this.header.classList.add("header--transparent");
                     _this.conteneurMenu.classList.add("conteneurMenu--grand");

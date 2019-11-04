@@ -25,7 +25,12 @@ class ControleurLivre
      */
     public function catalogue(): void
     {
-        $tDonnees = array_merge($this->getDonneesLivres(), ControleurSite::getDonneeFragmentPiedDePage());;
+        $nbResultats = Livre::compter(intval($_GET['categorie']));
+        $tDonnees = array_merge(
+            array("nbResultats" => $nbResultats),
+            $this->getDonneesLivres(),
+            ControleurSite::getDonneeFragmentPiedDePage()
+        );
         echo $this->blade->run("livres.catalogue", $tDonnees);
     }
 
@@ -99,7 +104,6 @@ class ControleurLivre
         }
 
         $nbrLivres = Livre::compter($id_categorie);
-        var_dump($nbrLivres);
         $nombreTotalPages = ceil($nbrLivres / $livresParPage);
 
 
@@ -134,9 +138,6 @@ class ControleurLivre
 
     public function getDonneesUnLivre(): array
     {
-        $filAriane = App::getInstance()->getFilAriane();
-        $filAriane = $filAriane::majFilAriane();
-
         $isbnLivre = "0";
         if (isset($_GET["isbn"])) {
             $isbnLivre = $_GET["isbn"];
@@ -147,22 +148,25 @@ class ControleurLivre
             header('Location: 404.php');
         }
 
+        $filAriane = App::getInstance()->getFilAriane();
+        $filAriane = $filAriane::majFilAriane();
+
         //Infos du livre
-        $infosLivre -> __set("isbn13", Util::ISBNToEAN($infosLivre -> __get("isbn")));
-        $infosLivre -> __set("description", Util::couperParagraphe($infosLivre -> __get("description")));
+        $infosLivre->__set("isbn13", Util::ISBNToEAN($infosLivre->__get("isbn")));
+        $infosLivre->__set("description", Util::couperParagraphe($infosLivre->__get("description")));
 
 
         //Recensions
-        $arrRecensions = Recension::trouverRecensionsLivre($infosLivre -> __get("id"));
-        foreach($arrRecensions as $rescension) {
+        $arrRecensions = Recension::trouverRecensionsLivre($infosLivre->__get("id"));
+        foreach ($arrRecensions as $rescension) {
             $rescension->description = "« " . Util::couperParagraphe($rescension->description) . " »";
             $rescension->date = strftime("%d %B %Y", strtotime($rescension->date));
             $infosLivre->__set("isbn13", Util::ISBNToEAN($infosLivre->__get("isbn")));
         }
 
         //Honneurs
-        $arrHonneurs = Honneur::trouverHonneursLivre($infosLivre -> __get("id"));
-        foreach($arrHonneurs as $honneur) {
+        $arrHonneurs = Honneur::trouverHonneursLivre($infosLivre->__get("id"));
+        foreach ($arrHonneurs as $honneur) {
             $honneur->description = Util::couperParagraphe($honneur->description, 100);
         }
 

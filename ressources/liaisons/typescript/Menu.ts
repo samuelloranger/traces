@@ -42,8 +42,6 @@ export class Menu{
      * Méthodes
      */
     private instancierMenuAccueil = () => {
-        console.log("test3");
-
         if(this.getPageAccueil()){
             this.header.classList.add("header--transparent");
             this.conteneurMenu.classList.add("conteneurMenu--grand")

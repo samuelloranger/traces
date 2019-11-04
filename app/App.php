@@ -190,6 +190,8 @@ class App
                 case "ajoutPanier":
                     $this->monControleur->ajoutPanier();
                     break;
+                case "nbrItemsPanier":
+                    $this->monControleur->retournerNbrItemsPanier();
             }
         } else if ($controleur === "transaction") {
             $this->monControleur = new ControleurTransaction();
@@ -199,6 +201,12 @@ class App
                     break;
                 case "facturation":
                     $this->monControleur->facturation();
+                    break;
+                case "validation":
+                    $this->monControleur->validation();
+                    break;
+                case "confirmation":
+                    $this->monControleur->confirmation();
             }
         } else
             if ($controleur === "compte") {

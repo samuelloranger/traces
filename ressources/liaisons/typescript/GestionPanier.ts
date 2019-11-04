@@ -3,15 +3,170 @@
  */
 
 export class GestionPanier {
-    private selecteurFraisLivraison:HTMLElement = document.querySelector("#fraisLivraisonSelect");
+    //Éléments définis une seule fois
+    private urlParams = new URLSearchParams(window.location.search);
+    private iconesPanier:[HTMLElement] = Array.apply(null, document.querySelectorAll(".iconePanier"));
 
+    //Éléments redéfinis
+    private selecteurFraisLivraison:HTMLInputElement = document.querySelector("#fraisLivraisonSelect");
+    private nbrsItemsPanier:[HTMLElement] = Array.apply(null, document.querySelectorAll(".nbrItemsPanier"));
+    private selecteursQteLivre:[HTMLInputElement] = Array.apply(null, document.querySelectorAll(".qteItem"));
+    private arrBtnSupprimer:[HTMLInputElement] = Array.apply(null, document.querySelectorAll(".lienSupprItemScript"));
+
+    /**
+     * Constructeur
+     * @description ajoute les écouteurs d'évènements à l'instanciation
+     */
     constructor(){
-        this.initialiser();
+        this.ajouterEcouteursEvenements();
     }
 
-    private initialiser = () => {
+    /**
+     * Fonction
+     */
+    private ajouterEcouteursEvenements = () => {
+        this.selecteurFraisLivraison = document.querySelector("#fraisLivraisonSelect");
+        this.arrBtnSupprimer = Array.apply(null, document.querySelectorAll(".lienSupprItemScript"));
+        this.nbrsItemsPanier = Array.apply(null, document.querySelectorAll(".nbrItemsPanier"));
+        this.selecteursQteLivre = Array.apply(null, document.querySelectorAll(".qteItem"));
+
+        const controleur = this.urlParams.get('controleur');
+        const action = this.urlParams.get('action');
+
+        //Si on est presentement dans le panier
+        if(controleur === "panier" && action === "panier"){
+            /**
+             * Suspression d'un item
+             */
+            this.arrBtnSupprimer.forEach((element) => {
+                element.addEventListener("click", () => {
+                    this.supprimerItemPanier(element.value);
+                });
+            });
+
+            this.selecteursQteLivre.forEach((element) => {
+                element.addEventListener("change", () => {
+                    this.majQteItem(element, Number(element.value));
+                });
+            });
+
+            this.selecteurFraisLivraison.addEventListener("change", () =>{
+                this.changerFraisLivraison(this.selecteurFraisLivraison.value);
+            });
+        }
+    };
+
+    /**
+     * Fonction majItemPanierHeader
+     * @description Mets à jour le nombre d'items dans le panier dans le header du site
+     * @param data
+     * @param textStatus
+     * @param jqXHR
+     */
+    public majItemPanierHeader = (data, textStatus, jqXHR) =>{
+        //On parse le retour de data en json
+        //On va chercher la quantité retournée par le call Ajax
+        const nbrItems = data;
+
+        this.iconesPanier.forEach((element) => {
+            if(element.querySelector(".nbrItemsPanier") == null){
+                const elementHTMLNbrItems = document.createElement("span");
+                const valeurNbrItems = document.createTextNode(nbrItems);
+                elementHTMLNbrItems.classList.add("nbrItemsPanier");
+                elementHTMLNbrItems.appendChild(valeurNbrItems);
+
+                element.appendChild(elementHTMLNbrItems);
+                this.nbrsItemsPanier.push(document.querySelector(".nbrItemsPanier"));
+            }
+            else {
+                this.nbrsItemsPanier.forEach((element) => {
+                    element.innerHTML = nbrItems;
+                });
+            }
+        });
+    };
+
+    /**
+     * Fonction majPanier
+     * @description Met à jour la fiche du panier (tous les prix/livres)
+     * @param data
+     * @param textStatus
+     * @param jqXHR
+     */
+    private majPanier = (data, textStatus, jqXHR) => {
+        document.querySelector("main").innerHTML = data;
+
+        this.ajouterEcouteursEvenements();
+
+        const panier = this;
+        $.ajax({
+            url: "index.php?controleur=panier&action=nbrItemsPanier",
+            type: "POST",
+            data: "isAjax",
+            dataType: "html"
+        })
+            .done(function(data, textStatus, jqXHR){
+                    panier.majItemPanierHeader(data, textStatus, jqXHR);
+                }
+            );
 
     };
 
+    /**
+     * Fonction majQteItem
+     * @description Mets à jour la quantité de l'item sélectionné
+     * @param element L'item sélectionné
+     * @param qte La nouvelle quantité du livre
+     */
+    private majQteItem = (element:HTMLInputElement, qte:Number) => {
+        const panier = this;
+        const isbnLivre:HTMLInputElement = element.parentElement.parentElement.parentElement.querySelector(".isbn");
 
+        $.ajax({
+            url: "index.php?controleur=panier&action=updateItem",
+            type: "POST",
+            data: "isbn=" + isbnLivre.value + "&qte=" + qte + "&isAjax=true",
+            dataType: "html"
+        })
+            .done(function(data, textStatus, jqXHR){
+                    panier.majPanier(data, textStatus, jqXHR);
+                }
+            )
+    };
+
+
+    /**
+     * Fonction supprimerItemPanier
+     * @description Supprime un livre du panier
+     * @param isbnLivre isbn du livre à supprimer
+     */
+    private supprimerItemPanier = (isbnLivre:string) => {
+        const panier = this;
+
+        $.ajax({
+            url: "index.php?controleur=panier&action=supprimerItem&isbn=" + isbnLivre,
+            type: "POST",
+            data: "isAjax",
+            dataType: "html"
+        })
+            .done(function(data, textStatus, jqXHR){
+                panier.majPanier(data, textStatus, jqXHR);
+            });
+    };
+
+    private changerFraisLivraison = (modeLivraison) => {
+        const panier = this;
+
+        $.ajax({
+            url: "index.php?controleur=panier&action=panier",
+            type: "POST",
+            data: "modeLivraison=" + modeLivraison,
+            dataType: "html"
+        })
+            .done((data, textStatus, jqXHR) => {
+                panier.majPanier(data, textStatus, jqXHR);
+                this.ajouterEcouteursEvenements();
+            });
+
+    };
 }
