@@ -26,7 +26,7 @@ define(["require", "exports"], function (require, exports) {
                         _this.changerQte("additionner");
                     });
                     // Quantité : Selecteur de quantité
-                    _this.selecteurQte.addEventListener("keyup", function () {
+                    _this.selecteurQte.addEventListener("change", function () {
                         _this.verifierQteEntree();
                     });
                     // Quantité : Bouton soustraire
@@ -38,12 +38,12 @@ define(["require", "exports"], function (require, exports) {
             this.changerQte = function (operation) {
                 switch (operation) {
                     case "soustraire":
-                        if (Number(_this.selecteurQte.value) != 1) {
+                        if (Number(_this.selecteurQte.value) > 1) {
                             _this.selecteurQte.value = String(Number(_this.selecteurQte.value) - 1);
                         }
                         break;
                     case "additionner":
-                        if (Number(_this.selecteurQte.value) != 10) {
+                        if (Number(_this.selecteurQte.value) < 10) {
                             _this.selecteurQte.value = String(Number(_this.selecteurQte.value) + 1);
                         }
                         break;

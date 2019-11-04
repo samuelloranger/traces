@@ -38,7 +38,7 @@ export class GestionFiche {
             });
 
             // Quantité : Selecteur de quantité
-            this.selecteurQte.addEventListener("keyup", () => {
+            this.selecteurQte.addEventListener("change", () => {
                 this.verifierQteEntree();
             });
 
@@ -52,12 +52,12 @@ export class GestionFiche {
     private changerQte = (operation) => {
         switch(operation){
             case "soustraire":
-                if(Number(this.selecteurQte.value) != 1){
+                if(Number(this.selecteurQte.value) > 1){
                     this.selecteurQte.value = String(Number(this.selecteurQte.value) - 1);
                 }
                 break;
             case "additionner":
-                if(Number(this.selecteurQte.value) != 10){
+                if(Number(this.selecteurQte.value) < 10){
                     this.selecteurQte.value = String(Number(this.selecteurQte.value) + 1);
                 }
                 break;

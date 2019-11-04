@@ -246,3 +246,21 @@
 #2 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
 #3 /Users/zachary/Sites/traces/public/index.php(11): App\App->demarrer()
 #4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/Users/samuel/S...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(167): spl_autoload_call('App\\Controleurs...')
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/Users/samuel/S...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(167): spl_autoload_call('App\\Controleurs...')
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(106): App\Modeles\Livre::trouverParLimite(0, NULL, 11, '<br /><b>Notice...')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(36): App\Controleurs\ControleurLivre->getDonneesLivres()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(170): App\Controleurs\ControleurLivre->catalogue()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}

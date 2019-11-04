@@ -58,6 +58,7 @@ class ControleurPanier{
     }
 
     public function updateItem(){
+        var_dump("TEST");
         if(isset($_GET["isbn"])){
             $isbn = $_GET["isbn"];
         }
@@ -66,10 +67,9 @@ class ControleurPanier{
         }
 
         $qte = 0;
-        if(is_numeric($_GET["qte"])){
-            $qte = intval($_GET["qte"]);
+        if(is_numeric($_POST["qte"])){
+            $qte = intval($_POST["qte"]);
         }
-
 
         if(Util::validerISBN($isbn)){
             if($qte != 0){
@@ -81,7 +81,6 @@ class ControleurPanier{
             header("Location: index.php?controleur=panier&action=panier");
         }
         else{
-
             echo "Erreur isbn non-valide";
         }
     }
@@ -97,7 +96,12 @@ class ControleurPanier{
         if(Util::validerISBN($isbn)){
             $this->panier->supprimerItem($isbn);
 
-            header("Location: index.php?controleur=panier&action=panier");
+            if(!isset($_GET["ajaxCall"])){
+                header("Location: index.php?controleur=panier&action=panier");
+            }
+            else{
+                $this->panier();
+            }
         }
         else{
             echo "Erreur isbn non-valide";

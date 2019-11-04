@@ -63,17 +63,18 @@ export class GestionPanier {
     }
 
     private majPanier = (data, textStatus, jqXHR) => {
-
+        let site = document.querySelector("body");
+        site.innerHTML = data;
+        this.ajouterEcouteursEvenements();
     };
 
     private supprimerItemPanier(isbnLivre:string){
         const panier = this;
-        console.log(isbnLivre);
 
         $.ajax({
-            url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=",
+            url: "index.php?controleur=panier&action=supprimerItem&isbn=" + isbnLivre,
             type: "POST",
-            data: "",
+            data: "ajaxCall=ajaxCall",
             dataType: "html"
         })
             .done(function(data, textStatus, jqXHR){

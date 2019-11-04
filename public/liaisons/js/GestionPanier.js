@@ -28,6 +28,9 @@ define(["require", "exports"], function (require, exports) {
                 }
             };
             this.majPanier = function (data, textStatus, jqXHR) {
+                var site = document.querySelector("body");
+                site.innerHTML = data;
+                _this.ajouterEcouteursEvenements();
             };
             this.initialiser();
         }
@@ -58,11 +61,10 @@ define(["require", "exports"], function (require, exports) {
         };
         GestionPanier.prototype.supprimerItemPanier = function (isbnLivre) {
             var panier = this;
-            console.log(isbnLivre);
             $.ajax({
-                url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=",
+                url: "index.php?controleur=panier&action=supprimerItem&isbn=" + isbnLivre,
                 type: "POST",
-                data: "",
+                data: "ajaxCall=ajaxCall",
                 dataType: "html"
             })
                 .done(function (data, textStatus, jqXHR) {

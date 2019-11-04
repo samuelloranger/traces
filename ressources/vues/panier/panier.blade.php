@@ -51,9 +51,7 @@
                                 <button type="button" value="{{ $item -> livre -> isbn }}" class="lienSupprItemScript">Supprimer l'item du panier</button>
                             </p>
 
-                            <form action="index.php?controleur=panier&action=updateItem">
-                                <input type="hidden" id="isbnLivre" name="isbn" value="{{$item->livre->isbn}}">
-
+                            <form action="index.php?controleur=panier&action=updateItem&isbn={{ $item->livre->isbn }}" method="POST">
                                 <label for="qte">Quantité</label>
 
                                 <div class="boutons row">
