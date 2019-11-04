@@ -60,6 +60,29 @@
             </ul>
         </div>
     </nav>
+
+    <div class="modaleItemAjoute">
+        <div class="modaleItemAjoute__contenu">
+            <button class="hamburger hamburger--squeeze is-active" type="button" id="btnMenuMobile">
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
+            </button>
+
+            <div class="modaleItemAjoute__infosLivre">
+                <img class="image" src="" alt="Vignette ">
+                <p class="titre"></p>
+            </div>
+
+            <div class="modaleItemAjoute__infosPanier">
+                <p class="qte"></p>
+                <p class="sous-total"></p>
+
+                <a class="bouton" type="button">Voir le panier</a>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 

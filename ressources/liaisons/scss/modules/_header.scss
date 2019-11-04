@@ -12,8 +12,6 @@
   transition: 0.50s ease-in-out;
   min-height: 0;
 
-
-
   &--transparent{
     background: rgb(68,68,68);
     background: linear-gradient(180deg, rgba(68,68,68,0.2007177871148459) 67%, rgba(68,68,68,0) 100%);
@@ -52,6 +50,7 @@
    * CONTENEUR DU HEADER
    */
   .conteneur-header{
+    position: relative;
     padding: 8px 2px;
     display: flex;
 
@@ -59,8 +58,34 @@
       padding: 22px 15px 22px 10px;
     }
 
+    .modaleItemAjoute{
+      position: absolute;
+      background-color: white;
+      right: 15%;
+      top: 90%;
+      box-shadow: 0 0 4px black;
+      border: 2px solid $ROUGE;
+
+      .hamburger{
+        transition: 0.15s ease-in-out;
+
+        .hamburger-inner, .hamburger-inner:before, .hamburger-inner:after{
+          background-color: $ROUGE;
+          height: 2px;
+        }
+
+        &:hover{
+          transform: scale(1.08);
+
+          .hamburger-inner, .hamburger-inner:before, .hamburger-inner:after{
+            background-color: $ROUGE;
+          }
+        }
+      }
+    }
+
     /**
-     * CONTENEUR NAVIGATIO
+     * CONTENEUR NAVIGATION
      */
     .navigation{
       display: flex;
