@@ -41,8 +41,14 @@ class ControleurLivre
 
     public function fiche(): void
     {
-        $tDonnees = array_merge($this->getDonneesUnLivre(), ControleurSite::getDonneeFragmentPiedDePage());;
-        echo $this->blade->run("livres.fiche", $tDonnees);
+        if(isset($_POST["isAjax"])){
+            echo $_GET["isbn"];
+//            echo json_encode(Livre::trouverParIsbn($_GET["isbn"]));
+        }
+        else{
+            $tDonnees = array_merge($this->getDonneesUnLivre(), ControleurSite::getDonneeFragmentPiedDePage());;
+            echo $this->blade->run("livres.fiche", $tDonnees);
+        }
     }
 
     /**

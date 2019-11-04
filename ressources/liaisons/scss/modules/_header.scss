@@ -65,6 +65,13 @@
       top: 90%;
       box-shadow: 0 0 4px black;
       border: 2px solid $ROUGE;
+      transition: 0.45s ease-in-out;
+
+      &--inactive{
+        opacity: 0;
+        top: -15vw;
+        pointer-events: none;
+      }
 
       .hamburger{
         transition: 0.15s ease-in-out;

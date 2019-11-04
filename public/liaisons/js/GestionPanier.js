@@ -14,6 +14,7 @@ define(["require", "exports"], function (require, exports) {
             //Éléments définis une seule fois
             this.urlParams = new URLSearchParams(window.location.search);
             this.iconesPanier = Array.apply(null, document.querySelectorAll(".iconePanier"));
+            this.fenetreModale = document.querySelectorAll(".modaleItemAjoute");
             //Éléments redéfinis
             this.selecteurFraisLivraison = document.querySelector("#fraisLivraisonSelect");
             this.nbrsItemsPanier = Array.apply(null, document.querySelectorAll(".nbrItemsPanier"));
@@ -77,6 +78,35 @@ define(["require", "exports"], function (require, exports) {
                 });
             };
             /**
+             * Fonction montrerFenetreModale
+             * @description Retourne les information du livre
+             * @param isbn String du isbn envoyé au PHP
+             */
+            this.montrerFenetreModale = function (isbn) {
+                $.ajax({
+                    url: "index.php?controleur=livre&action=fiche&isbn=" + isbn,
+                    type: "POST",
+                    data: "isAjax",
+                    dataType: "html",
+                })
+                    .done(function (data, textStatus, jqXHR) {
+                    _this.changerInfosFenetreModale(data, textStatus, jqXHR);
+                });
+            };
+            /**
+             * Fonction changerInfosFenetreModale
+             * @description Change les informations de la fenêtre modale
+             * @param data
+             * @param textStatus
+             * @param jqXHR
+             */
+            this.changerInfosFenetreModale = function (data, textStatus, jqXHR) {
+                var infosLivre = data.json;
+                console.log(infosLivre);
+                console.log(data);
+                _this.fenetreModale.classList.toggle("modaleItemAjoute--inactive");
+            };
+            /**
              * Fonction majPanier
              * @description Met à jour la fiche du panier (tous les prix/livres)
              * @param data
@@ -105,16 +135,18 @@ define(["require", "exports"], function (require, exports) {
              */
             this.majQteItem = function (element, qte) {
                 var panier = _this;
-                var isbnLivre = element.parentElement.parentElement.parentElement.querySelector(".isbn");
+                var livre = element.parentElement.parentElement.parentElement.querySelector(".isbn");
+                var isbn = livre.value;
                 $.ajax({
                     url: "index.php?controleur=panier&action=updateItem",
                     type: "POST",
-                    data: "isbn=" + isbnLivre.value + "&qte=" + qte + "&isAjax=true",
+                    data: "isbn=" + isbn + "&qte=" + qte + "&isAjax=true",
                     dataType: "html"
                 })
                     .done(function (data, textStatus, jqXHR) {
                     panier.majPanier(data, textStatus, jqXHR);
                 });
+                _this.montrerFenetreModale(isbn);
             };
             /**
              * Fonction supprimerItemPanier
@@ -132,7 +164,12 @@ define(["require", "exports"], function (require, exports) {
                     .done(function (data, textStatus, jqXHR) {
                     panier.majPanier(data, textStatus, jqXHR);
                 });
+                _this.montrerFenetreModale(isbnLivre);
             };
+            /**
+             * Fonction changerFraisLivraison
+             * @param modeLivraison string du mode de livraison envoyé au PHP qui vient du select
+             */
             this.changerFraisLivraison = function (modeLivraison) {
                 var panier = _this;
                 $.ajax({

@@ -62,7 +62,7 @@
     </nav>
 
     <div class="modaleItemAjoute">
-        <div class="modaleItemAjoute__contenu">
+        <div class="modaleItemAjoute modaleItemAjoute--inactive">
             <button class="hamburger hamburger--squeeze is-active" type="button" id="btnMenuMobile">
               <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
