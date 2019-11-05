@@ -32,21 +32,24 @@ class ControleurCompte {
 
         $courriel = $_POST["email"];
         $mdp = $_POST["mdp"];
-        $user = User::trouverParConnexion($courriel, $mdp);
+        $user = null;
+        $cryptMdp = User::getHash($courriel);
 
-        if ($formulaireValide && $user !== null) {
-            echo "$mdp <br>";
-            //print_r($user);
-            //echo $user->mot_de_passe . "<br>";
-            if (password_verify($mdp, $user->__get("mot_de_passe"))) {
-                $this->session->setItem("courriel", $user->__get("courriel"));
-                $this->session->setItem("estConnecte", true);
+        if ($formulaireValide) {
+            //print_r($cryptMdp);
+            if (password_verify($mdp, $cryptMdp)) {
+                $user = User::trouverParConnexion($courriel, $cryptMdp);
+                if ($user !== null) {
+                    echo "$mdp <br>";
 
-                //echo "Connexion reussie";
-                header("Location: index.php?controleur=site&action=accueil");
+                    $this->session->setItem("courriel", $user->__get("courriel"));
+                    $this->session->setItem("estConnecte", true);
+
+                    header("Location: index.php?controleur=site&action=accueil");
+                } else {
+                    echo "Connexion echouee";
+                }
             }
-        } else {
-            echo "Connexion echouee";
         }
     }
 
@@ -67,7 +70,7 @@ class ControleurCompte {
 
         if ($formulaireValide) {
             try {
-                User::insererUser($prenom, $nom, $courriel, $mdp);
+                User::insererUser($prenom, $nom, $courriel, password_hash($mdp, PASSWORD_DEFAULT));
                 echo "Compte cree";
                 $this->session->setItem("courriel", $courriel);
                 $this->session->setItem("estConnecte", true);
@@ -103,6 +106,10 @@ class ControleurCompte {
         if (isset($_POST["mdp"])) {
             $mdp = $_POST["mdp"];
         }
+        $c_mdp = null;
+        if (isset($_POST["c_mdp"])) {
+            $c_mdp = $_POST["c_mdp"];
+        }
 
         $regex = [
             "prenom" => "#[a-zA-Z]{3,30}$#",
@@ -114,7 +121,7 @@ class ControleurCompte {
         if (!preg_match($regex["prenom"], $prenom)) $formulaireValide = false;
         if (!preg_match($regex["nom"], $nom)) $formulaireValide = false;
         if (!preg_match($regex["courriel"], $courriel)) $formulaireValide = false;
-        if (!preg_match($regex["mdp"], $mdp)) $formulaireValide = false;
+        if (!preg_match($regex["mdp"], $mdp) || $mdp !== $c_mdp) $formulaireValide = false;
 
         if ($formulaireValide) {
             echo "Formulaire valide";
