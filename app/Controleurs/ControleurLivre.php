@@ -13,44 +13,17 @@ use App\Modeles\Recension;
 class ControleurLivre
 {
     private $blade = null;
+    private $panier = null;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->blade = App::getInstance()->getBlade();
+        $this->panier = App::getInstance()->getPanier();
     }
-
 
     /**
      * Fonction index qui call la view
      */
-    public function catalogue(): void
-    {
-        $nbResultats = Livre::compter(0);
-
-        if(isset($_GET['categorie'])){
-            $nbResultats = Livre::compter(intval($_GET['categorie']));
-        }
-
-        $tDonnees = array_merge(
-            array("nbResultats" => $nbResultats),
-            $this->getDonneesLivres(),
-            ControleurSite::getDonneeFragmentPiedDePage()
-        );
-        echo $this->blade->run("livres.catalogue", $tDonnees);
-    }
-
-    public function fiche(): void
-    {
-        $tDonnees = array_merge($this->getDonneesUnLivre(), ControleurSite::getDonneeFragmentPiedDePage());;
-        echo $this->blade->run("livres.fiche", $tDonnees);
-    }
-
-    /**
-     * @return array
-     */
-
-    public function getDonneesLivres(): array
-    {
+    public function catalogue():void {
         $filAriane = App::getInstance()->getFilAriane();
         $filAriane = $filAriane::majFilAriane();
 
@@ -100,6 +73,7 @@ class ControleurLivre
         $arrLivres = Livre::trouverParLimite(intval($numeroPage) - 1, $livresParPage, $id_categorie, $trierPar);
         foreach ($arrLivres as $livre) {
             $livre->isbn13 = Util::ISBNToEAN($livre->isbn);
+            $livre->titre = Util::corrigerTitre($livre ->titre);
         }
 
         $nbrLivres = Livre::compter($id_categorie);
@@ -117,27 +91,33 @@ class ControleurLivre
          */
         $arrCategories = Categories::trouverTout();
 
+        $nbResultats = Livre::compter(0);
+
+        if(isset($_GET['categorie'])){
+            $nbResultats = Livre::compter(intval($_GET['categorie']));
+        }
+
         /**
-         * Définition de l'array retourné avec toutes les données
+         * Définition de l'array des données
          */
-        $arrDonnees = array_merge(
-            Util::getInfosPanier(),
-            array("arrLivres" => $arrLivres),
-            array("arrCategories" => $arrCategories),
-            array("id_categorie" => $id_categorie),
-            array("trierPar" => $trierPar),
-            array("nombreTotalPages" => $nombreTotalPages),
-            array("livresParPage" => $livresParPage),
-            array("numeroPage" => $numeroPage),
-            array("filAriane" => $filAriane),
-            array("urlPagination" => $urlModif)
+        $tDonnees = array_merge(
+                Util::getInfosPanier(),
+                array("nbResultats" => $nbResultats),
+                array("arrLivres" => $arrLivres),
+                array("arrCategories" => $arrCategories),
+                array("id_categorie" => $id_categorie),
+                array("trierPar" => $trierPar),
+                array("nombreTotalPages" => $nombreTotalPages),
+                array("livresParPage" => $livresParPage),
+                array("numeroPage" => $numeroPage),
+                array("filAriane" => $filAriane),
+                array("urlPagination" => $urlModif)
         );
 
-        return $arrDonnees;
+        echo $this->blade->run("livres.catalogue", $tDonnees);
     }
 
-    public function getDonneesUnLivre(): array
-    {
+    public function fiche():void {
         $isbnLivre = "0";
         if (isset($_GET["isbn"])) {
             $isbnLivre = $_GET["isbn"];
@@ -154,7 +134,7 @@ class ControleurLivre
         //Infos du livre
         $infosLivre->__set("isbn13", Util::ISBNToEAN($infosLivre->__get("isbn")));
         $infosLivre->__set("description", Util::couperParagraphe($infosLivre->__get("description")));
-
+        $infosLivre->__set("titre", Util::corrigerTitre($infosLivre->__get("titre")));
 
         //Recensions
         $arrRecensions = Recension::trouverRecensionsLivre($infosLivre->__get("id"));
@@ -170,14 +150,33 @@ class ControleurLivre
             $honneur->description = Util::couperParagraphe($honneur->description, 100);
         }
 
-
         $arrInfos = array_merge(
             Util::getInfosPanier(),
             array("livre" => $infosLivre),
             array("arrRecensions" => $arrRecensions),
             array("arrHonneurs" => $arrHonneurs),
-            array("filAriane" => $filAriane));
-        return $arrInfos;
+            array("filAriane" => $filAriane)
+        );
+
+        $tDonnees = array_merge($arrInfos, ControleurSite::getDonneeFragmentPiedDePage());;
+        echo $this->blade->run("livres.fiche", $tDonnees);
+    }
+
+    public function fenetreModale():void{
+        $isbn = "";
+        if(isset($_POST["isbn"])){
+            $isbn = $_POST["isbn"];
+        }
+        $livre = Livre::trouverParIsbn($isbn);
+
+        $arrInfos = array(
+            "titre" => $livre->__get("titre"),
+            "url" => $livre->getImageUrl("carre"),
+            "prix" => $livre->__get("prix"),
+            "sous-total" => $this->panier->getMontantTotal()
+        );
+
+        echo json_encode($arrInfos);
     }
 }
 

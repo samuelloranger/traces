@@ -32,6 +32,7 @@ define(["require", "exports"], function (require, exports) {
                 })
                     .done(function (data, textStatus, jqXHR) {
                     panier.majItemPanierHeader(data, textStatus, jqXHR);
+                    panier.montrerFenetreModale(isbnLivre);
                 });
             };
             this.panier = panier;

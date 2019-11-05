@@ -172,6 +172,9 @@ class App
                 case "fiche":
                     $this->monControleur->fiche();
                     break;
+                case "fenetreModale":
+                    $this->monControleur->fenetreModale();
+                    break;
                 default:
                     echo 'Erreur 404';
             }

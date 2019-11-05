@@ -173,6 +173,7 @@
 #4 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
 #5 {main}
 >>>>>>> c9aa08414f736e1c0e56bffb2680de8ccb9fe15e
+<<<<<<< HEAD
 #0 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(869): eftec\bladeone\BladeOne->evaluatePath('../ressources/c...', Array)
 #1 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(1405): eftec\bladeone\BladeOne->runInternal('transaction.fac...', Array, 0, true, 0)
 #2 /Users/zachary/Sites/traces/app/Controleurs/ControleurTransaction.php(30): eftec\bladeone\BladeOne->run('transaction.fac...', Array)
@@ -201,3 +202,90 @@
 #4 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
 #5 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
 #6 {main}
+=======
+#0 C:\MAMP\htdocs\traces\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\MAMP\\htdocs\\...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 C:\MAMP\htdocs\traces\app\App.php(167): spl_autoload_call('App\\Controleurs...')
+#3 C:\MAMP\htdocs\traces\app\App.php(44): App\App->routerLaRequete()
+#4 C:\MAMP\htdocs\traces\public\index.php(10): App\App->demarrer()
+#5 {main}
+#0 C:\MAMP\htdocs\traces\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\MAMP\\htdocs\\...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 C:\MAMP\htdocs\traces\app\App.php(167): spl_autoload_call('App\\Controleurs...')
+#3 C:\MAMP\htdocs\traces\app\App.php(44): App\App->routerLaRequete()
+#4 C:\MAMP\htdocs\traces\public\index.php(10): App\App->demarrer()
+#5 {main}
+#0 C:\MAMP\htdocs\traces\app\App.php(173): App\Controleurs\ControleurLivre->fiche()
+#1 C:\MAMP\htdocs\traces\app\App.php(44): App\App->routerLaRequete()
+#2 C:\MAMP\htdocs\traces\public\index.php(10): App\App->demarrer()
+#3 {main}
+#0 C:\MAMP\htdocs\traces\app\App.php(173): App\Controleurs\ControleurLivre->fiche()
+#1 C:\MAMP\htdocs\traces\app\App.php(44): App\App->routerLaRequete()
+#2 C:\MAMP\htdocs\traces\public\index.php(10): App\App->demarrer()
+#3 {main}
+#0 C:\MAMP\htdocs\traces\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\MAMP\\htdocs\\...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 C:\MAMP\htdocs\traces\app\App.php(167): spl_autoload_call('App\\Controleurs...')
+#3 C:\MAMP\htdocs\traces\app\App.php(44): App\App->routerLaRequete()
+#4 C:\MAMP\htdocs\traces\public\index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/Users/samuel/S...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(167): spl_autoload_call('App\\Controleurs...')
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(169): App\Modeles\Livre::trouverParIsbn('2-89448-535-2is...')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(176): App\Controleurs\ControleurLivre->fenetreModale()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(169): App\Modeles\Livre::trouverParIsbn('2-89448-535-2is...')
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(176): App\Controleurs\ControleurLivre->fenetreModale()
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#4 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/Users/samuel/S...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Util')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(134): spl_autoload_call('App\\Util')
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(173): App\Controleurs\ControleurLivre->fiche()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#5 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#6 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Util.php(41): substr(98, 98)
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(136): App\Util::corrigerTitre('Devenir de la n...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(173): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Util.php(41): substr(98, 98)
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(136): App\Util::corrigerTitre('Devenir de la n...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(173): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Util.php(41): substr(98, 98)
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(136): App\Util::corrigerTitre('Devenir de la n...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(173): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Util.php(41): substr(11, 11)
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(136): App\Util::corrigerTitre('Abandon (L')')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(173): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Util.php(41): substr(8, 11)
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(136): App\Util::corrigerTitre('Abandon (L')')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(173): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Util.php(42): substr(8, 3)
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(136): App\Util::corrigerTitre('Abandon (L')')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(173): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(44): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+>>>>>>> cd33a5b64e95510a25ae6a1232f2ae43c955cdbb

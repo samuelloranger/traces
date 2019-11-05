@@ -60,16 +60,17 @@ define(["require", "exports"], function (require, exports) {
                 }
             };
             this.ajoutPanier = function () {
-                var isbnLivre = _this.urlParams.get('isbn');
+                var isbn = _this.urlParams.get('isbn');
                 var panier = _this.panier;
                 $.ajax({
-                    url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbnLivre,
+                    url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbn,
                     type: "POST",
                     data: "&qte=" + _this.selecteurQte.value,
                     dataType: "html"
                 })
                     .done(function (data, textStatus, jqXHR) {
                     panier.majItemPanierHeader(data, textStatus, jqXHR);
+                    panier.montrerFenetreModale(isbn);
                 });
             };
             this.panier = panier;

@@ -37,11 +37,11 @@
     }
 
     &:hover{
-      color: $ROUGE !important;
-      border: 2px solid $ROUGE;
+      border: 2px solid white;
+      cursor: pointer;
 
       a{
-        color: $ROUGE !important;
+        color: white !important;
       }
     }
   }
@@ -61,25 +61,85 @@
     .modaleItemAjoute{
       position: absolute;
       background-color: white;
-      right: 15%;
-      top: 90%;
+      width: 90%;
+      height: 360px;
+      right: 5%;
+      top: 90px;
       box-shadow: 0 0 4px black;
       border: 2px solid $ROUGE;
+      transition: 0.45s ease-in-out;
+      padding: 0 2% 2% 2%;
 
-      .hamburger{
-        transition: 0.15s ease-in-out;
+      @media(min-width: 500px){
+        width: 400px;
+        right: 15%;
+        top: 75px;
+      }
 
-        .hamburger-inner, .hamburger-inner:before, .hamburger-inner:after{
-          background-color: $ROUGE;
-          height: 2px;
+      &--inactive{
+        opacity: 0;
+        top: -15vw;
+        pointer-events: none;
+      }
+
+      &__conteneurBouton{
+        display: flex;
+        justify-content: space-between;
+
+        .titreFenetreModale{
+          margin-top: 3%;
         }
 
-        &:hover{
-          transform: scale(1.08);
+        .hamburger{
+          transition: 0.15s ease-in-out;
+          padding-right: 0;
 
           .hamburger-inner, .hamburger-inner:before, .hamburger-inner:after{
             background-color: $ROUGE;
+            height: 2px;
           }
+
+          &:hover{
+            transform: scale(1.08);
+
+            .hamburger-inner, .hamburger-inner:before, .hamburger-inner:after{
+              background-color: $ROUGE;
+            }
+          }
+
+          &:focus{
+            outline: none;
+          }
+        }
+      }
+
+      &__infosLivre{
+        display: flex;
+
+        .image{
+          width: 125px;
+          height: 125px;
+        }
+
+        .infos{
+          margin-left: 4%;
+
+        }
+      }
+
+      &__infosPanier{
+        border-top: 2px solid black;
+        padding-top: 5%;
+        margin-top: 5%;
+
+        .bouton{
+          display: block;
+          appearance: unset;
+          text-align: center;
+          padding: 4%;
+          color: white;
+          border-radius: 35px;
+          background-color: $TURQUOISE;
         }
       }
     }
