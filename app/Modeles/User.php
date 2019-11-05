@@ -61,6 +61,20 @@ class User {
         return $user;
     }
 
+    public static function getHash(string $courriel) {
+        $pdo = App::getInstance()->getPDO();
+
+        $chaineRequete = "SELECT mot_de_passe FROM t_client WHERE courriel = :courriel";
+
+        $requete = $pdo->prepare($chaineRequete);
+        $requete->bindValue(":courriel", $courriel, PDO::PARAM_STR);
+        $requete->execute();
+
+        $mot_de_passe = $requete->fetch();
+
+        return $mot_de_passe[0];
+    }
+
     public static function insererUser(string $prenom, string $nom, string $courriel, string $mot_de_passe) {
 //        if (User::trouverParCourriel($courriel) !== null) {
 //            return;
@@ -78,7 +92,7 @@ class User {
         $requete->bindParam(2, $nom, PDO::PARAM_STR);
         $requete->bindParam(3, $courriel, PDO::PARAM_STR);
         $requete->bindParam(4, $telephone, PDO::PARAM_INT);
-        $requete->bindParam(5, password_hash($mot_de_passe, PASSWORD_DEFAULT), PDO::PARAM_STR);
+        $requete->bindParam(5, $mot_de_passe, PDO::PARAM_STR);
         //Execution de la requete
         $requete->execute();
     }

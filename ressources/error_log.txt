@@ -199,3 +199,8 @@
 #3 C:\MAMP\htdocs\traces\app\App.php(44): App\App->routerLaRequete()
 #4 C:\MAMP\htdocs\traces\public\index.php(10): App\App->demarrer()
 #5 {main}
+#0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/Controleurs/ControleurCompte.php(39): password_verify('Salut123', Array)
+#1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(225): App\Controleurs\ControleurCompte->connecter()
+#2 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
+#3 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/public/index.php(10): App\App->demarrer()
+#4 {main}
