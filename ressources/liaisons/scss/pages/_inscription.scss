@@ -1,0 +1,56 @@
+.bloc_formulaire {
+  background-color: $GRIS_PALE;
+  border-radius: 10px;
+  padding: 5%;
+  margin: 5% 0 5% 0;
+}
+
+.inscription {
+
+  &__formulaire {
+
+    &__titre {
+      text-align: center;
+      font-size: 3.4rem !important;
+      margin-bottom: 5%;
+      font-weight: bold;
+    }
+
+    &__champ {
+      display: block;
+      width: 100%;
+      border-radius: 20px;
+      border: transparent solid 2px;
+      padding: 2% 5%;
+      font-family: $policeCorps;
+
+      &:focus {
+        border: solid 2px $TURQUOISE;
+      }
+    }
+    &__consignes {
+      display: block;
+      margin-bottom: 5px;
+      color: $TURQUOISE;
+    }
+    &__lien {
+      display: block;
+      color: $ROUGE;
+      &:hover {
+        color: darken($ROUGE, 10);
+      }
+    }
+
+    &__afficher_mdp {
+      margin-bottom: 5%;
+    }
+  }
+
+  &__deja_client {
+    text-align: center;
+  }
+
+  &__sans_compte {
+    text-align: center;
+  }
+}
