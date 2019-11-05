@@ -9,12 +9,14 @@ use App\Util;
 class SessionItem
 {
     private $livre = null;
+    private $format = "";
     private $quantite = 0;
 
-    public function __construct(Livre $unLivre, int $uneQte)
+    public function __construct(Livre $unLivre, string $format, int $uneQte)
     {
         // À faire...
         $this->livre = $unLivre;
+        $this->format = $format;
         $this->quantite = $uneQte;
     }
 

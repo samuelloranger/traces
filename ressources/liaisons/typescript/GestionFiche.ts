@@ -4,9 +4,11 @@
 import {GestionPanier} from "./GestionPanier";
 
 export class GestionFiche {
+
     //Sélecteurs de quantité
     private btnSoustraire:HTMLElement = document.querySelector(".btnChangementQte__soustraire");
     private btnAjouter:HTMLElement = document.querySelector(".btnChangementQte__additionner");
+    private format:HTMLInputElement = document.querySelector(".formatLivre");
     private selecteurQte:HTMLInputElement = document.querySelector(".qteCourante");
 
     //Ajout au panier
@@ -49,7 +51,7 @@ export class GestionFiche {
         }
     };
 
-    private changerQte = (operation) => {
+    private changerQte = (operation:string) => {
         switch(operation){
             case "soustraire":
                 if(Number(this.selecteurQte.value) > 1){
@@ -80,17 +82,24 @@ export class GestionFiche {
         const isbn = this.urlParams.get('isbn');
         const panier =  this.panier;
 
-        $.ajax({
+        //Gestion de l'erreur si le format n'est pas choisi
+        if(this.format.value === "Format..."){
+            this.format.classList.add("formatLivre--erreur");
+        }
+        else{
+            $.ajax({
                 url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbn,
                 type: "POST",
-                data: "&qte=" + this.selecteurQte.value,
+                data: "&qte=" + this.selecteurQte.value + "&format=" + this.format.value,
                 dataType: "html"
             })
-            .done(function(data, textStatus, jqXHR){
-                panier.majItemPanierHeader(data, textStatus, jqXHR);
-                panier.montrerFenetreModale(isbn);
-            }
-        );
+                .done(function(data, textStatus, jqXHR){
+                        panier.majItemPanierHeader(data, textStatus, jqXHR);
+                        panier.montrerFenetreModale(isbn);
+                    }
+                );
+        }
+
 
     };
 

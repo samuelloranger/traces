@@ -82,6 +82,7 @@ class FilAriane
                         //Definition du titre du livre
                         if(isset($_GET["isbn"])) {
                             $livre = Livre::trouverParIsbn($_GET["isbn"]);
+                            $livre->__set("titre", Util::corrigerTitre($livre->__get("titre")));
 
                             //Definition du 3e lien (si necessaire)
                             if($lien1["titre"] == "Catalogue"){
@@ -93,6 +94,7 @@ class FilAriane
 
                                 $fil[2] = $lien3;
                             }
+
 
                             $fil[3] = array(
                                 "titre" => $livre->__get("titre")

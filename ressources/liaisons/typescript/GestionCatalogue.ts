@@ -3,9 +3,9 @@
  */
 import {GestionPanier} from "./GestionPanier";
 
-export class GestionAccueil {
+export class GestionCatalogue{
     //Ajout au panier
-    private btnsAjoutPanier:[HTMLElement] = Array.apply(null, document.querySelectorAll(".bouton_panierScript"));
+    private btnsAjoutPanier:[HTMLElement] = Array.apply(null, document.querySelectorAll(".catalogue__btn--ajouterPanierScript"));
     private urlParams = new URLSearchParams(window.location.search);
 
     //Attributs de classe
@@ -22,7 +22,7 @@ export class GestionAccueil {
         const controleur = this.urlParams.get('controleur');
         const action = this.urlParams.get('action');
 
-        if(controleur === "site" && action === "accueil" || controleur === null && action === null){
+        if(controleur === "livre" && action === "catalogue" || controleur === null && action === null){
             this.btnsAjoutPanier.forEach((element) => {
                 element.addEventListener("click", () => {
                     this.ajoutPanier(element);
@@ -34,12 +34,11 @@ export class GestionAccueil {
     private ajoutPanier = (element) => {
         const isbnLivre = element.value;
         const panier =  this.panier;
-        const formatLivre = element.parentNode.querySelector(".formatLivre");
 
         $.ajax({
             url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbnLivre,
             type: "POST",
-            data: "&qte=1&format=" + formatLivre.value,
+            data: "&qte=1",
             dataType: "html"
         })
             .done(function(data, textStatus, jqXHR){

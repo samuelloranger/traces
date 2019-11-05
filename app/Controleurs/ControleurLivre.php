@@ -73,7 +73,6 @@ class ControleurLivre
         $arrLivres = Livre::trouverParLimite(intval($numeroPage) - 1, $livresParPage, $id_categorie, $trierPar);
         foreach ($arrLivres as $livre) {
             $livre->isbn13 = Util::ISBNToEAN($livre->isbn);
-            $livre->titre = Util::corrigerTitre($livre ->titre);
         }
 
         $nbrLivres = Livre::compter($id_categorie);
@@ -134,7 +133,6 @@ class ControleurLivre
         //Infos du livre
         $infosLivre->__set("isbn13", Util::ISBNToEAN($infosLivre->__get("isbn")));
         $infosLivre->__set("description", Util::couperParagraphe($infosLivre->__get("description")));
-        $infosLivre->__set("titre", Util::corrigerTitre($infosLivre->__get("titre")));
 
         //Recensions
         $arrRecensions = Recension::trouverRecensionsLivre($infosLivre->__get("id"));
@@ -167,12 +165,18 @@ class ControleurLivre
         if(isset($_POST["isbn"])){
             $isbn = $_POST["isbn"];
         }
-        $livre = Livre::trouverParIsbn($isbn);
 
+        $format = "Papier";
+        if(isset($_POST["format"])){
+            $format = $_POST["format"];
+        }
+
+        $livre = Livre::trouverParIsbn($isbn);
         $arrInfos = array(
             "titre" => $livre->__get("titre"),
             "url" => $livre->getImageUrl("carre"),
             "prix" => $livre->__get("prix"),
+            "format" => $format,
             "sous-total" => $this->panier->getMontantTotal()
         );
 

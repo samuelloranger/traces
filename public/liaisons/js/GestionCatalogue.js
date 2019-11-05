@@ -1,11 +1,11 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var GestionAccueil = /** @class */ (function () {
-        function GestionAccueil(panier) {
+    var GestionCatalogue = /** @class */ (function () {
+        function GestionCatalogue(panier) {
             var _this = this;
             //Ajout au panier
-            this.btnsAjoutPanier = Array.apply(null, document.querySelectorAll(".bouton_panierScript"));
+            this.btnsAjoutPanier = Array.apply(null, document.querySelectorAll(".catalogue__btn--ajouterPanierScript"));
             this.urlParams = new URLSearchParams(window.location.search);
             //Attributs de classe
             this.panier = null;
@@ -13,7 +13,7 @@ define(["require", "exports"], function (require, exports) {
                 // Quantité : Bouton soustraire
                 var controleur = _this.urlParams.get('controleur');
                 var action = _this.urlParams.get('action');
-                if (controleur === "site" && action === "accueil" || controleur === null && action === null) {
+                if (controleur === "livre" && action === "catalogue" || controleur === null && action === null) {
                     _this.btnsAjoutPanier.forEach(function (element) {
                         element.addEventListener("click", function () {
                             _this.ajoutPanier(element);
@@ -24,11 +24,10 @@ define(["require", "exports"], function (require, exports) {
             this.ajoutPanier = function (element) {
                 var isbnLivre = element.value;
                 var panier = _this.panier;
-                var formatLivre = element.parentNode.querySelector(".formatLivre");
                 $.ajax({
                     url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbnLivre,
                     type: "POST",
-                    data: "&qte=1&format=" + formatLivre.value,
+                    data: "&qte=1",
                     dataType: "html"
                 })
                     .done(function (data, textStatus, jqXHR) {
@@ -39,8 +38,8 @@ define(["require", "exports"], function (require, exports) {
             this.panier = panier;
             this.ajouterEcouteursEvenements();
         }
-        return GestionAccueil;
+        return GestionCatalogue;
     }());
-    exports.GestionAccueil = GestionAccueil;
+    exports.GestionCatalogue = GestionCatalogue;
 });
-//# sourceMappingURL=GestionAccueil.js.map
+//# sourceMappingURL=GestionCatalogue.js.map

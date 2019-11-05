@@ -31,11 +31,11 @@
                         <div class="options col-sm-12 col-md-6">
                             <label for="formatLivre">Choisir un format...</label>
                             <div class="select">
-                                <select id="formatLivre">
+                                <select name="format" id="formatLivre" class="formatLivre">
                                     <option>Format...</option>
-                                    <option value="papier">Papier</option>
-                                    <option value="papier">E-Pub</option>
-                                    <option value="papier">PDF</option>
+                                    <option value="Papier">Papier</option>
+                                    <option value="E-Pub">E-Pub</option>
+                                    <option value="PDF">PDF</option>
                                 </select>
                                 <span class="fleche"><span class="arrow-down"></span></span>
                             </div>

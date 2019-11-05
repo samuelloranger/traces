@@ -84,6 +84,8 @@ class Livre
 
         $livre = $requetePreparee->fetch();
 
+        $livre->titre = Util::corrigerTitre($livre->titre);
+
         return $livre;
     }
 
@@ -147,6 +149,10 @@ class Livre
         // Récupérer une seule occurrence à la fois
         $arrayLivres = $requetePreparee->fetchAll();
 
+        forEach($arrayLivres as $livre){
+            $livre->titre = Util::corrigerTitre($livre->titre);
+        }
+
         return $arrayLivres;
     }
 
@@ -200,6 +206,10 @@ class Livre
 
         $arrCoupsCoeur = $requete->fetchAll();
 
+        forEach($arrCoupsCoeur as $livre){
+            $livre->titre = Util::corrigerTitre($livre->titre);
+        }
+
         return $arrCoupsCoeur;
     }
 
@@ -221,6 +231,10 @@ class Livre
         $requete->execute();
 
         $arrNouveautes = $requete->fetchAll();
+
+        forEach($arrNouveautes as $livre){
+            $livre->titre = Util::corrigerTitre($livre->titre);
+        }
 
         return $arrNouveautes;
     }

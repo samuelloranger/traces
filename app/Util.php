@@ -31,31 +31,27 @@ class Util {
     }
 
     public static function corrigerTitre(string $titre):string {
-//        var_dump($titre);
         $positionParOuverte = strpos($titre, "(") + 1;
         $positionParFerme = strpos($titre, ")");
         $longueurMotRemplace = $positionParFerme - $positionParOuverte;
 
-        $texteDeplace = "";
         if($positionParOuverte && $positionParFerme){
             $texteDeplace = substr($titre, $positionParOuverte, $longueurMotRemplace);
 
-            $titre = explode(" ", $titre);
-            $titre[0] = strtolower($titre[0]);
-            $titre = implode(" ", $titre);
+//            $titre = explode(" ", $titre);
+//            $titre[0] = strtolower($titre[0]);
+//            $titre = implode(" ", $titre);
 
             $titre = substr($titre, 0, strlen($titre)-$longueurMotRemplace - 2);
 
             $contientApostrophe = false;
-            if(strpos($texteDeplace, "'") === false) {
+            if(!strpos($texteDeplace, "'") === false) {
                 $contientApostrophe = true;
             }
 
-            if(!$contientApostrophe){
+            $texteRemplacement = $texteDeplace . " " . $titre;
+            if($contientApostrophe){
                 $texteRemplacement = $texteDeplace . $titre;
-            }
-            else{
-                $texteRemplacement = $texteDeplace . " " . $titre;
             }
 
             return $texteRemplacement;

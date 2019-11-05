@@ -22,8 +22,17 @@ class ControleurPanier{
             $isbn = $_GET["isbn"];
             $qte = intval($_POST["qte"]);
 
+            $format = "Papier";
+            if(isset($_POST["format"])){
+                $format = $_POST["format"];
+
+                if($format !== "Papier" || $format !== "E-Pub" || $format !== "PDF"){
+                    $format = "Papier";
+                }
+            }
+
             $livre = Livre::trouverParIsbn($isbn);
-            $this->panier->ajouterItem($livre, $qte);
+            $this->panier->ajouterItem($livre, $format, $qte);
         }
 
         //Validation de la redirection
