@@ -3,28 +3,28 @@
 @section("contenu")
     <div class="inscription">
         <div class="inscription__formulaire bloc_formulaire">
-            <h3 class="inscription__formulaire__titre">S'inscrire a Traces</h3>
+            <h3 class="titre_formulaire">S'inscrire a Traces</h3>
             <form action="index.php?controleur=compte&action=inscrire" method="POST">
                 <label for="prenom">Prenom</label>
-                <input class="inscription__formulaire__champ" type="text" name="prenom" id="prenom">
+                <input class="champ_formulaire" type="text" name="prenom" id="prenom">
                 <br>
 
                 <label for="nom">Nom</label>
-                <input class="inscription__formulaire__champ" type="text" name="nom" id="nom">
+                <input class="champ_formulaire" type="text" name="nom" id="nom">
                 <br>
 
                 <label for="email">Courriel</label>
-                <input class="inscription__formulaire__champ" type="email" name="email" id="email">
+                <input class="champ_formulaire" type="email" name="email" id="email">
                 <br>
 
                 <label for="tel">Numero de telephone</label>
                 <small class="inscription__formulaire__consignes">Ex: 418-999-9999</small>
-                <input class="inscription__formulaire__champ" type="number" name="tel" id="tel">
+                <input class="champ_formulaire" type="number" name="tel" id="tel">
                 <br>
 
                 <label for="mdp">Mot de passe</label>
                 <small class="inscription__formulaire__consignes">8 caracteres, lettres et chiffres, une majuscule.</small>
-                <input class="inscription__formulaire__champ" type="password" name="mdp" id="mdp">
+                <input class="champ_formulaire" type="password" name="mdp" id="mdp">
                 <br>
 
                 <div class="inscription__formulaire__afficher_mdp">
@@ -35,7 +35,7 @@
                 </div>
 
                 <label for="c_mdp">Confirmer le mot de passe</label>
-                <input class="inscription__formulaire__champ" type="password" name="c_mdp" id="c_mdp">
+                <input class="champ_formulaire" type="password" name="c_mdp" id="c_mdp">
                 <br>
 
                 <input class="bouton_panier" type="submit" value="S'inscrire">

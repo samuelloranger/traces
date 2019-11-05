@@ -5,29 +5,30 @@
   margin: 5% 0 5% 0;
 }
 
+.champ_formulaire {
+  display: block;
+  width: 100%;
+  border-radius: 20px;
+  border: transparent solid 2px;
+  padding: 2% 5%;
+  font-family: $policeCorps;
+
+  &:focus {
+    border: solid 2px $TURQUOISE;
+  }
+}
+
+.titre_formulaire {
+  text-align: center;
+  font-size: 3.4rem !important;
+  margin-bottom: 5%;
+  font-weight: bold;
+}
+
 .inscription {
 
   &__formulaire {
 
-    &__titre {
-      text-align: center;
-      font-size: 3.4rem !important;
-      margin-bottom: 5%;
-      font-weight: bold;
-    }
-
-    &__champ {
-      display: block;
-      width: 100%;
-      border-radius: 20px;
-      border: transparent solid 2px;
-      padding: 2% 5%;
-      font-family: $policeCorps;
-
-      &:focus {
-        border: solid 2px $TURQUOISE;
-      }
-    }
     &__consignes {
       display: block;
       margin-bottom: 5px;

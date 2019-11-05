@@ -1,0 +1,22 @@
+.connexion {
+  &__formulaire {
+    &__afficher_mdp {
+      margin-bottom: 5%;
+    }
+
+    &__lien {
+      display: block;
+      color: $ROUGE;
+      &:hover {
+        color: darken($ROUGE, 9);
+      }
+    }
+  }
+
+  &__pas_client {
+    text-align: center;
+  }
+  &__sans_compte {
+    text-align: center;
+  }
+}

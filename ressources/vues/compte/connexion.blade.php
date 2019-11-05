@@ -1,36 +1,38 @@
 @extends('gabarit')
 
 @section("contenu")
-    <div>
-        <h3>Connectez-vous</h3>
-        <form action="index.php?controleur=compte&action=connecter" method="POST">
-            <label for="email">Adresse courriel</label>
-            <input type="email" name="email" id="email">
-            <br>
+    <div class="connexion">
+        <div class="connexion__formulaire bloc_formulaire">
+            <h3 class="titre_formulaire">Connectez-vous</h3>
+            <form action="index.php?controleur=compte&action=connecter" method="POST">
+                <label for="email">Adresse courriel</label>
+                <input class="champ_formulaire" type="email" name="email" id="email">
+                <br>
 
-            <label for="mdp">Mot de passe</label>
-            <input type="password" name="mdp" id="mdp">
-            <br>
+                <label for="mdp">Mot de passe</label>
+                <input class="champ_formulaire" type="password" name="mdp" id="mdp">
+                <br>
 
+                <div class="connexion__formulaire__afficher_mdp">
+                    <input type="checkbox" name="afficher_mdp" id="afficher_mdp">
+                    <label for="afficher_mdp"></label>
+                    <span>Afficher le mot de passe</span>
+                    <a class="connexion__formulaire__lien" href="#">Mot de passe oublie?</a>
+                </div>
 
-
-            <div>
-                <input type="checkbox" name="afficher_mdp" id="afficher_mdp">
-                <label for="afficher_mdp">Afficher le mot de passe</label>
-                <a href="#">Mot de passe oublie?</a>
-            </div>
-
-            <div>
-                <input type="submit" value="Se connecter">
-            </div>
-        </form>
+                <div>
+                    <input class="bouton bouton_panier" type="submit" value="Se connecter">
+                </div>
+            </form>
+        </div>
+        <div class="connexion__pas_client bloc_formulaire">
+            <h4>Vous n'avez pas de compte?</h4>
+            <a class="connexion__formulaire__lien" href="index.php?controleur=compte&action=inscription">Se creer un compte</a>
+        </div>
+        <div class="connexion__sans_compte bloc_formulaire">
+            <a class="connexion__formulaire__lien" href="#">Acheter sans creer de compte</a>
+        </div>
     </div>
-    <div>
-        <h4>Vous n'avez pas de compte?</h4>
-        <a href="index.php?controleur=compte&action=inscription">Se creer un compte</a>
-    </div>
-    <div>
-        <a href="#">Acheter sans creer de compte</a>
-    </div>
+
 @endsection
 
