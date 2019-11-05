@@ -173,3 +173,31 @@
 #4 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
 #5 {main}
 >>>>>>> c9aa08414f736e1c0e56bffb2680de8ccb9fe15e
+#0 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(869): eftec\bladeone\BladeOne->evaluatePath('../ressources/c...', Array)
+#1 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(1405): eftec\bladeone\BladeOne->runInternal('transaction.fac...', Array, 0, true, 0)
+#2 /Users/zachary/Sites/traces/app/Controleurs/ControleurTransaction.php(30): eftec\bladeone\BladeOne->run('transaction.fac...', Array)
+#3 /Users/zachary/Sites/traces/app/App.php(203): App\Controleurs\ControleurTransaction->facturation()
+#4 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#5 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#6 {main}
+#0 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(869): eftec\bladeone\BladeOne->evaluatePath('../ressources/c...', Array)
+#1 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(1405): eftec\bladeone\BladeOne->runInternal('transaction.fac...', Array, 0, true, 0)
+#2 /Users/zachary/Sites/traces/app/Controleurs/ControleurTransaction.php(30): eftec\bladeone\BladeOne->run('transaction.fac...', Array)
+#3 /Users/zachary/Sites/traces/app/App.php(203): App\Controleurs\ControleurTransaction->facturation()
+#4 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#5 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#6 {main}
+#0 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(869): eftec\bladeone\BladeOne->evaluatePath('../ressources/c...', Array)
+#1 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(1405): eftec\bladeone\BladeOne->runInternal('transaction.fac...', Array, 0, true, 0)
+#2 /Users/zachary/Sites/traces/app/Controleurs/ControleurTransaction.php(30): eftec\bladeone\BladeOne->run('transaction.fac...', Array)
+#3 /Users/zachary/Sites/traces/app/App.php(203): App\Controleurs\ControleurTransaction->facturation()
+#4 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#5 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#6 {main}
+#0 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(869): eftec\bladeone\BladeOne->evaluatePath('../ressources/c...', Array)
+#1 /Users/zachary/Sites/traces/vendor/eftec/bladeone/lib/BladeOne.php(1405): eftec\bladeone\BladeOne->runInternal('transaction.val...', Array, 0, true, 0)
+#2 /Users/zachary/Sites/traces/app/Controleurs/ControleurTransaction.php(37): eftec\bladeone\BladeOne->run('transaction.val...', Array)
+#3 /Users/zachary/Sites/traces/app/App.php(206): App\Controleurs\ControleurTransaction->validation()
+#4 /Users/zachary/Sites/traces/app/App.php(44): App\App->routerLaRequete()
+#5 /Users/zachary/Sites/traces/public/index.php(10): App\App->demarrer()
+#6 {main}
