@@ -86,6 +86,6 @@
 {{--            <p class="facturation__telephone">{{}}</p>--}}
         </div>
         <a class="transaction__centrer transaction__bouton"
-           href="index.php?controleur=transaction&action=validation">CONTINUER</a>
+           href="index.php?controleur=validation&action=validation">CONTINUER</a>
     </div>
 @endsection

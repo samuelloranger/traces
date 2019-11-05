@@ -9,7 +9,7 @@
 
     <p class="texteLivraisonGratuite">Admissible à la livraison gratuite</p>
 
-    <a href="index.php?controleur=transaction&action=livraison" class="btnCommander">Passer la commande</a>
+    <a href="index.php?controleur=livraison&action=livraison" class="btnCommander">Passer la commande</a>
 </div>
 
 <div class="panier row">
@@ -100,7 +100,7 @@
                 <p><span class="texteGauche">Total:</span> <span class="texteDroit">{{ $montantTotal }}</span></p>
 
                 <div class="zoneBoutons">
-                    <a href="index.php?controleur=transaction&action=livraison" class="btn btnCommander">Passer la commande</a>
+                    <a href="index.php?controleur=livraison&action=livraison" class="btn btnCommander">Passer la commande</a>
                     <a href="" class="btn btnViderPanier">Vider le panier</a>
                 </div>
             </div>

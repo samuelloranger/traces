@@ -11,7 +11,7 @@
 
         <div class="transaction__background">
             <a class="transaction__centrer transaction__bouton"
-               href="index.php?controleur=transaction&action=confirmation">PASSER LA COMMANDE</a>
+               href="index.php?controleur=validation&action=confirmation">PASSER LA COMMANDE</a>
             {{--    À COMPLÉTER AVEC INFOS DE L'UTILISATEUR        --}}
             <p>Livraison à </p>
             <p>Date de livraison estimée :</p>
@@ -32,24 +32,5 @@
             </div>
         </div>
         <h2 class="transaction__titre">Mon panier</h2>
-        @if(count($elementsPanier) != 0)
-            <div class="panier__items col-md-12 col-lg-9">
-                @foreach($elementsPanier as $item)
-                    <div class="panier__items__item row">
-                        <div class="sectionGauche col-md-3 col-lg-3">
-                            <a class="sectionGauche__image" href="index.php?controleur=livre&action=fiche&isbn={{ $item -> livre -> isbn }}">
-                                <img src="{{ $item -> livre -> getImageUrl("carre") }}" alt="Image de {{ $item -> livre -> titre }}"/>
-                            </a>
-
-                            <div class="sectionGauche__contenuMobile">
-                                <p class="h2 infosLivre__titreLivre"><a href="index.php?controleur=livre&action=fiche&isbn={{ $item -> livre -> isbn }}">{{ $item -> livre -> titre }}</a></p>
-                                <p class="infosLivre__auteurLivre">
-                                    @foreach($item -> livre -> getAuteurs() as $id => $auteur)
-                                        {{ $auteur->getNomPrenom() }}@if($id !== count($item -> livre -> getAuteurs())-1), @endif
-                                    @endforeach
-                                </p>
-
-                            </div>
-                        </div>
 
 @endsection

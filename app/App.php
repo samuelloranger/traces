@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App;
 
 use App\Controleurs\ControleurCompte;
+use App\Controleurs\ControleurLivraison;
 use App\Controleurs\ControleurLivre;
 use App\Controleurs\ControleurPanier;
 use App\Controleurs\ControleurSite;
-use App\Controleurs\ControleurTransaction;
+use App\Controleurs\ControleurFacturation;
+use App\Controleurs\ControleurValidation;
 use App\Session\Session;
 use App\Session\SessionPanier;
 use \PDO;
@@ -196,15 +198,23 @@ class App
                 case "nbrItemsPanier":
                     $this->monControleur->retournerNbrItemsPanier();
             }
-        } else if ($controleur === "transaction") {
-            $this->monControleur = new ControleurTransaction();
+        } else if ($controleur === "livraison") {
+            $this->monControleur = new ControleurLivraison();
             switch ($action) {
                 case "livraison":
-                    $this->monControleur->transaction();
+                    $this->monControleur->livraison();
                     break;
+            }
+        } else if ($controleur === "facturation") {
+            $this->monControleur = new ControleurFacturation();
+            switch ($action) {
                 case "facturation":
                     $this->monControleur->facturation();
                     break;
+            }
+        } else if ($controleur === "validation") {
+            $this->monControleur = new ControleurValidation();
+            switch ($action) {
                 case "validation":
                     $this->monControleur->validation();
                     break;
