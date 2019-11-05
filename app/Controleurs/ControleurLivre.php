@@ -9,14 +9,17 @@ use App\Modeles\Honneur;
 use App\Modeles\Categories;
 use App\Modeles\Livre;
 use App\Modeles\Recension;
+use function MongoDB\BSON\toJSON;
 
 class ControleurLivre
 {
     private $blade = null;
+    private $panier = null;
 
     public function __construct()
     {
         $this->blade = App::getInstance()->getBlade();
+        $this->panier = App::getInstance()->getPanier();
     }
 
 
@@ -25,7 +28,12 @@ class ControleurLivre
      */
     public function catalogue(): void
     {
-        $nbResultats = Livre::compter(intval($_GET['categorie']));
+        $nbResultats = Livre::compter(0);
+
+        if(isset($_GET['categorie'])){
+            $nbResultats = Livre::compter(intval($_GET['categorie']));
+        }
+
         $tDonnees = array_merge(
             array("nbResultats" => $nbResultats),
             $this->getDonneesLivres(),
@@ -36,14 +44,27 @@ class ControleurLivre
 
     public function fiche(): void
     {
-        $tDonnees = array_merge($this->getDonneesUnLivre(), ControleurSite::getDonneeFragmentPiedDePage());;
-        echo $this->blade->run("livres.fiche", $tDonnees);
+        if(isset($_POST["isAjax"])){
+            $livre = Livre::trouverParIsbn($_GET["isbn"]);
+
+            $arrInfos = array(
+                "titre" => $livre->__get("titre"),
+                "url" => $livre->getImageUrl("carre"),
+                "prix" => $livre->__get("prix"),
+                "sous-total" => $this->panier->getMontantSousTotal()
+            );
+
+            echo json_encode($arrInfos);
+        }
+        else{
+            $tDonnees = array_merge($this->getDonneesUnLivre(), ControleurSite::getDonneeFragmentPiedDePage());;
+            echo $this->blade->run("livres.fiche", $tDonnees);
+        }
     }
 
     /**
      * @return array
      */
-
     public function getDonneesLivres(): array
     {
         $filAriane = App::getInstance()->getFilAriane();
@@ -53,10 +74,9 @@ class ControleurLivre
          * Définition de la catégorie séléctionnée
          */
         $id_categorie = 0;
-        if (isset($_GET["categorie"])) {
+        if(isset($_GET["categorie"])){
             $id_categorie = intval($_GET["categorie"]);
         }
-
 
         /**
          * Définition du tri
@@ -66,21 +86,19 @@ class ControleurLivre
             $trierPar = $_GET["trierPar"];
         }
 
-
         /**
          * Définition de la page courante
          */
+        $numeroPage = 1;
         if (isset($_GET["page"])) {
             $numeroPage = $_GET["page"];
-        } else {
-            $numeroPage = 1;
         }
-
 
         /**
          * Définition du nombre de pages
          */
-        if (isset($_GET["nbParPages"])) {
+        $livresParPage = 9;
+        if(isset($_GET["nbParPages"])){
             if ($_GET["nbParPages"] == '9') {
                 $livresParPage = 9;
             }
@@ -90,10 +108,7 @@ class ControleurLivre
             if ($_GET["nbParPages"] == '36') {
                 $livresParPage = 36;
             }
-        } else {
-            $livresParPage = 9;
         }
-
 
         /**
          * Définition du array de données à envoyer dans la page
@@ -118,7 +133,6 @@ class ControleurLivre
          */
         $arrCategories = Categories::trouverTout();
 
-
         /**
          * Définition de l'array retourné avec toutes les données
          */
@@ -126,6 +140,8 @@ class ControleurLivre
             Util::getInfosPanier(),
             array("arrLivres" => $arrLivres),
             array("arrCategories" => $arrCategories),
+            array("id_categorie" => $id_categorie),
+            array("trierPar" => $trierPar),
             array("nombreTotalPages" => $nombreTotalPages),
             array("livresParPage" => $livresParPage),
             array("numeroPage" => $numeroPage),
@@ -169,7 +185,6 @@ class ControleurLivre
         foreach ($arrHonneurs as $honneur) {
             $honneur->description = Util::couperParagraphe($honneur->description, 100);
         }
-
 
         $arrInfos = array_merge(
             Util::getInfosPanier(),

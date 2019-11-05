@@ -14,6 +14,7 @@ define(["require", "exports"], function (require, exports) {
             //Éléments définis une seule fois
             this.urlParams = new URLSearchParams(window.location.search);
             this.iconesPanier = Array.apply(null, document.querySelectorAll(".iconePanier"));
+            this.fenetreModale = document.querySelector(".modaleItemAjoute");
             //Éléments redéfinis
             this.selecteurFraisLivraison = document.querySelector("#fraisLivraisonSelect");
             this.nbrsItemsPanier = Array.apply(null, document.querySelectorAll(".nbrItemsPanier"));
@@ -57,8 +58,6 @@ define(["require", "exports"], function (require, exports) {
              * @param jqXHR
              */
             this.majItemPanierHeader = function (data, textStatus, jqXHR) {
-                //On parse le retour de data en json
-                //On va chercher la quantité retournée par le call Ajax
                 var nbrItems = data;
                 _this.iconesPanier.forEach(function (element) {
                     if (element.querySelector(".nbrItemsPanier") == null) {
@@ -75,6 +74,45 @@ define(["require", "exports"], function (require, exports) {
                         });
                     }
                 });
+            };
+            /**
+             * Fonction montrerFenetreModale
+             * @description Retourne les information du livre
+             * @param isbn String du isbn envoyé au PHP
+             */
+            this.montrerFenetreModale = function (isbn) {
+                $.ajax({
+                    url: "index.php?controleur=livre&action=fiche&isbn=" + isbn,
+                    type: "POST",
+                    data: "isAjax",
+                    dataType: "html",
+                })
+                    .done(function (data, textStatus, jqXHR) {
+                    _this.changerInfosFenetreModale(data, textStatus, jqXHR);
+                });
+            };
+            /**
+             * Fonction changerInfosFenetreModale
+             * @description Change les informations de la fenêtre modale
+             * @param data
+             * @param textStatus
+             * @param jqXHR
+             */
+            this.changerInfosFenetreModale = function (data, textStatus, jqXHR) {
+                var infosLivre = JSON.parse(data);
+                var titre = infosLivre["titre"];
+                var url = infosLivre["url"];
+                var prix = parseFloat(infosLivre["prix"]).toFixed(2) + " $";
+                var sousTotal = parseFloat(infosLivre["sous-total"]).toFixed(2) + " $";
+                var zoneTitre = _this.fenetreModale.querySelector(".infos__titre");
+                var zonePrix = _this.fenetreModale.querySelector(".infos__prix");
+                var image = _this.fenetreModale.querySelector(".image");
+                var zoneSousTotal = _this.fenetreModale.querySelector(".sous-total");
+                zoneTitre.innerHTML = titre;
+                image.src = url;
+                zonePrix.innerHTML = prix;
+                zoneSousTotal.innerHTML = sousTotal;
+                _this.fenetreModale.classList.toggle("modaleItemAjoute--inactive");
             };
             /**
              * Fonction majPanier
@@ -105,11 +143,12 @@ define(["require", "exports"], function (require, exports) {
              */
             this.majQteItem = function (element, qte) {
                 var panier = _this;
-                var isbnLivre = element.parentElement.parentElement.parentElement.querySelector(".isbn");
+                var livre = element.parentElement.parentElement.parentElement.querySelector(".isbn");
+                var isbn = livre.value;
                 $.ajax({
                     url: "index.php?controleur=panier&action=updateItem",
                     type: "POST",
-                    data: "isbn=" + isbnLivre.value + "&qte=" + qte + "&isAjax=true",
+                    data: "isbn=" + isbn + "&qte=" + qte + "&isAjax=true",
                     dataType: "html"
                 })
                     .done(function (data, textStatus, jqXHR) {
@@ -133,6 +172,10 @@ define(["require", "exports"], function (require, exports) {
                     panier.majPanier(data, textStatus, jqXHR);
                 });
             };
+            /**
+             * Fonction changerFraisLivraison
+             * @param modeLivraison string du mode de livraison envoyé au PHP qui vient du select
+             */
             this.changerFraisLivraison = function (modeLivraison) {
                 var panier = _this;
                 $.ajax({

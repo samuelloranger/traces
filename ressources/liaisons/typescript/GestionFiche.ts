@@ -77,11 +77,11 @@ export class GestionFiche {
     };
 
     private ajoutPanier = () => {
-        const isbnLivre = this.urlParams.get('isbn');
+        const isbn = this.urlParams.get('isbn');
         const panier =  this.panier;
 
         $.ajax({
-                url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbnLivre,
+                url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbn,
                 type: "POST",
                 data: "&qte=" + this.selecteurQte.value,
                 dataType: "html"
@@ -89,7 +89,9 @@ export class GestionFiche {
             .done(function(data, textStatus, jqXHR){
                 panier.majItemPanierHeader(data, textStatus, jqXHR);
             }
-        )
+        );
+
+        panier.montrerFenetreModale(isbn);
     };
 
 
