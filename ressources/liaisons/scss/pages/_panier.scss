@@ -18,8 +18,10 @@
 
     @media(max-width: $DESKTOP-NORMAL){
       display: block;
-      background-color: $GRIS_PALE;
+      background-color: #EEE;
       padding: 3%;
+      width: 90%;
+      margin: 0 auto 8% auto;
     }
 
     .sous-total{
@@ -233,6 +235,7 @@
                 font-weight: bold;
                 background-color: $TURQUOISE;
                 transition: 0.15s ease-in-out;
+                @include fontSize(15px);
 
                 @media(min-width: $TABLETTE){
                   margin: 0;

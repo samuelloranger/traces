@@ -127,8 +127,8 @@
                                     <input type="hidden" name="action" value="ajoutPanier" hidden>
                                     <input type="hidden" name="qte" value="1" hidden>
                                     <input type="hidden" name="redirection" value="catalogue&" hidden>
-                                    <button class="catalogue__btn catalogue__btn--ajouterPanier">AJOUTER AU PANIER
-                                    </button>
+                                    <button class="catalogue__btn catalogue__btn--ajouterPanier catalogue__btn--ajouterPanierNoScript">AJOUTER AU PANIER</button>
+                                    <button type="button" class="catalogue__btn catalogue__btn--ajouterPanier catalogue__btn--ajouterPanierScript" value="{{ $livre -> isbn }}">AJOUTER AU PANIER</button>
                                 </form>
                             </div>
                         </div>

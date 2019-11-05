@@ -19,6 +19,8 @@
 .fiche{
   .infos{
     &Principales{
+      margin-bottom: 4%;
+
       .zoneImage{
         width: 100%;
 
@@ -28,6 +30,8 @@
 
         &__image{
           max-width: 100%;
+          margin: 0 auto;
+          display: block;
         }
       }
 
@@ -83,7 +87,9 @@
               .select{
                 position: relative;
 
-                select{
+
+
+                .formatLivre{
                   display: block;
                   appearance: none;
                   background-color: white;
@@ -91,6 +97,11 @@
                   height: 32px;
                   padding: 0 35px 0 10px;
                   border-radius: 35px;
+
+                  &--erreur{
+                    color: red;
+                    border: 1px solid red;
+                  }
                 }
 
                 .fleche{
@@ -225,10 +236,12 @@
     }
 
     &Secondaires{
-
+      margin-bottom: 4%;
     }
 
     &Terciaires{
+      margin-bottom: 4%;
+
       &__zoneGauche{
 
       }

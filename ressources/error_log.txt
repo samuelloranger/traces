@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #0 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(217): App\Controleurs\ControleurCompte->connecter()
 #1 /Users/olivierpapineau/OneDrive - Cégep de Sainte-Foy/Sites/AUTOMNE 2019/RPNI3/PROJETS/TRACES/P1_TRACES_2019/01_travail/app/App.php(44): App\App->routerLaRequete()
@@ -289,3 +290,5 @@
 #4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
 #5 {main}
 >>>>>>> cd33a5b64e95510a25ae6a1232f2ae43c955cdbb
+=======
+>>>>>>> 93aa775b3c6997af1fd6fdf1e90eb8be74f1f926

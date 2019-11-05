@@ -27,9 +27,7 @@ main{
   margin-top: 100px;
 }
 
-.bouton {
-
-  &:hover{
-
-  }
+html, body{
+  height: 100%;
+  overflow: auto;
 }
