@@ -43,6 +43,7 @@ export class GestionAccueil {
         })
             .done(function(data, textStatus, jqXHR){
                     panier.majItemPanierHeader(data, textStatus, jqXHR);
+                    panier.montrerFenetreModale(isbnLivre);
                 }
             )
     };
