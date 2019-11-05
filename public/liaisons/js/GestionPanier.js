@@ -15,6 +15,8 @@ define(["require", "exports"], function (require, exports) {
             this.urlParams = new URLSearchParams(window.location.search);
             this.iconesPanier = Array.apply(null, document.querySelectorAll(".iconePanier"));
             this.fenetreModale = document.querySelector(".modaleItemAjoute");
+            this.btnFermerFenetreModale = document.querySelector("#btnFermerFenetreModale");
+            this.timeOutFenetreModale = null;
             //Éléments redéfinis
             this.selecteurFraisLivraison = document.querySelector("#fraisLivraisonSelect");
             this.nbrsItemsPanier = Array.apply(null, document.querySelectorAll(".nbrItemsPanier"));
@@ -49,6 +51,9 @@ define(["require", "exports"], function (require, exports) {
                         _this.changerFraisLivraison(_this.selecteurFraisLivraison.value);
                     });
                 }
+                _this.btnFermerFenetreModale.addEventListener("click", function () {
+                    _this.toggleFenetreModale("fermer");
+                });
             };
             /**
              * Fonction majItemPanierHeader
@@ -82,9 +87,9 @@ define(["require", "exports"], function (require, exports) {
              */
             this.montrerFenetreModale = function (isbn) {
                 $.ajax({
-                    url: "index.php?controleur=livre&action=fiche&isbn=" + isbn,
+                    url: "index.php?controleur=livre&action=fenetreModale",
                     type: "POST",
-                    data: "isAjax",
+                    data: "isbn=" + isbn,
                     dataType: "html",
                 })
                     .done(function (data, textStatus, jqXHR) {
@@ -112,7 +117,22 @@ define(["require", "exports"], function (require, exports) {
                 image.src = url;
                 zonePrix.innerHTML = prix;
                 zoneSousTotal.innerHTML = sousTotal;
-                _this.fenetreModale.classList.toggle("modaleItemAjoute--inactive");
+                _this.toggleFenetreModale("ouvrir");
+            };
+            /**
+             *
+             */
+            this.toggleFenetreModale = function (action) {
+                if (action == "ouvrir") {
+                    _this.fenetreModale.classList.remove("modaleItemAjoute--inactive");
+                    _this.timeOutFenetreModale = setTimeout(function () {
+                        _this.toggleFenetreModale("fermer");
+                    }, 5000);
+                }
+                else {
+                    _this.fenetreModale.classList.add("modaleItemAjoute--inactive");
+                    _this.timeOutFenetreModale = null;
+                }
             };
             /**
              * Fonction majPanier

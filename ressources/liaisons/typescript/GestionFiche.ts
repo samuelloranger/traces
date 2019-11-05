@@ -88,10 +88,10 @@ export class GestionFiche {
             })
             .done(function(data, textStatus, jqXHR){
                 panier.majItemPanierHeader(data, textStatus, jqXHR);
+                panier.montrerFenetreModale(isbn);
             }
         );
 
-        panier.montrerFenetreModale(isbn);
     };
 
 

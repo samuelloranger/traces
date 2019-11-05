@@ -38,6 +38,11 @@
 
     &:hover{
       border: 2px solid white;
+      cursor: pointer;
+
+      a{
+        color: white !important;
+      }
     }
   }
 
@@ -56,13 +61,20 @@
     .modaleItemAjoute{
       position: absolute;
       background-color: white;
-      width: 35%;
-      right: 15%;
-      top: 75px;
+      width: 90%;
+      height: 360px;
+      right: 5%;
+      top: 90px;
       box-shadow: 0 0 4px black;
       border: 2px solid $ROUGE;
       transition: 0.45s ease-in-out;
       padding: 0 2% 2% 2%;
+
+      @media(min-width: 500px){
+        width: 400px;
+        right: 15%;
+        top: 75px;
+      }
 
       &--inactive{
         opacity: 0;
@@ -71,8 +83,16 @@
       }
 
       &__conteneurBouton{
+        display: flex;
+        justify-content: space-between;
+
+        .titreFenetreModale{
+          margin-top: 3%;
+        }
+
         .hamburger{
           transition: 0.15s ease-in-out;
+          padding-right: 0;
 
           .hamburger-inner, .hamburger-inner:before, .hamburger-inner:after{
             background-color: $ROUGE;
@@ -86,18 +106,19 @@
               background-color: $ROUGE;
             }
           }
-        }
-      }
 
-      .titreFenetreModale{
-        margin-bottom: 5%;
+          &:focus{
+            outline: none;
+          }
+        }
       }
 
       &__infosLivre{
         display: flex;
 
         .image{
-          width: 35%;
+          width: 125px;
+          height: 125px;
         }
 
         .infos{

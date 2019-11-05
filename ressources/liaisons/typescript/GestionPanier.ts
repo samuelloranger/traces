@@ -7,6 +7,8 @@ export class GestionPanier {
     private urlParams = new URLSearchParams(window.location.search);
     private iconesPanier:[HTMLElement] = Array.apply(null, document.querySelectorAll(".iconePanier"));
     private fenetreModale:HTMLElement = document.querySelector(".modaleItemAjoute");
+    private btnFermerFenetreModale:HTMLElement = document.querySelector("#btnFermerFenetreModale");
+    private timeOutFenetreModale = null;
 
     //Éléments redéfinis
     private selecteurFraisLivraison:HTMLInputElement = document.querySelector("#fraisLivraisonSelect");
@@ -55,6 +57,10 @@ export class GestionPanier {
                 this.changerFraisLivraison(this.selecteurFraisLivraison.value);
             });
         }
+
+        this.btnFermerFenetreModale.addEventListener("click", () => {
+            this.toggleFenetreModale("fermer");
+        });
     };
 
     /**
@@ -92,9 +98,9 @@ export class GestionPanier {
      */
     public montrerFenetreModale = (isbn:string) => {
         $.ajax({
-            url: "index.php?controleur=livre&action=fiche&isbn=" + isbn,
+            url: "index.php?controleur=livre&action=fenetreModale",
             type: "POST",
-            data: "isAjax",
+            data: "isbn=" + isbn,
             dataType: "html",
         })
             .done((data, textStatus, jqXHR) => {
@@ -127,7 +133,23 @@ export class GestionPanier {
         zonePrix.innerHTML = prix;
         zoneSousTotal.innerHTML = sousTotal;
 
-        this.fenetreModale.classList.toggle("modaleItemAjoute--inactive");
+        this.toggleFenetreModale("ouvrir");
+    };
+
+    /**
+     *
+     */
+    public toggleFenetreModale = (action:string) => {
+        if(action == "ouvrir"){
+            this.fenetreModale.classList.remove("modaleItemAjoute--inactive");
+            this.timeOutFenetreModale = setTimeout(() => {
+                this.toggleFenetreModale("fermer")
+            }, 5000);
+        }
+        else{
+            this.fenetreModale.classList.add("modaleItemAjoute--inactive");
+            this.timeOutFenetreModale = null;
+        }
     };
 
     /**

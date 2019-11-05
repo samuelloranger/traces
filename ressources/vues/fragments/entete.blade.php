@@ -65,14 +65,14 @@
         <div class="modaleItemAjouteConteneur">
 
             <div class="modaleItemAjoute__conteneurBouton">
-                <button class="hamburger hamburger--squeeze is-active" type="button" id="btnMenuMobile">
+                <p class="titreFenetreModale h4">L'item a ajouté au panier!</p>
+
+                <button class="hamburger hamburger--squeeze is-active" type="button" id="btnFermerFenetreModale">
                   <span class="hamburger-box">
                     <span class="hamburger-inner"></span>
                   </span>
                 </button>
             </div>
-
-            <p class="titreFenetreModale h3">L'item a ajouté au panier!</p>
 
             <div class="modaleItemAjoute__infosLivre">
                 <img class="image" src="" alt="Vignette">
@@ -84,7 +84,7 @@
 
             <div class="modaleItemAjoute__infosPanier">
                 <p class="h4">Panier</p>
-                <p><strong>Sous-total:</strong> <span class="sous-total"></span></p>
+                <p><strong>Total:</strong> <span class="sous-total"></span></p>
 
                 <a href="index.php?controleur=panier&action=panier" class="bouton" type="button">Voir le panier</a>
             </div>
