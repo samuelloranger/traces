@@ -166,17 +166,11 @@ class ControleurLivre
             $isbn = $_POST["isbn"];
         }
 
-        $format = "Papier";
-        if(isset($_POST["format"])){
-            $format = $_POST["format"];
-        }
-
         $livre = Livre::trouverParIsbn($isbn);
         $arrInfos = array(
             "titre" => $livre->__get("titre"),
             "url" => $livre->getImageUrl("carre"),
             "prix" => $livre->__get("prix"),
-            "format" => $format,
             "sous-total" => $this->panier->getMontantTotal()
         );
 

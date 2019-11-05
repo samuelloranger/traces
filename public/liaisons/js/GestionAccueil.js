@@ -24,11 +24,10 @@ define(["require", "exports"], function (require, exports) {
             this.ajoutPanier = function (element) {
                 var isbnLivre = element.value;
                 var panier = _this.panier;
-                var formatLivre = element.parentNode.querySelector(".formatLivre");
                 $.ajax({
                     url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbnLivre,
                     type: "POST",
-                    data: "&qte=1&format=" + formatLivre.value,
+                    data: "&qte=1",
                     dataType: "html"
                 })
                     .done(function (data, textStatus, jqXHR) {

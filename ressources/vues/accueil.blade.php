@@ -56,7 +56,6 @@
                                 <a href="index.php?controleur=livre&action=fiche&nouveaute&isbn={{$arrNouveautes[$indexLivre]->isbn}}" class="nouveautes__vignette__bouton_plus">EN SAVOIR PLUS</a>
                                 <form action="index.php?controleur=panier&action=ajoutPanier&redirection=accueil&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" method="POST">
                                     <input type="hidden" name="qte" value="1" hidden>
-                                    <input type="hidden" name="format" class="formatLivre" value="Papier">
 
                                     <button class="nouveautes__vignette bouton_panier bouton_panierNoScript">AJOUTER AU PANIER</button>
                                     <button type="button" class="nouveautes__vignette bouton_panier bouton_panierScript" value="{{ $arrNouveautes[$indexLivre]->isbn }}">AJOUTER AU PANIER</button>
@@ -96,7 +95,6 @@
                                 <a href="index.php?controleur=livre&action=fiche&coupCoeur&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" class="coupsCoeur__groupe__vignette__boutons__bouton_plus">EN SAVOIR PLUS</a>
                                 <form action="index.php?controleur=panier&action=ajoutPanier&redirection=accueil&isbn={{$arrCoupsCoeur[$indexLivre]->isbn}}" method="POST">
                                     <input type="hidden" name="qte" value="1" hidden>
-                                    <input type="hidden" name="format" class="formatLivre" value="Papier">
 
                                     <button class="coupsCoeur__groupe__vignette__boutons bouton_panier bouton_panierNoScript">AJOUTER AU PANIER</button>
                                     <button type="button" class="coupsCoeur__groupe__vignette__boutons bouton_panier bouton_panierScript" value="{{ $arrNouveautes[$indexLivre]->isbn }}">AJOUTER AU PANIER</button>

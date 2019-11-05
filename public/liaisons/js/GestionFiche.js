@@ -7,7 +7,6 @@ define(["require", "exports"], function (require, exports) {
             //Sélecteurs de quantité
             this.btnSoustraire = document.querySelector(".btnChangementQte__soustraire");
             this.btnAjouter = document.querySelector(".btnChangementQte__additionner");
-            this.format = document.querySelector(".formatLivre");
             this.selecteurQte = document.querySelector(".qteCourante");
             //Ajout au panier
             this.btnAjoutPanier = document.querySelector(".btnAjoutPanierScript");
@@ -63,22 +62,16 @@ define(["require", "exports"], function (require, exports) {
             this.ajoutPanier = function () {
                 var isbn = _this.urlParams.get('isbn');
                 var panier = _this.panier;
-                //Gestion de l'erreur si le format n'est pas choisi
-                if (_this.format.value === "Format...") {
-                    _this.format.classList.add("formatLivre--erreur");
-                }
-                else {
-                    $.ajax({
-                        url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbn,
-                        type: "POST",
-                        data: "&qte=" + _this.selecteurQte.value + "&format=" + _this.format.value,
-                        dataType: "html"
-                    })
-                        .done(function (data, textStatus, jqXHR) {
-                        panier.majItemPanierHeader(data, textStatus, jqXHR);
-                        panier.montrerFenetreModale(isbn);
-                    });
-                }
+                $.ajax({
+                    url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbn,
+                    type: "POST",
+                    data: "&qte=" + _this.selecteurQte.value,
+                    dataType: "html"
+                })
+                    .done(function (data, textStatus, jqXHR) {
+                    panier.majItemPanierHeader(data, textStatus, jqXHR);
+                    panier.montrerFenetreModale(isbn);
+                });
             };
             this.panier = panier;
             this.ajouterEcouteursEvenements();

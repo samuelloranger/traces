@@ -34,12 +34,11 @@ export class GestionAccueil {
     private ajoutPanier = (element) => {
         const isbnLivre = element.value;
         const panier =  this.panier;
-        const formatLivre = element.parentNode.querySelector(".formatLivre");
 
         $.ajax({
             url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbnLivre,
             type: "POST",
-            data: "&qte=1&format=" + formatLivre.value,
+            data: "&qte=1",
             dataType: "html"
         })
             .done(function(data, textStatus, jqXHR){

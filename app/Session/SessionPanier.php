@@ -17,11 +17,11 @@ class SessionPanier
 
     // Ajoute un item au panier avec la qantité X
     // Attention: Si l'item existe déjà dans le panier alors mettre à jour la quantité (la quantité maximum est de 10 à valider...)
-    public function ajouterItem(Livre $unLivre, string $format, int $uneQte):void
+    public function ajouterItem(Livre $unLivre, int $uneQte):void
     {
         $this->items = $this->getItems();
 
-        $livreAjoute = new SessionItem($unLivre, $format, $uneQte);
+        $livreAjoute = new SessionItem($unLivre, $uneQte);
 
         $livreExiste = false;
         forEach($this->items as $item){

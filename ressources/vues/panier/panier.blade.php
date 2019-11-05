@@ -41,7 +41,6 @@
                                 {{ $auteur->getNomPrenom() }}@if($id !== count($item -> livre -> getAuteurs())-1), @endif
                             @endforeach
                         </p>
-                        <p>Format: {{ $item->format }} </p>
                     </div>
 
                     <p class="infosLivre__btnSupprimer">
