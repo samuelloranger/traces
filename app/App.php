@@ -204,6 +204,9 @@ class App
                 case "livraison":
                     $this->monControleur->livraison();
                     break;
+                case "insererAdresse":
+                    $this->monControleur->insererAdresse();
+                    break;
             }
         } else if ($controleur === "facturation") {
             $this->monControleur = new ControleurFacturation();

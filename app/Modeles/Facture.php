@@ -7,7 +7,7 @@ namespace App\Modeles;
 use App\App;
 use \PDO;
 
-class Adresse
+class Facture
 {
     //Attributs
     private $id = 0;
@@ -22,7 +22,7 @@ class Adresse
         $pdo = App::getInstance()->getPDO();
 
         // Définir la chaine SQL
-        $sql = "SELECT * FROM t_adresse";
+        $sql = "SELECT * FROM t_mode_paiement";
 
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);

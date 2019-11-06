@@ -11,7 +11,7 @@
 
         <div class="transaction__background">
             <p class="transaction__sous-titre">Adresse de livraison</p>
-            <form action="index.php?controleur=livraison&action=livraison" method="get">
+            <form action="index.php?controleur=livraison&action=insererAdresse" method="post">
                 <p class="livraison__label">Nom :</p>
                 <input class="livraison__input" type="text" name="nom"/>
                 <p class="livraison__label">Prénom :</p>
@@ -21,7 +21,7 @@
                 <p class="livraison__label">Ville :</p>
                 <input class="livraison__input" type="text" name="ville"/>
                 <p class="livraison__label">Province :</p>
-                <select class="livraison__input" name="province">
+                <select class="livraison__input" name="abbrProvince">
                     <option value="AB">Alberta</option>
                     <option value="BC">British Columbia</option>
                     <option value="MB">Manitoba</option>
@@ -47,11 +47,8 @@
                     <input name="adresseFacturation" type="checkbox" checked/>
                     <p class="livraison__checkbox--label">Utiliser comme adresse de facturation</p>
                 </div>
-                <button type="submit" class="transaction__centrer transaction__bouton">LIVRER À CETTE ADRESSE</button>
+                <input type="submit" class="transaction__centrer transaction__bouton" value="LIVRER À CETTE ADRESSE" />
             </form>
         </div>
     </div>
-    <script>
-
-    </script>
 @endsection

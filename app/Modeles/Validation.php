@@ -7,7 +7,7 @@ namespace App\Modeles;
 use App\App;
 use \PDO;
 
-class Adresse
+class Validation
 {
     //Attributs
     private $id = 0;
