@@ -21,7 +21,7 @@ class User {
     {
     }
 
-    public static function trouverParCourriel(string $courriel): User {
+    public static function trouverParCourriel(string $courriel) {
         $pdo = App::getInstance()->getPDO();
 
         $chaineRequete = "SELECT * FROM t_client WHERE courriel = :courriel";
