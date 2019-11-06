@@ -25,7 +25,8 @@ export class GestionPanier {
     }
 
     /**
-     * Fonction
+     * Fonction ajouterEcouteursEvenements
+     * @description
      */
     private ajouterEcouteursEvenements = () => {
         this.selecteurFraisLivraison = document.querySelector("#fraisLivraisonSelect");

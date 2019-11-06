@@ -19,6 +19,10 @@
 
   &--menuMobileOuvert{
     min-height: 100%;
+
+    .conteneur-header{
+      height: 100vh;
+    }
   }
 
   .btnSeConnecter{
@@ -29,7 +33,7 @@
     text-align: center;
     width: 250px;
     margin: 25% auto 0 auto;
-    transition: 0.15s ease-in-out;
+    transition: 0.50s ease-in-out;
 
     @media(min-width: $DESKTOP-NORMAL){
       width: 150px;
@@ -53,6 +57,7 @@
     position: relative;
     padding: 8px 2px;
     display: flex;
+    transition: 0.25s ease-in-out;
 
     @media(min-width: $DESKTOP-NORMAL){
       padding: 22px 15px 22px 10px;

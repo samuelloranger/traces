@@ -33,10 +33,11 @@ export class Menu{
         if(this.getPageAccueil()){
             this.instancierMenuAccueil();
 
-            document.addEventListener("scroll", this.gererMenuAccueil);
+            document.addEventListener("scroll", () =>{
+                this.gererMenuAccueil();
+            });
         }
     };
-
 
     /**
      * Méthodes
@@ -55,6 +56,9 @@ export class Menu{
 
     private gererMenuAccueil = () => {
         const height = window.pageYOffset;
+
+        console.log("test" + height);
+
 
         if(height > this.hauteurChangementMenuAccueil){
             if(this.header.classList.contains("header--transparent")){

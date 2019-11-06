@@ -23,7 +23,8 @@ define(["require", "exports"], function (require, exports) {
             this.selecteursQteLivre = Array.apply(null, document.querySelectorAll(".qteItem"));
             this.arrBtnSupprimer = Array.apply(null, document.querySelectorAll(".lienSupprItemScript"));
             /**
-             * Fonction
+             * Fonction ajouterEcouteursEvenements
+             * @description
              */
             this.ajouterEcouteursEvenements = function () {
                 _this.selecteurFraisLivraison = document.querySelector("#fraisLivraisonSelect");

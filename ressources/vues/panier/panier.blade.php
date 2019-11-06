@@ -1,16 +1,5 @@
 <h1>Panier</h1>
 
-<div class="panier__resumeCourt">
-    <p class="sous-total">
-        <span class="sous-total__texteGauche">Sous-total ({{ count($elementsPanier) }} items):</span>
-        <span class="sous-total__texteDroit">{{ $montantSousTotal }}</span>
-    </p>
-
-    <p class="texteLivraisonGratuite">Admissible à la livraison gratuite</p>
-
-    <a href="index.php?controleur=livraison&action=livraison" class="btnCommander">Passer la commande</a>
-</div>
-
 @if(count($elementsPanier) != 0)
     <div class="panier row">
 

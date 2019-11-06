@@ -28,7 +28,9 @@ define(["require", "exports"], function (require, exports) {
                 });
                 if (_this.getPageAccueil()) {
                     _this.instancierMenuAccueil();
-                    document.addEventListener("scroll", _this.gererMenuAccueil);
+                    document.addEventListener("scroll", function () {
+                        _this.gererMenuAccueil();
+                    });
                 }
             };
             /**
@@ -45,6 +47,7 @@ define(["require", "exports"], function (require, exports) {
             };
             this.gererMenuAccueil = function () {
                 var height = window.pageYOffset;
+                console.log("test" + height);
                 if (height > _this.hauteurChangementMenuAccueil) {
                     if (_this.header.classList.contains("header--transparent")) {
                         _this.header.classList.remove("header--transparent");
