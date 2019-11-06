@@ -1,0 +1,11 @@
+{
+  "email": {
+    "vide": "Veuillez entrer une adresse courriel afin de vous connecter",
+    "pattern": "Veuillez entrer une adresse courriel valide"
+  },
+  "mdp": {
+    "vide": "Veuillez entrer votre mot de passe",
+    "pattern": "Veuillez entrer un mot de passe valide",
+    "missmatch": "L'adresse courriel et le mot de passe ne correspondent pas"
+  }
+}

@@ -54,14 +54,20 @@ class ControleurCompte {
     }
 
     public function inscription(): void {
+        $tValidation = $this->session->getItem("tValidation");
         $tDonnees = array_merge(
             ControleurSite::getDonneeFragmentPiedDePage(),
-            Util::getInfosPanier());
+            Util::getInfosPanier(),
+            ["tValidation" => $tValidation]
+        );
+        print_r($tValidation);
         echo $this->blade->run("compte.inscription", $tDonnees);
+        $this->session->supprimerItem("tValidation");
     }
 
     public function inscrire(): void {
-        $formulaireValide = $this->validerInscription();
+        $tValidation = $this->validerInscription();
+        $formulaireValide = $tValidation["formulaireValide"];
 
         $prenom = $_POST["prenom"];
         $nom = $_POST["nom"];
@@ -69,59 +75,133 @@ class ControleurCompte {
         $mdp = $_POST["mdp"];
 
         if ($formulaireValide) {
-            try {
-                User::insererUser($prenom, $nom, $courriel, password_hash($mdp, PASSWORD_DEFAULT));
-                echo "Compte cree";
-                $this->session->setItem("courriel", $courriel);
-                $this->session->setItem("estConnecte", true);
+            $userExiste = User::trouverParCourriel($courriel);
+            if ($userExiste === false || $userExiste === null) {
+                try {
+                    User::insererUser($prenom, $nom, $courriel, password_hash($mdp, PASSWORD_DEFAULT));
+                    echo "Compte cree";
+                    $this->session->setItem("courriel", $courriel);
+                    $this->session->setItem("estConnecte", true);
 
-                header("Location: index.php?controleur=site&action=accueil");
+                    header("Location: index.php?controleur=site&action=accueil");
 
-            } catch (\Exception $e) {
-                echo "<br> Erreur de requete <br>";
-                echo $e;
+                } catch (\Exception $e) {
+                    echo "<br> Erreur de requete <br>";
+                    echo $e;
+                }
+            } else {
+                echo '<br>Utilisateur existe deja';
             }
+        } else {
+            $this->session->setItem("tValidation", $tValidation);
+            header("Location: index.php?controleur=compte&action=inscription");
+            exit;
         }
     }
 
 
     /* FONCTIONS DE VALIDATION */
     /* Faire une fonction universelle plus tard */
-    public function validerInscription(): bool {
+    public function validerInscription(): array {
         $formulaireValide = true;
+        $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesInscription.json');
+        $tMessages = json_decode($fichierJSON, true);
+        $tValidation = [
+            "champs" => [],
+            "formulaireValide" => true,
+        ];
 
-        $prenom = null;
+        $prenom = "";
         if (isset($_POST["prenom"])) {
             $prenom = $_POST["prenom"];
         }
-        $nom = null;
+        $nom = "";
         if (isset($_POST["nom"])) {
             $nom = $_POST["nom"];
         }
-        $courriel = null;
+        $courriel = "";
         if (isset($_POST["email"])) {
             $courriel = $_POST["email"];
         }
-        $mdp = null;
+        $mdp = "";
         if (isset($_POST["mdp"])) {
             $mdp = $_POST["mdp"];
         }
-        $c_mdp = null;
+        $c_mdp = "";
         if (isset($_POST["c_mdp"])) {
             $c_mdp = $_POST["c_mdp"];
+        }
+        $tel = "";
+        if (isset($_POST["tel"])) {
+            $tel = $_POST["tel"];
         }
 
         $regex = [
             "prenom" => "#[a-zA-Z]{3,30}$#",
             "nom" => "#[a-zA-Z]{3,30}$#",
             "courriel" => "#^[a-zA-Z0-9][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,}$#",
-            "mdp" => "#(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$#"
+            "mdp" => "#(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$#",
+            "tel" => "#[0-9]{10}#"
         ];
 
-        if (!preg_match($regex["prenom"], $prenom)) $formulaireValide = false;
-        if (!preg_match($regex["nom"], $nom)) $formulaireValide = false;
-        if (!preg_match($regex["courriel"], $courriel)) $formulaireValide = false;
-        if (!preg_match($regex["mdp"], $mdp) || $mdp !== $c_mdp) $formulaireValide = false;
+        if (!preg_match($regex["prenom"], $prenom)) {
+            //$formulaireValide = false;
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["prenom"]["message"] = $tMessages["prenom"]["pattern"];
+            $tValidation["champs"]["prenom"]["valeur"] = $prenom;
+            $tValidation["champs"]["prenom"]["estValide"] = false;
+        } else {
+            $tValidation["champs"]["prenom"]["valeur"] = $prenom;
+            $tValidation["champs"]["prenom"]["estValide"] = true;
+        }
+        if (!preg_match($regex["nom"], $nom)) {
+            //$formulaireValide = false;
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["nom"]["message"] = $tMessages["nom"]["pattern"];
+            $tValidation["champs"]["nom"]["valeur"] = $nom;
+            $tValidation["champs"]["nom"]["estValide"] = false;
+        } else {
+            $tValidation["champs"]["nom"]["valeur"] = $nom;
+            $tValidation["champs"]["nom"]["estValide"] = true;
+        }
+        if (!preg_match($regex["courriel"], $courriel)) {
+            //$formulaireValide = false;
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["email"]["message"] = $tMessages["email"]["pattern"];
+            $tValidation["champs"]["email"]["valeur"] = $courriel;
+            $tValidation["champs"]["email"]["estValide"] = false;
+        } else {
+            $tValidation["champs"]["email"]["valeur"] = $courriel;
+            $tValidation["champs"]["email"]["estValide"] = true;
+        }
+        if (!preg_match($regex["mdp"], $mdp) || $mdp !== $c_mdp) {
+            //$formulaireValide = false;
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["mdp"]["message"] = $tMessages["mdp"]["pattern"];
+            $tValidation["champs"]["mdp"]["valeur"] = $mdp;
+            $tValidation["champs"]["mdp"]["estValide"] = false;
+            if ($mdp !== $c_mdp || !preg_match($regex["mdp"], $c_mdp)) {
+                $tValidation["champs"]["c_mdp"]["message"] = $tMessages["c_mdp"]["missmatch"];
+                $tValidation["champs"]["c_mdp"]["valeur"] = $c_mdp;
+                $tValidation["champs"]["c_mdp"]["estValide"] = false;
+            }
+        } else {
+            $tValidation["champs"]["mdp"]["valeur"] = $mdp;
+            $tValidation["champs"]["mdp"]["estValide"] = true;
+
+            $tValidation["champs"]["c_mdp"]["valeur"] = $c_mdp;
+            $tValidation["champs"]["c_mdp"]["estValide"] = true;
+        }
+        if (!preg_match($regex["tel"], $tel)) {
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["tel"]["message"] = $tMessages["tel"]["pattern"];
+            $tValidation["champs"]["tel"]["valeur"] = $courriel;
+            $tValidation["champs"]["tel"]["estValide"] = false;
+        } else {
+            $tValidation["champs"]["tel"]["valeur"] = $mdp;
+            $tValidation["champs"]["tel"]["estValide"] = true;
+        }
+
 
         if ($formulaireValide) {
             echo "Formulaire valide";
@@ -129,7 +209,7 @@ class ControleurCompte {
             echo "Invalide";
         }
 
-        return $formulaireValide;
+        return $tValidation;
     }
 
     public function validerConnexion(): bool {

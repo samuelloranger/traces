@@ -1,0 +1,28 @@
+{
+  "prenom": {
+    "vide": "Vous devez entrer votre prenom",
+    "pattern": "Ce prenom ne respecte pas le format demande"
+  },
+  "nom": {
+    "vide": "Vous devez entrer votre nom",
+    "pattern": "Ce nom ne respecte pas le format demande"
+  },
+  "email": {
+    "vide": "Vous devez entrer votre courriel",
+    "pattern": "Veuillez entrer une adresse courriel valide",
+    "taken": "Cette adresse courriel est deja associee a un compte"
+  },
+  "tel": {
+    "vide": "Vous devez entrer votre numero de telephone",
+    "pattern": "Le numero de telephone dois respecter le modele suivant : (418) 999-9999"
+  },
+  "mdp": {
+    "vide": "Vous devez entrer un mot de passe",
+    "pattern": "Votre mot de passe doit contenir un MINIMUM de 8 caracteres, dont une lettre majuscule et un chiffre"
+  },
+  "c_mdp": {
+    "vide": "Veuillez confirmer le mot de passe",
+    "missmatch": "Les deux mots de passe ne correspondent pas",
+    "pattern": "Votre mot de passe doit contenir un MINIMUM de 8 caracteres, dont une lettre majuscule et un chiffre"
+  }
+}
