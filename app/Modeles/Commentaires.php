@@ -50,20 +50,20 @@ class Commentaires{
 
         $requetePreparee->bindValue(':isbn', $isbn, PDO::PARAM_STR);
 
-        try{
+//        try{
             $requetePreparee->execute();
-        }
-        catch(\Exception $erreur){
-            error_log($erreur->getTraceAsString() . "\n", 3, "../ressources/error_log.txt");
-        }
+//        }
+//        catch(\Exception $erreur){
+//            error_log($erreur->getTraceAsString() . "\n", 3, "../ressources/error_log.txt");
+//        }
 
         return $requetePreparee->fetchAll();
     }
 
-    public static function insererCommentaire(int $id_client, string $isbn_livre, string $titre_commentaire, string $texte_commentaire, int $cote){
+    public static function insererCommentaire(int $id_client, string $isbn_livre, string $titre_commentaire, string $texte_commentaire, int $cote, int $achat_verifie){
         $pdo = App::getInstance()->getPDO();
 
-        $requeteSQL = "INSERT INTO commentaires (id_client, isbn_livre, titre_commentaire, texte_commentaire, cote) VALUES(?, ?, ?, ?, ?)";
+        $requeteSQL = "INSERT INTO commentaires (id_client, isbn_livre, titre_commentaire, texte_commentaire, cote, achat_verifie) VALUES(?, ?, ?, ?, ?, ?)";
 
         $requetePreparee = $pdo->prepare($requeteSQL);
 
@@ -72,6 +72,7 @@ class Commentaires{
         $requetePreparee->bindValue(3, $titre_commentaire, PDO::PARAM_STR);
         $requetePreparee->bindValue(4, $texte_commentaire, PDO::PARAM_STR);
         $requetePreparee->bindValue(5, $cote, PDO::PARAM_INT);
+        $requetePreparee->bindValue(6, $achat_verifie, PDO::PARAM_INT);
 
         try{
             $requetePreparee->execute();

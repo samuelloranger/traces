@@ -8,6 +8,10 @@ define(["require", "exports"], function (require, exports) {
         function CommentairesEtoiles() {
             var _this = this;
             this.arrZoneEtoiles = Array.apply(null, document.querySelectorAll(".zoneEtoiles"));
+            this.recharger = function () {
+                _this.arrZoneEtoiles = Array.apply(null, document.querySelectorAll(".zoneEtoiles"));
+                _this.initialiser();
+            };
             this.initialiser = function () {
                 //Pour chaque commentaire
                 _this.arrZoneEtoiles.forEach(function (zoneEtoile) {

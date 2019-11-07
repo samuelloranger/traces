@@ -2,16 +2,17 @@ define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var GestionFiche = /** @class */ (function () {
-        function GestionFiche(panier) {
+        function GestionFiche(panier, etoilesCommentaires) {
             var _this = this;
             //Sélecteurs de quantité
             this.btnSoustraire = document.querySelector(".btnChangementQte__soustraire");
             this.btnAjouter = document.querySelector(".btnChangementQte__additionner");
             this.selecteurQte = document.querySelector(".qteCourante");
             //Commentaire du livre
+            this.zoneCommentaires = document.querySelector(".zoneCommentaires");
             this.formulaireNouveauCommentaire = document.querySelector(".formulaireNouveauCommentaire");
-            this.elementsFormCommentaire = Array.apply(null, this.formulaireNouveauCommentaire.querySelectorAll(".elementFormCommentaire"));
-            this.boutonEnvoyerCommentaire = this.formulaireNouveauCommentaire.querySelector(".boutonEnvoyerCommentaireScript");
+            this.elementsFormCommentaire = null;
+            this.boutonEnvoyerCommentaire = null;
             this.boutonEnvoyerCommentaireActive = false;
             this.etatElementsFormulaire = [];
             //Ajout au panier
@@ -19,6 +20,7 @@ define(["require", "exports"], function (require, exports) {
             this.urlParams = new URLSearchParams(window.location.search);
             //Attributs de classe
             this.panier = null;
+            this.etoilesCommentaires = null;
             /**
              * Fonction ajouterEcoutersEvenements
              * @description Ajoute les écouteurs d'evenements sur les bons elements
@@ -43,13 +45,15 @@ define(["require", "exports"], function (require, exports) {
                     _this.btnAjoutPanier.addEventListener("click", function () {
                         _this.ajoutPanier();
                     });
+                    _this.elementsFormCommentaire = Array.apply(null, _this.formulaireNouveauCommentaire.querySelectorAll(".elementFormCommentaire"));
+                    _this.boutonEnvoyerCommentaire = _this.formulaireNouveauCommentaire.querySelector(".boutonEnvoyerCommentaireScript");
                     // Bouton envoyer un commentaire
                     _this.boutonEnvoyerCommentaire.addEventListener("click", function () {
                         _this.envoyerCommentaire();
                     });
                     //Éléments des commentaires
                     _this.elementsFormCommentaire.forEach(function (element) {
-                        if (element.type !== "hidden") {
+                        if (element.type !== "hidden" && !element.classList.contains("elementFormCommentaire--nonObligatoire")) {
                             _this.etatElementsFormulaire[element.id] = false;
                             element.addEventListener("change", function () {
                                 _this.verifierElementCommentaire(element);
@@ -124,7 +128,8 @@ define(["require", "exports"], function (require, exports) {
                         erreur = element.value.length === 0 || element.value.length < 10 || element.value.length > 50;
                         break;
                     case "textarea":
-                        erreur = element.value.length === 0 || element.value.length < 50 || element.value.length > 255;
+                        erreur = element.value.length === 0 || element.value.length < 50 || element.value.length > element.maxLength;
+                        _this.changerCaracteresRestants(element);
                         break;
                     case "number":
                         erreur = element.value < 1 || element.value > 5;
@@ -140,6 +145,11 @@ define(["require", "exports"], function (require, exports) {
                     _this.etatElementsFormulaire[element.id] = true;
                 }
                 _this.verifirerTousElementsCommentaire();
+            };
+            this.changerCaracteresRestants = function (element) {
+                var caracteresMax = element.maxLength;
+                var zoneCarRestants = element.parentNode.querySelector(".caracteresRestants");
+                zoneCarRestants.innerHTML = caracteresMax - element.value.length;
             };
             /**
              * Fonction verifierTousElementsCommentaire
@@ -180,25 +190,38 @@ define(["require", "exports"], function (require, exports) {
              * @description Envoie le commentaire au serveur et attend le retour
              */
             this.envoyerCommentaire = function () {
+                var fiche = _this;
                 var stringData = "";
                 _this.elementsFormCommentaire.forEach(function (element) {
                     stringData += element.id + "=" + element.value + "&";
                 });
+                stringData += "isAjax";
                 if (_this.boutonEnvoyerCommentaireActive) {
                     $.ajax({
-                        url: "index.php?controleur=livre?action=ajouterCommentaire",
+                        url: "index.php?controleur=livre&action=ajouterCommentaire",
                         type: "POST",
                         data: stringData,
                         dataType: "html"
                     })
                         .done(function (data, textStatus, jqXHR) {
                         //fonction
-                        console.log(data);
+                        fiche.afficherCommentaires(data, textStatus, jqXHR);
                     });
                 }
             };
+            /**
+             * Fonction afficherCommentaires
+             * @param data Est le data qui est revenu du PHP (Qui normalement devrait être la zone des commentaires de la vue modifiée
+             * @param textStatus
+             * @param jqXHR
+             */
+            this.afficherCommentaires = function (data, textStatus, jqXHR) {
+                _this.zoneCommentaires.innerHTML = data;
+                _this.etoilesCommentaires.recharger();
+            };
             this.panier = panier;
             this.ajouterEcouteursEvenements();
+            this.etoilesCommentaires = etoilesCommentaires;
         }
         return GestionFiche;
     }());

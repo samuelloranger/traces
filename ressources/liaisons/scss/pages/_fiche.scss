@@ -97,8 +97,6 @@
               .select{
                 position: relative;
 
-
-
                 .formatLivre{
                   display: block;
                   appearance: none;
@@ -279,10 +277,9 @@
           }
 
           .formulaireNouveauCommentaire{
-            display: flex;
-            flex-direction: column;
             background-color: $GRIS_PALE;
             padding: 15px;
+            border-radius: 35px;
 
             .messageConnection{
               color: red;
@@ -294,6 +291,11 @@
               }
             }
 
+            .conteneurElemForm{
+              display: flex;
+              flex-direction: column;
+            }
+
             .texte_commentaire{
               height: 175px;
               max-height: 175px;
@@ -302,6 +304,26 @@
 
             .cote {
               max-width: 50px;
+            }
+
+            .erreur{
+              color: red;
+              margin-top: 8px;
+              display: flex;
+              align-content: center;
+
+              &--icone{
+                &:before{
+                  content: "";
+                  display: inline-block;
+                  width: 24px;
+                  height: 24px;
+                  margin-right: 5px;
+                  background-image: url("../images/icones/error.svg");
+                  background-size: contain;
+                  background-repeat: no-repeat;
+                }
+              }
             }
 
             .zoneConfirmationAchat{
@@ -319,12 +341,13 @@
             .boutonEnvoyerCommentaire{
               border-radius: 35px;
               border: none;
+              width: 150px;
               padding: 2% 0;
-              max-width: 150px;
               background-color: $TURQUOISE;
               color: white;
               transition: 0.25s ease-in-out;
               transform: scale(0.92);
+              margin: 15px 0 0 auto;
 
               &Script{
                 display: none;

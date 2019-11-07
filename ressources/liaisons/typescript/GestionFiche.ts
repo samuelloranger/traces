@@ -2,6 +2,7 @@
  * @author Samuel Loranger <samuelloranger@gmail.com>
  */
 import {GestionPanier} from "./GestionPanier";
+import {CommentairesEtoiles} from "./CommentairesEtoiles";
 
 export class GestionFiche {
 
@@ -11,9 +12,10 @@ export class GestionFiche {
     private selecteurQte:HTMLInputElement = document.querySelector(".qteCourante");
 
     //Commentaire du livre
+    private zoneCommentaires:HTMLElement = document.querySelector(".zoneCommentaires");
     private formulaireNouveauCommentaire:HTMLElement = document.querySelector(".formulaireNouveauCommentaire");
-    private elementsFormCommentaire:[HTMLInputElement] = Array.apply(null, this.formulaireNouveauCommentaire.querySelectorAll(".elementFormCommentaire"));
-    private boutonEnvoyerCommentaire:HTMLInputElement = this.formulaireNouveauCommentaire.querySelector(".boutonEnvoyerCommentaireScript");
+    private elementsFormCommentaire:[HTMLInputElement] = null;
+    private boutonEnvoyerCommentaire:HTMLInputElement = null;
 
     private boutonEnvoyerCommentaireActive = false;
     private etatElementsFormulaire = [];
@@ -24,10 +26,12 @@ export class GestionFiche {
 
     //Attributs de classe
     private panier:GestionPanier = null;
+    private etoilesCommentaires:CommentairesEtoiles = null;
 
-    constructor(panier:GestionPanier){
+    constructor(panier:GestionPanier, etoilesCommentaires:CommentairesEtoiles){
         this.panier = panier;
         this.ajouterEcouteursEvenements();
+        this.etoilesCommentaires = etoilesCommentaires;
     }
 
 
@@ -60,6 +64,9 @@ export class GestionFiche {
                 this.ajoutPanier();
             });
 
+            this.elementsFormCommentaire = Array.apply(null, this.formulaireNouveauCommentaire.querySelectorAll(".elementFormCommentaire"));
+            this.boutonEnvoyerCommentaire = this.formulaireNouveauCommentaire.querySelector(".boutonEnvoyerCommentaireScript");
+
             // Bouton envoyer un commentaire
             this.boutonEnvoyerCommentaire.addEventListener("click", () => {
                 this.envoyerCommentaire();
@@ -67,7 +74,7 @@ export class GestionFiche {
 
             //Éléments des commentaires
             this.elementsFormCommentaire.forEach((element) => {
-                if(element.type !== "hidden"){
+                if(element.type !== "hidden" && !element.classList.contains("elementFormCommentaire--nonObligatoire")){
                     this.etatElementsFormulaire[element.id] = false;
 
                     element.addEventListener("change", () => {
@@ -152,7 +159,8 @@ export class GestionFiche {
                 erreur = element.value.length === 0 || element.value.length < 10 || element.value.length > 50;
                 break;
             case "textarea":
-                erreur = element.value.length === 0 || element.value.length < 50 || element.value.length > 255;
+                erreur = element.value.length === 0 || element.value.length < 50 || element.value.length > element.maxLength;
+                this.changerCaracteresRestants(element);
                 break;
             case "number":
                 erreur = element.value < 1 || element.value > 5;
@@ -170,6 +178,12 @@ export class GestionFiche {
         }
 
         this.verifirerTousElementsCommentaire();
+    };
+
+    private changerCaracteresRestants = (element) => {
+        const caracteresMax = element.maxLength;
+        const zoneCarRestants = element.parentNode.querySelector(".caracteresRestants");
+        zoneCarRestants.innerHTML = caracteresMax - element.value.length;
     };
 
     /**
@@ -216,24 +230,39 @@ export class GestionFiche {
      * @description Envoie le commentaire au serveur et attend le retour
      */
     private envoyerCommentaire = () => {
+        const fiche = this;
+
         let stringData = "";
 
         this.elementsFormCommentaire.forEach((element) => {
             stringData += element.id + "=" + element.value + "&";
         });
 
+        stringData += "isAjax";
+
         if(this.boutonEnvoyerCommentaireActive){
             $.ajax({
-                url: "index.php?controleur=livre?action=ajouterCommentaire",
+                url: "index.php?controleur=livre&action=ajouterCommentaire",
                 type: "POST",
                 data: stringData,
                 dataType: "html"
             })
                 .done(function(data, textStatus, jqXHR){
                         //fonction
-                        console.log(data);
+                        fiche.afficherCommentaires(data, textStatus, jqXHR);
                     }
                 );
         }
     };
+
+    /**
+     * Fonction afficherCommentaires
+     * @param data Est le data qui est revenu du PHP (Qui normalement devrait être la zone des commentaires de la vue modifiée
+     * @param textStatus
+     * @param jqXHR
+     */
+    private afficherCommentaires = (data, textStatus, jqXHR) => {
+        this.zoneCommentaires.innerHTML = data;
+        this.etoilesCommentaires.recharger();
+    }
 }

@@ -118,7 +118,9 @@
                     </div>
                 @endif
 
-                @include("livres.fragments.commentaires")
+                <div class="zoneCommentaires">
+                    @include("livres.fragments.commentaires")
+                </div>
             </div>
         </div>
     </div>

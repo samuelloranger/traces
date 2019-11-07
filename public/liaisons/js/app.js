@@ -5,7 +5,7 @@ define(["require", "exports", "./CommentairesEtoiles", "./Menu", "./GestionPanie
     var commentairesEtoiles = new CommentairesEtoiles_1.CommentairesEtoiles();
     var menuMobile = new Menu_1.Menu();
     var gestionPanier = new GestionPanier_1.GestionPanier();
-    var gestionFiche = new GestionFiche_1.GestionFiche(gestionPanier);
+    var gestionFiche = new GestionFiche_1.GestionFiche(gestionPanier, commentairesEtoiles);
     var gestionAccueil = new GestionAccueil_1.GestionAccueil(gestionPanier);
     var gestionCatalogue = new GestionCatalogue_1.GestionCatalogue(gestionPanier);
 });
