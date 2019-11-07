@@ -77,6 +77,9 @@ class Util {
             $panierVide = false;
         }
 
+        //todo: a retirer lorsque le compte sera termine
+        $session->setItem("estConnecte", true);
+
         return array(
             "nbrItemsPanier" => $nbrItemsPanier,
             "panierVide" => $panierVide,

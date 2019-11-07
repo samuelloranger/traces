@@ -44,6 +44,7 @@ class ControleurCompte {
 
                     $this->session->setItem("courriel", $user->__get("courriel"));
                     $this->session->setItem("estConnecte", true);
+                    $this->session->setItem("idClient", $user->__get("id"));
 
                     header("Location: index.php?controleur=site&action=accueil");
                 } else {

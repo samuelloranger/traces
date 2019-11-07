@@ -15,10 +15,12 @@ class ControleurLivre
 {
     private $blade = null;
     private $panier = null;
+    private $session = null;
 
     public function __construct(){
         $this->blade = App::getInstance()->getBlade();
         $this->panier = App::getInstance()->getPanier();
+        $this->session = App::getInstance()->getSession();
     }
 
     /**
@@ -153,78 +155,24 @@ class ControleurLivre
         $arrCommentaires = Commentaires::trouverParISBN($infosLivre->__get("isbn"));
 
 
+        //Temporaire en attendant la fin du compte
+        $this->session->setItem("idClient", 2);
+
+        $idClient = $this->session->getItem("idClient");
+
         $arrInfos = array_merge(
             Util::getInfosHeader(),
             array("livre" => $infosLivre),
             array("arrRecensions" => $arrRecensions),
             array("arrHonneurs" => $arrHonneurs),
             array("arrCommentaires" => $arrCommentaires),
+            array("idClient" => $idClient),
             array("filAriane" => $filAriane)
         );
 
         $tDonnees = array_merge($arrInfos, ControleurSite::getDonneeFragmentPiedDePage());;
         echo $this->blade->run("livres.fiche", $tDonnees);
     }
-
-//-- phpMyAdmin SQL Dump
-//-- version 4.9.0.1
-//-- https://www.phpmyadmin.net/
-//--
-//-- Hôte : localhost:3306
-//-- Généré le :  jeu. 07 nov. 2019 à 00:26
-//-- Version du serveur :  5.7.26
-//-- Version de PHP :  7.3.8
-//
-//SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-//SET time_zone = "+00:00";
-//
-//--
-//-- Base de données :  `traces`
-//--
-//
-//-- --------------------------------------------------------
-//
-//--
-//-- Structure de la table `commentaires`
-//--
-//
-//CREATE TABLE `commentaires` (
-//`id_commentaire` int(11) UNSIGNED NOT NULL,
-//`id_client` int(10) NOT NULL,
-//`isbn_livre` varchar(13) COLLATE utf8_unicode_ci NOT NULL,
-//`titre_commentaire` varchar(75) COLLATE utf8_unicode_ci NOT NULL,
-//`texte_commentaire` tinytext COLLATE utf8_unicode_ci,
-//`cote` int(1) DEFAULT NULL
-//) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-//
-//--
-//-- Déchargement des données de la table `commentaires`
-//--
-//
-//INSERT INTO `commentaires` (`id_commentaire`, `id_client`, `isbn_livre`, `titre_commentaire`, `texte_commentaire`, `cote`) VALUES
-//(1, 2, '2-89448-132-2', 'Adoré ma lecture!', 'Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J\'étais réellement plongé dans l\'histoire !', 5);
-//
-//--
-//-- Index pour les tables déchargées
-//--
-//
-//--
-//-- Index pour la table `commentaires`
-//--
-//ALTER TABLE `commentaires`
-//ADD PRIMARY KEY (`id_commentaire`),
-//ADD KEY `id_utilisateur` (`id_client`);
-//
-//--
-//-- AUTO_INCREMENT pour les tables déchargées
-//--
-//
-//--
-//-- AUTO_INCREMENT pour la table `commentaires`
-//--
-//ALTER TABLE `commentaires`
-//MODIFY `id_commentaire` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 
     public function fenetreModale():void{
         $isbn = "";

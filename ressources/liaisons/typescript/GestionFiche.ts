@@ -10,6 +10,14 @@ export class GestionFiche {
     private btnAjouter:HTMLElement = document.querySelector(".btnChangementQte__additionner");
     private selecteurQte:HTMLInputElement = document.querySelector(".qteCourante");
 
+    //Commentaire du livre
+    private formulaireNouveauCommentaire:HTMLElement = document.querySelector(".formulaireNouveauCommentaire");
+    private elementsFormCommentaire:[HTMLInputElement] = Array.apply(null, this.formulaireNouveauCommentaire.querySelectorAll(".elementFormCommentaire"));
+    private boutonEnvoyerCommentaire:HTMLInputElement = this.formulaireNouveauCommentaire.querySelector(".boutonEnvoyerCommentaireScript");
+
+    private boutonEnvoyerCommentaireActive = false;
+    private etatElementsFormulaire = [];
+
     //Ajout au panier
     private btnAjoutPanier:HTMLElement = document.querySelector(".btnAjoutPanierScript");
     private urlParams = new URLSearchParams(window.location.search);
@@ -23,6 +31,10 @@ export class GestionFiche {
     }
 
 
+    /**
+     * Fonction ajouterEcoutersEvenements
+     * @description Ajoute les écouteurs d'evenements sur les bons elements
+     */
     private ajouterEcouteursEvenements = () => {
         // Quantité : Bouton soustraire
         const controleur = this.urlParams.get('controleur');
@@ -47,9 +59,34 @@ export class GestionFiche {
             this.btnAjoutPanier.addEventListener("click", () => {
                 this.ajoutPanier();
             });
+
+            // Bouton envoyer un commentaire
+            this.boutonEnvoyerCommentaire.addEventListener("click", () => {
+                this.envoyerCommentaire();
+            });
+
+            //Éléments des commentaires
+            this.elementsFormCommentaire.forEach((element) => {
+                if(element.type !== "hidden"){
+                    this.etatElementsFormulaire[element.id] = false;
+
+                    element.addEventListener("change", () => {
+                        this.verifierElementCommentaire(element);
+                    });
+
+                    element.addEventListener("keyup", () => {
+                        this.verifierElementCommentaire(element);
+                    });
+                }
+            });
         }
     };
 
+    /**
+     * Fonction changerQte
+     * @description Fait une opération sur la quantité des livres à ajouter au panier
+     * @param operation Définit l'peration devrait être faite sur la quantité des livres
+     */
     private changerQte = (operation:string) => {
         switch(operation){
             case "soustraire":
@@ -67,6 +104,10 @@ export class GestionFiche {
         }
     };
 
+    /**
+     * Fonction verifierQteEntree
+     * @description Vérrifie si la quntité entrée est correcte
+     */
     private verifierQteEntree = () => {
         if(Number(this.selecteurQte.value) > 10){
             this.selecteurQte.value = "10";
@@ -77,6 +118,10 @@ export class GestionFiche {
         }
     };
 
+    /**
+     * Fonction ajoutPanier
+     * @description Ajoute l'item au panier
+     */
     private ajoutPanier = () => {
         const isbn = this.urlParams.get('isbn');
         const panier =  this.panier;
@@ -92,6 +137,103 @@ export class GestionFiche {
                     panier.montrerFenetreModale(isbn);
                 }
             );
-    }
+    };
 
+    /**
+     * Fonction verifierElementCommentaire
+     * @description Vérifie si le contenu entré dans le formulaire est correct
+     * @param element Élément qui est testé
+     */
+    private verifierElementCommentaire = (element) => {
+        let erreur = false;
+
+        switch(element.type){
+            case "text":
+                erreur = element.value.length === 0 || element.value.length < 10 || element.value.length > 50;
+                break;
+            case "textarea":
+                erreur = element.value.length === 0 || element.value.length < 50 || element.value.length > 255;
+                break;
+            case "number":
+                erreur = element.value < 1 || element.value > 5;
+                break;
+            default:
+                break;
+        }
+
+        if(erreur){
+            this.erreurElementCommentaire(element, "afficher");
+        }
+        else{
+            this.erreurElementCommentaire(element, "retirer");
+            this.etatElementsFormulaire[element.id] = true;
+        }
+
+        this.verifirerTousElementsCommentaire();
+    };
+
+    /**
+     * Fonction verifierTousElementsCommentaire
+     * @description Vérifie si tous les éléments du formulaire sont ok
+     * S'il y en a un qui n'est pas ok, il n'active pas le bouton d'envoi
+     */
+    private verifirerTousElementsCommentaire = () => {
+        let tousChampsValides = true;
+
+        this.elementsFormCommentaire.forEach((element) => {
+            if(this.etatElementsFormulaire[element.id] === false){
+                tousChampsValides = false;
+            }
+        });
+
+        if(tousChampsValides){
+            this.activerDesactiverBtnEnvoyer("activer");
+        }
+    };
+
+    /**
+     * Fonction erreurelementCommentaire
+     * @description Affiche l'erreur sur l'élément qui n'est pas correct
+     * @param element L'élément à faire une opération
+     * @param action L'action à effectuer sur cet élément
+     */
+    private erreurElementCommentaire = (element:HTMLInputElement, action:string) => {
+        action === "afficher" ? element.classList.add("elementFormCommentaire--erreur") : element.classList.remove("elementFormCommentaire--erreur");
+    };
+
+    /**
+     * Fonction activerDesactiverBtnEnvoyer
+     * @description Active ou désactive le bouton d'envoi
+     * @param action Action à effectuer sur le bouton
+     */
+    private activerDesactiverBtnEnvoyer = (action:string) => {
+        action === "activer" ? this.boutonEnvoyerCommentaire.removeAttribute("disabled") : this.boutonEnvoyerCommentaire.setAttribute("disabled", "disabled");
+        this.boutonEnvoyerCommentaireActive = true;
+    };
+
+    /**
+     * Fonction envoyerCommentaire
+     * @description Envoie le commentaire au serveur et attend le retour
+     */
+    private envoyerCommentaire = () => {
+        let stringData = "";
+
+        this.elementsFormCommentaire.forEach((element) => {
+            stringData += element.id + "=" + element.value + "&";
+        });
+
+        if(this.boutonEnvoyerCommentaireActive){
+            $.ajax({
+                url: "index.php?controleur=livre?action=ajouterCommentaire",
+                type: "POST",
+                data: stringData,
+                dataType: "html"
+            })
+                .done(function(data, textStatus, jqXHR){
+                        //fonction
+                        console.log(data);
+                    }
+                );
+        }
+    };
 }

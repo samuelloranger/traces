@@ -15,6 +15,7 @@ class Commentaires{
     private $titre_commentaire = "";
     private $texte_commentaire = "";
     private $cote = 0;
+    private $achat_verifie = 0;
 
     public function __construct(){
     }
@@ -22,7 +23,7 @@ class Commentaires{
     public static function trouverTout():array{
         $pdo = App::getInstance()->getPDO();
 
-        $requeteSQL = "SELECT id_commentaire, commentaires.id_client, prenom, nom, isbn_livre, titre_commentaire, texte_commentaire, cote 
+        $requeteSQL = "SELECT id_commentaire, commentaires.id_client, prenom, nom, isbn_livre, titre_commentaire, texte_commentaire, cote, achat_verifie
                        FROM commentaires 
                        INNER JOIN t_client ON t_client.id_client = commentaires.id_client";
 
@@ -38,7 +39,7 @@ class Commentaires{
     public static function trouverParISBN(string $isbn):array{
         $pdo = App::getInstance()->getPDO();
 
-        $requeteSQL = "SELECT id_commentaire, commentaires.id_client, prenom, nom, isbn_livre, titre_commentaire, texte_commentaire, cote 
+        $requeteSQL = "SELECT id_commentaire, commentaires.id_client, prenom, nom, isbn_livre, titre_commentaire, texte_commentaire, cote, achat_verifie
                        FROM commentaires 
                        INNER JOIN t_client ON t_client.id_client = commentaires.id_client
                        WHERE isbn_livre = :isbn";
@@ -77,6 +78,32 @@ class Commentaires{
         }
         catch(\Exception $error){
             error_log($error->getTraceAsString() . "\n", 3, "../ressources/error_log.txt");
+        }
+    }
+
+
+    /**
+     * Fonction __get
+     * @param $property mixed La propriete recherche
+     * @return mixed Retourne la valeur recherche
+     */
+    public function __get($property)
+    {
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
+        return null;
+    }
+
+    /**
+     * Fonction __set
+     * @param $property mixed La propriete a changer
+     * @param $value mixed La nouvelle valeur de la propriete a changer
+     */
+    public function __set($property, $value)
+    {
+        if (property_exists($this, $property)) {
+            $this->$property = $value;
         }
     }
 
