@@ -20,8 +20,16 @@
   &--menuMobileOuvert{
     min-height: 100%;
 
+    @media(min-width: $DESKTOP-NORMAL){
+      min-height:0;
+    }
+
     .conteneur-header{
       height: 100vh;
+
+      @media(min-width: $DESKTOP-NORMAL){
+        height: 100%;
+      }
     }
   }
 
@@ -35,7 +43,7 @@
     margin: 25% auto 0 auto;
     transition: 0.50s ease-in-out;
 
-    @media(min-width: $DESKTOP-NORMAL){
+    @media(min-width: 1000px){
       width: 150px;
       margin: 0;
     }
@@ -229,7 +237,7 @@
 
                 .nbrItemsPanier{
                   position: absolute;
-                  right: -3px;
+                  right: -6px;
                   top: 6px;
                   color: $BEIGE;
                 }
@@ -245,7 +253,7 @@
             position: absolute;
             top: 35%;
             right: 10px;
-            transition: 0.15s ease-in-out;
+            transition: 0.25s ease-in-out;
 
             &--inactif{
               top: -50px;
@@ -280,6 +288,7 @@
 
           h2{
             width: 90%;
+            max-width: 500px;
             text-align: center;
             margin: 0 auto;
             color: $PEAU;
@@ -291,13 +300,14 @@
 
           .conteneurMenu{
             &__menu{
-              margin-top: 10%;
               list-style-type: none;
               padding: 0;
+              max-width: 500px;
+              margin: 50px auto;
 
               li{
                 text-align: center;
-                margin-bottom: 10%;
+                margin-bottom: 40px;
 
                 a{
                   color: $PEAU;

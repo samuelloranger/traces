@@ -59,9 +59,11 @@ export class GestionPanier {
             });
         }
 
-        this.btnFermerFenetreModale.addEventListener("click", () => {
-            this.toggleFenetreModale("fermer");
-        });
+        if(this.urlParams.get("controleur") !== "livraison") {
+            this.btnFermerFenetreModale.addEventListener("click", () => {
+                this.toggleFenetreModale("fermer");
+            });
+        }
     };
 
     /**

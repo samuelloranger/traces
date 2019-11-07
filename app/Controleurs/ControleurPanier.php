@@ -163,7 +163,7 @@ class ControleurPanier{
         }
 
         $tDonnees = array_merge(
-            Util::getInfosPanier(),
+            Util::getInfosHeader(),
             array("elementsPanier" => $itemsPanier),
             array("fraisLivraison" => $fraisLivraison),
             array("montantTPS" => $montantTPS),

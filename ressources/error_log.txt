@@ -292,3 +292,39 @@
 >>>>>>> cd33a5b64e95510a25ae6a1232f2ae43c955cdbb
 =======
 >>>>>>> 93aa775b3c6997af1fd6fdf1e90eb8be74f1f926
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/Users/samuel/S...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(169): spl_autoload_call('App\\Controleurs...')
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(46): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/Users/samuel/S...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(169): spl_autoload_call('App\\Controleurs...')
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(46): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/Users/samuel/S...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controleurs...')
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(169): spl_autoload_call('App\\Controleurs...')
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(46): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Modeles/Commentaires.php(76): PDOStatement->execute()
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(155): App\Modeles\Commentaires::insererCommentaire(2, '2-89448-140-3', 'Boff...', 'J'aurais aim\xC3\xA9 ...', 2)
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(175): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(46): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Modeles/Commentaires.php(76): PDOStatement->execute()
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(155): App\Modeles\Commentaires::insererCommentaire(2, '2-89448-140-3', 'Boff...', 'J'aurais aim\xC3\xA9 ...', 2)
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(175): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(46): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}
+#0 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Modeles/Commentaires.php(76): PDOStatement->execute()
+#1 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/Controleurs/ControleurLivre.php(155): App\Modeles\Commentaires::insererCommentaire(2, '2-89448-140-3', 'Boff...', 'J'aurais aim\xC3\xA9 ...', 2)
+#2 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(175): App\Controleurs\ControleurLivre->fiche()
+#3 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/app/App.php(46): App\App->routerLaRequete()
+#4 /Users/samuel/Sites/tim/P1_TRACES_2019/01_travail/01_site/public/index.php(10): App\App->demarrer()
+#5 {main}

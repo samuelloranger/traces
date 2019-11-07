@@ -11,7 +11,7 @@
 
             <p class="texteLivraisonGratuite">Admissible à la livraison gratuite</p>
 
-            <a href="index.php?controleur=transaction&action=livraison" class="btnCommander">Passer la commande</a>
+            <a href="index.php?controleur=livraison&action=livraison" class="btnCommander">Passer la commande</a>
         </div>
 
         <div class="panier__items col-md-12 col-lg-8">

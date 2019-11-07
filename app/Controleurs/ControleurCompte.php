@@ -23,7 +23,7 @@ class ControleurCompte {
     }
 
     public function connexion(): void {
-        $tDonnees = array_merge(Util::getInfosPanier(), ControleurSite::getDonneeFragmentPiedDePage());
+        $tDonnees = array_merge(Util::getInfosHeader(), ControleurSite::getDonneeFragmentPiedDePage());
         echo $this->blade->run("compte.connexion", $tDonnees);
     }
 
@@ -57,7 +57,7 @@ class ControleurCompte {
         $tValidation = $this->session->getItem("tValidation");
         $tDonnees = array_merge(
             ControleurSite::getDonneeFragmentPiedDePage(),
-            Util::getInfosPanier(),
+            Util::getInfosHeader(),
             ["tValidation" => $tValidation]
         );
         print_r($tValidation);

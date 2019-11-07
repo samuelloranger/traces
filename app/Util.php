@@ -66,15 +66,22 @@ class Util {
     /**
      * Données du panier
      */
-    public static function getInfosPanier():array{
-        $nbrItemsPanier = App::getInstance()->getPanier() -> getNombreTotalItemsDifferents();
+    public static function getInfosHeader():array{
+        $panier = App::getInstance()->getPanier();
+        $session = App::getInstance()->getSession();
+
+        $nbrItemsPanier = $panier->getNombreTotalItemsDifferents();
 
         $panierVide = true;
         if($nbrItemsPanier > 0){
             $panierVide = false;
         }
 
-        return array("nbrItemsPanier" => $nbrItemsPanier, "panierVide" => $panierVide);
+        return array(
+            "nbrItemsPanier" => $nbrItemsPanier,
+            "panierVide" => $panierVide,
+            "estConnecte" => $session->getItem("estConnecte")
+        );
     }
 
 

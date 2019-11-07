@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
+use App\Modeles\Commentaires;
 use App\Util;
 use App\Modeles\Honneur;
 use App\Modeles\Categories;
@@ -100,7 +101,7 @@ class ControleurLivre
          * Définition de l'array des données
          */
         $tDonnees = array_merge(
-                Util::getInfosPanier(),
+                Util::getInfosHeader(),
                 array("nbResultats" => $nbResultats),
                 array("arrLivres" => $arrLivres),
                 array("arrCategories" => $arrCategories),
@@ -148,11 +149,16 @@ class ControleurLivre
             $honneur->description = Util::couperParagraphe($honneur->description, 100);
         }
 
+        //Commentaires
+        $arrCommentaires = Commentaires::trouverParISBN($infosLivre->__get("isbn"));
+
+
         $arrInfos = array_merge(
-            Util::getInfosPanier(),
+            Util::getInfosHeader(),
             array("livre" => $infosLivre),
             array("arrRecensions" => $arrRecensions),
             array("arrHonneurs" => $arrHonneurs),
+            array("arrCommentaires" => $arrCommentaires),
             array("filAriane" => $filAriane)
         );
 
