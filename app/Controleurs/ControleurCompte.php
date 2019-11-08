@@ -63,6 +63,17 @@ class ControleurCompte {
         }
     }
 
+    public function deconnecter() {
+        if ($this->session->getItem("estConnecte")) {
+            $this->session->supprimerItem("estConnecte");
+            $this->session->supprimerItem("courriel");
+            $this->session->supprimerItem("id_client");
+
+            header("Location: index.php?controleur=site&action=accueil");
+            exit;
+        }
+    }
+
     public function inscription(): void {
         $tValidation = $this->session->getItem("tValidation");
         $tDonnees = array_merge(
