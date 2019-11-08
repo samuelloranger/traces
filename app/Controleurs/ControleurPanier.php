@@ -131,7 +131,7 @@ class ControleurPanier{
         }
     }
 
-    public function panier($pageComplete = true){
+    public function panier($pageComplete = true, $informationsJson = false){
         //Éléments à afficher
         $itemsPanier = $this->panier->getItems();
         $montantSousTotal = Util::formaterArgent($this->panier->getMontantSousTotal());
@@ -178,11 +178,16 @@ class ControleurPanier{
             array("montantTotal" => $montantTotal)
         );
 
-        if($pageComplete){
+        if($pageComplete && !$informationsJson){
             echo $this->blade->run("panier.gabarit_panier", $tDonnees);
         }
         else{
-            echo $this->blade->run("panier.panier", $tDonnees);
+            if($informationsJson){
+                echo json_encode($tDonnees);
+            }
+            else{
+                echo $this->blade->run("panier.panier", $tDonnees);
+            }
         }
     }
 }
