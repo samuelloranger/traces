@@ -23,34 +23,43 @@ class ControleurCompte {
     }
 
     public function connexion(): void {
-        $tDonnees = array_merge(Util::getInfosHeader(), ControleurSite::getDonneeFragmentPiedDePage());
+        $tValidation = $this->session->getItem("tValidation");
+
+        $tDonnees = array_merge(
+            Util::getInfosHeader(),
+            ControleurSite::getDonneeFragmentPiedDePage(),
+            ["tValidation" => $tValidation]
+        );
+        print_r($tValidation);
         echo $this->blade->run("compte.connexion", $tDonnees);
+        $this->session->supprimerItem("tValidation");
     }
 
     public function connecter() {
-        $formulaireValide = $this->validerConnexion();
+        $tValidation = $this->validerConnexion();
+        $formulaireValide = $tValidation["formulaireValide"];
+        //$formulaireValide = $this->validerConnexion();
 
         $courriel = $_POST["email"];
         $mdp = $_POST["mdp"];
         $user = null;
-        $cryptMdp = User::getHash($courriel);
+        //$cryptMdp = User::getHash($courriel);
 
         if ($formulaireValide) {
             //print_r($cryptMdp);
-            if (password_verify($mdp, $cryptMdp)) {
-                $user = User::trouverParConnexion($courriel, $cryptMdp);
-                if ($user !== null) {
-                    echo "$mdp <br>";
+            //echo "$mdp <br>";
+            $user = User::trouverParCourriel($courriel);
 
-                    $this->session->setItem("courriel", $user->__get("courriel"));
-                    $this->session->setItem("estConnecte", true);
-                    $this->session->setItem("idClient", $user->__get("id"));
+            $this->session->setItem("courriel", $user->__get("courriel"));
+            $this->session->setItem("estConnecte", true);
+            $this->session->setItem("idClient", $user->__get("id"));
 
-                    header("Location: index.php?controleur=site&action=accueil");
-                } else {
-                    echo "Connexion echouee";
-                }
-            }
+            header("Location: index.php?controleur=site&action=accueil");
+            exit;
+        } else {
+            $this->session->setItem("tValidation", $tValidation);
+            header("Location: index.php?controleur=compte&action=connexion");
+            exit;
         }
     }
 
@@ -76,8 +85,8 @@ class ControleurCompte {
         $mdp = $_POST["mdp"];
 
         if ($formulaireValide) {
-            $userExiste = User::trouverParCourriel($courriel);
-            if ($userExiste === false || $userExiste === null) {
+            //$userExiste = User::trouverParCourriel($courriel);
+            //if ($userExiste === false || $userExiste === null) {
                 try {
                     User::insererUser($prenom, $nom, $courriel, password_hash($mdp, PASSWORD_DEFAULT));
                     echo "Compte cree";
@@ -90,9 +99,6 @@ class ControleurCompte {
                     echo "<br> Erreur de requete <br>";
                     echo $e;
                 }
-            } else {
-                echo '<br>Utilisateur existe deja';
-            }
         } else {
             $this->session->setItem("tValidation", $tValidation);
             header("Location: index.php?controleur=compte&action=inscription");
@@ -165,16 +171,23 @@ class ControleurCompte {
             $tValidation["champs"]["nom"]["valeur"] = $nom;
             $tValidation["champs"]["nom"]["estValide"] = true;
         }
+
         if (!preg_match($regex["courriel"], $courriel)) {
             //$formulaireValide = false;
             $tValidation["formulaireValide"] = false;
             $tValidation["champs"]["email"]["message"] = $tMessages["email"]["pattern"];
             $tValidation["champs"]["email"]["valeur"] = $courriel;
             $tValidation["champs"]["email"]["estValide"] = false;
+        } elseif(User::trouverParCourriel($courriel)) {
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["email"]["message"] = $tMessages["email"]["taken"];
+            $tValidation["champs"]["email"]["valeur"] = $courriel;
+            $tValidation["champs"]["email"]["estValide"] = false;
         } else {
             $tValidation["champs"]["email"]["valeur"] = $courriel;
             $tValidation["champs"]["email"]["estValide"] = true;
         }
+
         if (!preg_match($regex["mdp"], $mdp) || $mdp !== $c_mdp) {
             //$formulaireValide = false;
             $tValidation["formulaireValide"] = false;
@@ -196,10 +209,10 @@ class ControleurCompte {
         if (!preg_match($regex["tel"], $tel)) {
             $tValidation["formulaireValide"] = false;
             $tValidation["champs"]["tel"]["message"] = $tMessages["tel"]["pattern"];
-            $tValidation["champs"]["tel"]["valeur"] = $courriel;
+            $tValidation["champs"]["tel"]["valeur"] = $tel;
             $tValidation["champs"]["tel"]["estValide"] = false;
         } else {
-            $tValidation["champs"]["tel"]["valeur"] = $mdp;
+            $tValidation["champs"]["tel"]["valeur"] = $tel;
             $tValidation["champs"]["tel"]["estValide"] = true;
         }
 
@@ -213,12 +226,20 @@ class ControleurCompte {
         return $tValidation;
     }
 
-    public function validerConnexion(): bool {
+    public function validerConnexion(): array {
         $formulaireValide = true;
+        $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesConnexion.json');
+        $tMessages = json_decode($fichierJSON, true);
+        $tValidation = [
+            "champs" => [],
+            "formulaireValide" => true,
+        ];
 
         $courriel = null;
+        $cryptMdp = null;
         if (isset($_POST["email"])) {
             $courriel = $_POST["email"];
+            $cryptMdp = User::getHash($courriel);
         }
 
         $mdp = null;
@@ -231,15 +252,38 @@ class ControleurCompte {
             "mdp" => "#(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$#"
         ];
 
-        if (!preg_match($regex["courriel"], $courriel)) $formulaireValide = false;
-        if (!preg_match($regex["mdp"], $mdp)) $formulaireValide = false;
-
-        if ($formulaireValide) {
-            echo "Formulaire valide";
+        if (!preg_match($regex["courriel"], $courriel)) {
+            //$formulaireValide = false;
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["email"]["message"] = $tMessages["email"]["pattern"];
+            $tValidation["champs"]["email"]["valeur"] = $courriel;
+            $tValidation["champs"]["email"]["estValide"] = false;
         } else {
-            echo "Invalide";
+            $tValidation["champs"]["email"]["valeur"] = $courriel;
+            $tValidation["champs"]["email"]["estValide"] = true;
+        }
+        if (!preg_match($regex["mdp"], $mdp)) {
+            //$formulaireValide = false;
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["mdp"]["message"] = $tMessages["mdp"]["pattern"];
+            $tValidation["champs"]["mdp"]["valeur"] = $mdp;
+            $tValidation["champs"]["mdp"]["estValide"] = false;
+        } elseif (!password_verify($mdp, $cryptMdp)) {
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["mdp"]["message"] = $tMessages["mdp"]["missmatch"];
+            $tValidation["champs"]["mdp"]["valeur"] = $mdp;
+            $tValidation["champs"]["mdp"]["estValide"] = false;
+        } else {
+            $tValidation["champs"]["mdp"]["valeur"] = $mdp;
+            $tValidation["champs"]["mdp"]["estValide"] = true;
         }
 
-        return $formulaireValide;
+//        if ($formulaireValide) {
+//            echo "Formulaire valide";
+//        } else {
+//            echo "Invalide";
+//        }
+
+        return $tValidation;
     }
 }

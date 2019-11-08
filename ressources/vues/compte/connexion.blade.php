@@ -6,11 +6,31 @@
             <h3 class="titre_formulaire">Connectez-vous</h3>
             <form action="index.php?controleur=compte&action=connecter" method="POST">
                 <label for="email">Adresse courriel</label>
-                <input class="champ_formulaire" type="email" name="email" id="email">
+                <input type="email" name="email" id="email"
+                    @if(!$tValidation["formulaireValide"])
+                        value="{{$tValidation["champs"]["email"]["valeur"]}}"
+                        class="champ_formulaire champ_invalide"
+                    @else
+                        class="champ_formulaire"
+                    @endif
+                >
+                @if(!$tValidation["champs"]["email"]["estValide"])
+                    <p>{{$tValidation["champs"]["email"]["message"]}}</p>
+                @endif
                 <br>
 
                 <label for="mdp">Mot de passe</label>
-                <input class="champ_formulaire" type="password" name="mdp" id="mdp">
+                <input class="champ_formulaire" type="password" name="mdp" id="mdp"
+                    @if(!$tValidation["formulaireValide"])
+                        value="{{$tValidation["champs"]["mdp"]["valeur"]}}"
+                        class="champ_formulaire champ_invalide"
+                    @else
+                        class="champ_formulaire"
+                    @endif
+                >
+                @if(!$tValidation["champs"]["mdp"]["estValide"])
+                    <p>{{$tValidation["champs"]["mdp"]["message"]}}</p>
+                @endif
                 <br>
 
                 <div class="connexion__formulaire__afficher_mdp">
