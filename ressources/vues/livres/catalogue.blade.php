@@ -45,6 +45,7 @@
                 </div>
 
                 <div class="catalogue__alignementDesktop">
+                {{-- onkeyup, recherche par titre, auteur, type -- Méthode dans controleurSite qui appelle des nouveaux getter dans Auteur -- Nouveau fragment 'recherche' dans l'en-tête --                  --}}
                     <input type="text" class="catalogue__rechercher">
                     <input type="submit" class="catalogue__rechercher catalogue__rechercher__bouton" value="Rechercher">
                     <div class="catalogue__trier">

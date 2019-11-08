@@ -204,8 +204,8 @@ class App
                 case "livraison":
                     $this->monControleur->livraison();
                     break;
-                case "insererAdresse":
-                    $this->monControleur->insererAdresse();
+                case "insererAdresseSession":
+                    $this->monControleur->insererAdresseSession();
                     break;
             }
         } else if ($controleur === "facturation") {
@@ -213,6 +213,9 @@ class App
             switch ($action) {
                 case "facturation":
                     $this->monControleur->facturation();
+                    break;
+                case "insererModePaiementSession":
+                    $this->monControleur->insererModePaiementSession();
                     break;
             }
         } else if ($controleur === "validation") {

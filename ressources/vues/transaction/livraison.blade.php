@@ -11,15 +11,16 @@
 
         <div class="transaction__background">
             <p class="transaction__sous-titre">Adresse de livraison</p>
-            <form action="index.php?controleur=livraison&action=insererAdresse" method="post">
+            <form action="index.php?controleur=livraison&action=insererAdresseSession" method="post">
                 <p class="livraison__label">Nom :</p>
-                <input class="livraison__input" type="text" name="nom"/>
+                <input class="livraison__input" type="text" name="nom" value="{{$nom}}"/>
+                <span></span>
                 <p class="livraison__label">Prénom :</p>
-                <input class="livraison__input" type="text" name="prenom"/>
+                <input class="livraison__input" type="text" name="prenom" value="{{$prenom}}"/>
                 <p class="livraison__label">Adresse :</p>
-                <input class="livraison__input" type="text" name="adresse"/>
+                <input class="livraison__input" type="text" name="adresse" value="{{$adresse}}"/>
                 <p class="livraison__label">Ville :</p>
-                <input class="livraison__input" type="text" name="ville"/>
+                <input class="livraison__input" type="text" name="ville" value="{{$ville}}"/>
                 <p class="livraison__label">Province :</p>
                 <select class="livraison__input" name="abbrProvince">
                     <option value="AB">Alberta</option>
@@ -38,7 +39,7 @@
                 </select>
                 <p class="livraison__label">Code Postal : <span class="livraison__label--exemple">Ex.: A1A 1A1</span>
                 </p>
-                <input class="livraison__input" type="text" name="codePostal"/>
+                <input class="livraison__input" type="text" name="codePostal" value="{{$codePostal}}"/>
                 <div class="livraison__checkbox">
                     <input name="estDefaut" type="checkbox" checked/>
                     <p class="livraison__checkbox--label">Adresse de livraison par défaut</p>
@@ -47,7 +48,7 @@
                     <input name="adresseFacturation" type="checkbox" checked/>
                     <p class="livraison__checkbox--label">Utiliser comme adresse de facturation</p>
                 </div>
-                <input type="submit" class="transaction__centrer transaction__bouton" value="LIVRER À CETTE ADRESSE" />
+                <input type="submit" class="transaction__centrer transaction__bouton" value="LIVRER À CETTE ADRESSE"/>
             </form>
         </div>
     </div>
