@@ -1,7 +1,8 @@
 {
   "email": {
     "vide": "Veuillez entrer une adresse courriel afin de vous connecter",
-    "pattern": "Veuillez entrer une adresse courriel valide"
+    "pattern": "Veuillez entrer une adresse courriel valide",
+    "nonexistent": "Cette adresse courriel n'est associee a aucun compte, veuillez vous inscrire pour vous connecter"
   },
   "mdp": {
     "vide": "Veuillez entrer votre mot de passe",

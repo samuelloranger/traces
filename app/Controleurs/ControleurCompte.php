@@ -227,6 +227,7 @@ class ControleurCompte {
     }
 
     public function validerConnexion(): array {
+        $userExiste = false;
         $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesConnexion.json');
         $tMessages = json_decode($fichierJSON, true);
         $tValidation = [
@@ -234,8 +235,8 @@ class ControleurCompte {
             "formulaireValide" => true,
         ];
 
-        $courriel = null;
-        $cryptMdp = null;
+        $courriel = "";
+        $cryptMdp = "";
         if (isset($_POST["email"])) {
             $courriel = $_POST["email"];
             $cryptMdp = User::getHash($courriel);
@@ -251,6 +252,12 @@ class ControleurCompte {
             "mdp" => "#(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$#"
         ];
 
+        //Verification si l'utilisateur existe dans la base de donnees
+        if (User::trouverParCourriel($courriel)) {
+            $userExiste = true;
+        }
+
+        //Verification de la validite du courriel
         if (!preg_match($regex["courriel"], $courriel)) {
             //$formulaireValide = false;
             $tValidation["formulaireValide"] = false;
@@ -261,20 +268,34 @@ class ControleurCompte {
             $tValidation["champs"]["email"]["valeur"] = $courriel;
             $tValidation["champs"]["email"]["estValide"] = true;
         }
-        if (!preg_match($regex["mdp"], $mdp)) {
-            //$formulaireValide = false;
+
+        //Si l'utilisateur existe
+        if ($userExiste) {
+            //Verification de la validite du mot de passe
+            if (!preg_match($regex["mdp"], $mdp)) { //Si le mot de passe est invalide
+                $tValidation["formulaireValide"] = false;
+                $tValidation["champs"]["mdp"]["message"] = $tMessages["mdp"]["pattern"];
+                $tValidation["champs"]["mdp"]["valeur"] = $mdp;
+                $tValidation["champs"]["mdp"]["estValide"] = false;
+            } elseif (!password_verify($mdp, $cryptMdp)) { //Si le mot de passe est valide mais il n'est pas bon
+                $tValidation["formulaireValide"] = false;
+                $tValidation["champs"]["mdp"]["message"] = $tMessages["mdp"]["missmatch"];
+                $tValidation["champs"]["mdp"]["valeur"] = $mdp;
+                $tValidation["champs"]["mdp"]["estValide"] = false;
+            } else { //Si le mot de passe est valide ET qu'il est bon
+                $tValidation["champs"]["mdp"]["valeur"] = $mdp;
+                $tValidation["champs"]["mdp"]["estValide"] = true;
+            }
+        } else { //Si le compte n'existe pas
             $tValidation["formulaireValide"] = false;
-            $tValidation["champs"]["mdp"]["message"] = $tMessages["mdp"]["pattern"];
+            $tValidation["champs"]["email"]["message"] = $tMessages["email"]["nonexistent"];
+            $tValidation["champs"]["email"]["valeur"] = $courriel;
+            $tValidation["champs"]["email"]["estValide"] = false;
+
+            $tValidation["formulaireValide"] = false;
+            $tValidation["champs"]["mdp"]["message"] = "";
             $tValidation["champs"]["mdp"]["valeur"] = $mdp;
             $tValidation["champs"]["mdp"]["estValide"] = false;
-        } elseif (!password_verify($mdp, $cryptMdp)) {
-            $tValidation["formulaireValide"] = false;
-            $tValidation["champs"]["mdp"]["message"] = $tMessages["mdp"]["missmatch"];
-            $tValidation["champs"]["mdp"]["valeur"] = $mdp;
-            $tValidation["champs"]["mdp"]["estValide"] = false;
-        } else {
-            $tValidation["champs"]["mdp"]["valeur"] = $mdp;
-            $tValidation["champs"]["mdp"]["estValide"] = true;
         }
 
         return $tValidation;
