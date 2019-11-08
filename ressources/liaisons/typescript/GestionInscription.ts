@@ -1,9 +1,3 @@
-// interface IEtatChamps {
-//     [key: string]: {
-//         estValide: boolean;
-//     }
-// }
-
 export class GestionInscription {
     private tChampsFormulaire:[HTMLInputElement] = Array.apply(null, document.querySelectorAll(".champ_formulaire"));
     private objValidation = {};
