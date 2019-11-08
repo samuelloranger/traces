@@ -6,7 +6,7 @@
             <div class="image_accueil__conteneur__contenu">
                 <h1 style="display: none;">Traces</h1>
                 <div class="image_accueil__conteneur__contenu__logo">
-                    <img src="../public/liaisons/images/logo-traces.svg" alt="">
+                    <img src="liaisons/images/logo-traces.svg" alt="">
                     <h1>L'histoire de l'avant</h1>
 
                 </div>
@@ -17,9 +17,9 @@
 
         </div>
         <picture class="image_accueil__picture">
-            <source media="(max-width: 850px)" srcset="../public/liaisons/images/accueil/background_accueil_mobile.jpg">
-            <source media="(min-width: 850px)" srcset="../public/liaisons/images/accueil/background_accueil_desktop.jpg">
-            <img src="../public/liaisons/images/accueil/background_accueil_desktop.jpg" alt="image de la librairie">
+            <source media="(max-width: 850px)" srcset="liaisons/images/accueil/background_accueil_mobile.jpg">
+            <source media="(min-width: 850px)" srcset="liaisons/images/accueil/background_accueil_desktop.jpg">
+            <img src="liaisons/images/accueil/background_accueil_desktop.jpg" alt="image de la librairie">
         </picture>
     </div>
 @endsection
