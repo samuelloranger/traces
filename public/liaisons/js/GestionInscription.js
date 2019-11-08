@@ -5,6 +5,7 @@ define(["require", "exports"], function (require, exports) {
         function GestionInscription() {
             var _this = this;
             this.tChampsFormulaire = Array.apply(null, document.querySelectorAll(".champ_formulaire"));
+            this.togglePassword = document.querySelector(".toggle");
             this.objValidation = {};
             this.formulaireValide = true;
             this.objEtatChamps = null;
@@ -13,6 +14,7 @@ define(["require", "exports"], function (require, exports) {
                 _this.tChampsFormulaire.forEach(function (champ) {
                     champ.addEventListener("blur", _this.validerChamp);
                 });
+                _this.togglePassword.addEventListener("change", _this.toggleMotPasse);
                 _this.verifierFormulaire();
             };
             this.validerChamp = function (e) {
@@ -26,6 +28,31 @@ define(["require", "exports"], function (require, exports) {
                 //console.log(conteneurParent.children);
                 //console.log(champValide);
                 if (champValide) {
+                    if (champ.name === "email") {
+                        _this.verifierCourriel(valeur)
+                            .then(function (resolve) {
+                            if (resolve === "true") {
+                                _this.objEtatChamps[champ.name].estValide = false;
+                                if (paragrapheRetro.innerText === "") {
+                                    paragrapheRetro.innerHTML = _this.objValidation[champ.name].taken;
+                                }
+                                if (champ.classList.contains("champ_valide")) {
+                                    champ.classList.remove("champ_valide");
+                                }
+                                champ.classList.add("champ_invalide");
+                            }
+                            else if (resolve === "false") {
+                                _this.objEtatChamps[champ.name].estValide = true;
+                                if (paragrapheRetro.innerHTML !== "") {
+                                    paragrapheRetro.innerHTML = "";
+                                }
+                                if (champ.classList.contains("champ_invalide")) {
+                                    champ.classList.remove("champ_invalide");
+                                }
+                                champ.classList.add("champ_valide");
+                            }
+                        });
+                    }
                     //conteneurParent.removeChild(paragrapheRetro);
                     if (paragrapheRetro.innerHTML !== "") {
                         paragrapheRetro.innerHTML = "";
@@ -56,7 +83,38 @@ define(["require", "exports"], function (require, exports) {
                     _this.objEtatChamps.tel.estValide &&
                     _this.objEtatChamps.mdp.estValide &&
                     _this.objEtatChamps.c_mdp.estValide;
+                if (!_this.formulaireValide) {
+                    document.getElementById("inscrire").setAttribute("disabled", "disabled");
+                }
+                else {
+                    document.getElementById("inscrire").removeAttribute("disabled");
+                }
                 console.log("formulaire valide: ", _this.formulaireValide);
+            };
+            this.verifierCourriel = function (courriel) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        url: "index.php?controleur=compte&action=verifierCourriel",
+                        type: "POST",
+                        data: "email=" + courriel,
+                        dataType: "html",
+                    })
+                        .done(function (data, textStatus, jqXHR) {
+                        resolve(data);
+                    });
+                });
+            };
+            this.toggleMotPasse = function (e) {
+                var checkbox = e.currentTarget;
+                var inputPassword = document.querySelector("[name='mdp']");
+                console.log(inputPassword);
+                console.log(checkbox.checked);
+                if (checkbox.checked) {
+                    inputPassword.setAttribute("type", "text");
+                }
+                else {
+                    inputPassword.setAttribute("type", "password");
+                }
             };
             this.initialiserEtat = function () {
                 return {

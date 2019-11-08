@@ -108,7 +108,7 @@
 
 
                 <div class="inscription__formulaire__afficher_mdp">
-                    <input type="checkbox" name="afficher_mdp" id="afficher_mdp">
+                    <input class="toggle" type="checkbox" name="afficher_mdp" id="afficher_mdp">
                     <label for="afficher_mdp"></label>
                     <span>Afficher le mot de passe</span>
                     <a class="inscription__formulaire__lien" href="#">Mot de passe oublie?</a>
@@ -135,7 +135,7 @@
                 </div>
 
 
-                <input class="bouton_panier" type="submit" value="S'inscrire">
+                <input id="inscrire" class="bouton_panier" type="submit" value="S'inscrire">
             </form>
         </div>
         <div class="inscription__deja_client bloc_formulaire">

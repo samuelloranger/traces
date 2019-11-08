@@ -249,6 +249,8 @@ class App
                     case "deconnexion":
                         $this->monControleur->deconnecter();
                         break;
+                    case "verifierCourriel":
+                        $this->monControleur->verifierCourriel();
                 }
             } else {
                 echo 'Erreur 404';

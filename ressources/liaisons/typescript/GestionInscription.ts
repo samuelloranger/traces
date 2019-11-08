@@ -1,5 +1,6 @@
 export class GestionInscription {
     private tChampsFormulaire:[HTMLInputElement] = Array.apply(null, document.querySelectorAll(".champ_formulaire"));
+    private togglePassword = document.querySelector(".toggle");
     private objValidation = {};
 
 
@@ -32,6 +33,7 @@ export class GestionInscription {
         this.tChampsFormulaire.forEach(champ => {
             champ.addEventListener("blur", this.validerChamp);
         });
+        this.togglePassword.addEventListener("change", this.toggleMotPasse);
         this.verifierFormulaire();
     };
 
@@ -41,14 +43,46 @@ export class GestionInscription {
         const pattern = new RegExp(champ.pattern);
         let champValide = pattern.test(valeur);
 
+
+
         //const conteneurParent = champ.closest("div");
         const paragrapheRetro = document.getElementById(`retro-${champ.name}`);
 
         console.log(champ.name);
         //console.log(conteneurParent.children);
 
+
+
         //console.log(champValide);
         if (champValide) {
+
+            if (champ.name === "email") {
+                this.verifierCourriel(valeur)
+                    .then((resolve) => {
+                        if (resolve === "true") {
+
+                            this.objEtatChamps[champ.name].estValide = false;
+                            if (paragrapheRetro.innerText === "") {
+                                paragrapheRetro.innerHTML = this.objValidation[champ.name].taken;
+                            }
+                            if (champ.classList.contains("champ_valide")) {
+                                champ.classList.remove("champ_valide");
+                            }
+                            champ.classList.add("champ_invalide");
+
+                        } else if(resolve === "false") {
+                            this.objEtatChamps[champ.name].estValide = true;
+                            if (paragrapheRetro.innerHTML !== "") {
+                                paragrapheRetro.innerHTML = ""
+                            }
+                            if (champ.classList.contains("champ_invalide")) {
+                                champ.classList.remove("champ_invalide");
+                            }
+                            champ.classList.add("champ_valide");
+                        }
+                    });
+            }
+
             //conteneurParent.removeChild(paragrapheRetro);
             if (paragrapheRetro.innerHTML !== "") {
                 paragrapheRetro.innerHTML = ""
@@ -83,7 +117,40 @@ export class GestionInscription {
             this.objEtatChamps.mdp.estValide &&
             this.objEtatChamps.c_mdp.estValide;
 
+        if (!this.formulaireValide) {
+            document.getElementById("inscrire").setAttribute("disabled", "disabled");
+        } else {
+            document.getElementById("inscrire").removeAttribute("disabled");
+        }
+
         console.log("formulaire valide: ", this.formulaireValide)
+    };
+
+    private verifierCourriel = (courriel:string) => {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "index.php?controleur=compte&action=verifierCourriel",
+                type: "POST",
+                data: `email=${courriel}`,
+                dataType: "html",
+            })
+                .done((data, textStatus, jqXHR) => {
+                    resolve(data);
+                })
+        })
+    };
+
+    private toggleMotPasse = (e) => {
+        const checkbox = e.currentTarget;
+        const inputPassword = document.querySelector("[name='mdp']");
+        console.log(inputPassword);
+        console.log(checkbox.checked);
+
+        if (checkbox.checked) {
+            inputPassword.setAttribute("type", "text");
+        } else {
+            inputPassword.setAttribute("type", "password");
+        }
     };
 
 

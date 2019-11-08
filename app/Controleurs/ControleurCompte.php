@@ -311,4 +311,19 @@ class ControleurCompte {
 
         return $tValidation;
     }
+
+    public function verifierCourriel(): void {
+        $userExiste = "false";
+
+        $courriel = "";
+        if (isset($_POST["email"])) {
+            $courriel = $_POST["email"];
+        }
+
+        if (User::trouverParCourriel($courriel)) {
+            $userExiste = "true";
+        }
+
+        echo $userExiste;
+    }
 }

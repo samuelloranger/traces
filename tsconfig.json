@@ -3,7 +3,13 @@
     "module": "amd",
     "target": "es5",
     "outDir":"./public/liaisons/js/",
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "es2015.promise"
+    ]
   },
   "exclude": [
     "node_modules"
