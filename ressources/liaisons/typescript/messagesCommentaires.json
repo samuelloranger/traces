@@ -1,0 +1,28 @@
+{
+  "idClient": {
+    "vide": "L'id du client n'a pas été trouvé... Que s'est-il passé?",
+    "invalide": "L'id du client est incorrect... Que s'est-il passé?"
+  },
+  "isbn": {
+    "vide": "L'isbn du livre n'a pas été trouvé... Que s'est-il passé?",
+    "invalide": "L'isbn du livre est invalide... Que s'est-til passé?"
+  },
+  "titre_commentaire": {
+    "vide": "Veuillez entrer un titre à votre commentaire.",
+    "longueur": {
+      "court": "Le titre entré est trop court...",
+      "long": "Le titre entré est trop long..."
+    }
+  },
+  "texte_commentaire": {
+    "vide": "Veuillez entrer un texte à votre commentaire.",
+    "longueur": {
+      "court": "Le texte entré est trop court...",
+      "long": "Le texte entré est trop long..."
+    }
+  },
+  "cote": {
+    "vide": "Veuillez entrer une cote à votre commentaire.",
+    "invalide": "La cote doit être comprise entre 1 et 5 inclus."
+  }
+}

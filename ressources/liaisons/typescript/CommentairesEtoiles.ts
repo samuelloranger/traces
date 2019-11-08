@@ -9,6 +9,11 @@ export class CommentairesEtoiles {
         this.initialiser();
     }
 
+    public recharger = () => {
+        this.arrZoneEtoiles = Array.apply(null, document.querySelectorAll(".zoneEtoiles"));
+        this.initialiser();
+    };
+
     private initialiser = () => {
         //Pour chaque commentaire
         this.arrZoneEtoiles.forEach((zoneEtoile) => {

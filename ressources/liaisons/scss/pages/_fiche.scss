@@ -11,6 +11,16 @@
     display: none;
   }
 
+  .boutonEnvoyerCommentaire{
+    &NoScript{
+      display: none;
+    }
+
+    &Script{
+      display: block !important;
+    }
+  }
+
   .qteCourante{
     pointer-events: none !important;
   }
@@ -86,8 +96,6 @@
 
               .select{
                 position: relative;
-
-
 
                 .formatLivre{
                   display: block;
@@ -203,6 +211,8 @@
                 border-radius: 35px;
                 margin: 5% auto 0 auto;
                 @include fontSize(18px);
+                transition: 0.25s ease-in-out;
+                transform: scale(0.92);
 
                 @media(min-width: $DESKTOP-NORMAL){
                   margin: 18% auto 0 auto;
@@ -217,6 +227,10 @@
                   background-size: contain;
                   background-repeat: no-repeat;
                   margin-left: 5px;
+                }
+
+                &:hover{
+                  transform: scale(1);
                 }
               }
 
@@ -257,6 +271,98 @@
 
                 img{
                   max-width: 100%;
+                }
+              }
+            }
+          }
+
+          .formulaireNouveauCommentaire{
+            background-color: $GRIS_PALE;
+            padding: 15px;
+            border-radius: 35px;
+
+            .messageConnection{
+              color: red;
+            }
+
+            .elementFormCommentaire{
+              &--erreur{
+                border: 2px solid red;
+              }
+            }
+
+            .conteneurElemForm{
+              display: flex;
+              flex-direction: column;
+            }
+
+            .texte_commentaire{
+              height: 175px;
+              max-height: 175px;
+              max-width: 100%;
+            }
+
+            .cote {
+              max-width: 50px;
+            }
+
+            .erreur{
+              color: red;
+              margin-top: 8px;
+              display: flex;
+              align-content: center;
+
+              &--icone{
+                &:before{
+                  content: "";
+                  display: inline-block;
+                  width: 24px;
+                  height: 24px;
+                  margin-right: 5px;
+                  background-image: url("../images/icones/error.svg");
+                  background-size: contain;
+                  background-repeat: no-repeat;
+                }
+              }
+            }
+
+            .zoneConfirmationAchat{
+              margin-top: 10px;
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: flex-end;
+              align-items: center;
+
+              input{
+                margin-right: 10px;
+              }
+            }
+
+            .boutonEnvoyerCommentaire{
+              border-radius: 35px;
+              border: none;
+              width: 150px;
+              padding: 2% 0;
+              background-color: $TURQUOISE;
+              color: white;
+              transition: 0.25s ease-in-out;
+              transform: scale(0.92);
+              margin: 15px 0 0 auto;
+
+              &Script{
+                display: none;
+              }
+
+              &:hover{
+                transform: scale(1);
+              }
+
+              &:disabled{
+                background-color: $GRIS_FONCE;
+                color: rgba(255, 255, 255, 0.5);
+
+                &:hover{
+                  transform: scale(0.92);
                 }
               }
             }

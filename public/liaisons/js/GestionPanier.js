@@ -52,9 +52,11 @@ define(["require", "exports"], function (require, exports) {
                         _this.changerFraisLivraison(_this.selecteurFraisLivraison.value);
                     });
                 }
-                _this.btnFermerFenetreModale.addEventListener("click", function () {
-                    _this.toggleFenetreModale("fermer");
-                });
+                if (_this.urlParams.get("controleur") !== "livraison") {
+                    _this.btnFermerFenetreModale.addEventListener("click", function () {
+                        _this.toggleFenetreModale("fermer");
+                    });
+                }
             };
             /**
              * Fonction majItemPanierHeader

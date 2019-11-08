@@ -11,5 +11,5 @@ use App\App;
 //}
 //catch(Throwable $error){
 //    echo "Revenez plus tard";
-//    error_log($error->getTraceAsString() . "\n", 3, "../ressources/error_log.txt");
+//    error_log($error->getTraceAsString() . "\n", 1, "../ressources/error_log.txt");
 //}

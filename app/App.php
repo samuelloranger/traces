@@ -177,6 +177,9 @@ class App
                 case "fenetreModale":
                     $this->monControleur->fenetreModale();
                     break;
+                case "ajouterCommentaire":
+                    $this->monControleur->ajouterCommentaire();
+                    break;
                 default:
                     echo 'Erreur 404';
             }

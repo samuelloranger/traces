@@ -5,6 +5,9 @@
  */
 
 export class Menu{
+    //Attributs de classe
+    private urlParams:URLSearchParams = new URLSearchParams(window.location.search);
+
     //Éléments HTML
     private header:HTMLElement = document.querySelector(".header");
     private body:HTMLElement = document.querySelector("body");
@@ -14,27 +17,39 @@ export class Menu{
     private conteneneurMenu:HTMLElement = document.querySelector(".navigation__mobile__menu");
     private zoneLangue:HTMLElement = document.querySelector(".zoneLangue");
     private zoneIcones:HTMLElement = document.querySelector(".navigation__mobile__top .zoneIcones");
-    private arrIcones:Array<HTMLElement> = Array.apply(null, this.zoneIcones.querySelectorAll(".icone"));
+    private arrIcones: Array<HTMLElement> = null;
 
     //Éléments personnalisation
     private hauteurChangementMenuAccueil = 525;
 
-    private urlParams:URLSearchParams = new URLSearchParams(window.location.search);
-
-    constructor(){
+    /**
+     * Constructeur de la classe
+     * @description Gère ce qui arrive à l'instanciation de la classe
+     */
+    constructor() {
         this.ajouterEcouteursEvements();
+
+        if (this.urlParams.get("controleur") !== "livraison") {
+            this.arrIcones = Array.apply(null, this.zoneIcones.querySelectorAll(".icone"));
+        }
     }
 
+    /**
+     * Fonction ajouterEcouteursEvements
+     * @description Ajoute les écouteurs d'évènements sur les éléments du menu
+     */
     private ajouterEcouteursEvements = () => {
-        this.btnMenu.addEventListener("click", () => {
-            this.gererMenuMobile();
-        });
+        if(this.urlParams.get("controleur") !== "livraison") {
+            this.btnMenu.addEventListener("click", () => {
+                this.gererMenuMobile();
+            });
+        }
 
         if(this.getPageAccueil()){
             this.instancierMenuAccueil();
 
-            document.addEventListener("scroll", () =>{
-                this.gererMenuAccueil();
+            document.addEventListener("scroll" , () => {
+                this.gererMenuAccueil()
             });
         }
     };
@@ -42,23 +57,25 @@ export class Menu{
     /**
      * Méthodes
      */
+    /**
+     * Fonction instancierMenuAccueil
+     * @description Gère l'instanciation du menu si on est sur la page d'accueil
+     */
     private instancierMenuAccueil = () => {
-        if(this.getPageAccueil()){
-            this.header.classList.add("header--transparent");
-            this.conteneurMenu.classList.add("conteneurMenu--grand")
+        this.header.classList.add("header--transparent");
+        this.conteneurMenu.classList.add("conteneurMenu--grand")
 
-            this.logoTraces.forEach((logo) => {
-                logo.classList.add("logoTraces--cache");
-            });
-        }
+        this.logoTraces.forEach((logo) => {
+            logo.classList.add("logoTraces--cache");
+        });
     };
 
-
+    /**
+     * Fonction gererMenuAccueil
+     * @description Gère le menu si on est sur l'accueil
+     */
     private gererMenuAccueil = () => {
         const height = window.pageYOffset;
-
-        console.log("test" + height);
-
 
         if(height > this.hauteurChangementMenuAccueil){
             if(this.header.classList.contains("header--transparent")){
@@ -85,6 +102,10 @@ export class Menu{
         }
     };
 
+    /**
+     * Fonction gererMenuMobile
+     * @description Gère les actions du menu mobile
+     */
     private gererMenuMobile = () => {
         if(this.conteneneurMenu.classList.contains("navigation__mobile__menu--ferme")){
             if(this.getPageAccueil()){
@@ -137,6 +158,12 @@ export class Menu{
 
     /**
      * Méthodes utilitaires
+     */
+
+    /**
+     * Fonction getPageAccueil
+     * @description Teste si l'utilisateur se retrouve sur la page d'accueil
+     * @return boolean Vrai si l'utilisateur est sur l'accueil - Faux si l'utilisateur n'est pas sur l'accueil
      */
     private getPageAccueil = ():boolean => {
         const controleur = this.urlParams.get("controleur");

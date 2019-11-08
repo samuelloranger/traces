@@ -119,30 +119,7 @@
                 @endif
 
                 <div class="zoneCommentaires">
-                    <h2>Commentaires de lecteurs</h2>
-                    <div class="commentaire">
-                        <h3>Adoré ce livre!</h3>
-                        <p class="auteur">Samuel Loranger</p>
-                        <div class="zoneEtoiles zoneEtoiles4"></div>
-                        <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
-                        <p><span class="achatVerif">Achat vérifié</span></p>
-                    </div>
-
-                    <div class="commentaire">
-                        <h3>Adoré ce livre!</h3>
-                        <p class="auteur">Zachary Nicol</p>
-                        <div class="zoneEtoiles zoneEtoiles5"></div>
-                        <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
-                        <p><span class="achatVerif">Achat vérifié</span></p>
-                    </div>
-
-                    <div class="commentaire">
-                        <h3>Adoré ce livre!</h3>
-                        <p class="auteur">Olivier Papineau</p>
-                        <div class="zoneEtoiles zoneEtoiles3"></div>
-                        <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
-                        <p><span class="achatVerif">Achat vérifié</span></p>
-                    </div>
+                    @include("livres.fragments.commentaires")
                 </div>
             </div>
         </div>

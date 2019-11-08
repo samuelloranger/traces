@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
+use App\Modeles\Commentaires;
 use App\Util;
 use App\Modeles\Honneur;
 use App\Modeles\Categories;
@@ -14,10 +15,16 @@ class ControleurLivre
 {
     private $blade = null;
     private $panier = null;
+    private $session = null;
+    private $tMessages = null;
 
     public function __construct(){
         $this->blade = App::getInstance()->getBlade();
         $this->panier = App::getInstance()->getPanier();
+        $this->session = App::getInstance()->getSession();
+
+        $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesCommentaires.json');
+        $this->tMessages = json_decode($fichierJSON, true);
     }
 
     /**
@@ -100,7 +107,7 @@ class ControleurLivre
          * Définition de l'array des données
          */
         $tDonnees = array_merge(
-                Util::getInfosPanier(),
+                Util::getInfosHeader(),
                 array("nbResultats" => $nbResultats),
                 array("arrLivres" => $arrLivres),
                 array("arrCategories" => $arrCategories),
@@ -116,15 +123,20 @@ class ControleurLivre
         echo $this->blade->run("livres.catalogue", $tDonnees);
     }
 
-    public function fiche():void {
+    public function fiche($arrErreursFormCommentaire = array()):void {
         $isbnLivre = "0";
         if (isset($_GET["isbn"])) {
             $isbnLivre = $_GET["isbn"];
         }
+        else{
+            if(isset($_POST["isbn"])){
+                $isbnLivre = $_POST["isbn"];
+            }
+        }
 
         $infosLivre = Livre::trouverParIsbn($isbnLivre);
         if ($infosLivre == false) {
-            header('Location: 404.php');
+            header('Location: index.php');
         }
 
         $filAriane = App::getInstance()->getFilAriane();
@@ -148,16 +160,167 @@ class ControleurLivre
             $honneur->description = Util::couperParagraphe($honneur->description, 100);
         }
 
+        //Commentaires
+        $arrCommentaires = Commentaires::trouverParISBN($infosLivre->__get("isbn"));
+
+        //Temporaire en attendant la fin du compte
+        $this->session->setItem("idClient", 2);
+        $idClient = $this->session->getItem("idClient");
+
+        $formCommContientErreur = count($arrErreursFormCommentaire) !== 0;
+
         $arrInfos = array_merge(
-            Util::getInfosPanier(),
+            Util::getInfosHeader(),
             array("livre" => $infosLivre),
             array("arrRecensions" => $arrRecensions),
             array("arrHonneurs" => $arrHonneurs),
-            array("filAriane" => $filAriane)
+            array("arrCommentaires" => $arrCommentaires),
+            array("idClient" => $idClient),
+            array("filAriane" => $filAriane),
+            array("formCommContientErreur" => $formCommContientErreur),
+            array("arrErreurs" => $arrErreursFormCommentaire)
         );
 
         $tDonnees = array_merge($arrInfos, ControleurSite::getDonneeFragmentPiedDePage());;
         echo $this->blade->run("livres.fiche", $tDonnees);
+    }
+
+    public function ajouterCommentaire():void{
+        $idClientConnecte = $this->session->getItem("idClient");
+        $arrErreurs = [];
+        $formCommContientErreur = false;
+
+        //Validation commentaire côté serveur
+        $idClient = 0;
+        if(isset($_POST["idClient"])){
+            $idClientEntre = $_POST["idClient"];
+
+            //Validation
+            if($idClientEntre == intval($idClientConnecte)){
+                $idClient = intval($idClientEntre);
+            }
+            else{
+                if($idClientEntre == ""){
+                    $arrErreurs["idClient"] = $this->tMessages["idClient"]["vide"];
+                    $formCommContientErreur = true;
+                }
+                else{
+                    $arrErreurs["idClient"] = $this->tMessages["idClient"]["invalide"];
+                    $formCommContientErreur = true;
+                }
+            }
+        }
+
+        $isbn = "";
+        if(isset($_POST["isbn"])){
+            $isbnEntre = $_POST["isbn"];
+
+            if(Util::validerISBN($isbnEntre)){
+                $isbn = $isbnEntre;
+            }
+            else{
+                if($isbnEntre == ""){
+                    $arrErreurs["isbn"] = $this->tMessages["isbn"]["vide"];
+                    $formCommContientErreur = true;
+                }
+                else{
+                    $arrErreurs["isbn"] = $this->tMessages["isbn"]["invalide"];
+                    $formCommContientErreur = true;
+                }
+            }
+        }
+
+        $titre_commentaire = "";
+        if(isset($_POST["titre_commentaire"])){
+            $titre_commentaire = strip_tags($_POST["titre_commentaire"]);
+
+            if(strlen($titre_commentaire) > 50 ){
+                $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["longueur"]["long"];
+                $formCommContientErreur = true;
+            }
+            elseif(strlen($titre_commentaire) < 10){
+                $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["longueur"]["court"];
+                $formCommContientErreur = true;
+            }
+        }
+        else{
+            $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["vide"];
+            $formCommContientErreur = true;
+        }
+
+        $texte_commentaire = "";
+        if(isset($_POST["texte_commentaire"])){
+            $texte_commentaire = strip_tags($_POST["texte_commentaire"]);
+
+            if(strlen($texte_commentaire) > 255 ){
+                $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["longueur"]["long"];
+                $formCommContientErreur = true;
+            }
+            elseif(strlen($texte_commentaire) < 10){
+                $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["longueur"]["court"];
+                $formCommContientErreur = true;
+            }
+        }
+        else{
+            $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["vide"];
+            $formCommContientErreur = true;
+        }
+
+        $cote = "";
+        if(isset($_POST["cote"])){
+            $coteEntree = $_POST["cote"];
+
+            if(intval($coteEntree) <= 1 && intval($coteEntree) >= 5){
+                $arrErreurs["cote"] = $this->tMessages["cote"]["invalide"];
+                $formCommContientErreur = true;
+            }
+            else{
+                $cote = intval($coteEntree);
+            }
+        }
+        else{
+            $arrErreurs["cote"] = $this->tMessages["cote"]["vide"];
+            $formCommContientErreur = true;
+        }
+
+        $achatVerif = 0;
+        if(isset($_POST["achatVerif"])){
+            if($_POST["achatVerif"] == "verifie"){
+                $achatVerif = 1;
+            }
+        }
+
+        $isAjax = false;
+        if(isset($_POST["isAjax"])){
+            $isAjax = true;
+        }
+
+        //Insertion du nouveau commentaire
+        if(!$formCommContientErreur){
+            Commentaires::insererCommentaire($idClient, $isbn, $titre_commentaire, $texte_commentaire, $cote, $achatVerif);
+        }
+
+        //Informations nécéssaire pour l'affichage
+        $arrCommentaires = Commentaires::trouverParISBN($isbn);
+        $infosLivre = Livre::trouverParIsbn($isbn);
+
+        //Array des données envoyées à la vue
+        $arrDonnees = array_merge(
+            Util::getInfosHeader(),
+            array("arrCommentaires" => $arrCommentaires),
+            array("livre" => $infosLivre),
+            array("idClient" => $idClient),
+            array("arrErreurs" => $arrErreurs),
+            array("formCommContientErreur" => $formCommContientErreur)
+        );
+
+        if($isAjax){
+            echo $this->blade->run("livres.fragments.commentaires", $arrDonnees);
+        }
+        else{
+            $this->fiche($arrErreurs);
+        }
+
     }
 
     public function fenetreModale():void{

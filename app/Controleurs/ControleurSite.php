@@ -57,7 +57,7 @@ class ControleurSite
         $tDonnees = array_merge($tDonnees, ["arrCoupsCoeur" => $arrCoupsCoeur]);
         $tDonnees = array_merge($tDonnees, ["arrActualites" => $arrActualites]);
         $tDonnees = array_merge($tDonnees, ["panierVide" => $panierVide]);
-        $tDonnees = array_merge($tDonnees, ["nbrItemsPanier" => $nbrItemsPanier]);
+        $tDonnees = array_merge($tDonnees, Util::getInfosHeader());
 
         echo $this->blade->run("accueil",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
     }
