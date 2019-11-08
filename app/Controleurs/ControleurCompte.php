@@ -227,7 +227,6 @@ class ControleurCompte {
     }
 
     public function validerConnexion(): array {
-        $formulaireValide = true;
         $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesConnexion.json');
         $tMessages = json_decode($fichierJSON, true);
         $tValidation = [
@@ -277,12 +276,6 @@ class ControleurCompte {
             $tValidation["champs"]["mdp"]["valeur"] = $mdp;
             $tValidation["champs"]["mdp"]["estValide"] = true;
         }
-
-//        if ($formulaireValide) {
-//            echo "Formulaire valide";
-//        } else {
-//            echo "Invalide";
-//        }
 
         return $tValidation;
     }
