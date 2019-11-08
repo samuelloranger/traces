@@ -1,0 +1,18 @@
+{
+  "nom": {
+    "vide": "Vous devez entrer votre nom complet",
+    "pattern": "Ce nom ne respecte pas le format demandé"
+  },
+  "numeroCarte": {
+    "vide": "Vous devez entrer votre numéro de carte de crédit",
+    "pattern": "Veuillez entrer un numéro de carte valide"
+  },
+  "code": {
+    "vide": "Vous devez entrer votre code CVV",
+    "pattern": "Veuillez entrer un code CVV valide"
+  },
+  "dateExpiration": {
+    "vide": "Vous devez entrer la date d'expiration de votre carte",
+    "pattern": "Cette date d'expiration ne respecte pas le format demandé"
+  }
+}

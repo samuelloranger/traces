@@ -11,10 +11,12 @@ use App\Modeles\Adresse;
 class ControleurLivraison
 {
     private $blade = null;
+    private $session = null;
 
     public function __construct()
     {
         $this->blade = App::getInstance()->getBlade();
+        $this->session = App::getInstance()->getSession();
     }
 
     public function livraison(): void
@@ -28,7 +30,8 @@ class ControleurLivraison
                 array("prenom" => $this->tDonneesSaisies['prenom']),
                 array("adresse" => $this->tDonneesSaisies['adresse']),
                 array("ville" => $this->tDonneesSaisies['ville']),
-                array("codePostal" => $this->tDonneesSaisies['codePostal'])
+                array("codePostal" => $this->tDonneesSaisies['codePostal']),
+                array("tValidation" => $this->session->getItem("tValidation"))
             );
         } else {
             $tDonnees = array_merge(
@@ -38,7 +41,8 @@ class ControleurLivraison
                 array("prenom" => ""),
                 array("adresse" => ""),
                 array("ville" => ""),
-                array("codePostal" => "")
+                array("codePostal" => ""),
+                array("tValidation" => $this->session->getItem("tValidation"))
             );
         }
         echo $this->blade->run("transaction.livraison", $tDonnees);
@@ -46,14 +50,16 @@ class ControleurLivraison
 
     public function insererAdresseSession()
     {
-        $validerAdresse = $this->validerAdresse();
+        $tValidation = $this->validerAdresse();
+        $formulaireValide = $tValidation['formulaireValide'];
 
-        if ($validerAdresse === true) {
+        if ($formulaireValide === true) {
             $this->tDonneesSaisies = "";
             $_SESSION['livraison'] = $_POST;
             header("Location: index.php?controleur=facturation&action=facturation");
         } else {
             $this->tDonneesSaisies = $_POST;
+            $this->session->setItem("tValidation", $tValidation);
             $this->livraison();
         }
     }
@@ -81,8 +87,15 @@ class ControleurLivraison
 //        }
 //    }
 
-    public function validerAdresse(): bool
+    public function validerAdresse(): array
     {
+        $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesLivraison.json');
+        $tMessages = json_decode($fichierJSON, true);
+        $tValidation = [
+            "champs" => [],
+            "champsValide" => [],
+            "formulaireValide" => false
+        ];
         $regex = [
             "prenom" => "#[a-zA-Z]{3,30}$#",
             "nom" => "#[a-zA-Z]{3,30}$#",
@@ -94,75 +107,78 @@ class ControleurLivraison
         // Nom
         if ($_POST['nom'] !== "") {
             if (preg_match($regex["nom"], $_POST['nom'])) {
-                $nomValide = true;
+                $tValidation['champsValide']['nom'] = true;
             } else {
-                $nomValide = false;
+                $tValidation['champsValide']['nom'] = false;
+                $tValidation['champs']['nom']['message'] = $tMessages['nom']['pattern'];
             }
         } else {
-            $nomValide = false;
+            $tValidation['champsValide']['nom'] = false;
+            $tValidation['champs']['nom']['message'] = $tMessages['nom']['vide'];
         }
 
         // Prénom
         if ($_POST['prenom'] !== "") {
             if (preg_match($regex["prenom"], $_POST['prenom'])) {
-                $prenomValide = true;
+                $tValidation['champsValide']['prenom'] = true;
             } else {
-                $prenomValide = false;
+                $tValidation['champsValide']['prenom'] = false;
+                $tValidation['champs']['prenom']['message'] = $tMessages['prenom']['pattern'];
             }
         } else {
-            $prenomValide = false;
+            $tValidation['champsValide']['prenom'] = false;
+            $tValidation['champs']['prenom']['message'] = $tMessages['prenom']['vide'];
         }
 
         // Adresse
         if ($_POST['adresse'] !== "") {
             if (preg_match($regex["adresse"], $_POST['adresse'])) {
-                $adresseValide = true;
+                $tValidation['champsValide']['adresse'] = true;
             } else {
-                $adresseValide = false;
+                $tValidation['champsValide']['adresse'] = false;
+                $tValidation['champs']['adresse']['message'] = $tMessages['adresse']['pattern'];
             }
         } else {
-            $adresseValide = false;
+            $tValidation['champsValide']['adresse'] = false;
+            $tValidation['champs']['adresse']['message'] = $tMessages['adresse']['vide'];
         }
 
         // Ville
         if ($_POST['ville'] !== "") {
             if (preg_match($regex["ville"], $_POST['ville'])) {
-                $villeValide = true;
+                $tValidation['champsValide']['ville'] = true;
             } else {
-                $villeValide = false;
+                $tValidation['champsValide']['ville'] = false;
+                $tValidation['champs']['ville']['message'] = $tMessages['ville']['pattern'];
             }
         } else {
-            $villeValide = false;
+            $tValidation['champsValide']['ville'] = false;
+            $tValidation['champs']['ville']['message'] = $tMessages['ville']['vide'];
         }
 
         // Province
         if (isset($_POST['abbrProvince'])) {
-            $provinceValide = true;
+            $tValidation['champsValide']['province'] = true;
         } else {
-            $provinceValide = false;
+            $tValidation['champsValide']['province'] = false;
         }
 
         // Code Postal
         if ($_POST['codePostal'] !== "") {
             if (preg_match($regex["codePostal"], $_POST['codePostal'])) {
-                $codePostalValide = true;
+                $tValidation['champsValide']['codePostal'] = true;
             } else {
-                $codePostalValide = false;
+                $tValidation['champsValide']['codePostal'] = false;
+                $tValidation['champs']['codePostal']['message'] = $tMessages['codePostal']['pattern'];
             }
         } else {
-            $codePostalValide = false;
+            $tValidation['champsValide']['codePostal'] = false;
+            $tValidation['champs']['codePostal']['message'] = $tMessages['codePostal']['vide'];
         }
 
-        // Par défaut
-
-
-        // Adresse facturation
-
-        if ($nomValide === true && $prenomValide === true && $adresseValide === true && $villeValide === true && $provinceValide === true && $codePostalValide === true) {
-            return true;
-        } else {
-            return false;
+        if ($tValidation['champsValide']['nom'] === true && $tValidation['champsValide']['prenom'] === true && $tValidation['champsValide']['adresse'] === true && $tValidation['champsValide']['ville'] === true && $tValidation['champsValide']['province'] === true && $tValidation['champsValide']['codePostal'] === true) {
+            $tValidation['formulaireValide'] = true;
         }
-
+        return $tValidation;
     }
 }

@@ -35,14 +35,24 @@
                 </div>
                 <p>Nom :</p>
                 <input type="text" name="nomComplet" value="{{$nomComplet}}"/>
+                @if($tValidation['champsValide']['nom'] == false)
+                    <p class="transaction__messageErreur">{{$tValidation['champs']['nom']['message']}}</p>
+                @endif
                 <p>Numéro de la carte :</p>
                 <input type="text" name="noCarte" value="{{$noCarte}}"/>
+                @if($tValidation['champsValide']['numeroCarte'] == false)
+                    <p class="transaction__messageErreur">{{$tValidation['champs']['numeroCarte']['message']}}</p>
+                @endif
                 <p>Code de sécurité :</p>
                 <input type="text" name="code" value="{{$code}}"/>
-                <p>Date d'expiration :</p>
-                <span>Ex.: 01/20</span>
+                @if($tValidation['champsValide']['code'] == false)
+                    <p class="transaction__messageErreur">{{$tValidation['champs']['code']['message']}}</p>
+                @endif
+                <p>Date d'expiration :<span class="livraison__label--exemple">Ex.: 01/20</span></p>
                 <input type="text" name="dateExpirationCarte" value="{{$dateExpirationCarte}}"/>
-
+                @if($tValidation['champsValide']['dateExpiration'] == false)
+                    <p class="transaction__messageErreur">{{$tValidation['champs']['dateExpiration']['message']}}</p>
+                @endif
                 <div class="facturation__adresseFacturation">
                     <p class="transaction__sous-titre">Adresse de facturation</p>
                     <p class="facturation__nom">{{$nom}}</p>

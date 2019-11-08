@@ -22,6 +22,10 @@
     align-items: baseline;
   }
 
+  &__messageErreur{
+    color: $ROUGE;
+  }
+
   &__sous-titre {
     color: $ROUGE;
     text-align: center;

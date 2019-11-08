@@ -34,7 +34,8 @@ class ControleurFacturation
                 array("adresse" => $_SESSION['livraison']['adresse']),
                 array("ville" => $_SESSION['livraison']['ville']),
                 array("codePostal" => $_SESSION['livraison']['codePostal']),
-                array("province" => Adresse::trouverProvince($_SESSION['livraison']['abbrProvince']))
+                array("province" => Adresse::trouverProvince($_SESSION['livraison']['abbrProvince'])),
+                array("tValidation" => $this->session->getItem("tValidation"))
             );
         } else {
             $tDonnees = array_merge(ControleurSite::getDonneeFragmentPiedDePage(),
@@ -49,7 +50,8 @@ class ControleurFacturation
                 array("adresse" => $_SESSION['livraison']['adresse']),
                 array("ville" => $_SESSION['livraison']['ville']),
                 array("codePostal" => $_SESSION['livraison']['codePostal']),
-                array("province" => Adresse::trouverProvince($_SESSION['livraison']['abbrProvince']))
+                array("province" => Adresse::trouverProvince($_SESSION['livraison']['abbrProvince'])),
+                array("tValidation" => $this->session->getItem("tValidation"))
             );
         }
         echo $this->blade->run("transaction.facturation", $tDonnees);
@@ -57,8 +59,9 @@ class ControleurFacturation
 
     public function insererModePaiementSession()
     {
-        $validerModePaiement = $this->validerModePaiement();
-        if ($validerModePaiement === true) {
+        $tValidation = $this->validerModePaiement();
+        $formulaireValide = $tValidation['formulaireValide'];
+        if ($formulaireValide === true) {
             $this->tDonneesSaisies = "";
             $_SESSION['facturation'] = $_POST;
             if ($_SESSION['facturation']['methodePaiement'] === 'VISA' OR $_SESSION['facturation']['methodePaiement'] === 'Master Card' OR $_SESSION['facturation']['methodePaiement'] === 'American Express') {
@@ -72,12 +75,20 @@ class ControleurFacturation
             header("Location: index.php?controleur=validation&action=validation");
         } else {
             $this->tDonneesSaisies = $_POST;
+            $this->session->setItem("tValidation", $tValidation);
             $this->facturation();
         }
     }
 
-    public function validerModePaiement(): bool
+    public function validerModePaiement(): array
     {
+        $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesFacturation.json');
+        $tMessages = json_decode($fichierJSON, true);
+        $tValidation = [
+            "champs" => [],
+            "champsValide" => [],
+            "formulaireValide" => false
+        ];
         $regex = [
             "nomComplet" => "#^[A-Z][a-z]*(\s[A-Z][a-z]*)+$#",
             "noCarte" => "#^(?:4[0-9]{12}(?:[0-9]{3})?|(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|3[47][0-9]{13})$#",
@@ -88,51 +99,59 @@ class ControleurFacturation
         // Nom complet
         if ($_POST['nomComplet'] !== "") {
             if (preg_match($regex["nomComplet"], $_POST['nomComplet'])) {
-                $nomCompletValide = true;
+                $tValidation['champsValide']['nom'] = true;
             } else {
-                $nomCompletValide = false;
+                $tValidation['champsValide']['nom'] = false;
+                $tValidation['champs']['nom']['message'] = $tMessages['nom']['pattern'];
             }
         } else {
-            $nomCompletValide = false;
+            $tValidation['champsValide']['nom'] = false;
+            $tValidation['champs']['nom']['message'] = $tMessages['nom']['vide'];
         }
 
         // Numéro de carte
         if ($_POST['noCarte'] !== "") {
             if (preg_match($regex["noCarte"], $_POST['noCarte'])) {
-                $noCarteValide = true;
+                $tValidation['champsValide']['numeroCarte'] = true;
             } else {
-                $noCarteValide = false;
+                $tValidation['champsValide']['numeroCarte'] = false;
+                $tValidation['champs']['numeroCarte']['message'] = $tMessages['numeroCarte']['pattern'];
             }
         } else {
-            $noCarteValide = false;
+            $tValidation['champsValide']['numeroCarte'] = false;
+            $tValidation['champs']['numeroCarte']['message'] = $tMessages['numeroCarte']['vide'];
         }
 
         // Date d'expiration
         if ($_POST['dateExpirationCarte'] !== "") {
             if (preg_match($regex["dateExpirationCarte"], $_POST['dateExpirationCarte'])) {
-                $dateExpirationCarteValide = true;
+                $tValidation['champsValide']['dateExpiration'] = true;
             } else {
-                $dateExpirationCarteValide = false;
+                $tValidation['champsValide']['dateExpiration'] = false;
+                $tValidation['champs']['dateExpiration']['message'] = $tMessages['dateExpiration']['pattern'];
             }
         } else {
-            $dateExpirationCarteValide = false;
+            $tValidation['champsValide']['dateExpiration'] = false;
+            $tValidation['champs']['dateExpiration']['message'] = $tMessages['dateExpiration']['vide'];
         }
         // Code CVC
         if ($_POST['code'] !== "") {
             if (preg_match($regex["code"], $_POST['code'])) {
-                $codeValide = true;
+                $tValidation['champsValide']['code'] = true;
             } else {
-                $codeValide = false;
+                $tValidation['champsValide']['code'] = false;
+                $tValidation['champs']['code']['message'] = $tMessages['code']['pattern'];
             }
         } else {
-            $codeValide = false;
+            $tValidation['champsValide']['code'] = false;
+            $tValidation['champs']['code']['message'] = $tMessages['code']['vide'];
         }
 
-        if ($nomCompletValide === true && $noCarteValide === true && $dateExpirationCarteValide === true && $codeValide === true) {
-            return true;
-        } else {
-            return false;
+        if ($tValidation['champsValide']['nom'] === true && $tValidation['champsValide']['numeroCarte'] === true && $tValidation['champsValide']['dateExpiration'] === true && $tValidation['champsValide']['code'] === true) {
+            $tValidation['formulaireValide'] = true;
         }
+        return $tValidation;
+
 
     }
 }

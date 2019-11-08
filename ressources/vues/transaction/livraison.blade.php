@@ -14,13 +14,24 @@
             <form action="index.php?controleur=livraison&action=insererAdresseSession" method="post">
                 <p class="livraison__label">Nom :</p>
                 <input class="livraison__input" type="text" name="nom" value="{{$nom}}"/>
-                <span></span>
+                @if($tValidation['champsValide']['nom'] == false)
+                    <p class="transaction__messageErreur">{{$tValidation['champs']['nom']['message']}}</p>
+                @endif
                 <p class="livraison__label">Prénom :</p>
                 <input class="livraison__input" type="text" name="prenom" value="{{$prenom}}"/>
+                @if($tValidation['champsValide']['prenom'] == false)
+                    <p class="transaction__messageErreur">{{$tValidation['champs']['prenom']['message']}}</p>
+                @endif
                 <p class="livraison__label">Adresse :</p>
                 <input class="livraison__input" type="text" name="adresse" value="{{$adresse}}"/>
+                @if($tValidation['champsValide']['adresse'] == false)
+                    <p class="transaction__messageErreur">{{$tValidation['champs']['adresse']['message']}}</p>
+                @endif
                 <p class="livraison__label">Ville :</p>
                 <input class="livraison__input" type="text" name="ville" value="{{$ville}}"/>
+                @if($tValidation['champsValide']['ville'] == false)
+                    <p class="transaction__messageErreur">{{$tValidation['champs']['ville']['message']}}</p>
+                @endif
                 <p class="livraison__label">Province :</p>
                 <select class="livraison__input" name="abbrProvince">
                     <option value="AB">Alberta</option>
@@ -40,6 +51,9 @@
                 <p class="livraison__label">Code Postal : <span class="livraison__label--exemple">Ex.: A1A 1A1</span>
                 </p>
                 <input class="livraison__input" type="text" name="codePostal" value="{{$codePostal}}"/>
+                @if($tValidation['champsValide']['codePostal'] == false)
+                    <p class="transaction__messageErreur">{{$tValidation['champs']['codePostal']['message']}}</p>
+                @endif
                 <div class="livraison__checkbox">
                     <input name="estDefaut" type="checkbox" checked/>
                     <p class="livraison__checkbox--label">Adresse de livraison par défaut</p>

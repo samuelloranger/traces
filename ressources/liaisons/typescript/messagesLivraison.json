@@ -1,0 +1,22 @@
+{
+  "prenom": {
+    "vide": "Vous devez entrer votre prénom",
+    "pattern": "Ce prénom ne respecte pas le format demandé"
+  },
+  "nom": {
+    "vide": "Vous devez entrer votre nom",
+    "pattern": "Ce nom ne respecte pas le format demandé"
+  },
+  "adresse": {
+    "vide": "Vous devez entrer votre adresse",
+    "pattern": "Veuillez entrer votre numéro civique suivi du nom de rue"
+  },
+  "ville": {
+    "vide": "Vous devez entrer votre ville",
+    "pattern": "Ce nom de ville ne respecte pas le format demandé"
+  },
+  "codePostal": {
+    "vide": "Vous devez entrer un code postal",
+    "pattern": "Votre code postal doit être inscrit en majuscules et doit contenir un espace"
+  }
+}
