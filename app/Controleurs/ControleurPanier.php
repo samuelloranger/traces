@@ -132,7 +132,6 @@ class ControleurPanier{
     }
 
     public function panier($pageComplete = true){
-
         //Éléments à afficher
         $itemsPanier = $this->panier->getItems();
         $montantSousTotal = Util::formaterArgent($this->panier->getMontantSousTotal());
