@@ -10,10 +10,12 @@ use App\Util;
 class ControleurPanier{
     private $blade = null;
     private $panier = null;
+    private $session = null;
 
     public function __construct(){
         $this->blade = App::getInstance()->getBlade();
         $this->panier = App::getInstance()->getPanier();
+        $this->session = App::getInstance()->getSession();
     }
 
     public function ajoutPanier(){
@@ -141,12 +143,13 @@ class ControleurPanier{
          */
         if(isset($_POST["modeLivraison"])){
             $modeLivraison = $_POST["modeLivraison"];
+            $dateLivraisonEstimee = "Aucune date de livraison estimée.";
 
             if($modeLivraison == "payante"){
                 $pageComplete = false;
                 $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
-                $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
                 $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
+                $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
             }
             elseif($modeLivraison == "gratuite"){
                 $pageComplete = false;
@@ -154,6 +157,8 @@ class ControleurPanier{
                 $montantTotal = Util::formaterArgent($this->panier->getMontantTotal(false));
                 $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("7 days"));
             }
+
+            $this->session->setItem("dateLivraisonEstimee", $dateLivraisonEstimee);
         }
         else{
             $modeLivraison = "payante";
@@ -161,6 +166,7 @@ class ControleurPanier{
             $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
             $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
         }
+
 
         $tDonnees = array_merge(
             Util::getInfosHeader(),

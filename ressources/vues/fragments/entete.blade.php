@@ -2,7 +2,7 @@
     <nav class="navigation navigation__desktop">
         <div class="logoTraces">
             <a href="index.php?controleur=site&action=accueil">
-                <img class="image" src="../public/liaisons/images/logo-traces.svg" alt="Logo librairie Traces">
+                <img class="image" src="liaisons/images/logo-traces.svg" alt="Logo librairie Traces">
             </a>
         </div>
 
@@ -41,7 +41,7 @@
 
             <div class="logoTraces">
                 <a href="index.php?controleur=site&action=accueil">
-                    <img class="image" src="../public/liaisons/images/logo-traces.svg" alt="Logo librairie Traces">
+                    <img class="image" src="liaisons/images/logo-traces.svg" alt="Logo librairie Traces">
                 </a>
             </div>
 
