@@ -6,76 +6,106 @@
             <h3 class="titre_formulaire">S'inscrire a Traces</h3>
             <form action="index.php?controleur=compte&action=inscrire" method="POST">
                 {{-- PRENOM --}}
-                <label for="prenom">Prenom</label>
-                <input type="text" name="prenom" id="prenom"
-                    @if(!$tValidation["formulaireValide"])
-                        value="{{$tValidation["champs"]["prenom"]["valeur"]}}"
-                        class="champ_formulaire champ_invalide"
-                    @else
-                       class="champ_formulaire"
-                    @endif
-                >
-                @if(!$tValidation["champs"]["prenom"]["estValide"])
-                    <p>{{$tValidation["champs"]["prenom"]["message"]}}</p>
-                @endif
+                <div class="closestdiv">
+                    <label for="prenom">Prenom</label>
+                    <input type="text" name="prenom" id="prenom"
+                           pattern="[a-zA-Z]{3,30}$"
+                           @if(!$tValidation["formulaireValide"])
+                           value="{{$tValidation["champs"]["prenom"]["valeur"]}}"
+                           class="champ_formulaire champ_invalide"
+                           @else
+                           class="champ_formulaire"
+                            @endif
+                    >
+                    <p id="retro-prenom">
+                        @if(!$tValidation["champs"]["prenom"]["estValide"])
+                            {{$tValidation["champs"]["prenom"]["message"]}}
+                        @endif
+                    </p>
+                </div>
+
 
                 {{-- NOM --}}
-                <label for="nom">Nom</label>
-                <input class="champ_formulaire" type="text" name="nom" id="nom"
-                    @if(!$tValidation["formulaireValide"])
-                        value="{{$tValidation["champs"]["nom"]["valeur"]}}"
-                        class="champ_formulaire champ_invalide"
-                    @else
-                        class="champ_formulaire"
-                    @endif
-                >
-                @if(!$tValidation["champs"]["nom"]["estValide"])
-                    <p>{{$tValidation["champs"]["nom"]["message"]}}</p>
-                @endif
+                <div class="closestdiv">
+                    <label for="nom">Nom</label>
+                    <input class="champ_formulaire" type="text" name="nom" id="nom"
+                           pattern="[a-zA-Z]{3,30}$"
+                           @if(!$tValidation["formulaireValide"])
+                           value="{{$tValidation["champs"]["nom"]["valeur"]}}"
+                           class="champ_formulaire champ_invalide"
+                           @else
+                           class="champ_formulaire"
+                            @endif
+                    >
+                    <p id="retro-nom">
+                        @if(!$tValidation["champs"]["nom"]["estValide"])
+                            {{$tValidation["champs"]["nom"]["message"]}}
+                        @endif
+                    </p>
+                </div>
+
 
                 {{-- EMAIL --}}
-                <label for="email">Courriel</label>
-                <input class="champ_formulaire" type="email" name="email" id="email"
-                    @if(!$tValidation["formulaireValide"])
-                        value="{{$tValidation["champs"]["email"]["valeur"]}}"
-                        class="champ_formulaire champ_invalide"
-                    @else
-                        class="champ_formulaire"
-                    @endif
-                >
-                @if(!$tValidation["champs"]["email"]["estValide"])
-                    <p>{{$tValidation["champs"]["email"]["message"]}}</p>
-                @endif
+                <div class="closestdiv">
+                    <label for="email">Courriel</label>
+                    <input class="champ_formulaire" type="email" name="email" id="email"
+                           pattern="^[a-zA-Z0-9][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,}$"
+                           @if(!$tValidation["formulaireValide"])
+                           value="{{$tValidation["champs"]["email"]["valeur"]}}"
+                           class="champ_formulaire champ_invalide"
+                           @else
+                           class="champ_formulaire"
+                            @endif
+                    >
+                    <p id="retro-email">
+                        @if(!$tValidation["champs"]["email"]["estValide"])
+                            {{$tValidation["champs"]["email"]["message"]}}
+                        @endif
+                    </p>
+                </div>
+
 
                 {{-- TELEPHONE --}}
-                <label for="tel">Numero de telephone</label>
-                <small class="inscription__formulaire__consignes">Ex: 418-999-9999</small>
-                <input class="champ_formulaire" type="number" name="tel" id="tel"
-                    @if(!$tValidation["formulaireValide"])
-                        value="{{$tValidation["champs"]["tel"]["valeur"]}}"
-                        class="champ_formulaire champ_invalide"
-                    @else
-                        class="champ_formulaire"
-                    @endif
-                >
-                @if(!$tValidation["champs"]["tel"]["estValide"])
-                    <p>{{$tValidation["champs"]["tel"]["message"]}}</p>
-                @endif
+                <div class="closestdiv">
+                    <label for="tel">Numero de telephone</label>
+                    <small class="inscription__formulaire__consignes">Ex: 418-999-9999</small>
+                    <input class="champ_formulaire" type="number" name="tel" id="tel"
+                           pattern="[0-9]{10}"
+                           @if(!$tValidation["formulaireValide"])
+                           value="{{$tValidation["champs"]["tel"]["valeur"]}}"
+                           class="champ_formulaire champ_invalide"
+                           @else
+                           class="champ_formulaire"
+                            @endif
+                    >
+                    <p id="retro-tel">
+                        @if(!$tValidation["champs"]["tel"]["estValide"])
+                            {{$tValidation["champs"]["tel"]["message"]}}
+                        @endif
+                    </p>
+                </div>
+
 
                 {{-- MOT DE PASSE --}}
-                <label for="mdp">Mot de passe</label>
-                <small class="inscription__formulaire__consignes">8 caracteres, lettres et chiffres, une majuscule.</small>
-                <input class="champ_formulaire" type="password" name="mdp" id="mdp"
-                    @if(!$tValidation["formulaireValide"])
-                        value="{{$tValidation["champs"]["mdp"]["valeur"]}}"
-                        class="champ_formulaire champ_invalide"
-                    @else
-                        class="champ_formulaire"
-                    @endif
-                >
-                @if(!$tValidation["champs"]["mdp"]["estValide"])
-                    <p>{{$tValidation["champs"]["mdp"]["message"]}}</p>
-                @endif
+                <div class="closestdiv">
+                    <label for="mdp">Mot de passe</label>
+                    <small class="inscription__formulaire__consignes">8 caracteres, lettres et chiffres, une majuscule.</small>
+                    <input class="champ_formulaire" type="password" name="mdp" id="mdp"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$"
+                           @if(!$tValidation["formulaireValide"])
+                           value="{{$tValidation["champs"]["mdp"]["valeur"]}}"
+                           class="champ_formulaire champ_invalide"
+                           @else
+                           class="champ_formulaire"
+                            @endif
+                    >
+                    <p id="retro-mdp">
+                        @if(!$tValidation["champs"]["mdp"]["estValide"])
+                            {{$tValidation["champs"]["mdp"]["message"]}}
+                        @endif
+                    </p>
+                </div>
+
 
                 <div class="inscription__formulaire__afficher_mdp">
                     <input type="checkbox" name="afficher_mdp" id="afficher_mdp">
@@ -85,18 +115,25 @@
                 </div>
 
                 {{-- CONFIRMATION MOT DE PASSE --}}
-                <label for="c_mdp">Confirmer le mot de passe</label>
-                <input class="champ_formulaire" type="password" name="c_mdp" id="c_mdp"
-                    @if(!$tValidation["formulaireValide"])
-                        value="{{$tValidation["champs"]["c_mdp"]["valeur"]}}"
-                        class="champ_formulaire champ_invalide"
-                    @else
-                        class="champ_formulaire"
-                    @endif
-                >
-                @if(!$tValidation["champs"]["c_mdp"]["estValide"])
-                    <p>{{$tValidation["champs"]["c_mdp"]["message"]}}</p>
-                @endif
+                <div class="closestdiv">
+                    <label for="c_mdp">Confirmer le mot de passe</label>
+                    <input class="champ_formulaire" type="password" name="c_mdp" id="c_mdp"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$"
+                           @if(!$tValidation["formulaireValide"])
+                           value="{{$tValidation["champs"]["c_mdp"]["valeur"]}}"
+                           class="champ_formulaire champ_invalide"
+                           @else
+                           class="champ_formulaire"
+                            @endif
+                    >
+                    <p id="retro-c_mdp">
+                        @if(!$tValidation["champs"]["c_mdp"]["estValide"])
+                            {{$tValidation["champs"]["c_mdp"]["message"]}}
+                        @endif
+                    </p>
+
+                </div>
+
 
                 <input class="bouton_panier" type="submit" value="S'inscrire">
             </form>
