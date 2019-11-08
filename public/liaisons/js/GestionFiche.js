@@ -21,6 +21,7 @@ define(["require", "exports"], function (require, exports) {
             //Attributs de classe
             this.panier = null;
             this.etoilesCommentaires = null;
+            this.messageErreurs = null;
             /**
              * Fonction ajouterEcoutersEvenements
              * @description Ajoute les écouteurs d'evenements sur les bons elements
@@ -222,6 +223,18 @@ define(["require", "exports"], function (require, exports) {
             this.panier = panier;
             this.ajouterEcouteursEvenements();
             this.etoilesCommentaires = etoilesCommentaires;
+            fetch("../ressources/liaisons/typescript/messagesCommentaires.json")
+                .then(function (response) {
+                return response.json();
+            })
+                .then(function (response) {
+                _this.messageErreurs = response;
+            })
+                .catch(function (error) {
+                console.log(error);
+            });
+            console.log("test json: ");
+            console.log(this.messageErreurs);
         }
         return GestionFiche;
     }());

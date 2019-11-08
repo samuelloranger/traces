@@ -28,10 +28,26 @@ export class GestionFiche {
     private panier:GestionPanier = null;
     private etoilesCommentaires:CommentairesEtoiles = null;
 
+    private messageErreurs = null;
+
     constructor(panier:GestionPanier, etoilesCommentaires:CommentairesEtoiles){
         this.panier = panier;
         this.ajouterEcouteursEvenements();
         this.etoilesCommentaires = etoilesCommentaires;
+
+        fetch("../ressources/liaisons/typescript/messagesCommentaires.json")
+            .then(response => {
+                return response.json();
+            })
+            .then(response => {
+                this.messageErreurs = response;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        console.log("test json: ");
+        console.log(this.messageErreurs);
     }
 
 
