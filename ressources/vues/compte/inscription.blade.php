@@ -12,9 +12,9 @@
                            pattern="[a-zA-Z]{3,30}$"
                            @if(!$tValidation["formulaireValide"])
                            value="{{$tValidation["champs"]["prenom"]["valeur"]}}"
-                           class="champ_formulaire champ_invalide"
+                           class="champ_formulaire js_inscription champ_invalide"
                            @else
-                           class="champ_formulaire"
+                           class="champ_formulaire js_inscription"
                             @endif
                     >
                     <p id="retro-prenom">
@@ -28,13 +28,13 @@
                 {{-- NOM --}}
                 <div class="closestdiv">
                     <label for="nom">Nom</label>
-                    <input class="champ_formulaire" type="text" name="nom" id="nom"
+                    <input class="champ_formulaire js_inscription" type="text" name="nom" id="nom"
                            pattern="[a-zA-Z]{3,30}$"
                            @if(!$tValidation["formulaireValide"])
                            value="{{$tValidation["champs"]["nom"]["valeur"]}}"
-                           class="champ_formulaire champ_invalide"
+                           class="champ_formulaire js_inscription champ_invalide"
                            @else
-                           class="champ_formulaire"
+                           class="champ_formulaire js_inscription"
                             @endif
                     >
                     <p id="retro-nom">
@@ -48,13 +48,13 @@
                 {{-- EMAIL --}}
                 <div class="closestdiv">
                     <label for="email">Courriel</label>
-                    <input class="champ_formulaire" type="email" name="email" id="email"
+                    <input class="champ_formulaire js_inscription" type="email" name="email" id="email"
                            pattern="^[a-zA-Z0-9][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,}$"
                            @if(!$tValidation["formulaireValide"])
                            value="{{$tValidation["champs"]["email"]["valeur"]}}"
-                           class="champ_formulaire champ_invalide"
+                           class="champ_formulaire js_inscription champ_invalide"
                            @else
-                           class="champ_formulaire"
+                           class="champ_formulaire js_inscription"
                             @endif
                     >
                     <p id="retro-email">
@@ -69,13 +69,13 @@
                 <div class="closestdiv">
                     <label for="tel">Numero de telephone</label>
                     <small class="inscription__formulaire__consignes">Ex: 418-999-9999</small>
-                    <input class="champ_formulaire" type="number" name="tel" id="tel"
+                    <input class="champ_formulaire js_inscription" type="number" name="tel" id="tel"
                            pattern="[0-9]{10}"
                            @if(!$tValidation["formulaireValide"])
                            value="{{$tValidation["champs"]["tel"]["valeur"]}}"
-                           class="champ_formulaire champ_invalide"
+                           class="champ_formulaire js_inscription champ_invalide"
                            @else
-                           class="champ_formulaire"
+                           class="champ_formulaire js_inscription"
                             @endif
                     >
                     <p id="retro-tel">
@@ -90,13 +90,13 @@
                 <div class="closestdiv">
                     <label for="mdp">Mot de passe</label>
                     <small class="inscription__formulaire__consignes">8 caracteres, lettres et chiffres, une majuscule.</small>
-                    <input class="champ_formulaire" type="password" name="mdp" id="mdp"
+                    <input class="champ_formulaire js_inscription" type="password" name="mdp" id="mdp"
                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$"
                            @if(!$tValidation["formulaireValide"])
                            value="{{$tValidation["champs"]["mdp"]["valeur"]}}"
-                           class="champ_formulaire champ_invalide"
+                           class="champ_formulaire js_inscription champ_invalide"
                            @else
-                           class="champ_formulaire"
+                           class="champ_formulaire js_inscription"
                             @endif
                     >
                     <p id="retro-mdp">
@@ -117,13 +117,13 @@
                 {{-- CONFIRMATION MOT DE PASSE --}}
                 <div class="closestdiv">
                     <label for="c_mdp">Confirmer le mot de passe</label>
-                    <input class="champ_formulaire" type="password" name="c_mdp" id="c_mdp"
+                    <input class="champ_formulaire js_inscription" type="password" name="c_mdp" id="c_mdp"
                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$"
                            @if(!$tValidation["formulaireValide"])
                            value="{{$tValidation["champs"]["c_mdp"]["valeur"]}}"
-                           class="champ_formulaire champ_invalide"
+                           class="champ_formulaire js_inscription champ_invalide"
                            @else
-                           class="champ_formulaire"
+                           class="champ_formulaire js_inscription"
                             @endif
                     >
                     <p id="retro-c_mdp">

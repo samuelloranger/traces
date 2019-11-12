@@ -1,6 +1,8 @@
 export class GestionInscription {
-    private tChampsFormulaire:[HTMLInputElement] = Array.apply(null, document.querySelectorAll(".champ_formulaire"));
-    private togglePassword = document.querySelector(".toggle");
+    private urlParams = new URLSearchParams(window.location.search);
+
+    private tChampsFormulaire:[HTMLInputElement] = null;
+    private togglePassword = null;
     private objValidation = {};
 
 
@@ -9,11 +11,7 @@ export class GestionInscription {
 
     public constructor() {
         this.objEtatChamps = this.initialiserEtat();
-        console.log(this.tChampsFormulaire);
-
-        this.tChampsFormulaire.forEach(champ => {
-           console.log(champ.pattern);
-        });
+        //console.log(this.tChampsFormulaire);
 
         fetch("../ressources/liaisons/typescript/messagesInscription.json")
             .then(response => {
@@ -29,12 +27,20 @@ export class GestionInscription {
     }
 
     private initialiser = () => {
-        console.log(this.objValidation);
-        this.tChampsFormulaire.forEach(champ => {
-            champ.addEventListener("blur", this.validerChamp);
-        });
-        this.togglePassword.addEventListener("change", this.toggleMotPasse);
-        this.verifierFormulaire();
+        //console.log(this.objValidation);
+        const controleur = this.urlParams.get("controleur");
+        const action = this.urlParams.get("action");
+
+        if (controleur === "compte" && action === "inscription") {
+            this.tChampsFormulaire = Array.apply(null, document.querySelectorAll(".js_inscription"));
+            this.togglePassword = document.querySelector(".toggle");
+
+            this.tChampsFormulaire.forEach(champ => {
+                champ.addEventListener("blur", this.validerChamp);
+            });
+            this.togglePassword.addEventListener("change", this.toggleMotPasse);
+            this.verifierFormulaire();
+        }
     };
 
     private validerChamp = (e) => {
@@ -48,7 +54,7 @@ export class GestionInscription {
         //const conteneurParent = champ.closest("div");
         const paragrapheRetro = document.getElementById(`retro-${champ.name}`);
 
-        console.log(champ.name);
+        //console.log(champ.name);
         //console.log(conteneurParent.children);
 
 
@@ -123,7 +129,7 @@ export class GestionInscription {
             document.getElementById("inscrire").removeAttribute("disabled");
         }
 
-        console.log("formulaire valide: ", this.formulaireValide)
+        //console.log("formulaire valide: ", this.formulaireValide)
     };
 
     private verifierCourriel = (courriel:string) => {
@@ -143,8 +149,8 @@ export class GestionInscription {
     private toggleMotPasse = (e) => {
         const checkbox = e.currentTarget;
         const inputPassword = document.querySelector("[name='mdp']");
-        console.log(inputPassword);
-        console.log(checkbox.checked);
+        //console.log(inputPassword);
+        //console.log(checkbox.checked);
 
         if (checkbox.checked) {
             inputPassword.setAttribute("type", "text");
