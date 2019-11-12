@@ -12,25 +12,32 @@
         <div class="transaction__background">
             <p class="transaction__sous-titre">Informations de paiement</p>
             <form action="index.php?controleur=facturation&action=insererModePaiementSession" method="post">
-                <div class="facturation__radio">
-                    <input name="methodePaiement" class="facturation__input" type="radio" value="Paypal">
-                    <p class="facturation__radio--label">Paypal</p>
-                </div>
-                <p class="facturation__carteAcceptees">Cartes de crédit acceptées</p>
+                <p class="facturation__carteAcceptees">Méthodes de paiement acceptées</p>
                 <div class="facturation__methodesPaiement">
                     <div class="facturation__radio">
-                        <input name="methodePaiement" class="facturation__input" type="radio" value="VISA">
-                        <img class="facturation__methode" src="liaisons/images/transaction/visa.svg" alt="visa">
+                        <label class="facturation__radio--label"><input name="methodePaiement"
+                                                                        class="facturation__radio--input" type="radio"
+                                                                        value="Paypal">Paypal</label>
                     </div>
                     <div class="facturation__radio">
-                        <input name="methodePaiement" class="facturation__input" type="radio" value="Master Card">
-                        <img class="facturation__methode" src="liaisons/images/transaction/mastercard.svg"
-                             alt="mastercard">
+                        <label class="facturation__radio--label"><input name="methodePaiement"
+                                                                        class="facturation__radio--input" type="radio"
+                                                                        value="VISA"><img
+                                    src="liaisons/images/transaction/visa.svg" alt="visa"></label>
                     </div>
                     <div class="facturation__radio">
-                        <input name="methodePaiement" class="facturation__input" type="radio" value="American Express">
-                        <img class="facturation__methode" src="liaisons/images/transaction/american-express.svg"
-                             alt="american express">
+                        <label class="facturation__radio--label"><input name="methodePaiement"
+                                                                        class="facturation__radio--input" type="radio"
+                                                                        value="Master Card"><img
+                                    src="liaisons/images/transaction/mastercard.svg"
+                                    alt="mastercard"></label>
+                    </div>
+                    <div class="facturation__radio">
+                        <label class="facturation__radio--label"><input name="methodePaiement"
+                                                                        class="facturation__radio--input" type="radio"
+                                                                        value="American Express"><img
+                                    src="liaisons/images/transaction/american-express.svg"
+                                    alt="american express"></label>
                     </div>
                 </div>
                 <p class="livraison__label">Nom :</p>
@@ -39,17 +46,19 @@
                     <p class="transaction__messageErreur">{{$tValidation['champs']['nom']['message']}}</p>
                 @endif
                 <p class="livraison__label">Numéro de la carte :</p>
-                <input type="text" name="noCarte" class="livraison__input"  value="{{$noCarte}}"/>
+                <input type="text" name="noCarte" class="livraison__input" value="{{$noCarte}}"/>
                 @if($tValidation['champsValide']['numeroCarte'] == false)
                     <p class="transaction__messageErreur">{{$tValidation['champs']['numeroCarte']['message']}}</p>
                 @endif
                 <p class="livraison__label">Code de sécurité :</p>
-                <input type="text" name="code" class="livraison__input"  value="{{$code}}"/>
+                <input type="text" name="code" class="livraison__input" value="{{$code}}"/>
                 @if($tValidation['champsValide']['code'] == false)
                     <p class="transaction__messageErreur">{{$tValidation['champs']['code']['message']}}</p>
                 @endif
-                <p class="livraison__label">Date d'expiration :<span class="livraison__label--exemple">Ex.: 01/20</span></p>
-                <input type="text" name="dateExpirationCarte" class="livraison__input"  value="{{$dateExpirationCarte}}"/>
+                <p class="livraison__label">Date d'expiration :<span class="livraison__label--exemple">Ex.: 01/20</span>
+                </p>
+                <input type="text" name="dateExpirationCarte" class="livraison__input"
+                       value="{{$dateExpirationCarte}}"/>
                 @if($tValidation['champsValide']['dateExpiration'] == false)
                     <p class="transaction__messageErreur">{{$tValidation['champs']['dateExpiration']['message']}}</p>
                 @endif

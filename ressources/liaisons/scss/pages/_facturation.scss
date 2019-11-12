@@ -19,18 +19,50 @@
 
   &__radio {
     display: flex;
-    align-items: baseline;
-    margin-top: 3%;
+    justify-content: space-around;
+
+    &--input {
+      //position: absolute;
+      //opacity: 0;
+      //width: 0;
+      //height: 0;
+      &:checked + label {
+        border-bottom: $ROUGE 1px solid;
+      }
+    }
 
     &--label {
-      margin-left: 1%;
+      width: 46px;
+      cursor: pointer;
+
+      &:checked {
+        border-bottom: $ROUGE 1px solid;
+      }
     }
+
+
   }
 
+  //.radio_item{
+  //  display: none !important;
+  //}
+  //
+  //.label_item {
+  //  opacity: 0.1;
+  //}
+  //
+  //.radio_item:checked + label {
+  //  opacity: 1;
+  //}
+  //
+  //label {
+  //  cursor: pointer;
+  //}
   &__methodesPaiement {
     display: flex;
     justify-content: space-around;
   }
+
   &__methode {
     width: 42px;
   }

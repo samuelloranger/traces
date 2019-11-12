@@ -46,9 +46,17 @@
                     <a class="connexion__formulaire__lien" href="#">Mot de passe oublie?</a>
                 </div>
 
-                <div>
-                    <input id="connecter" class="bouton bouton_panier" type="submit" value="Se connecter">
-                </div>
+                @if($connexionPanier)
+                    <input name="panier" type="hidden" value="connexion">
+                    <div>
+                        <input id="connecter" class="bouton bouton_panier" type="submit" value="Se connecter">
+                    </div>
+                @else
+                    <div>
+                        <input id="connecter" class="bouton bouton_panier" type="submit" value="Se connecter">
+                    </div>
+                @endif
+
             </form>
         </div>
         <div class="connexion__pas_client bloc_formulaire">
