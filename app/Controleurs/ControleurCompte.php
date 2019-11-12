@@ -52,7 +52,7 @@ class ControleurCompte {
 
             $this->session->setItem("courriel", $user->__get("courriel"));
             $this->session->setItem("estConnecte", true);
-            $this->session->setItem("idClient", $user->__get("id"));
+            $this->session->setItem("idClient", $user->__get("id_client"));
 
             header("Location: index.php?controleur=site&action=accueil");
             exit;
@@ -310,5 +310,42 @@ class ControleurCompte {
         }
 
         return $tValidation;
+    }
+
+    public function verifierCourriel(): void {
+        $userExiste = "false";
+
+        $courriel = "";
+        if (isset($_POST["email"])) {
+            $courriel = $_POST["email"];
+        }
+
+        if (User::trouverParCourriel($courriel)) {
+            $userExiste = "true";
+        }
+
+        echo $userExiste;
+    }
+
+    public function verifierMotPasse(): void {
+        $correct = "false";
+
+        $courriel = "";
+        if (isset($_POST["email"])) {
+            $courriel = $_POST["email"];
+        }
+
+        $mdp = "";
+        if (isset($_POST["mdp"])) {
+            $mdp = $_POST["mdp"];
+        }
+
+        $crypt = User::getHash($courriel);
+
+        if (password_verify($mdp, $crypt)) {
+            $correct = "true";
+        }
+
+        echo $correct;
     }
 }

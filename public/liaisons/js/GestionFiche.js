@@ -2,7 +2,7 @@ define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var GestionFiche = /** @class */ (function () {
-        function GestionFiche(panier, etoilesCommentaires) {
+        function GestionFiche(panier) {
             var _this = this;
             //Sélecteurs de quantité
             this.btnSoustraire = document.querySelector(".btnChangementQte__soustraire");
@@ -20,7 +20,8 @@ define(["require", "exports"], function (require, exports) {
             this.urlParams = new URLSearchParams(window.location.search);
             //Attributs de classe
             this.panier = null;
-            this.etoilesCommentaires = null;
+            this.arrZoneEtoiles = null;
+            this.messageErreurs = null;
             /**
              * Fonction ajouterEcoutersEvenements
              * @description Ajoute les écouteurs d'evenements sur les bons elements
@@ -30,6 +31,8 @@ define(["require", "exports"], function (require, exports) {
                 var controleur = _this.urlParams.get('controleur');
                 var action = _this.urlParams.get('action');
                 if (controleur === "livre" && action === "fiche") {
+                    //Initialisation des étoiles
+                    _this.initialiserEtoiles();
                     _this.btnSoustraire.addEventListener("click", function () {
                         _this.changerQte("soustraire");
                     });
@@ -64,6 +67,46 @@ define(["require", "exports"], function (require, exports) {
                         }
                     });
                 }
+            };
+            /**
+             * Fonction initialiserEtoiles
+             * @description Initialisation des étoiles des commentaires
+             */
+            this.initialiserEtoiles = function () {
+                _this.arrZoneEtoiles = Array.apply(null, document.querySelectorAll(".zoneEtoiles"));
+                //Pour chaque commentaire
+                _this.arrZoneEtoiles.forEach(function (zoneEtoile) {
+                    //On va chercher l'attribut class de l'élément
+                    var classeNbr = zoneEtoile.getAttribute("class").split(" ");
+                    //On retire le "zoneEtoile" de la classe pour garder seulement le nombre
+                    var nbrEtoilesPleines = Number(classeNbr[1].replace("zoneEtoiles", ""));
+                    //Si le nombre d'elements est plus élevé que 5, on fixe à 5
+                    if (nbrEtoilesPleines > 5)
+                        nbrEtoilesPleines = 5;
+                    //On boucle nbrElements fois pour ajouter l'élément
+                    for (var intCtr = 0; intCtr < nbrEtoilesPleines; intCtr++) {
+                        //On creer l'element span, on lui insere une classe
+                        var elementEtoile = document.createElement("span");
+                        elementEtoile.classList.add("etoile", "etoilePleine");
+                        var elementSVG = document.createElement("img");
+                        elementSVG.setAttribute("src", "./liaisons/images/icones/etoile-pleine.svg");
+                        elementSVG.setAttribute("alt", "Étoile pleine");
+                        elementEtoile.appendChild(elementSVG);
+                        //On envoie l'element dans la zone d'etoiles
+                        zoneEtoile.appendChild(elementEtoile);
+                    }
+                    for (var intCtr = 0; intCtr < 5 - nbrEtoilesPleines; intCtr++) {
+                        //On creer l'element span, on lui insere une classe
+                        var elementEtoile = document.createElement("span");
+                        elementEtoile.classList.add("etoile", "etoileVite");
+                        var elementSVG = document.createElement("img");
+                        elementSVG.setAttribute("src", "./liaisons/images/icones/etoile-vide.svg");
+                        elementSVG.setAttribute("alt", "Étoile pleine");
+                        elementEtoile.appendChild(elementSVG);
+                        //On envoie l'element dans la zone d'etoiles
+                        zoneEtoile.appendChild(elementEtoile);
+                    }
+                });
             };
             /**
              * Fonction changerQte
@@ -122,23 +165,62 @@ define(["require", "exports"], function (require, exports) {
              * @param element Élément qui est testé
              */
             this.verifierElementCommentaire = function (element) {
-                var erreur = false;
+                var erreur = true;
+                var typeErreur = "";
                 switch (element.type) {
                     case "text":
-                        erreur = element.value.length === 0 || element.value.length < 10 || element.value.length > 50;
+                        if (element.value.length === 0) {
+                            typeErreur = "vide";
+                        }
+                        else if (element.value.length < 10) {
+                            typeErreur = "court";
+                        }
+                        else if (element.value.length > 50) {
+                            typeErreur = "long";
+                        }
+                        else {
+                            erreur = false;
+                        }
                         break;
                     case "textarea":
-                        erreur = element.value.length === 0 || element.value.length < 50 || element.value.length > element.maxLength;
+                        if (element.value.length === 0) {
+                            typeErreur = "vide";
+                        }
+                        else if (element.value.length < element.minLength) {
+                            typeErreur = "court";
+                        }
+                        else if (element.value.length > element.maxLength) {
+                            typeErreur = "long";
+                        }
+                        else {
+                            erreur = false;
+                        }
                         _this.changerCaracteresRestants(element);
                         break;
                     case "number":
-                        erreur = element.value < 1 || element.value > 5;
+                        if (element.value < 0) {
+                            typeErreur = "invalide";
+                            element.value = 1;
+                        }
+                        else if (element.value < 1) {
+                            typeErreur = "invalide";
+                        }
+                        else if (element.value > 5) {
+                            typeErreur = "invalide";
+                            element.value = 5;
+                        }
+                        else if (element.value.length == 0) {
+                            typeErreur = "vide";
+                        }
+                        else {
+                            erreur = false;
+                        }
                         break;
                     default:
                         break;
                 }
                 if (erreur) {
-                    _this.erreurElementCommentaire(element, "afficher");
+                    _this.erreurElementCommentaire(element, "afficher", typeErreur);
                 }
                 else {
                     _this.erreurElementCommentaire(element, "retirer");
@@ -172,9 +254,19 @@ define(["require", "exports"], function (require, exports) {
              * @description Affiche l'erreur sur l'élément qui n'est pas correct
              * @param element L'élément à faire une opération
              * @param action L'action à effectuer sur cet élément
+             * @param typeErreur Le type d'erreur envoyé - Valeur de base: "aucune"
              */
-            this.erreurElementCommentaire = function (element, action) {
-                action === "afficher" ? element.classList.add("elementFormCommentaire--erreur") : element.classList.remove("elementFormCommentaire--erreur");
+            this.erreurElementCommentaire = function (element, action, typeErreur) {
+                if (typeErreur === void 0) { typeErreur = "aucune"; }
+                var messageErreur = element.parentNode.querySelector(".erreur");
+                if (action === "afficher") {
+                    element.classList.add("elementFormCommentaire--erreur");
+                    messageErreur.innerHTML = _this.messageErreurs[element.name][typeErreur];
+                }
+                else {
+                    element.classList.remove("elementFormCommentaire--erreur");
+                    messageErreur.innerHTML = "";
+                }
             };
             /**
              * Fonction activerDesactiverBtnEnvoyer
@@ -217,11 +309,20 @@ define(["require", "exports"], function (require, exports) {
              */
             this.afficherCommentaires = function (data, textStatus, jqXHR) {
                 _this.zoneCommentaires.innerHTML = data;
-                _this.etoilesCommentaires.recharger();
+                _this.initialiserEtoiles();
             };
             this.panier = panier;
             this.ajouterEcouteursEvenements();
-            this.etoilesCommentaires = etoilesCommentaires;
+            fetch("../ressources/liaisons/typescript/messagesCommentaires.json")
+                .then(function (response) {
+                return response.json();
+            })
+                .then(function (response) {
+                _this.messageErreurs = response;
+            })
+                .catch(function (error) {
+                console.log(error);
+            });
         }
         return GestionFiche;
     }());

@@ -2,7 +2,6 @@
  * @author Samuel Loranger <samuelloranger@gmail.com>
  */
 import {GestionPanier} from "./GestionPanier";
-import {CommentairesEtoiles} from "./CommentairesEtoiles";
 
 export class GestionFiche {
 
@@ -26,12 +25,25 @@ export class GestionFiche {
 
     //Attributs de classe
     private panier:GestionPanier = null;
-    private etoilesCommentaires:CommentairesEtoiles = null;
+    private arrZoneEtoiles:[HTMLElement] = null;
 
-    constructor(panier:GestionPanier, etoilesCommentaires:CommentairesEtoiles){
+    private messageErreurs = null;
+
+    constructor(panier:GestionPanier){
         this.panier = panier;
         this.ajouterEcouteursEvenements();
-        this.etoilesCommentaires = etoilesCommentaires;
+
+        fetch("../ressources/liaisons/typescript/messagesCommentaires.json")
+            .then(response => {
+                return response.json();
+            })
+            .then(response => {
+                this.messageErreurs = response;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
     }
 
 
@@ -45,6 +57,9 @@ export class GestionFiche {
         const action = this.urlParams.get('action');
 
         if(controleur === "livre" && action === "fiche"){
+            //Initialisation des étoiles
+            this.initialiserEtoiles();
+
             this.btnSoustraire.addEventListener("click", () => {
                 this.changerQte("soustraire");
             });
@@ -87,6 +102,58 @@ export class GestionFiche {
                 }
             });
         }
+    };
+
+    /**
+     * Fonction initialiserEtoiles
+     * @description Initialisation des étoiles des commentaires
+     */
+    private initialiserEtoiles = () => {
+        this.arrZoneEtoiles = Array.apply(null, document.querySelectorAll(".zoneEtoiles"));
+
+        //Pour chaque commentaire
+        this.arrZoneEtoiles.forEach((zoneEtoile) => {
+            //On va chercher l'attribut class de l'élément
+            let classeNbr = zoneEtoile.getAttribute("class").split(" ");
+
+            //On retire le "zoneEtoile" de la classe pour garder seulement le nombre
+            let nbrEtoilesPleines = Number(classeNbr[1].replace("zoneEtoiles", ""));
+
+            //Si le nombre d'elements est plus élevé que 5, on fixe à 5
+            if(nbrEtoilesPleines > 5)
+                nbrEtoilesPleines = 5;
+
+            //On boucle nbrElements fois pour ajouter l'élément
+            for(let intCtr = 0; intCtr < nbrEtoilesPleines; intCtr++){
+                //On creer l'element span, on lui insere une classe
+                const elementEtoile:HTMLElement = document.createElement("span");
+                elementEtoile.classList.add("etoile", "etoilePleine");
+
+                const elementSVG:HTMLElement = document.createElement("img");
+                elementSVG.setAttribute("src", "./liaisons/images/icones/etoile-pleine.svg");
+                elementSVG.setAttribute("alt", "Étoile pleine");
+
+                elementEtoile.appendChild(elementSVG);
+
+                //On envoie l'element dans la zone d'etoiles
+                zoneEtoile.appendChild(elementEtoile);
+            }
+
+            for(let intCtr = 0; intCtr < 5 - nbrEtoilesPleines; intCtr++){
+                //On creer l'element span, on lui insere une classe
+                const elementEtoile:HTMLElement = document.createElement("span");
+                elementEtoile.classList.add("etoile", "etoileVite");
+
+                const elementSVG:HTMLElement = document.createElement("img");
+                elementSVG.setAttribute("src", "./liaisons/images/icones/etoile-vide.svg");
+                elementSVG.setAttribute("alt", "Étoile pleine");
+
+                elementEtoile.appendChild(elementSVG);
+
+                //On envoie l'element dans la zone d'etoiles
+                zoneEtoile.appendChild(elementEtoile);
+            }
+        });
     };
 
     /**
@@ -152,25 +219,65 @@ export class GestionFiche {
      * @param element Élément qui est testé
      */
     private verifierElementCommentaire = (element) => {
-        let erreur = false;
+        let erreur = true;
+        let typeErreur = "";
 
         switch(element.type){
             case "text":
-                erreur = element.value.length === 0 || element.value.length < 10 || element.value.length > 50;
+                if(element.value.length === 0){
+                    typeErreur = "vide"
+                }
+                else if(element.value.length < 10){
+                    typeErreur = "court";
+                }
+                else if(element.value.length > 50){
+                    typeErreur = "long";
+                }
+                else{
+                    erreur = false
+                }
                 break;
             case "textarea":
-                erreur = element.value.length === 0 || element.value.length < 50 || element.value.length > element.maxLength;
+                if(element.value.length === 0){
+                    typeErreur = "vide"
+                }
+                else if(element.value.length < element.minLength){
+                    typeErreur = "court"
+                }
+                else if(element.value.length > element.maxLength){
+                    typeErreur = "long";
+                }
+                else{
+                    erreur = false;
+                }
+
                 this.changerCaracteresRestants(element);
                 break;
             case "number":
-                erreur = element.value < 1 || element.value > 5;
+                if(element.value < 0){
+                    typeErreur = "invalide";
+                    element.value = 1;
+                }
+                else if(element.value < 1){
+                   typeErreur = "invalide";
+                }
+                else if(element.value > 5){
+                    typeErreur = "invalide";
+                    element.value = 5;
+                }
+                else if(element.value.length == 0){
+                    typeErreur = "vide";
+                }
+                else{
+                    erreur = false;
+                }
                 break;
             default:
                 break;
         }
 
         if(erreur){
-            this.erreurElementCommentaire(element, "afficher");
+            this.erreurElementCommentaire(element, "afficher", typeErreur);
         }
         else{
             this.erreurElementCommentaire(element, "retirer");
@@ -210,9 +317,19 @@ export class GestionFiche {
      * @description Affiche l'erreur sur l'élément qui n'est pas correct
      * @param element L'élément à faire une opération
      * @param action L'action à effectuer sur cet élément
+     * @param typeErreur Le type d'erreur envoyé - Valeur de base: "aucune"
      */
-    private erreurElementCommentaire = (element:HTMLInputElement, action:string) => {
-        action === "afficher" ? element.classList.add("elementFormCommentaire--erreur") : element.classList.remove("elementFormCommentaire--erreur");
+    private erreurElementCommentaire = (element:HTMLInputElement, action:string, typeErreur:string = "aucune") => {
+        const messageErreur = element.parentNode.querySelector(".erreur");
+
+        if(action === "afficher"){
+            element.classList.add("elementFormCommentaire--erreur");
+            messageErreur.innerHTML = this.messageErreurs[element.name][typeErreur];
+        }
+        else{
+            element.classList.remove("elementFormCommentaire--erreur");
+            messageErreur.innerHTML = "";
+        }
     };
 
     /**
@@ -263,6 +380,6 @@ export class GestionFiche {
      */
     private afficherCommentaires = (data, textStatus, jqXHR) => {
         this.zoneCommentaires.innerHTML = data;
-        this.etoilesCommentaires.recharger();
+        this.initialiserEtoiles();
     }
 }

@@ -56,7 +56,7 @@ class ControleurPanier{
     }
 
     public function retournerNbrItemsPanier(){
-        echo Util::getInfosPanier()["nbrItemsPanier"];
+        echo Util::getInfosHeader()["nbrItemsPanier"];
     }
 
     public function updateItem(){
@@ -183,7 +183,11 @@ class ControleurPanier{
         }
         else{
             if($informationsJson){
+<<<<<<< HEAD
                 return $tDonnees;
+=======
+                echo $tDonnees;
+>>>>>>> 808620fd93910887b362fbc2c2db5478abab992a
             }
             else{
                 echo $this->blade->run("panier.panier", $tDonnees);
