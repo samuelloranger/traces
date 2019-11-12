@@ -1,26 +1,30 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Controleurs;
 
 use App\App;
 use App\Modeles\Livre;
 use App\Util;
 
-class ControleurPanier{
+class ControleurPanier
+{
     private $blade = null;
     private $panier = null;
     private $session = null;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->blade = App::getInstance()->getBlade();
         $this->panier = App::getInstance()->getPanier();
         $this->session = App::getInstance()->getSession();
     }
 
-    public function ajoutPanier(){
+    public function ajoutPanier()
+    {
         $isbn = "0";
-        if(isset($_GET["isbn"]) && isset($_POST["qte"])){
+        if (isset($_GET["isbn"]) && isset($_POST["qte"])) {
             $isbn = $_GET["isbn"];
             $qte = intval($_POST["qte"]);
 
@@ -29,12 +33,12 @@ class ControleurPanier{
         }
 
         //Validation de la redirection
-        if(isset($_GET["redirection"])){
+        if (isset($_GET["redirection"])) {
             $redirection = $_GET["redirection"];
         }
 
         //Redirection selon l'emplacement de la fonction appellée
-        switch($redirection) {
+        switch ($redirection) {
             case "catalogue":
                 header("Location: index.php?controleur=livre&action=catalogue");
                 break;
@@ -55,83 +59,79 @@ class ControleurPanier{
         }
     }
 
-    public function retournerNbrItemsPanier(){
+    public function retournerNbrItemsPanier()
+    {
         echo Util::getInfosHeader()["nbrItemsPanier"];
     }
 
-    public function updateItem(){
-        if(isset($_POST["isbn"])){
+    public function updateItem()
+    {
+        if (isset($_POST["isbn"])) {
             $isbn = $_POST["isbn"];
-        }
-        else{
+        } else {
             $isbn = "-1";
         }
 
         $qte = 0;
-        if(isset($_POST["qte"])){
+        if (isset($_POST["qte"])) {
             $qte = intval($_POST["qte"]);
         }
 
         $isAjax = false;
-        if(isset($_POST["isAjax"])){
+        if (isset($_POST["isAjax"])) {
             $isAjax = true;
         }
 
-        if(Util::validerISBN($isbn)){
-            if($qte != 0){
+        if (Util::validerISBN($isbn)) {
+            if ($qte != 0) {
                 $this->panier->setQuantiteItem($isbn, $qte);
 
-                if(!$isAjax){
+                if (!$isAjax) {
                     header("Location: index.php?controleur=panier&action=panier");
-                }
-                else{
+                } else {
                     $this->panier(false);
                 }
-            }
-            else{
+            } else {
                 $this->supprimerItem($isbn);
             }
 
-        }
-        else{
+        } else {
             echo "Erreur isbn non-valide";
         }
     }
 
-    public function supprimerItem($isbnArgument = 0){
-        if(isset($_GET["isbn"])){
+    public function supprimerItem($isbnArgument = 0)
+    {
+        if (isset($_GET["isbn"])) {
             $isbn = $_GET["isbn"];
-        }
-        else{
-            if($isbnArgument != 0){
+        } else {
+            if ($isbnArgument != 0) {
                 $isbn = $isbnArgument;
-            }
-            else{
+            } else {
                 $isbn = "-1";
             }
         }
 
         $ajaxCall = false;
-        if(isset($_POST["isAjax"])){
+        if (isset($_POST["isAjax"])) {
             $ajaxCall = true;
         }
 
-        if(Util::validerISBN($isbn)){
+        if (Util::validerISBN($isbn)) {
             $this->panier->supprimerItem($isbn);
 
-            if(!$ajaxCall){
+            if (!$ajaxCall) {
                 header("Location: index.php?controleur=panier&action=panier");
-            }
-            else{
+            } else {
                 $this->panier(false);
             }
-        }
-        else{
+        } else {
             echo "Erreur isbn non-valide";
         }
     }
 
-    public function panier($pageComplete = true, $informationsJson = false){
+    public function panier($pageComplete = true, $informationsJson = false)
+    {
         //Éléments à afficher
         $itemsPanier = $this->panier->getItems();
         $montantSousTotal = Util::formaterArgent($this->panier->getMontantSousTotal());
@@ -140,17 +140,16 @@ class ControleurPanier{
         /**
          * Frais de livraison
          */
-        if(isset($_POST["modeLivraison"])){
+        if (isset($_POST["modeLivraison"])) {
             $modeLivraison = $_POST["modeLivraison"];
             $dateLivraisonEstimee = "Aucune date de livraison estimée.";
 
-            if($modeLivraison == "payante"){
+            if ($modeLivraison == "payante") {
                 $pageComplete = false;
                 $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
                 $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
                 $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
-            }
-            elseif($modeLivraison == "gratuite"){
+            } elseif ($modeLivraison == "gratuite") {
                 $pageComplete = false;
                 $fraisLivraison = Util::formaterArgent(0);
                 $montantTotal = Util::formaterArgent($this->panier->getMontantTotal(false));
@@ -158,8 +157,7 @@ class ControleurPanier{
             }
 
             $this->session->setItem("dateLivraisonEstimee", $dateLivraisonEstimee);
-        }
-        else{
+        } else {
             $modeLivraison = "payante";
             $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
             $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
@@ -178,18 +176,13 @@ class ControleurPanier{
             array("montantTotal" => $montantTotal)
         );
 
-        if($pageComplete && !$informationsJson){
+        if ($pageComplete && !$informationsJson) {
             echo $this->blade->run("panier.gabarit_panier", $tDonnees);
-        }
-        else{
-            if($informationsJson){
-<<<<<<< HEAD
+        } else {
+            if ($informationsJson) {
                 return $tDonnees;
-=======
                 echo $tDonnees;
->>>>>>> 808620fd93910887b362fbc2c2db5478abab992a
-            }
-            else{
+            } else {
                 echo $this->blade->run("panier.panier", $tDonnees);
             }
         }
