@@ -30,8 +30,7 @@
                             </p>
                             <p class="infosLivre__auteurLivre">
                                 @foreach($item -> livre -> getAuteurs() as $id => $auteur)
-                                    {{ $auteur->getNomPrenom() }}@if($id !== count($item -> livre -> getAuteurs())-1)
-                                        , @endif
+                                    {{ $auteur->getNomPrenom() }}@if($id !== count($item -> livre -> getAuteurs())-1), @endif
                                 @endforeach
                             </p>
                         </div>

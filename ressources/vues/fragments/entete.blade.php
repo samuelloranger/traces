@@ -20,7 +20,7 @@
                     </div>
                 </li>
 
-                @if(!$estConnecte)
+                @if(!$estConnecte == "1")
                     <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=connexion">Se connecter</a></li>
                 @else
                     <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=deconnexion">Déconnexion</a></li>
@@ -62,7 +62,7 @@
                 <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
                 <li><a href="index.php?controleur=site&action=index">Nous joindre</a></li>
 
-                @if(!$estConnecte)
+                @if(!$estConnecte == "1")
                     <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=connexion">Se connecter</a></li>
                 @else
                     <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=connexion">Déconnexion</a></li>

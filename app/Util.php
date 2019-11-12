@@ -77,13 +77,16 @@ class Util {
             $panierVide = false;
         }
 
-        //todo: a retirer lorsque le compte sera termine
-        $session->setItem("estConnecte", true);
+        $estConnecte = false;
+        if($session->getItem("estConnecte") == true){
+            $estConnecte = true;
+        }
+
 
         return array(
             "nbrItemsPanier" => $nbrItemsPanier,
             "panierVide" => $panierVide,
-            "estConnecte" => $session->getItem("estConnecte")
+            "estConnecte" => $estConnecte
         );
     }
 
