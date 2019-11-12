@@ -33,23 +33,23 @@
                              alt="american express">
                     </div>
                 </div>
-                <p>Nom :</p>
-                <input type="text" name="nomComplet" value="{{$nomComplet}}"/>
+                <p class="livraison__label">Nom :</p>
+                <input type="text" name="nomComplet" class="livraison__input" value="{{$nomComplet}}"/>
                 @if($tValidation['champsValide']['nom'] == false)
                     <p class="transaction__messageErreur">{{$tValidation['champs']['nom']['message']}}</p>
                 @endif
-                <p>Numéro de la carte :</p>
-                <input type="text" name="noCarte" value="{{$noCarte}}"/>
+                <p class="livraison__label">Numéro de la carte :</p>
+                <input type="text" name="noCarte" class="livraison__input"  value="{{$noCarte}}"/>
                 @if($tValidation['champsValide']['numeroCarte'] == false)
                     <p class="transaction__messageErreur">{{$tValidation['champs']['numeroCarte']['message']}}</p>
                 @endif
-                <p>Code de sécurité :</p>
-                <input type="text" name="code" value="{{$code}}"/>
+                <p class="livraison__label">Code de sécurité :</p>
+                <input type="text" name="code" class="livraison__input"  value="{{$code}}"/>
                 @if($tValidation['champsValide']['code'] == false)
                     <p class="transaction__messageErreur">{{$tValidation['champs']['code']['message']}}</p>
                 @endif
-                <p>Date d'expiration :<span class="livraison__label--exemple">Ex.: 01/20</span></p>
-                <input type="text" name="dateExpirationCarte" value="{{$dateExpirationCarte}}"/>
+                <p class="livraison__label">Date d'expiration :<span class="livraison__label--exemple">Ex.: 01/20</span></p>
+                <input type="text" name="dateExpirationCarte" class="livraison__input"  value="{{$dateExpirationCarte}}"/>
                 @if($tValidation['champsValide']['dateExpiration'] == false)
                     <p class="transaction__messageErreur">{{$tValidation['champs']['dateExpiration']['message']}}</p>
                 @endif
@@ -61,7 +61,7 @@
                     <p class="facturation__ville">{{$ville}}</p>
                     <p class="facturation__province">{{$province}}</p>
                     <p class="facturation__codePostal">{{$codePostal}}</p>
-                    <button>Modifier</button>
+                    <button class="transaction__modifier">Modifier</button>
                 </div>
                 <div class="facturation__infoContact">
                     <p class="transaction__sous-titre">Informations de contact</p>
