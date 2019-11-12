@@ -20,10 +20,10 @@
                     </div>
                 </li>
 
-                @if(!$estConnecte)
-                    <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=connexion">Se connecter</a></li>
+                @if(!$estConnecte == "1")
+                    <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=connexion">{{$estConnecte}}Se connecter</a></li>
                 @else
-                    <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=deconnexion">Déconnexion</a></li>
+                    <li class="btnSeConnecter"><a href="index.php?controleur=compte&action=deconnexion">{{$estConnecte}}Déconnexion</a></li>
                 @endif
                 <li><a href="index.php?controleur=compte&action=connexion">En</a></li>
             </ul>
