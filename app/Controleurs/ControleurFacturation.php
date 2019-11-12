@@ -21,6 +21,7 @@ class ControleurFacturation
 
     public function facturation(): void
     {
+
         if (isset($this->tDonneesSaisies)) {
             $tDonnees = array_merge(ControleurSite::getDonneeFragmentPiedDePage(),
                 array("nomPage" => "Facturation"),
@@ -51,7 +52,7 @@ class ControleurFacturation
                 array("ville" => $_SESSION['livraison']['ville']),
                 array("codePostal" => $_SESSION['livraison']['codePostal']),
                 array("province" => Adresse::trouverProvince($_SESSION['livraison']['abbrProvince'])),
-                array("tValidation" => $this->session->getItem("tValidation"))
+                array("tValidation" => $tValidation["formulaireValide"]=false)
             );
         }
         echo $this->blade->run("transaction.facturation", $tDonnees);
@@ -82,13 +83,18 @@ class ControleurFacturation
 
     public function validerModePaiement(): array
     {
-        $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesFacturation.json');
-        $tMessages = json_decode($fichierJSON, true);
         $tValidation = [
-            "champs" => [],
+            "champs" => [
+                "nom" => ["message" => ""],
+                "noCarte" => ["message" => ""],
+                "dateExpiration" => ["message" => ""],
+                "code" => ["message" => ""]
+            ],
             "champsValide" => [],
             "formulaireValide" => false
         ];
+        $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesFacturation.json');
+        $tMessages = json_decode($fichierJSON, true);
         $regex = [
             "nomComplet" => "#^[A-Z][a-z]*(\s[A-Z][a-z]*)+$#",
             "noCarte" => "#^(?:4[0-9]{12}(?:[0-9]{3})?|(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|3[47][0-9]{13})$#",
@@ -151,7 +157,5 @@ class ControleurFacturation
             $tValidation['formulaireValide'] = true;
         }
         return $tValidation;
-
-
     }
 }

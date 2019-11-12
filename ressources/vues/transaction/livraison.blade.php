@@ -48,7 +48,8 @@
                     <option value="NU">Nunavut</option>
                     <option value="YT">Yukon</option>
                 </select>
-                <p class="livraison__label">Code Postal : <span class="livraison__label--exemple">Ex.: A1A 1A1</span>
+                <p class="livraison__label">Code Postal : <span
+                            class="livraison__label--exemple">Ex.: A1A 1A1</span>
                 </p>
                 <input class="livraison__input" type="text" name="codePostal" value="{{$codePostal}}"/>
                 @if($tValidation['champsValide']['codePostal'] == false)
@@ -62,7 +63,8 @@
                     <input name="adresseFacturation" type="checkbox" checked/>
                     <p class="livraison__checkbox--label">Utiliser comme adresse de facturation</p>
                 </div>
-                <input type="submit" class="transaction__centrer transaction__bouton" value="LIVRER À CETTE ADRESSE"/>
+                <input type="submit" class="transaction__centrer transaction__bouton"
+                       value="LIVRER À CETTE ADRESSE"/>
             </form>
         </div>
     </div>

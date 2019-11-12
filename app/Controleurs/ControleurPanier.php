@@ -183,7 +183,7 @@ class ControleurPanier{
         }
         else{
             if($informationsJson){
-                echo json_encode($tDonnees);
+                return $tDonnees;
             }
             else{
                 echo $this->blade->run("panier.panier", $tDonnees);
