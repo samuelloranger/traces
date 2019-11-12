@@ -56,7 +56,7 @@ class ControleurPanier{
     }
 
     public function retournerNbrItemsPanier(){
-        echo Util::getInfosPanier()["nbrItemsPanier"];
+        echo Util::getInfosHeader()["nbrItemsPanier"];
     }
 
     public function updateItem(){

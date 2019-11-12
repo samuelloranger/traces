@@ -9,17 +9,13 @@
   },
   "titre_commentaire": {
     "vide": "Veuillez entrer un titre à votre commentaire.",
-    "longueur": {
-      "court": "Le titre entré est trop court...",
-      "long": "Le titre entré est trop long..."
-    }
+    "court": "Le titre entré est trop court...",
+    "long": "Le titre entré est trop long..."
   },
   "texte_commentaire": {
     "vide": "Veuillez entrer un texte à votre commentaire.",
-    "longueur": {
-      "court": "Le texte entré est trop court...",
-      "long": "Le texte entré est trop long..."
-    }
+    "court": "Le texte entré est trop court...",
+    "long": "Le texte entré est trop long..."
   },
   "cote": {
     "vide": "Veuillez entrer une cote à votre commentaire.",

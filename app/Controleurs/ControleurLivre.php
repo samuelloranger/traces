@@ -164,8 +164,9 @@ class ControleurLivre
         $arrCommentaires = Commentaires::trouverParISBN($infosLivre->__get("isbn"));
 
         //Temporaire en attendant la fin du compte
-        $this->session->setItem("idClient", 2);
+//        $this->session->setItem("courriel", 2);
         $idClient = $this->session->getItem("idClient");
+        var_dump($idClient);
 
         $formCommContientErreur = count($arrErreursFormCommentaire) !== 0;
 
@@ -235,11 +236,11 @@ class ControleurLivre
             $titre_commentaire = strip_tags($_POST["titre_commentaire"]);
 
             if(strlen($titre_commentaire) > 50 ){
-                $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["longueur"]["long"];
+                $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["long"];
                 $formCommContientErreur = true;
             }
             elseif(strlen($titre_commentaire) < 10){
-                $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["longueur"]["court"];
+                $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["court"];
                 $formCommContientErreur = true;
             }
         }
@@ -253,11 +254,11 @@ class ControleurLivre
             $texte_commentaire = strip_tags($_POST["texte_commentaire"]);
 
             if(strlen($texte_commentaire) > 255 ){
-                $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["longueur"]["long"];
+                $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["long"];
                 $formCommContientErreur = true;
             }
             elseif(strlen($texte_commentaire) < 10){
-                $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["longueur"]["court"];
+                $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["court"];
                 $formCommContientErreur = true;
             }
         }

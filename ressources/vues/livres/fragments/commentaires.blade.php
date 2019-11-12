@@ -1,7 +1,7 @@
 <h2>Commentaires de lecteurs</h2>
 <div class="commentaire">
     <h3>Adoré ce livre!</h3>
-    <p class="auteur">Samuel Loranger</p>
+    <p class="auteur"><b>Commentaire par: </b>Samuel Loranger</p>
     <div class="zoneEtoiles zoneEtoiles4"></div>
     <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
     <p><span class="achatVerif">Achat vérifié</span></p>
@@ -9,7 +9,7 @@
 
 <div class="commentaire">
     <h3>Adoré ce livre!</h3>
-    <p class="auteur">Zachary Nicol</p>
+    <p class="auteur"><b>Commentaire par: </b>Zachary Nicol</p>
     <div class="zoneEtoiles zoneEtoiles5"></div>
     <p>Superbe livre ! Un peu dur à comprendre par bouts, mais j’ai adoré ma lecture. J'étais réellement plongé dans l'histoire !</p>
     <p><span class="achatVerif">Achat vérifié</span></p>
@@ -18,7 +18,7 @@
 @foreach($arrCommentaires as $commentaire)
     <div class="commentaire">
         <h3>{{ $commentaire -> __get("titre_commentaire") }}</h3>
-        <p class="auteur">{{ $commentaire -> __get("prenom")}} {{ $commentaire -> __get("nom")  }}</p>
+        <p class="auteur"><b>Commentaire par: </b>{{ $commentaire -> __get("prenom")}} {{ $commentaire -> __get("nom")  }}</p>
         <div class="zoneEtoiles zoneEtoiles{{ $commentaire -> __get("cote") }}"></div>
         <p>{{ $commentaire -> __get("texte_commentaire") }}</p>
         @if($commentaire -> __get("achat_verifie"))
@@ -51,9 +51,9 @@
 
     <div class="conteneurElemForm">
         <label for="texte_commentaire">Texte du commentaire</label>
-        <small>50 caractères minimum, 255 caractères maximum</small>
+        <small>30 caractères minimum, 255 caractères maximum</small>
         <small>Caractères restants: <span class="caracteresRestants">255</span></small>
-        <textarea rows="4" cols="50" maxlength="255" id="texte_commentaire" class="texte_commentaire elementFormCommentaire" name="texte_commentaire" @if($estConnecte == false) disabled @endif></textarea>
+        <textarea rows="4" cols="50" minlength="30" maxlength="255" id="texte_commentaire" class="texte_commentaire elementFormCommentaire" name="texte_commentaire" @if($estConnecte == false) disabled @endif></textarea>
         @if(isset($arrErreurs["texte_commentaire"]))
             <p class="erreur erreur--icone">{{ $arrErreurs["texte_commentaire"] }}</p>
         @else
@@ -82,5 +82,5 @@
     </div>
 
     <button class="boutonEnvoyerCommentaire boutonEnvoyerCommentaireNoScript">Envoyer</button>
-    <button type="button" class="boutonEnvoyerCommentaire boutonEnvoyerCommentaireScript" disabled="disabled">Envoyer</button>
+    <button type="button" class="boutonEnvoyerCommentaire boutonEnvoyerCommentaireScript" disabled="disabled">Envoyer le commentaire</button>
 </form>

@@ -294,54 +294,61 @@
             .conteneurElemForm{
               display: flex;
               flex-direction: column;
-            }
 
-            .texte_commentaire{
-              height: 175px;
-              max-height: 175px;
-              max-width: 100%;
-            }
-
-            .cote {
-              max-width: 50px;
-            }
-
-            .erreur{
-              color: red;
-              margin-top: 8px;
-              display: flex;
-              align-content: center;
-
-              &--icone{
-                &:before{
-                  content: "";
-                  display: inline-block;
-                  width: 24px;
-                  height: 24px;
-                  margin-right: 5px;
-                  background-image: url("../images/icones/error.svg");
-                  background-size: contain;
-                  background-repeat: no-repeat;
+              input, textarea{
+                &:focus{
+                  outline: none;
+                  border: none;
                 }
               }
-            }
 
-            .zoneConfirmationAchat{
-              margin-top: 10px;
-              display: flex;
-              flex-direction: row-reverse;
-              justify-content: flex-end;
-              align-items: center;
+              .texte_commentaire{
+                height: 175px;
+                max-height: 175px;
+                max-width: 100%;
+              }
 
-              input{
-                margin-right: 10px;
+              .cote {
+                max-width: 50px;
+              }
+
+              .erreur{
+                color: red;
+                margin-top: 8px;
+                display: flex;
+                align-content: center;
+
+                &--icone{
+                  &:before{
+                    content: "";
+                    display: inline-block;
+                    width: 24px;
+                    height: 24px;
+                    margin-right: 5px;
+                    background-image: url("../images/icones/error.svg");
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                  }
+                }
+              }
+
+              .zoneConfirmationAchat{
+                margin-top: 10px;
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: flex-end;
+                align-items: center;
+
+                input{
+                  margin-right: 10px;
+                }
               }
             }
 
             .boutonEnvoyerCommentaire{
               border-radius: 35px;
               border: none;
-              width: 150px;
+              width: 230px;
               padding: 2% 0;
               background-color: $TURQUOISE;
               color: white;

@@ -10,7 +10,7 @@ use App\Util;
 
 class User {
     //Attributs
-    private $id;
+    private $id_client;
     private $prenom;
     private $nom;
     private $courriel;
