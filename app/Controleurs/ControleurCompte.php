@@ -25,10 +25,16 @@ class ControleurCompte {
     public function connexion(): void {
         $tValidation = $this->session->getItem("tValidation");
 
+        $connexionPanier = false;
+        if (isset($_GET["panier"])) {
+            $connexionPanier = true;
+        }
+
         $tDonnees = array_merge(
             Util::getInfosHeader(),
             ControleurSite::getDonneeFragmentPiedDePage(),
-            ["tValidation" => $tValidation]
+            ["tValidation" => $tValidation],
+            ["connexionPanier" => $connexionPanier]
         );
         print_r($tValidation);
         echo $this->blade->run("compte.connexion", $tDonnees);
@@ -39,6 +45,11 @@ class ControleurCompte {
         $tValidation = $this->validerConnexion();
         $formulaireValide = $tValidation["formulaireValide"];
         //$formulaireValide = $this->validerConnexion();
+
+        $connexionPanier = false;
+        if (isset($_POST["panier"])) {
+            $connexionPanier = true;
+        }
 
         $courriel = $_POST["email"];
         $mdp = $_POST["mdp"];
@@ -54,8 +65,13 @@ class ControleurCompte {
             $this->session->setItem("estConnecte", true);
             $this->session->setItem("idClient", $user->__get("id_client"));
 
-            header("Location: index.php?controleur=site&action=accueil");
-            exit;
+            if ($connexionPanier) {
+                header("Location: index.php?controleur=livraison&action=livraison");
+            } else {
+                header("Location: index.php?controleur=site&action=accueil");
+                exit;
+            }
+
         } else {
             $this->session->setItem("tValidation", $tValidation);
             header("Location: index.php?controleur=compte&action=connexion");

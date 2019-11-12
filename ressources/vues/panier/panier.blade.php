@@ -114,8 +114,13 @@
                 <p><span class="texteGauche">Total:</span> <span class="texteDroit">{{ $montantTotal }}</span></p>
 
                 <div class="zoneBoutons">
-                    <a href="index.php?controleur=livraison&action=livraison" class="btn btnCommander">Passer la
-                        commande</a>
+                    @if($estConnecte)
+                        <a href="index.php?controleur=livraison&action=livraison" class="btn btnCommander">Passer la
+                            commande</a>
+                    @else
+                        <a href="index.php?controleur=compte&action=connexion&panier=connexion" class="btn btnCommander">Passer la commande</a>
+                    @endif
+
                     <a href="" class="btn btnViderPanier">Vider le panier</a>
                 </div>
             </div>
