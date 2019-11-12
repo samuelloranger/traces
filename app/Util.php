@@ -38,10 +38,6 @@ class Util {
         if($positionParOuverte && $positionParFerme){
             $texteDeplace = substr($titre, $positionParOuverte, $longueurMotRemplace);
 
-//            $titre = explode(" ", $titre);
-//            $titre[0] = strtolower($titre[0]);
-//            $titre = implode(" ", $titre);
-
             $titre = substr($titre, 0, strlen($titre)-$longueurMotRemplace - 2);
 
             $contientApostrophe = false;
@@ -81,7 +77,6 @@ class Util {
         if($session->getItem("estConnecte") == true){
             $estConnecte = true;
         }
-
 
         return array(
             "nbrItemsPanier" => $nbrItemsPanier,

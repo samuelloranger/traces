@@ -1,0 +1,31 @@
+.confirmation{
+  &__resumeCommande{
+    &__zoneInfo{
+      margin-bottom: 8%;
+
+      .infoPanierFlex{
+        display: flex;
+
+        &:nth-child(4){
+          border-bottom: 1px solid black;
+          margin-bottom: 5px;
+        }
+      }
+
+      .carte{
+        display: flex;
+        margin: 0 auto;
+        align-items: center;
+
+        .logo{
+          max-width: 50px;
+          margin-right: 8%;
+        }
+
+        .numeroCarte{
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
