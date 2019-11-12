@@ -326,4 +326,26 @@ class ControleurCompte {
 
         echo $userExiste;
     }
+
+    public function verifierMotPasse(): void {
+        $correct = "false";
+
+        $courriel = "";
+        if (isset($_POST["email"])) {
+            $courriel = $_POST["email"];
+        }
+
+        $mdp = "";
+        if (isset($_POST["mdp"])) {
+            $mdp = $_POST["mdp"];
+        }
+
+        $crypt = User::getHash($courriel);
+
+        if (password_verify($mdp, $crypt)) {
+            $correct = "true";
+        }
+
+        echo $correct;
+    }
 }

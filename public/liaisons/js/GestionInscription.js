@@ -4,18 +4,25 @@ define(["require", "exports"], function (require, exports) {
     var GestionInscription = /** @class */ (function () {
         function GestionInscription() {
             var _this = this;
-            this.tChampsFormulaire = Array.apply(null, document.querySelectorAll(".champ_formulaire"));
-            this.togglePassword = document.querySelector(".toggle");
+            this.urlParams = new URLSearchParams(window.location.search);
+            this.tChampsFormulaire = null;
+            this.togglePassword = null;
             this.objValidation = {};
             this.formulaireValide = true;
             this.objEtatChamps = null;
             this.initialiser = function () {
-                console.log(_this.objValidation);
-                _this.tChampsFormulaire.forEach(function (champ) {
-                    champ.addEventListener("blur", _this.validerChamp);
-                });
-                _this.togglePassword.addEventListener("change", _this.toggleMotPasse);
-                _this.verifierFormulaire();
+                //console.log(this.objValidation);
+                var controleur = _this.urlParams.get("controleur");
+                var action = _this.urlParams.get("action");
+                if (controleur === "compte" && action === "inscription") {
+                    _this.tChampsFormulaire = Array.apply(null, document.querySelectorAll(".js_inscription"));
+                    _this.togglePassword = document.querySelector(".toggle");
+                    _this.tChampsFormulaire.forEach(function (champ) {
+                        champ.addEventListener("blur", _this.validerChamp);
+                    });
+                    _this.togglePassword.addEventListener("change", _this.toggleMotPasse);
+                    _this.verifierFormulaire();
+                }
             };
             this.validerChamp = function (e) {
                 var champ = e.currentTarget;
@@ -24,7 +31,7 @@ define(["require", "exports"], function (require, exports) {
                 var champValide = pattern.test(valeur);
                 //const conteneurParent = champ.closest("div");
                 var paragrapheRetro = document.getElementById("retro-" + champ.name);
-                console.log(champ.name);
+                //console.log(champ.name);
                 //console.log(conteneurParent.children);
                 //console.log(champValide);
                 if (champValide) {
@@ -89,7 +96,7 @@ define(["require", "exports"], function (require, exports) {
                 else {
                     document.getElementById("inscrire").removeAttribute("disabled");
                 }
-                console.log("formulaire valide: ", _this.formulaireValide);
+                //console.log("formulaire valide: ", this.formulaireValide)
             };
             this.verifierCourriel = function (courriel) {
                 return new Promise(function (resolve, reject) {
@@ -107,8 +114,8 @@ define(["require", "exports"], function (require, exports) {
             this.toggleMotPasse = function (e) {
                 var checkbox = e.currentTarget;
                 var inputPassword = document.querySelector("[name='mdp']");
-                console.log(inputPassword);
-                console.log(checkbox.checked);
+                //console.log(inputPassword);
+                //console.log(checkbox.checked);
                 if (checkbox.checked) {
                     inputPassword.setAttribute("type", "text");
                 }
@@ -139,10 +146,7 @@ define(["require", "exports"], function (require, exports) {
                 };
             };
             this.objEtatChamps = this.initialiserEtat();
-            console.log(this.tChampsFormulaire);
-            this.tChampsFormulaire.forEach(function (champ) {
-                console.log(champ.pattern);
-            });
+            //console.log(this.tChampsFormulaire);
             fetch("../ressources/liaisons/typescript/messagesInscription.json")
                 .then(function (response) {
                 return response.json();
