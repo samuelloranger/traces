@@ -80,6 +80,6 @@ class ControleurValidation
         );
         echo $this->blade->run("transaction.confirmation", $tDonnees);
         //App::getInstance()->envoyerCourriel($this->session->getItem("courriel"));
-        App::getInstance()->envoyerCourriel("olivier.12.papineau@gmail.com");
+        //App::getInstance()->envoyerCourriel("olivier.12.papineau@gmail.com");
     }
 }

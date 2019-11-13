@@ -12,23 +12,24 @@
           margin-bottom: 5px;
         }
       }
-
-      .mode-paiement {
-        display: flex;
-        margin: 0 auto;
-        align-items: center;
-
-        .logo {
-          max-width: 50px;
-          margin-right: 8%;
-        }
-
-        .numeroCarte {
-          margin-bottom: 0;
-        }
-      }
     }
   }
+
+  &__modePaiement {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+
+    &__logo {
+      max-width: 50px;
+      margin-right: 8%;
+    }
+
+    &__numeroCarte {
+      margin-bottom: 0;
+    }
+  }
+
 
   &__resumeItems {
     &__item {
@@ -84,4 +85,5 @@
       color: black;
     }
   }
+
 }
