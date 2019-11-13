@@ -11,7 +11,7 @@
         <div class="transaction__background">
             <a class="transaction__centrer transaction__bouton"
                href="index.php?controleur=validation&action=confirmation">PASSER LA COMMANDE</a>
-            <p>Livraison à <b>{{$nomComplet}}</b></p>
+            <p class="validation__nomClient">Livraison à <b>{{$nomComplet}}</b></p>
             <p>Date de livraison estimée : <b>{{$dateLivraisonEstimee}}</b></p>
             <div class="validation__sommaire">
                 <p class="transaction__sous-titre">Sommaire de la commande</p>
@@ -21,8 +21,6 @@
                             class="texteDroit">{{ $fraisLivraison }}</span></p>
                 <p><span class="texteGauche">Taxes:</span> <span class="texteDroit">{{ $montantTPS }}</span></p>
                 <p><span class="texteGauche">Total:</span> <span class="texteDroit">{{ $montantTotal }}</span></p>
-                <a class="transaction__centrer transaction__bouton"
-                   href="index.php?controleur=validation&action=confirmation">PASSER LA COMMANDE</a>
             </div>
             <div class="validation__adresseLivraison">
                 <p class="transaction__sous-titre">Adresse de livraison</p>
@@ -33,14 +31,14 @@
                     {{$province}}<br/>
                     {{$codePostal}}
                 </p>
-                <button>Modifier</button>
+                <button class="transaction__modifier">Modifier</button>
             </div>
             <div class="validation__infoFacturation">
                 <p class="transaction__sous-titre">Informations de facturation</p>
                 <p>Mode de paiement : carte de crédit</p>
                 <p>XXXX XXXX XXXX {{$noCarte}}</p>
                 <p>Expiration : {{$dateExpiration}}</p>
-                <button>Modifier</button>
+                <button class="transaction__modifier">Modifier</button>
                 <p class="transaction__sous-titre">Adresse de facturation</p>
                 <p>
                     {{$nomComplet}}<br/>
@@ -49,11 +47,11 @@
                     {{$province}}<br/>
                     {{$codePostal}}
                 </p>
-                <button>Modifier</button>
+                <button class="transaction__modifier">Modifier</button>
                 <p class="transaction__sous-titre">Informations</p>
                 <p>{{$courriel}}</p>
                 <p>+1 (418) 999-9999</p>
-                <button>Modifier</button>
+                <button class="transaction__modifier">Modifier</button>
             </div>
         <h2 class="transaction__titre">Mon panier</h2>
         @foreach($elementsPanier as $item)

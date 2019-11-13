@@ -15,27 +15,32 @@
                 <p class="facturation__carteAcceptees">Méthodes de paiement acceptées</p>
                 <div class="facturation__methodesPaiement">
                     <div class="facturation__radio">
-                        <label class="facturation__radio--label"><input name="methodePaiement"
-                                                                        class="facturation__radio--input" type="radio"
-                                                                        value="Paypal">Paypal</label>
+                        <input name="methodePaiement" id="paypal"
+                               class="facturation__radio--input" type="radio"
+                               value="Paypal">
+                        <label for="paypal" class="facturation__radio--label"><img
+                                    src="liaisons/images/transaction/paypal.svg" alt="paypal"></label>
                     </div>
                     <div class="facturation__radio">
-                        <label class="facturation__radio--label"><input name="methodePaiement"
-                                                                        class="facturation__radio--input" type="radio"
-                                                                        value="VISA"><img
+                        <input name="methodePaiement" id="visa"
+                               class="facturation__radio--input" type="radio"
+                               value="VISA">
+                        <label for="visa" class="facturation__radio--label"><img
                                     src="liaisons/images/transaction/visa.svg" alt="visa"></label>
                     </div>
                     <div class="facturation__radio">
-                        <label class="facturation__radio--label"><input name="methodePaiement"
-                                                                        class="facturation__radio--input" type="radio"
-                                                                        value="Master Card"><img
+                        <input name="methodePaiement" id="mastercard"
+                               class="facturation__radio--input" type="radio"
+                               value="Master Card">
+                        <label for="mastercard" class="facturation__radio--label"><img
                                     src="liaisons/images/transaction/mastercard.svg"
                                     alt="mastercard"></label>
                     </div>
                     <div class="facturation__radio">
-                        <label class="facturation__radio--label"><input name="methodePaiement"
-                                                                        class="facturation__radio--input" type="radio"
-                                                                        value="American Express"><img
+                        <input name="methodePaiement" id="amex"
+                               class="facturation__radio--input" type="radio"
+                               value="American Express">
+                        <label for="amex" class="facturation__radio--label"><img
                                     src="liaisons/images/transaction/american-express.svg"
                                     alt="american express"></label>
                     </div>
