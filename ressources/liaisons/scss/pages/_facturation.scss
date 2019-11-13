@@ -27,9 +27,9 @@
       opacity: 0;
       width: 0;
       height: 0;
-border: transparent 1px solid;
+
       &:checked + label {
-        border: $ROUGE 1px solid;
+        filter: grayscale(0);
         border-radius: 50px;
       }
     }
@@ -37,7 +37,11 @@ border: transparent 1px solid;
     &--label {
       min-width: 46px;
       min-height: 46px;
+      height: 46px;
+      width: 46px;
       cursor: pointer;
+      filter: grayscale(1);
+      transition: 0.2s;
     }
   }
 

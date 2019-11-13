@@ -65,14 +65,6 @@ class ControleurFacturation
         if ($formulaireValide === true) {
             $this->tDonneesSaisies = "";
             $_SESSION['facturation'] = $_POST;
-            if ($_SESSION['facturation']['methodePaiement'] === 'VISA' OR $_SESSION['facturation']['methodePaiement'] === 'Master Card' OR $_SESSION['facturation']['methodePaiement'] === 'American Express') {
-                $_SESSION['facturation']['typeCarte'] = $_SESSION['facturation']['methodePaiement'];
-                $_SESSION['facturation']['estPaypal'] = 0;
-            }
-            if ($_SESSION['facturation']['methodePaiement'] === 'Paypal') {
-                $_SESSION['facturation']['typeCarte'] = null;
-                $_SESSION['facturation']['estPaypal'] = 1;
-            }
             header("Location: index.php?controleur=validation&action=validation");
         } else {
             $this->tDonneesSaisies = $_POST;

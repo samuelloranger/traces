@@ -8,68 +8,75 @@
                 <span class="icone__validation"></span>
                 <h2 class="transaction__sous-titre">Nous avons bien reçu votre commande.</h2>
             </div>
-            <p class="confirmation__espacement">Elle vous sera expédiée selon les modalitées que vous avez choisies. N'hésitez pas à consulter notre service à la clientèle pour plus d'informations relatives à votre commande ou votre compte.</p>
-            <p><b>Votre numéro de confirmation est le:</b></p>
-            <p><b>XXXXXXXXXXXXX</b></p>
+            <p>Elle vous sera expédiée selon les modalitées que vous avez choisies.
+                N'hésitez pas à consulter notre service à la clientèle pour plus d'informations relatives à votre
+                commande ou votre compte.</p>
+            <p><i>Votre numéro de confirmation est le:</i></p>
+            <p class="transaction__titre"><b>1234-5678-90</b></p>
             <p>Vous recevrez d'ici quelques minutes une confirmation de votre commande par courriel.</p>
         </div>
 
         <div class="transaction__background confirmation__resumeCommande">
             <div class="confirmation__resumeCommande__zoneInfo">
-                <h3 class="transaction__sous-titre">Sommaire de votre commande</h3>
-                <div class="infoPanierFlex text-right confirmation__espacement">
-                    <p>3 items</p>
-                    <p>CAD 68,95$</p>
+                <p class="transaction__sous-titre">Sommaire de votre commande</p>
+                <div class="infoPanierFlex text-right">
+                    <p>{{ $nbrItemsPanier }} items</p>
+                    <p>CAD {{ $montantSousTotal }} </p>
                 </div>
                 <div class="infoPanierFlex text-right">
                     <p>TPS 5%</p>
-                    <p>CAD 4,45$</p>
+                    <p>CAD {{ $montantTPS }}</p>
                 </div>
                 <div class="infoPanierFlex text-right">
                     <p>Livraison standard</p>
-                    <p>CAD 4,45$</p>
+                    <p>CAD {{ $fraisLivraison }}</p>
                 </div>
                 <div class="infoPanierFlex text-right">
                     <p>Total</p>
-                    <p>CAD 4,45$</p>
+                    <p>CAD {{ $montantTotal }}</p>
                 </div>
             </div>
 
             <div class="confirmation__resumeCommande__zoneInfo">
-                <h3 class="transaction__sous-titre">Adresse de livraison</h3>
-                <p class="confirmation__espacement">Prénom nom</p>
-                <p>133 Rue Sieur Nicol</p>
-                <p>Québec</p>
-                <p>QC</p>
-                <p>G1G 1G1</p>
+                <p class="transaction__sous-titre">Adresse de livraison</p>
+                <p>{{$nomComplet}}</p>
+                <p>{{$adresse}}</p>
+                <p>{{$ville}}</p>
+                <p>{{$province}}</p>
+                <p>{{$codePostal}}</p>
             </div>
 
             <div class="confirmation__resumeCommande__zoneInfo">
-                <h3 class="transaction__sous-titre">Adresse de facturation</h3>
-                <p class="confirmation__espacement">Prénom nom</p>
-                <p>133 Rue Sieur Nicol</p>
-                <p>Québec</p>
-                <p>QC</p>
-                <p>G1G 1G1</p>
+                <p class="transaction__sous-titre">Adresse de facturation</p>
+                <p>{{$nomComplet}}</p>
+                <p>{{$adresse}}</p>
+                <p>{{$ville}}</p>
+                <p>{{$province}}</p>
+                <p>{{$codePostal}}</p>
             </div>
 
             <div class="confirmation__resumeCommande__zoneInfo">
-                <h3 class="transaction__sous-titre">Mode de paiement</h3>
-                <p class="confirmation__espacement">Nom prénom</p>
+                <p class="transaction__sous-titre">Mode de paiement</p>
+                <p>{{$nomComplet}}</p>
 
                 <div class="mode-paiement">
-                    {{--        Ici tu envoie le mode de paiement sélectionné, tu pourras changer la source de l'image ensuite        --}}
-                    <img class="logo" src="liaisons/images/transaction/visa.svg" alt="visa">
-                    {{--                <img class="logo" src="liaisons/images/transaction/mastercard.svg" alt="Mastercard">--}}
-                    {{--                <img class="logo" src="liaisons/images/transaction/american-express.svg" alt="AMEX">--}}
-                    <p class="numeroCarte">XXXX XXXX XXXX 1234</p>
+                    @if($methodePaiement === "VISA")
+                        <img class="logo" src="liaisons/images/transaction/visa.svg" alt="visa">
+                    @endif
+                    @if($methodePaiement === "Master Card")
+                        <img class="logo" src="liaisons/images/transaction/mastercard.svg" alt="Mastercard">
+                    @endif
+                    @if($methodePaiement === "American Express")
+                        <img class="logo" src="liaisons/images/transaction/american-express.svg" alt="AMEX">
+                    @endif
+                    <p class="numeroCarte">XXXX XXXX XXXX <b>{{$noCarte}}</b></p>
                 </div>
             </div>
 
             <div class="transaction__resumePanier zone">
-                <h3 class="transaction__sous-titre">Informations</h3>
-                <p class="confirmation__espacement">samuelloranger@gmail.com</p>
-                <p>581-748-0646</p>
+                <p class="transaction__sous-titre">Informations</p>
+                <p>{{$courriel}}</p>
+                <p>+1 (418) 999-9999</p>
             </div>
         </div>
 
@@ -107,6 +114,7 @@
         </div>
 
         <button class="transaction__centrer transaction__bouton">IMPRIMER LE REÇU DE VOTRE COMMANDE</button>
-        <a class="transaction__centrer lienRetour text-center" href="index.php?controleur=site&action=accueil">CONTINUER À MAGASINER</a>
+        <a class="transaction__centrer lienRetour text-center" href="index.php?controleur=site&action=accueil">CONTINUER
+            À MAGASINER</a>
     </div>
 @endsection
