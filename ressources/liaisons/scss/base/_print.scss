@@ -1,0 +1,74 @@
+.confirmation {
+  @media print {
+    //font-size: 1px;
+
+    .confirmation {
+      &__espacement {
+        margin: 0;
+      }
+      &__resumeCommande {
+
+        &__zoneInfo {
+          margin: 0;
+        }
+      }
+
+      &__resumeItems {
+
+        &__item {
+          img {
+            max-width: 1in;
+          }
+        }
+      }
+    }
+
+
+    .transaction {
+      &__background {
+        background-color: transparent;
+        padding: 0;
+      }
+      &__titre {
+        margin-top: 0;
+      }
+      &__sous-titre {
+        margin: 0;
+        padding: 0;
+        text-align: left;
+      }
+      &__bouton {
+        display: none;
+      }
+      .lienRetour {
+        display: none;
+      }
+    }
+
+  }
+
+}
+
+header {
+  @media print {
+    display: none !important;
+  }
+}
+
+body {
+  @media print {
+    font-family: "Times New Roman", serif !important;
+  }
+}
+
+footer {
+  @media print {
+    display: none !important;
+  }
+}
+
+.container {
+  @media print {
+    margin: 0 1cm 0 1cm !important;
+  }
+}

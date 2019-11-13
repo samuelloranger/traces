@@ -117,6 +117,7 @@
 
             .infosLivre{
               &__titreLivre{
+
                 a{
                   color: black !important;
                 }
@@ -142,6 +143,7 @@
             }
 
             &__titreLivre{
+              @include fontSize(24px);
               a{
                 color: black;
               }
@@ -278,12 +280,11 @@
     position: relative;
 
     .contenu{
-      position: sticky !important;
+      position: sticky;
       margin-top: 2%;
       padding: 5%;
-      top: 12%;
+      top: 15%;
       border: 1px solid black;
-      //max-height: 450px;
       margin-bottom: 5%;
 
       .h2{

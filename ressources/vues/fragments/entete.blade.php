@@ -11,7 +11,7 @@
                 <li><a href="index.php?controleur=livre&action=catalogue">Catalogue</a></li>
                 <li><a href="index.php?controleur=site&action=accueil#coupdecoeurs">Meilleurs vendeurs</a></li>
                 <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
-                <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
+{{--                <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>--}}
                 <li><a href="index.php?controleur=site&action=index">Nous joindre</a></li>
                 <li><a href="index.php?controleur=panier&action=panier" class="iconePanier" aria-label="Panier"><span aria-label="Panier" class="icone icone__panier"></span>@if(!$panierVide)<span class="nbrItemsPanier">{{ $nbrItemsPanier }}</span>@endif</a></li>
                 <li>
@@ -59,7 +59,7 @@
                 <li><a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar=aucun&nbParPages=9">Catalogue</a></li>
                 <li><a href="index.php?controleur=site&action=accueil#meilleurs-vendeurs">Meilleurs vendeurs</a></li>
                 <li><a href="index.php?controleur=auteurs&action=index">Auteurs</a></li>
-                <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>
+{{--                <li><a href="index.php?controleur=site&action=apropos">Découvrir Traces</a></li>--}}
                 <li><a href="index.php?controleur=site&action=index">Nous joindre</a></li>
 
                 @if(!$estConnecte == "1")

@@ -11,6 +11,7 @@ use App\Controleurs\ControleurPanier;
 use App\Controleurs\ControleurSite;
 use App\Controleurs\ControleurFacturation;
 use App\Controleurs\ControleurValidation;
+//use App\Courriels\Courriel;
 use App\Session\Session;
 use App\Session\SessionPanier;
 use \PDO;
@@ -44,6 +45,11 @@ class App
         $this->getSession()->demarrer();
         $this->configurerEnvironnement();
         $this->routerLaRequete();
+    }
+
+    public function envoyerCourriel($adresseCourriel) {
+        $courriel = new Courriel($adresseCourriel);
+        $courriel->envoyer();
     }
 
     private function configurerEnvironnement(): void
