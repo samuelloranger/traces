@@ -7,7 +7,7 @@
     }
   },
   "require": {
-    "phpmailer/phpmailer": "^6.0",
+    "phpmailer/phpmailer": "^6.1",
     "eftec/bladeone": "^3.31",
     "ext-pdo": "*",
     "ext-intl": "*",

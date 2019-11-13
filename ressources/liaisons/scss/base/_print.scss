@@ -68,5 +68,7 @@ footer {
 }
 
 .container {
-  margin: 0 1cm 0 1cm !important;
+  @media print {
+    margin: 0 1cm 0 1cm !important;
+  }
 }

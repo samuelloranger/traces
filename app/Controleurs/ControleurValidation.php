@@ -54,5 +54,7 @@ class ControleurValidation
         $tDonnees = array("nomPage" => "Confirmation");
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
         echo $this->blade->run("transaction.confirmation", $tDonnees);
+        //App::getInstance()->envoyerCourriel($this->session->getItem("courriel"));
+        App::getInstance()->envoyerCourriel("olivier.12.papineau@gmail.com");
     }
 }
