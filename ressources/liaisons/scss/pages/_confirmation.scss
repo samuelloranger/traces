@@ -5,6 +5,7 @@
 
       .infoPanierFlex{
         display: flex;
+        justify-content: space-between;
 
         &:nth-child(4){
           border-bottom: 1px solid black;
@@ -12,7 +13,7 @@
         }
       }
 
-      .carte{
+      .mode-paiement{
         display: flex;
         margin: 0 auto;
         align-items: center;
@@ -26,6 +27,61 @@
           margin-bottom: 0;
         }
       }
+    }
+  }
+
+  &__resumeItems{
+    &__item{
+      margin-bottom: 5%;
+      padding-bottom: 2%;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+
+      &:last-child{
+        border-bottom: none;
+      }
+
+      .conteneurItem{
+        display: flex;
+        position: relative;
+
+        .couvertureLivre{
+          width: 40%;
+          margin-right: 5%;
+        }
+
+        .prixItem{
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          width: 40%;
+          display: flex;
+          justify-content: space-between;
+
+          p{
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .transaction__bouton{
+    transition: 0.25s ease-in-out;
+    transform: scale(0.95);
+
+    &:hover{
+      transform: scale(1);
+    }
+  }
+
+  .lienRetour{
+    color: $TURQUOISE;
+    display: block;
+    margin: 5% auto;
+    transition: 0.25s ease-in-out;
+
+    &:hover{
+      color: black;
     }
   }
 }
