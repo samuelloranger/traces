@@ -100,7 +100,7 @@ class ControleurLivraison
             "prenom" => "#[a-zA-Z]{3,30}$#",
             "nom" => "#[a-zA-Z]{3,30}$#",
             "adresse" => "#^\s*\S+(?:\s+\S+){2}#",
-            "ville" => "#^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$#",
+            "ville" => "#^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{5,60}$#",
             "codePostal" => "#^[ABCEGHJ-NPRSTVXY][0-9][ABCEGHJ-NPRSTV-Z] [0-9][ABCEGHJ-NPRSTV-Z][0-9]$#"
         ];
 

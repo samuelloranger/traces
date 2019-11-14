@@ -252,9 +252,28 @@ class Livre
 
         $requetePreparee->bindParam(":livreId", $this->id, PDO::PARAM_INT);
 
+        return $requetePreparee->fetch();
+    }
+
+
+    public static function rechercherParTitre($livreRecherche):array{
+        $pdo = App::getInstance()->getPDO();
+
+        $sql = "SELECT * FROM livres WHERE titre LIKE '%" . $livreRecherche . "%'";
+
+        // Query
+        $requetePreparee = $pdo->prepare($sql);
+
+        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Livre::class);
+
+        // Fetch
         $requetePreparee->execute();
 
-        return $requetePreparee->fetch();
+        $arrRecherche = $requetePreparee->fetchAll();
+
+        // Close cursor
+
+        return $arrRecherche;
     }
 
     /**

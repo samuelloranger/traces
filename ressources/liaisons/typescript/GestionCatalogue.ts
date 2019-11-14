@@ -3,15 +3,16 @@
  */
 import {GestionPanier} from "./GestionPanier";
 
-export class GestionCatalogue{
+export class GestionCatalogue {
     //Ajout au panier
-    private btnsAjoutPanier:[HTMLElement] = Array.apply(null, document.querySelectorAll(".catalogue__btn--ajouterPanierScript"));
+    private btnsAjoutPanier: [HTMLElement] = Array.apply(null, document.querySelectorAll(".catalogue__btn--ajouterPanierScript"));
+    private rechercheKeyup: HTMLElement = document.querySelector("#rechercheBouton");
     private urlParams = new URLSearchParams(window.location.search);
 
     //Attributs de classe
-    private panier:GestionPanier = null;
+    private panier: GestionPanier = null;
 
-    constructor(panier:GestionPanier){
+    constructor(panier: GestionPanier) {
         this.panier = panier;
         this.ajouterEcouteursEvenements();
     }
@@ -22,18 +23,18 @@ export class GestionCatalogue{
         const controleur = this.urlParams.get('controleur');
         const action = this.urlParams.get('action');
 
-        if(controleur === "livre" && action === "catalogue" || controleur === null && action === null){
+        if (controleur === "livre" && action === "catalogue" || controleur === null && action === null) {
             this.btnsAjoutPanier.forEach((element) => {
                 element.addEventListener("click", () => {
                     this.ajoutPanier(element);
                 });
-            })
+            });
         }
     };
 
     private ajoutPanier = (element) => {
         const isbnLivre = element.value;
-        const panier =  this.panier;
+        const panier = this.panier;
 
         $.ajax({
             url: "index.php?controleur=panier&action=ajoutPanier&redirection=aucune&isbn=" + isbnLivre,
@@ -41,10 +42,16 @@ export class GestionCatalogue{
             data: "&qte=1",
             dataType: "html"
         })
-            .done(function(data, textStatus, jqXHR){
+            .done(function (data, textStatus, jqXHR) {
                     panier.majItemPanierHeader(data, textStatus, jqXHR);
                     panier.montrerFenetreModale(isbnLivre);
                 }
             )
+    };
+
+    private recherche = () => {
+        console.log("ALLOO!!");
+        alert("HELLO WORLD");
+        document.querySelector("#resultat").innerHTML = "ALLOO";
     };
 }

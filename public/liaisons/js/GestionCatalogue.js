@@ -6,6 +6,7 @@ define(["require", "exports"], function (require, exports) {
             var _this = this;
             //Ajout au panier
             this.btnsAjoutPanier = Array.apply(null, document.querySelectorAll(".catalogue__btn--ajouterPanierScript"));
+            this.rechercheKeyup = document.querySelector("#rechercheBouton");
             this.urlParams = new URLSearchParams(window.location.search);
             //Attributs de classe
             this.panier = null;
@@ -34,6 +35,11 @@ define(["require", "exports"], function (require, exports) {
                     panier.majItemPanierHeader(data, textStatus, jqXHR);
                     panier.montrerFenetreModale(isbnLivre);
                 });
+            };
+            this.recherche = function () {
+                console.log("ALLOO!!");
+                alert("HELLO WORLD");
+                document.querySelector("#resultat").innerHTML = "ALLOO";
             };
             this.panier = panier;
             this.ajouterEcouteursEvenements();

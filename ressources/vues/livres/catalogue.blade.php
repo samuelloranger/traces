@@ -165,29 +165,4 @@
 
         }
     </script>
-    <script>
-        function retournerResultat(data) {
-            $("#resultat").text(data);
-        }
-
-        function executerAjax() {
-            console.log("ALLO ICI DANS EXECUTER AJAX!!");
-
-            $.ajax({
-                url: "index.php?controleur=site&action=recherche",
-                method: "POST",
-                data: "search",
-                dataType: "html",
-                success: function (data) {
-                    $('#result').html(data);
-                }
-            })
-                .done(function (data, textStatus, jqXHR) {
-                    retournerResultat(data, textStatus, jqXHR);
-                });
-        }
-
-        document.getElementById("#recherche").addEventListener("keyup", executerAjax());
-        window.addEventListener("load", retournerResultat());
-    </script>
 @endsection

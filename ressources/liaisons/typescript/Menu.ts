@@ -4,20 +4,22 @@
  * @author Samuel Loranger<samuelloranger@gmail.com>
  */
 
-export class Menu{
+export class Menu {
     //Attributs de classe
-    private urlParams:URLSearchParams = new URLSearchParams(window.location.search);
+    private urlParams: URLSearchParams = new URLSearchParams(window.location.search);
 
     //Éléments HTML
-    private header:HTMLElement = document.querySelector(".header");
-    private body:HTMLElement = document.querySelector("body");
-    private conteneurMenu:HTMLElement = this.header.querySelector(".conteneurMenu");
-    private logoTraces:Array<HTMLElement> = Array.apply(null, document.querySelectorAll(".logoTraces"));
-    private btnMenu:HTMLElement = document.querySelector("#btnMenuMobile");
-    private conteneneurMenu:HTMLElement = document.querySelector(".navigation__mobile__menu");
-    private zoneLangue:HTMLElement = document.querySelector(".zoneLangue");
-    private zoneIcones:HTMLElement = document.querySelector(".navigation__mobile__top .zoneIcones");
+    private header: HTMLElement = document.querySelector(".header");
+    private body: HTMLElement = document.querySelector("body");
+    private conteneurMenu: HTMLElement = this.header.querySelector(".conteneurMenu");
+    private logoTraces: Array<HTMLElement> = Array.apply(null, document.querySelectorAll(".logoTraces"));
+    private btnMenu: HTMLElement = document.querySelector("#btnMenuMobile");
+    private conteneneurMenu: HTMLElement = document.querySelector(".navigation__mobile__menu");
+    private zoneLangue: HTMLElement = document.querySelector(".zoneLangue");
+    private zoneIcones: HTMLElement = document.querySelector(".navigation__mobile__top .zoneIcones");
     private arrIcones: Array<HTMLElement> = null;
+    private inputRecherche: HTMLInputElement = document.querySelector(".inputRecherche");
+    private zoneRecherche: HTMLElement = document.querySelector(".zoneRecherche");
 
     //Éléments personnalisation
     private hauteurChangementMenuAccueil = 525;
@@ -39,16 +41,20 @@ export class Menu{
      * @description Ajoute les écouteurs d'évènements sur les éléments du menu
      */
     private ajouterEcouteursEvements = () => {
-        if(this.urlParams.get("controleur") !== "livraison") {
+        if (this.urlParams.get("controleur") !== "livraison") {
             this.btnMenu.addEventListener("click", () => {
                 this.gererMenuMobile();
             });
+
+            this.inputRecherche.addEventListener("keyup", () => {
+                this.executerAjax(this.inputRecherche);
+            });
         }
 
-        if(this.getPageAccueil()){
+        if (this.getPageAccueil()) {
             this.instancierMenuAccueil();
 
-            document.addEventListener("scroll" , () => {
+            document.addEventListener("scroll", () => {
                 this.gererMenuAccueil()
             });
         }
@@ -77,25 +83,24 @@ export class Menu{
     private gererMenuAccueil = () => {
         const height = window.pageYOffset;
 
-        if(height > this.hauteurChangementMenuAccueil){
-            if(this.header.classList.contains("header--transparent")){
+        if (height > this.hauteurChangementMenuAccueil) {
+            if (this.header.classList.contains("header--transparent")) {
                 this.header.classList.remove("header--transparent");
                 this.conteneurMenu.classList.remove("conteneurMenu--grand")
             }
             this.logoTraces.forEach((logo) => {
-                if(logo.classList.contains("logoTraces--cache")) {
+                if (logo.classList.contains("logoTraces--cache")) {
                     logo.classList.remove("logoTraces--cache");
                 }
             });
-        }
-        else{
-            if(!this.header.classList.contains("header--transparent")){
+        } else {
+            if (!this.header.classList.contains("header--transparent")) {
                 this.header.classList.add("header--transparent");
                 this.conteneurMenu.classList.add("conteneurMenu--grand")
             }
 
             this.logoTraces.forEach((logo) => {
-                if(!logo.classList.contains("logoTraces--cache")) {
+                if (!logo.classList.contains("logoTraces--cache")) {
                     logo.classList.add("logoTraces--cache");
                 }
             });
@@ -107,11 +112,11 @@ export class Menu{
      * @description Gère les actions du menu mobile
      */
     private gererMenuMobile = () => {
-        if(this.conteneneurMenu.classList.contains("navigation__mobile__menu--ferme")){
-            if(this.getPageAccueil()){
+        if (this.conteneneurMenu.classList.contains("navigation__mobile__menu--ferme")) {
+            if (this.getPageAccueil()) {
                 this.header.classList.remove("header--transparent");
                 this.logoTraces.forEach((logo) => {
-                    if(logo.classList.contains("logoTraces--cache")) {
+                    if (logo.classList.contains("logoTraces--cache")) {
                         logo.classList.remove("logoTraces--cache");
                     }
                 });
@@ -126,15 +131,14 @@ export class Menu{
             this.zoneLangue.classList.remove("zoneLangue--inactif");
             this.zoneIcones.classList.add("zoneIcones--inactif");
 
-            this.arrIcones.forEach((icone:HTMLElement) => {
+            this.arrIcones.forEach((icone: HTMLElement) => {
                 icone.classList.add("icone--inactif");
             });
-        }
-        else{
-            if(this.getPageAccueil()){
+        } else {
+            if (this.getPageAccueil()) {
                 this.header.classList.add("header--transparent");
                 this.logoTraces.forEach((logo) => {
-                    if(!logo.classList.contains("logoTraces--cache")) {
+                    if (!logo.classList.contains("logoTraces--cache")) {
                         logo.classList.add("logoTraces--cache");
                     }
                 });
@@ -149,12 +153,31 @@ export class Menu{
             this.zoneLangue.classList.add("zoneLangue--inactif");
             this.zoneIcones.classList.remove("zoneIcones--inactif");
 
-            this.arrIcones.forEach((icone:HTMLElement) => {
+            this.arrIcones.forEach((icone: HTMLElement) => {
                 icone.classList.remove("icone--inactif");
             });
         }
     };
 
+
+    private executerAjax = (element) => {
+        const stringRecherche = element.value;
+        const classe = this;
+
+        $.ajax({
+            url: "index.php?controleur=site&action=recherche",
+            method: "POST",
+            data: "recherche=" + stringRecherche,
+            dataType: "html",
+        })
+            .done(function (data, textStatus, jqXHR) {
+                classe.retournerRecherche(data, textStatus, jqXHR);
+            });
+    };
+
+    private retournerRecherche = (data, textStatus, jqXHR) => {
+        this.zoneRecherche.innerHTML = data;
+    };
 
     /**
      * Méthodes utilitaires
@@ -165,7 +188,7 @@ export class Menu{
      * @description Teste si l'utilisateur se retrouve sur la page d'accueil
      * @return boolean Vrai si l'utilisateur est sur l'accueil - Faux si l'utilisateur n'est pas sur l'accueil
      */
-    private getPageAccueil = ():boolean => {
+    private getPageAccueil = (): boolean => {
         const controleur = this.urlParams.get("controleur");
         const action = this.urlParams.get("action");
 

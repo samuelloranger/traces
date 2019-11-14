@@ -11,6 +11,7 @@ use App\Modeles\Livre;
 use App\Session\SessionPanier;
 use App\Util;
 use \DateTime;
+use PDO;
 
 class ControleurSite
 {
@@ -24,18 +25,18 @@ class ControleurSite
 
     public function accueil(): void
     {
-        $tDonnees = array("nomPage"=>"Accueil");
+        $tDonnees = array("nomPage" => "Accueil");
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
 
         $arrNouveautes = Livre::getNouveautes();
         foreach ($arrNouveautes as $livre) {
-            $livre -> isbn13 = Util::ISBNToEAN($livre -> isbn);
+            $livre->isbn13 = Util::ISBNToEAN($livre->isbn);
         }
         shuffle($arrNouveautes);
 
         $arrCoupsCoeur = Livre::getCoupsCoeur();
         foreach ($arrCoupsCoeur as $livre) {
-            $livre -> isbn13 = Util::ISBNToEAN($livre -> isbn);
+            $livre->isbn13 = Util::ISBNToEAN($livre->isbn);
         }
         shuffle($arrCoupsCoeur);
 
@@ -47,10 +48,10 @@ class ControleurSite
          * Données du panier
          */
         $panier = App::getInstance()->getPanier();
-        $nbrItemsPanier = $panier -> getNombreTotalItemsDifferents();
+        $nbrItemsPanier = $panier->getNombreTotalItemsDifferents();
 
         $panierVide = true;
-        if($nbrItemsPanier){
+        if ($nbrItemsPanier) {
             $panierVide = false;
         }
 
@@ -60,14 +61,14 @@ class ControleurSite
         $tDonnees = array_merge($tDonnees, ["panierVide" => $panierVide]);
         $tDonnees = array_merge($tDonnees, Util::getInfosHeader());
 
-        echo $this->blade->run("accueil",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
+        echo $this->blade->run("accueil", $tDonnees); // /ressource/vues/accueil.blade.php doit exister...
     }
 
-    public function apropos():void
+    public function apropos(): void
     {
-        $tDonnees = array("nomPage"=>"À propos");
+        $tDonnees = array("nomPage" => "À propos");
         $tDonnees = array_merge($tDonnees, ControleurSite::getDonneeFragmentPiedDePage());
-        echo $this->blade->run("apropos",$tDonnees); // /ressource/vues/accueil.blade.php doit exister...
+        echo $this->blade->run("apropos", $tDonnees); // /ressource/vues/accueil.blade.php doit exister...
     }
 
     public static function getDonneeFragmentPiedDePage()
@@ -78,18 +79,18 @@ class ControleurSite
 
     public function recherche()
     {
-        // PDO
-        $connexionBD = App::getInstance()->getPDO();
-        // Exec
-        $connexionBD->exec("SET CHARACTER SET utf8");
-        // Query
-        $resultatRecherche = $connexionBD->query("SELECT titre  FROM livres WHERE titre=". $_POST['recherche']);
-        // Fetch
-        $recherche = $resultatRecherche->fetch();
-        // Close cursor
-        $resultatRecherche->closeCursor();
+        $livreRecherche = "";
+        if (isset($_POST['recherche'])) {
+            $livreRecherche = $_POST['recherche'];
+        }
+
+        $arrRecherche = Livre::rechercherParTitre($livreRecherche);
+
         // Echo
-        return $recherche["titre"];
+//
+//        var_dump($arrRecherche);
+        $tDonnees = array("arrRecherche" => $arrRecherche);
+        echo $this->blade->run("fragments.recherche", $tDonnees);
     }
 }
 

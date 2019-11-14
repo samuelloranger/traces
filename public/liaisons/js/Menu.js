@@ -25,6 +25,8 @@ define(["require", "exports"], function (require, exports) {
             this.zoneLangue = document.querySelector(".zoneLangue");
             this.zoneIcones = document.querySelector(".navigation__mobile__top .zoneIcones");
             this.arrIcones = null;
+            this.inputRecherche = document.querySelector(".inputRecherche");
+            this.zoneRecherche = document.querySelector(".zoneRecherche");
             //Éléments personnalisation
             this.hauteurChangementMenuAccueil = 525;
             /**
@@ -35,6 +37,9 @@ define(["require", "exports"], function (require, exports) {
                 if (_this.urlParams.get("controleur") !== "livraison") {
                     _this.btnMenu.addEventListener("click", function () {
                         _this.gererMenuMobile();
+                    });
+                    _this.inputRecherche.addEventListener("keyup", function () {
+                        _this.executerAjax(_this.inputRecherche);
                     });
                 }
                 if (_this.getPageAccueil()) {
@@ -132,6 +137,22 @@ define(["require", "exports"], function (require, exports) {
                         icone.classList.remove("icone--inactif");
                     });
                 }
+            };
+            this.executerAjax = function (element) {
+                var stringRecherche = element.value;
+                var classe = _this;
+                $.ajax({
+                    url: "index.php?controleur=site&action=recherche",
+                    method: "POST",
+                    data: "recherche=" + stringRecherche,
+                    dataType: "html",
+                })
+                    .done(function (data, textStatus, jqXHR) {
+                    classe.retournerRecherche(data, textStatus, jqXHR);
+                });
+            };
+            this.retournerRecherche = function (data, textStatus, jqXHR) {
+                _this.zoneRecherche.innerHTML = data;
             };
             /**
              * Méthodes utilitaires
