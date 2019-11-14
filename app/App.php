@@ -47,8 +47,8 @@ class App
         $this->routerLaRequete();
     }
 
-    public function envoyerCourriel($adresseCourriel) {
-        $courriel = new Courriel($adresseCourriel);
+    public function envoyerCourriel($adresseCourriel, $infosClient) {
+        $courriel = new Courriel($adresseCourriel, $infosClient);
         $courriel->envoyer();
     }
 

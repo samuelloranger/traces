@@ -121,6 +121,4 @@
                 À MAGASINER</a>
         </div>
     </div>
-    </div>
-    </div>
 @endsection
