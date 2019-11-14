@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App;
 
 use NumberFormatter;
-
-class Util {
+use App\ConnexionBD;
+class Util
+{
 
     /**
      * @method couperParagraphe
@@ -15,7 +16,8 @@ class Util {
      * @param int $nombreMax - Nombre maximum - Valeur not-set à 800
      * @return string - Paragraphe coupé
      */
-    public static function couperParagraphe(string $paragraphe, int $nombreMax = 800):string {
+    public static function couperParagraphe(string $paragraphe, int $nombreMax = 800): string
+    {
         $string = strip_tags($paragraphe);
         if (strlen($string) > $nombreMax) {
 
@@ -24,35 +26,35 @@ class Util {
             $endPoint = strrpos($stringCut, '.');
 
             //if the string doesn't contain any space then it will cut without word basis.
-            $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+            $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
             $string .= '...';
         }
         return $string;
     }
 
-    public static function corrigerTitre(string $titre):string {
+    public static function corrigerTitre(string $titre): string
+    {
         $positionParOuverte = strpos($titre, "(") + 1;
         $positionParFerme = strpos($titre, ")");
         $longueurMotRemplace = $positionParFerme - $positionParOuverte;
 
-        if($positionParOuverte && $positionParFerme){
+        if ($positionParOuverte && $positionParFerme) {
             $texteDeplace = substr($titre, $positionParOuverte, $longueurMotRemplace);
 
-            $titre = substr($titre, 0, strlen($titre)-$longueurMotRemplace - 2);
+            $titre = substr($titre, 0, strlen($titre) - $longueurMotRemplace - 2);
 
             $contientApostrophe = false;
-            if(!strpos($texteDeplace, "'") === false) {
+            if (!strpos($texteDeplace, "'") === false) {
                 $contientApostrophe = true;
             }
 
             $texteRemplacement = $texteDeplace . " " . $titre;
-            if($contientApostrophe){
+            if ($contientApostrophe) {
                 $texteRemplacement = $texteDeplace . $titre;
             }
 
             return $texteRemplacement;
-        }
-        else{
+        } else {
             return $titre;
         }
 
@@ -62,19 +64,20 @@ class Util {
     /**
      * Données du panier
      */
-    public static function getInfosHeader():array{
+    public static function getInfosHeader(): array
+    {
         $panier = App::getInstance()->getPanier();
         $session = App::getInstance()->getSession();
 
         $nbrItemsPanier = $panier->getNombreTotalItemsDifferents();
 
         $panierVide = true;
-        if($nbrItemsPanier > 0){
+        if ($nbrItemsPanier > 0) {
             $panierVide = false;
         }
 
         $estConnecte = false;
-        if($session->getItem("estConnecte") == true){
+        if ($session->getItem("estConnecte") == true) {
             $estConnecte = true;
         }
 
@@ -87,11 +90,11 @@ class Util {
 
 
     /**
-    * @method ISBNToEAN
-    * @desc Convertit un ISBN en format EAN
-    * @param string - ISBN à convertir
-    * @return string - ISBN converti en EAN, ou FALSE si erreur dans le format ou la conversion
-    */
+     * @method ISBNToEAN
+     * @desc Convertit un ISBN en format EAN
+     * @param string - ISBN à convertir
+     * @return string - ISBN converti en EAN, ou FALSE si erreur dans le format ou la conversion
+     */
     public static function ISBNToEAN($strISBN)
     {
         $myFirstPart = $mySecondPart = $myEan = $myTotal = "";
@@ -108,10 +111,9 @@ class Util {
             $myControl = ($tmp == 0) ? 0 : 10 - $tmp;
             return $myEan . $myControl;
         } // ISBN-13
-        else if (strlen($strISBN) == 13){
+        else if (strlen($strISBN) == 13) {
             return $strISBN;
-        }
-        // Autres
+        } // Autres
         else return false;
     }
 
@@ -122,10 +124,11 @@ class Util {
      * @param string $isbn - est le isbn à valider
      * @return bool
      */
-    public static function validerISBN(string $isbn):bool {
+    public static function validerISBN(string $isbn): bool
+    {
         $isbnValide = false;
 
-        if(preg_match("#^[0-9]\-[0-9]{6}\-[0-9]{2}\-[0-9]$#", $isbn) || preg_match("#^[0-9]-[0-9]{5}-[0-9]{3}-[0-9]$#", $isbn) || preg_match("#^[0-9]-[0-9]{5}-[0-9]{3}-[a-z]$#", $isbn)){
+        if (preg_match("#^[0-9]\-[0-9]{6}\-[0-9]{2}\-[0-9]$#", $isbn) || preg_match("#^[0-9]-[0-9]{5}-[0-9]{3}-[0-9]$#", $isbn) || preg_match("#^[0-9]-[0-9]{5}-[0-9]{3}-[a-z]$#", $isbn)) {
             $isbnValide = true;
         }
 
@@ -138,7 +141,8 @@ class Util {
      * @param float $prix - Montant d'argent à formater
      * @return string - retourne le montant d'argent formater
      */
-    public static function formaterArgent(float $prix):string{
+    public static function formaterArgent(float $prix): string
+    {
 //        $moneyFormatter = new NumberFormatter('fr_CA', NumberFormatter::CURRENCY);
 //        $prixFormate = $moneyFormatter->formatCurrency($prix, "CAD");
 

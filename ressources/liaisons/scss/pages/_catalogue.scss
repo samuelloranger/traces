@@ -1,10 +1,10 @@
-.js{
-  .catalogue__btn--ajouterPanier{
-    &NoScript{
+.js {
+  .catalogue__btn--ajouterPanier {
+    &NoScript {
       display: none;
     }
 
-    &Script{
+    &Script {
       display: block;
     }
   }
@@ -58,7 +58,7 @@
         margin-top: 5px;
       }
 
-      &Script{
+      &Script {
         display: none;
       }
 
@@ -266,14 +266,6 @@
     }
   }
 
-  &__rechercher {
-    display: none;
-    @media (min-width: $DESKTOP-NORMAL) {
-      height: 25px;
-      display: inline;
-    }
-  }
-
   &__titre {
     color: white;
     font-size: 24px;
@@ -303,6 +295,7 @@
 
 
     &__alignement {
+      margin-top: 4px;
       display: flex;
       flex-wrap: wrap;
     }
@@ -353,4 +346,49 @@
 
 .show {
   display: block;
+}
+
+/* Styles de la barre de recherche */
+.search-box {
+  height: 25px;
+  display: inline;
+  width: 300px;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+
+}
+
+.search-box input[type="text"] {
+  height: 32px;
+  padding: 5px 10px;
+  border: 1px solid #CCCCCC;
+  font-size: 14px;
+  border-radius:50px;
+  padding-left: 15px;
+}
+
+.result {
+  position: absolute;
+  z-index: 999;
+  top: 100%;
+  left: 0;
+}
+
+.search-box input[type="text"], .result {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Formatting result items */
+.result p {
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid #CCCCCC;
+  border-top: none;
+  cursor: pointer;
+}
+
+.result p:hover {
+  background: #f2f2f2;
 }

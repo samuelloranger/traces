@@ -168,6 +168,9 @@ class App
                 case 'apropos':
                     $this->monControleur->aPropos();
                     break;
+                case 'recherche':
+                    $this->monControleur->recherche();
+                    break;
                 default:
                     echo 'Erreur 404';
             }

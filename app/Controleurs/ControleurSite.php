@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
+use App\ConnexionBD;
 use App\Modeles\Actualite;
 use App\Modeles\Livre;
 use App\Session\SessionPanier;
@@ -75,5 +76,20 @@ class ControleurSite
         return array("dateDuJour" => $date->format('d M Y'));
     }
 
+    public function recherche()
+    {
+        // PDO
+        $connexionBD = App::getInstance()->getPDO();
+        // Exec
+        $connexionBD->exec("SET CHARACTER SET utf8");
+        // Query
+        $resultatRecherche = $connexionBD->query("SELECT titre  FROM livres WHERE titre=". $_POST['recherche']);
+        // Fetch
+        $recherche = $resultatRecherche->fetch();
+        // Close cursor
+        $resultatRecherche->closeCursor();
+        // Echo
+        return $recherche["titre"];
+    }
 }
 

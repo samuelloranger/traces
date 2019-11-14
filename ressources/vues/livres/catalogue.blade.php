@@ -2,9 +2,7 @@
 
 @section('contenu')
     @include('fragments.filAriane')
-
     <div class="row">
-
         <div class="catalogue__categories col-lg-3">
             <p class="catalogue__categories__titre text-center">
                 CATÉGORIES
@@ -43,11 +41,14 @@
                         </form>
                     </div>
                 </div>
-
                 <div class="catalogue__alignementDesktop">
-                {{-- onkeyup, recherche par titre, auteur, type -- Méthode dans controleurSite qui appelle des nouveaux getter dans Auteur -- Nouveau fragment 'recherche' dans l'en-tête --                  --}}
-                    <input type="text" class="catalogue__rechercher">
-                    <input type="submit" class="catalogue__rechercher catalogue__rechercher__bouton" value="Rechercher">
+                    {{-- onkeyup, recherche par titre, auteur, type -- Méthode dans controleurSite qui appelle des nouveaux getter dans Auteur -- Nouveau fragment 'recherche' dans l'en-tête --                  --}}
+                    <div class="search-box">
+                        <input type="text" name="rechercher" id="recherche"
+                               autocomplete="off"
+                               placeholder="Rechercher un livre..."/>
+                        <div id="resultat"></div>
+                    </div>
                     <div class="catalogue__trier">
                         <div class="catalogue__trier__alignement">
                             <p class="catalogue__trier__label">Trier par :</p>
@@ -96,9 +97,7 @@
                         <p>Nombre de résultats : <b>{{$nbResultats}}</b></p>
                     </div>
                 </div>
-
             </div>
-
             <div class="catalogue__pagination">
                 @include("livres.fragments.pagination")
             </div>
@@ -120,7 +119,8 @@
                             </div>
                             <div class="catalogue__livre__boutons">
                                 <a class="catalogue__btn catalogue__btn--enSavoirPlus"
-                                   href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">EN SAVOIR PLUS</a>
+                                   href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">EN SAVOIR
+                                    PLUS</a>
                                 <form action="index.php?controleur=panier&action=ajoutPanier&redirection=catalogue&isbn={{ $livre -> isbn }}"
                                       method="POST" class="catalogue__btn--form">
                                     <input type="hidden" name="isbn" value="{{ $livre -> isbn }}" hidden>
@@ -128,8 +128,13 @@
                                     <input type="hidden" name="action" value="ajoutPanier" hidden>
                                     <input type="hidden" name="qte" value="1" hidden>
                                     <input type="hidden" name="redirection" value="catalogue&" hidden>
-                                    <button class="catalogue__btn catalogue__btn--ajouterPanier catalogue__btn--ajouterPanierNoScript">AJOUTER AU PANIER</button>
-                                    <button type="button" class="catalogue__btn catalogue__btn--ajouterPanier catalogue__btn--ajouterPanierScript" value="{{ $livre -> isbn }}">AJOUTER AU PANIER</button>
+                                    <button class="catalogue__btn catalogue__btn--ajouterPanier catalogue__btn--ajouterPanierNoScript">
+                                        AJOUTER AU PANIER
+                                    </button>
+                                    <button type="button"
+                                            class="catalogue__btn catalogue__btn--ajouterPanier catalogue__btn--ajouterPanierScript"
+                                            value="{{ $livre -> isbn }}">AJOUTER AU PANIER
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -139,7 +144,6 @@
             <div class="catalogue__pagination">
                 @include("livres.fragments.pagination")
             </div>
-
         </div>
     </div>
     <script>
@@ -160,5 +164,30 @@
             }
 
         }
+    </script>
+    <script>
+        function retournerResultat(data) {
+            $("#resultat").text(data);
+        }
+
+        function executerAjax() {
+            console.log("ALLO ICI DANS EXECUTER AJAX!!");
+
+            $.ajax({
+                url: "index.php?controleur=site&action=recherche",
+                method: "POST",
+                data: "search",
+                dataType: "html",
+                success: function (data) {
+                    $('#result').html(data);
+                }
+            })
+                .done(function (data, textStatus, jqXHR) {
+                    retournerResultat(data, textStatus, jqXHR);
+                });
+        }
+
+        document.getElementById("#recherche").addEventListener("keyup", executerAjax());
+        window.addEventListener("load", retournerResultat());
     </script>
 @endsection
