@@ -14,14 +14,14 @@ class Courriel
     private $courriel = null;
 
 
-    public function __construct(string $unCourriel){
+    public function __construct(string $unCourriel, array $infosClient){
 
         // Préparer le courriel
 
         // Préparer le contenu HTML du courriel
         $unTemps = time();
         $blade = App::getInstance()->getBlade();
-        $tDonnees = array("temps" => $unTemps);
+        $tDonnees = $infosClient;
         $unContenuHTML = $blade->run("courriels.courrielConfirmation", $tDonnees);
         $unContenuHTML_enTexte = 'Le contenu sans HTML... Bonjour!';
 
