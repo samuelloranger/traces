@@ -37,7 +37,7 @@ define(["require", "exports"], function (require, exports) {
              * @description Ajoute les écouteurs d'évènements sur les éléments du menu
              */
             this.ajouterEcouteursEvements = function () {
-                if (_this.urlParams.get("controleur") !== "livraison") {
+                if (_this.urlParams.get("controleur") !== "livraison" || _this.urlParams.get("controleur") !== "facturation" || _this.urlParams.get("controleur") !== "validation") {
                     _this.btnMenu.addEventListener("click", function () {
                         _this.gererMenuMobile();
                     });

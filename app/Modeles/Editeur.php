@@ -6,34 +6,32 @@ namespace App\Modeles;
 use App\App;
 use \PDO;
 
-class Recension{
+class Editeur{
     //Attributs
     private $pdo = null;
     private $id = 0;
-    private $date = "";
-    private $titre = "";
-    private $nom_media = "";
-    private $nom_journaliste = "";
-    private $description = "";
-    private $livre_id = "";
+    private $nom = "";
+    private $url = "";
 
     public function __construct(){
 
     }
 
-    public static function trouverRecensionsLivre($idLivre){
+    public static function trouverParId($idLivre):array{
         $pdo = App::getInstance() -> getPDO();
 
         //Requête SQL
-        $sql = "SELECT * FROM recensions WHERE livre_id = :idLivre LIMIT 3";
-
-        $pdo = App::getInstance() -> getPDO();
+        $sql = "SELECT editeurs.id, editeurs.nom, url 
+                FROM editeurs
+                INNER JOIN editeurs_livres ON editeurs_livres.editeur_id = editeurs.id 
+                INNER JOIN livres ON editeurs_livres.livre_id = livres.id 
+                WHERE livre_id = :idLivre";
 
         //On prépare la requête
         $requetePreparee = $pdo -> prepare($sql);
 
         // Définir le mode de récupération
-        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Recension::class);
+        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Editeur::class);
 
         //On bind le paramètre idAueur
         $requetePreparee -> bindParam(":idLivre", $idLivre, PDO::PARAM_INT);
@@ -42,11 +40,9 @@ class Recension{
         $requetePreparee -> execute();
 
         // Récupérer une seule occurrence à la fois
-        $arrRecensions = $requetePreparee -> fetchAll();
+        $editeur = $requetePreparee -> fetchAll();
 
-        shuffle($arrRecensions);
-
-        return $arrRecensions;
+        return $editeur;
     }
 
     public function __get($property) {

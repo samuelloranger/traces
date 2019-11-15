@@ -91,18 +91,25 @@
         <div class="panier__infosPanier col-md-12 col-lg-4">
             <div class="contenu">
                 <p class="h2">Résumé de la commande</p>
-                <p><span class="texteGauche">Sous-total ({{ $nbrItemsPanier }} items):</span> <span
-                            class="texteDroit">{{ $montantSousTotal }}</span></p>
+                <p>
+                    <span class="texteGauche">Sous-total ({{ $nbrItemsPanier }} items):</span>
+                    <span class="texteDroit">{{ $montantSousTotal }}</span>
+                </p>
 
-                <p class="fraisLivraison"><span class="texteGauche">Frais de livraison:</span><span
-                            class="texteDroit">{{ $fraisLivraison }}</span></p>
+                <p class="fraisLivraison">
+                    <span class="texteGauche">Frais de livraison:</span>
+                    <span class="texteDroit">{{ $fraisLivraison }}</span>
+                </p>
 
                 <div class="fraisLivraironSelect">
                     <label for="fraisLivraisonSelect">Livraison</label>
-                    <select id="fraisLivraisonSelect">
-                        <option @if($modeLivraison == "payante") selected @endif value="payante">Rapide</option>
-                        <option @if($modeLivraison == "gratuite") selected @endif value="gratuite">Gratuite</option>
-                    </select>
+                    <form action="index.php?controleur=panier&action=panier&pageComplete" method="POST">
+                        <select id="fraisLivraisonSelect" name="modeLivraison">
+                            <option @if($modeLivraison == "payante") selected @endif value="payante">Rapide</option>
+                            <option @if($modeLivraison == "gratuite") selected @endif value="gratuite">Gratuite</option>
+                        </select>
+                        <button class="fraisLivraisonSelect__bouton">Mettre à jour</button>
+                    </form>
                 </div>
 
                 <p class="dateLivraisonEstimee">
@@ -127,5 +134,16 @@
         </div>
     </div>
 @else
-    <h2>Le panier est vide.</h2>
+
+    <div class="panier__vide">
+        <div class="panier__vide__image">
+            <img src="liaisons/images/icones/icone-panier-vide.svg">
+        </div>
+        <div class="panier__vide__infos">
+            <h2>Le panier est vide.</h2>
+            <a class="bouton" href="index.php?controleur=livre&action=catalogue">Continuer à magasiner</a>
+        </div>
+    </div>
+
+
 @endif

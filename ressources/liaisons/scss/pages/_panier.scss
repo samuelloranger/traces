@@ -10,6 +10,10 @@
   .updatePanier{
     display: none;
   }
+
+  .fraisLivraisonSelect__bouton{
+    display: none;
+  }
 }
 
 .panier{
@@ -244,8 +248,9 @@
                 }
 
                 &:hover{
-                  background-color: transparent;
-                  color: $TURQUOISE;
+                  background-color: $BEIGE;
+                  border: 2px solid $BEIGE;
+                  color: white;
                 }
               }
             }
@@ -317,6 +322,21 @@
             display: none;
           }
         }
+
+        &Select{
+          &__bouton{
+            background-color: $TURQUOISE;
+            border-radius: 15px;
+            border: none;
+            color: white;
+            transition: 0.25s ease-in-out;
+            font-weight: bold;
+
+            &:hover{
+              background-color: $BEIGE;
+            }
+          }
+        }
       }
 
       .dateLivraisonEstimee{
@@ -371,6 +391,52 @@
             border: 2px solid $BEIGE;
           }
         }
+      }
+    }
+  }
+
+  &__vide{
+    display: flex;
+    margin: 12% 0;
+    flex-direction: column;
+
+    @media(min-width: $TABLETTE){
+      justify-content: space-around;
+      //flex-direction: row;
+      margin: 2% 0;
+    }
+
+    &__image{
+      width: 50%;
+      margin: 0 auto;
+      position: relative;
+
+      @media(min-width: $TABLETTE){
+        width: 25%;
+      }
+
+      img{
+        width: 100%;
+      }
+    }
+
+    h2{
+      margin-top: 8%;
+      text-align: center;
+    }
+
+    &__infos{
+      .bouton{
+        display: block;
+        background-color: #008571;
+        padding-top: 12px;
+        color: white;
+        width: 250px;
+        height: 50px;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 35px;
+        margin: 5% auto 0 auto;
       }
     }
   }

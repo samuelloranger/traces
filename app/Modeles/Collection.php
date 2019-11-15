@@ -6,47 +6,39 @@ namespace App\Modeles;
 use App\App;
 use \PDO;
 
-class Recension{
+class Collection{
     //Attributs
     private $pdo = null;
     private $id = 0;
-    private $date = "";
-    private $titre = "";
-    private $nom_media = "";
-    private $nom_journaliste = "";
+    private $nom = "";
     private $description = "";
-    private $livre_id = "";
 
     public function __construct(){
 
     }
 
-    public static function trouverRecensionsLivre($idLivre){
+    public static function trouverParId($idCollection):Collection{
         $pdo = App::getInstance() -> getPDO();
 
         //Requête SQL
-        $sql = "SELECT * FROM recensions WHERE livre_id = :idLivre LIMIT 3";
-
-        $pdo = App::getInstance() -> getPDO();
+        $sql = "SELECT * FROM collections WHERE collections.id = :idCollection";
 
         //On prépare la requête
         $requetePreparee = $pdo -> prepare($sql);
 
         // Définir le mode de récupération
-        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Recension::class);
+        $requetePreparee -> setFetchMode(PDO::FETCH_CLASS, Collection::class);
 
         //On bind le paramètre idAueur
-        $requetePreparee -> bindParam(":idLivre", $idLivre, PDO::PARAM_INT);
+        $requetePreparee -> bindParam(":idCollection", $idCollection, PDO::PARAM_INT);
 
         // Exécuter la requête
         $requetePreparee -> execute();
 
         // Récupérer une seule occurrence à la fois
-        $arrRecensions = $requetePreparee -> fetchAll();
+        $collection = $requetePreparee -> fetch();
 
-        shuffle($arrRecensions);
-
-        return $arrRecensions;
+        return $collection;
     }
 
     public function __get($property) {

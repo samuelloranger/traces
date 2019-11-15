@@ -12,8 +12,8 @@
             <div class="zoneInfos col-sm-12 col-md-9">
                 <div class="zoneInfos__infosLivre">
                         <p class="zoneInfos__infosLivre__auteurs">
-                            @foreach($livre -> getAuteurs() as $id => $auteur)
-                                {{ $auteur -> getNomPrenom() }}@if($id < count($livre->getAuteurs())-1), @endif
+                            @foreach($arrAuteurs as $id => $auteur)
+                                {{ $auteur -> getNomPrenom() }}@if($id < count($arrAuteurs)-1), @endif
                             @endforeach
                         </p>
 
@@ -69,6 +69,23 @@
             <div class="conteneurTiroir col-md-5">
                 <h2>Plus d'informations</h2>
                 <ul>
+                    @if($livre -> collection_id != "")
+                        <li>
+                            <span>
+                                <b>Collection:</b> {{ $arrInfosCollection->nom }}
+                                @if($arrInfosCollection -> description != "")
+                                    : {!! $arrInfosCollection -> description !!}
+                                @endif
+                            </span>
+                        </li>
+                    @endif
+                    <li>
+                        <span><b>Editeur:</b>
+                            @forEach($arrEditeurs as $id => $editeur)
+                                <a href="{{ $editeur->url }}">{{ $editeur->nom }}</a>@if(count($arrEditeurs) && $id != count($arrEditeurs)-1 ), @endif
+                            @endforeach
+                        </span>
+                    </li>
                     <li><b>Nombre de pages:</b> {{ $livre -> nbre_pages }}</li>
                     <li><b>Année de publication: </b>{{ $livre -> annee_publication }}</li>
                     <li><b>Langue: </b>{{ $livre -> langue }}</li>
@@ -84,16 +101,16 @@
         </div>
 
         <div class="infosTerciaires row">
-
             @if(count($arrRecensions) > 0)
                 <div class="infosTerciaires__zoneGauche col-sm-12 col-md-6">
                     <div class="zoneRecensions">
                         <h2>Ce livre a fait parler de lui...</h2>
                         @foreach($arrRecensions as $recension)
                             <div class="review">
-                                <p class="review__titre">{{ $recension -> date }}</p>
+                                <h3 class="review__titre">{{ $recension -> titre }}</h3>
+                                <p class="review__date">{{ $recension -> date }}</p>
                                 <p class="review__description">{{ $recension -> description }}</p>
-                                <p>{{ $recension -> nom_journaliste }}, {{ $recension -> nom_media }}</p>
+                                <p><span class="review__nomAuteur">{{ $recension -> nom_journaliste }}</span>, {{ $recension -> nom_media }}</p>
                             </div>
                         @endforeach
                     </div>
@@ -110,17 +127,18 @@
                     <div class="zonePrix">
                         <h2>Prix remportés</h2>
                         @foreach($arrHonneurs as $honneur)
-                            <div class="review">
-                                <h3 class="review__titre">{{ $honneur -> nom }}</h3>
-                                <p class="review__description">{{ $honneur -> description }}</p>
+                            <div class="prix">
+                                <h3 class="prix__titre">{{ $honneur -> nom }}</h3>
+                                <p class="prix__description">{{ $honneur -> description }}</p>
                             </div>
                         @endforeach
                     </div>
                 @endif
+            </div>
 
-                <div class="zoneCommentaires">
-                    @include("livres.fragments.commentaires")
-                </div>
+            <div class="zoneCommentaires col-md-12">
+                <h2>Commentaires de lecteurs</h2>
+                @include("livres.fragments.commentaires")
             </div>
         </div>
     </div>

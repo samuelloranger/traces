@@ -4,7 +4,10 @@ declare(strict_types=1);
 namespace App\Controleurs;
 
 use App\App;
+use App\Modeles\Auteur;
+use App\Modeles\Collection;
 use App\Modeles\Commentaires;
+use App\Modeles\Editeur;
 use App\Util;
 use App\Modeles\Honneur;
 use App\Modeles\Categories;
@@ -146,36 +149,51 @@ class ControleurLivre
         $infosLivre->__set("isbn13", Util::ISBNToEAN($infosLivre->__get("isbn")));
         $infosLivre->__set("description", Util::couperParagraphe($infosLivre->__get("description")));
 
+        //Auteurs
+        $arrAuteurs = Auteur::trouverAuteurLivre($infosLivre->__get("id"));
+
         //Recensions
         $arrRecensions = Recension::trouverRecensionsLivre($infosLivre->__get("id"));
         foreach ($arrRecensions as $rescension) {
             $rescension->description = "« " . Util::couperParagraphe($rescension->description) . " »";
             $rescension->date = strftime("%d %B %Y", strtotime($rescension->date));
-            $infosLivre->__set("isbn13", Util::ISBNToEAN($infosLivre->__get("isbn")));
+            $rescension->titre = Util::corrigerTitre($rescension->titre);
         }
 
         //Honneurs
         $arrHonneurs = Honneur::trouverHonneursLivre($infosLivre->__get("id"));
         foreach ($arrHonneurs as $honneur) {
-            $honneur->description = Util::couperParagraphe($honneur->description, 100);
+            $honneur->description = Util::couperParagraphe($honneur->description);
         }
+
+        //Collections
+        $arrInfosCollection = array();
+        if($infosLivre->__get("collection_id") != NULL){
+            $arrInfosCollection = Collection::trouverParId($infosLivre->__get("collection_id"));
+
+            $arrInfosCollection->__set("description", strip_tags($arrInfosCollection->__get("description")));
+        }
+
+        //Editeur
+        $arrInfosEditeur = Editeur::trouverParId($infosLivre->__get("id"));
 
         //Commentaires
         $arrCommentaires = Commentaires::trouverParISBN($infosLivre->__get("isbn"));
 
         //Temporaire en attendant la fin du compte
-//        $this->session->setItem("courriel", 2);
         $idClient = $this->session->getItem("idClient");
-        var_dump($idClient);
 
         $formCommContientErreur = count($arrErreursFormCommentaire) !== 0;
 
         $arrInfos = array_merge(
             Util::getInfosHeader(),
             array("livre" => $infosLivre),
+            array("arrAuteurs" => $arrAuteurs),
             array("arrRecensions" => $arrRecensions),
             array("arrHonneurs" => $arrHonneurs),
             array("arrCommentaires" => $arrCommentaires),
+            array("arrInfosCollection" => $arrInfosCollection),
+            array("arrEditeurs" => $arrInfosEditeur),
             array("idClient" => $idClient),
             array("filAriane" => $filAriane),
             array("formCommContientErreur" => $formCommContientErreur),

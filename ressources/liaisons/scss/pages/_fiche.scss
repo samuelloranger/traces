@@ -257,11 +257,32 @@
       margin-bottom: 4%;
 
       &__zoneGauche{
+        .zoneRecensions{
+          .review{
+            margin-bottom: 5%;
 
+            &__date{
+              color: $ROUGE;
+              @include fontSize(14px);
+            }
+
+            &__nomAuteur{
+              font-weight: bolder;
+              color: $ROUGE;
+            }
+          }
+        }
       }
 
       &__zoneDroite{
-        .zoneCommentaires{
+        .zonePrix{
+          margin-bottom: 8%;
+        }
+      }
+      .zoneCommentaires{
+        .conteneurZoneCommentaires{
+          display: flex;
+
           .commentaire{
             .zoneEtoiles{
               display: flex;
@@ -303,9 +324,8 @@
               }
 
               .texte_commentaire{
-                height: 175px;
-                max-height: 175px;
-                max-width: 100%;
+                height: 100px;
+                resize: none;
               }
 
               .cote {
