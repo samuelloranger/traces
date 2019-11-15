@@ -67,6 +67,11 @@
                 @if($tValidation['champsValide']['dateExpiration'] == false)
                     <p class="transaction__messageErreur">{{$tValidation['champs']['dateExpiration']['message']}}</p>
                 @endif
+                <div class="livraison__checkbox">
+                    <input type="checkbox" name="estDefaut" checked />
+                    <p class="livraison__checkbox--label">Méthode de paiement par défaut</p>
+                </div>
+
                 <div class="facturation__adresseFacturation">
                     <p class="transaction__sous-titre">Adresse de facturation</p>
                     <p class="facturation__nom">{{$nom}}</p>

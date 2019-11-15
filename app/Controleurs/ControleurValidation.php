@@ -6,6 +6,7 @@ namespace App\Controleurs;
 
 use App\App;
 use App\Modeles\Adresse;
+use App\Modeles\Validation;
 use App\Util;
 
 
@@ -22,6 +23,7 @@ class ControleurValidation
 
     public function validation(): void
     {
+
         $arrInfosLivraison = $this->session->getItem("livraison");
         $arrInfosFacturation = $this->session->getItem("facturation");
         $controleurPanier = new ControleurPanier();
@@ -56,7 +58,8 @@ class ControleurValidation
         $arrInfosFacturation = $this->session->getItem("facturation");
         $controleurPanier = new ControleurPanier();
         $arrInfosPanier = $controleurPanier->panier(false, true);
-
+        self::insererAdresseBD();
+        self::insererMethodePaiementBD();
         $tDonnees = array_merge(
             ControleurSite::getDonneeFragmentPiedDePage(),
             array("nomPage" => "Confirmation"),
@@ -81,5 +84,63 @@ class ControleurValidation
         echo $this->blade->run("transaction.confirmation", $tDonnees);
         App::getInstance()->envoyerCourriel($this->session->getItem("courriel"), $tDonnees);
         //App::getInstance()->envoyerCourriel("olivier.12.papineau@gmail.com");
+
     }
+
+    public function insererAdresseBD(): void
+    {
+        $prenom = $this->session->getItem("livraison")["prenom"];
+        $nom = $this->session->getItem("livraison")["nom"];
+        $adresse = $this->session->getItem("livraison")["adresse"];
+        $ville = $this->session->getItem("livraison")["ville"];
+        $codePostal = $this->session->getItem("livraison")["codePostal"];
+        $estDefaut = 0;
+        if (isset($this->session->getItem("livraison")["estDefaut"])) {
+            $estDefaut = 1;
+        }
+        $typeAdresse = "livraison";
+        $abbrProvince = $this->session->getItem("livraison")["abbrProvince"];
+        $courriel = strval($this->session->getItem("courriel"));
+        $idClient = intval(Adresse::trouverIdClient($courriel));
+
+        Validation::insererAdresse($prenom, $nom, $adresse, $ville, $codePostal, $estDefaut, $typeAdresse, $abbrProvince, $idClient);
+        // Si le checkbox est coché change seulement le type d'adresse pour "facturation"
+        if (isset($this->session->getItem('livraison')['adresseFacturation'])) {
+            $typeAdresse = "facturation";
+            Validation::insererAdresse($prenom, $nom, $adresse, $ville, $codePostal, $estDefaut, $typeAdresse, $abbrProvince, $idClient);
+        }
+    }
+
+    public function insererMethodePaiementBD(): void
+    {
+        $methodePaiement = $this->session->getItem("facturation")["methodePaiement"];
+        $estPaypal = 0;
+        $typeCarte = "";
+        if ($methodePaiement == "Paypal") {
+            $estPaypal = 1;
+            $typeCarte = "Paypal";
+        }
+        if ($methodePaiement == "VISA") {
+            $typeCarte = "VISA";
+        }
+        if ($methodePaiement == "Master Card") {
+            $typeCarte = "Master Card";
+        }
+        if ($methodePaiement == "American Express") {
+            $typeCarte = "American Express";
+        }
+        $nomComplet = $this->session->getItem("facturation")["nomComplet"];
+        $noCarte = intval($this->session->getItem("facturation")["noCarte"]);
+        $code = intval($this->session->getItem("facturation")["code"]);
+        $dateExpirationCarte = $this->session->getItem("facturation")["dateExpirationCarte"];
+        $estDefaut = 0;
+        if (isset($this->session->getItem("facturation")["estDefaut"])) {
+            $estDefaut = 1;
+        }
+        $courriel = strval($this->session->getItem("courriel"));
+        $idClient = intval(Adresse::trouverIdClient($courriel));
+
+        Validation::insererMethodePaiement($estPaypal, $nomComplet, $noCarte, $typeCarte, $dateExpirationCarte, $code, $estDefaut, $idClient);
+    }
+
 }

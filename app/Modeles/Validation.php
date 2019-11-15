@@ -44,7 +44,7 @@ class Validation
         $pdo = App::getInstance()->getPDO();
 
         // Définir la chaine SQL
-        $sql = "SELECT * FROM t_pays WHERE abbr_pays =". $abbrPays;
+        $sql = "SELECT * FROM t_pays WHERE abbr_pays =" . $abbrPays;
 
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);
@@ -66,7 +66,7 @@ class Validation
         $pdo = App::getInstance()->getPDO();
 
         // Définir la chaine SQL
-        $sql = "SELECT * FROM t_province WHERE abbr_province =". $abbrProvince;
+        $sql = "SELECT * FROM t_province WHERE abbr_province =" . $abbrProvince;
 
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);
@@ -84,7 +84,7 @@ class Validation
 
     }
 
-    public static function insererAdresse(string $prenom, string $nom, string $adresse, string $ville, string $codePostal, int $estDefaut, string $typeAdresse, string $abbrProvince, int $id_client)
+    public static function insererAdresse(string $prenom, string $nom, string $adresse, string $ville, string $codePostal, int $estDefaut, string $typeAdresse, string $abbrProvince, int $idClient)
     {
         $pdo = App::getInstance()->getPDO();
         //Construction de la chaine de requete
@@ -101,11 +101,32 @@ class Validation
         $requete->bindParam(6, $estDefaut, PDO::PARAM_INT);
         $requete->bindParam(7, $typeAdresse, PDO::PARAM_STR);
         $requete->bindParam(8, $abbrProvince, PDO::PARAM_STR);
-        $requete->bindParam(9, $id_client, PDO::PARAM_INT);
+        $requete->bindParam(9, $idClient, PDO::PARAM_INT);
 
         //Execution de la requete
         $requete->execute();
 
+    }
+
+    public static function insererMethodePaiement(int $estPaypal, string $nomComplet, int $noCarte, string $typeCarte, string $dateExpirationCarte, int $code, int $estDefaut, int $idClient)
+    {
+        $pdo = App::getInstance()->getPDO();
+        //Construction de la chaine de requete
+        $chaineRequete = "INSERT INTO t_mode_paiement(est_paypal, nom_complet, no_carte, type_carte, date_expiration_carte, code, est_defaut, id_client) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        //Preparation de la requete
+        $requete = $pdo->prepare($chaineRequete);
+        //Attachement des valeurs personnalisees
+        $requete->bindParam(1, $estPaypal, PDO::PARAM_INT);
+        $requete->bindParam(2, $nomComplet, PDO::PARAM_STR);
+        $requete->bindParam(3, $noCarte, PDO::PARAM_INT);
+        $requete->bindParam(4, $typeCarte, PDO::PARAM_STR);
+        $requete->bindParam(5, $dateExpirationCarte, PDO::PARAM_STR);
+        $requete->bindParam(6, $code, PDO::PARAM_INT);
+        $requete->bindParam(7, $estDefaut, PDO::PARAM_INT);
+        $requete->bindParam(8, $idClient, PDO::PARAM_INT);
+        //Execution de la requete
+        $requete->execute();
     }
 
     public function __get($property)

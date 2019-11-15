@@ -85,7 +85,7 @@
                             </div>
                             <div class="sectionGauche__contenuMobile">
                                 <p class="h2 infosLivre__titreLivre">{{ $item -> livre -> titre }}</p>
-                                <p class="infosLivre__auteurLivre">
+                                <p class="infosLivre__auteurLivre confirmation__auteurs">
                                     @foreach($item -> livre -> getAuteurs() as $id => $auteur)
                                         {{ $auteur->getNomPrenom() }}@if($id !== count($item -> livre -> getAuteurs())-1)
                                             , @endif

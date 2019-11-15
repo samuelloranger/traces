@@ -130,6 +130,7 @@
       @media (min-width: $DESKTOP-NORMAL) {
         margin-left: 25%;
         font-size: 18px;
+        margin-bottom: 20px;
       }
 
       &--h2 {
@@ -340,21 +341,12 @@
   }
 
   &__trier {
-    &__label {
-      @media(min-width: $DESKTOP-NORMAL) {
-        margin-left: 15px;
-      }
-
-    }
-
     &--select {
       margin-left: 3px;
       height: 25px;
     }
 
-
     &__alignement {
-      margin-top: 4px;
       display: flex;
       flex-wrap: wrap;
     }
