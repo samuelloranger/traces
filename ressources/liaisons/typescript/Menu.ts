@@ -46,7 +46,7 @@ export class Menu {
      * @description Ajoute les écouteurs d'évènements sur les éléments du menu
      */
     private ajouterEcouteursEvements = () => {
-        if (this.urlParams.get("controleur") !== "livraison") {
+        if (this.urlParams.get("controleur") !== "livraison" || this.urlParams.get("controleur") !== "facturation" || this.urlParams.get("controleur") !== "validation") {
             this.btnMenu.addEventListener("click", () => {
                 this.gererMenuMobile();
             });

@@ -144,26 +144,31 @@ class ControleurPanier
             $modeLivraison = $_POST["modeLivraison"];
             $dateLivraisonEstimee = "Aucune date de livraison estimée.";
 
+            $pageComplete = false;
+            if(isset($_GET["pageComplete"])){
+                $pageComplete = true;
+            }
+
             if ($modeLivraison == "payante") {
-                $pageComplete = false;
                 $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
                 $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
                 $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
             } elseif ($modeLivraison == "gratuite") {
-                $pageComplete = false;
                 $fraisLivraison = Util::formaterArgent(0);
                 $montantTotal = Util::formaterArgent($this->panier->getMontantTotal(false));
                 $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("7 days"));
             }
 
             $this->session->setItem("dateLivraisonEstimee", $dateLivraisonEstimee);
-        } else {
+            $this->session->setItem("modeLivraison", $modeLivraison);
+        }
+        else {
             $modeLivraison = "payante";
             $fraisLivraison = Util::formaterArgent($this->panier->getMontantFraisLivraison());
             $montantTotal = Util::formaterArgent($this->panier->getMontantTotal());
             $dateLivraisonEstimee = strftime("%A %d %B %Y", strtotime("3 days"));
+            $this->session->setItem("modeLivraison", "payante");
         }
-
 
         $tDonnees = array_merge(
             Util::getInfosHeader(),
@@ -178,7 +183,8 @@ class ControleurPanier
 
         if ($pageComplete && !$informationsJson) {
             echo $this->blade->run("panier.gabarit_panier", $tDonnees);
-        } else {
+        }
+        else {
             if ($informationsJson) {
                 return $tDonnees;
                 echo $tDonnees;

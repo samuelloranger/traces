@@ -113,7 +113,7 @@
                     </div>
                 @endforeach
             </div>
-            <button class="transaction__centrer transaction__bouton">IMPRIMER LE REÇU DE VOTRE
+            <button id="impression_commande" class="transaction__centrer transaction__bouton">IMPRIMER LE REÇU DE VOTRE
                 COMMANDE
             </button>
             <a class="transaction__centrer lienRetour text-center"

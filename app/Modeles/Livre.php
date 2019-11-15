@@ -297,15 +297,6 @@ class Livre
     }
 
     /**
-     * Fonction getHonneurs
-     * @return array Retourne un array des Honneurs
-     */
-    public function getHonneurs(): array
-    {
-        return Honneur::trouverHonneursLivre($this->id);
-    }
-
-    /**
      * Fonction getPrix
      * @return string Retourne le prix du livre formate
      */
