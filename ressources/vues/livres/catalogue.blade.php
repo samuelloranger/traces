@@ -1,14 +1,26 @@
 @extends('gabarit')
 
 @section('contenu')
-    @include('fragments.filAriane')
+    <div class="catalogue__filAriane">
+        @include('fragments.filAriane')
+    </div>
+    <div class="catalogue__titre">
+        <h1 class="catalogue__h1">Catalogue</h1>
+    </div>
+    @if($categorieActif !== "")
+        <div class="catalogue__categories__actif">
+            <h2 class="catalogue__categories__actif--h2">
+                Catégorie : {{$categorieActif->nom_fr}}
+            </h2>
+        </div>
+    @endif
     <div class="row">
         <div class="catalogue__categories col-lg-3">
             <p class="catalogue__categories__titre text-center">
                 CATÉGORIES
             </p>
             <a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar={{$trierPar}}&nbParPages={{$livresParPage}}"
-               class="catalogue__btn catalogue__categories--reinitialiser">RÉINITIALISER</a>
+               class="catalogue__btn catalogue__categories--reinitialiser">RÉINITIALISER CATÉGORIE</a>
             <div class="catalogue__categories__contenu">
                 <ul class="catalogue__categories__liste">
                     @foreach($arrCategories as $categorie)
@@ -26,14 +38,14 @@
                     <button onclick="ouvrirFermerCategories()" class="dropbtn catalogue__btn--categories ">
                         CATÉGORIES
                     </button>
-                    <div id="myDropdown" class="dropdown-content justify-content-center">
+                    <div id="myDropdown" class="dropdown-content">
                         <form method="post" action="{{$urlPagination}}">
                             <a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar={{$trierPar}}&nbParPages={{$livresParPage}}"
-                               class="catalogue__btn catalogue__btn--reinitialiser">RÉINITIALISER</a>
+                               class="catalogue__btn catalogue__btn--reinitialiser">RÉINITIALISER CATÉGORIE</a>
                             <ul class="catalogue__categories__liste">
                                 @foreach($arrCategories as $categorie)
                                     <li class="catalogue__categories__liste__item">
-                                        <a href="index.php?controleur=livre&action=catalogue&categorie={{$categorie->id}}&trierPar={{$_GET["trierPar"]}}&nbParPages={{$livresParPage}}"
+                                        <a href="index.php?controleur=livre&action=catalogue&categorie={{$categorie->id}}&trierPar={{$trierPar}}&nbParPages={{$livresParPage}}"
                                            class="catalogue__categories__lien">{{$categorie -> nom_fr}}</a>
                                     </li>
                                 @endforeach
@@ -42,13 +54,6 @@
                     </div>
                 </div>
                 <div class="catalogue__alignementDesktop">
-                    {{-- onkeyup, recherche par titre, auteur, type -- Méthode dans controleurSite qui appelle des nouveaux getter dans Auteur -- Nouveau fragment 'recherche' dans l'en-tête --                  --}}
-                    <div class="search-box">
-                        <input type="text" name="rechercher" id="recherche"
-                               autocomplete="off"
-                               placeholder="Rechercher un livre..."/>
-                        <div id="resultat"></div>
-                    </div>
                     <div class="catalogue__trier">
                         <div class="catalogue__trier__alignement">
                             <p class="catalogue__trier__label">Trier par :</p>
@@ -86,11 +91,23 @@
                 <div class="catalogue__alignementDesktop">
                     <div class="catalogue__trier__alignement">
                         <p class="catalogue__nbParPages__label">Nombre de livres par pages :</p>
-                        <a class="catalogue__lien"
+                        <a class="catalogue__lien 
+                        @if($livresParPage == "9")
+                                catalogue__lien--actif
+                        @endif
+                                "
                            href="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar={{$trierPar}}&nbParPages=9">9</a>
-                        <a class="catalogue__lien"
+                        <a class="catalogue__lien
+                         @if($livresParPage == "18")
+                                catalogue__lien--actif
+                            @endif
+                                "
                            href="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar={{$trierPar}}&nbParPages=18">18</a>
-                        <a class="catalogue__lien"
+                        <a class="catalogue__lien
+                        @if($livresParPage == "36")
+                                catalogue__lien--actif
+                        @endif
+                                "
                            href="index.php?controleur=livre&action=catalogue&categorie={{$id_categorie}}&trierPar={{$trierPar}}&nbParPages=36">36</a>
                     </div>
                     <div class="catalogue__nbResultats">
@@ -110,7 +127,7 @@
 
                         <div class="catalogue__livre">
                             <div class="catalogue__livre__titreEtAuteur">
-                                <a class="catalogue__titre"
+                                <a class="catalogue__titreLivre"
                                    href="index.php?controleur=livre&action=fiche&isbn={{ $livre -> isbn }}">{{ $livre -> titre }}</a>
                                 @foreach($livre -> getAuteurs() as $auteur)
                                     <p class="catalogue__auteurs">{{ $auteur -> getNomPrenom() }}</p>

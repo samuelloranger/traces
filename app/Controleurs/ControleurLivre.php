@@ -21,7 +21,8 @@ class ControleurLivre
     private $session = null;
     private $tMessages = null;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->blade = App::getInstance()->getBlade();
         $this->panier = App::getInstance()->getPanier();
         $this->session = App::getInstance()->getSession();
@@ -33,7 +34,8 @@ class ControleurLivre
     /**
      * Fonction index qui call la view
      */
-    public function catalogue():void {
+    public function catalogue(): void
+    {
         $filAriane = App::getInstance()->getFilAriane();
         $filAriane = $filAriane::majFilAriane();
 
@@ -41,7 +43,7 @@ class ControleurLivre
          * Définition de la catégorie séléctionnée
          */
         $id_categorie = 0;
-        if(isset($_GET["categorie"])){
+        if (isset($_GET["categorie"])) {
             $id_categorie = intval($_GET["categorie"]);
         }
 
@@ -65,7 +67,7 @@ class ControleurLivre
          * Définition du nombre de pages
          */
         $livresParPage = 9;
-        if(isset($_GET["nbParPages"])){
+        if (isset($_GET["nbParPages"])) {
             if ($_GET["nbParPages"] == '9') {
                 $livresParPage = 9;
             }
@@ -101,38 +103,45 @@ class ControleurLivre
         $arrCategories = Categories::trouverTout();
 
         $nbResultats = Livre::compter(0);
-
-        if(isset($_GET['categorie'])){
+        $categorieActif = "";
+        if (isset($_GET['categorie'])) {
             $nbResultats = Livre::compter(intval($_GET['categorie']));
+
+            if ($_GET['categorie'] !== "0") {
+                $categorieActif = Categories::trouverParId($_GET['categorie']);
+            }
+
         }
 
         /**
          * Définition de l'array des données
          */
         $tDonnees = array_merge(
-                Util::getInfosHeader(),
-                array("nbResultats" => $nbResultats),
-                array("arrLivres" => $arrLivres),
-                array("arrCategories" => $arrCategories),
-                array("id_categorie" => $id_categorie),
-                array("trierPar" => $trierPar),
-                array("nombreTotalPages" => $nombreTotalPages),
-                array("livresParPage" => $livresParPage),
-                array("numeroPage" => $numeroPage),
-                array("filAriane" => $filAriane),
-                array("urlPagination" => $urlModif)
+            Util::getInfosHeader(),
+            array("nbResultats" => $nbResultats),
+            array("arrLivres" => $arrLivres),
+            array("arrCategories" => $arrCategories),
+            array("id_categorie" => $id_categorie),
+            array("trierPar" => $trierPar),
+            array("nombreTotalPages" => $nombreTotalPages),
+            array("livresParPage" => $livresParPage),
+            array("numeroPage" => $numeroPage),
+            array("filAriane" => $filAriane),
+            array("urlPagination" => $urlModif),
+            array("categorieActif" => $categorieActif)
+            //array("auteurs"=>$auteur)
         );
 
         echo $this->blade->run("livres.catalogue", $tDonnees);
     }
 
-    public function fiche($arrErreursFormCommentaire = array()):void {
+    public function fiche($arrErreursFormCommentaire = array()): void
+    {
         $isbnLivre = "0";
         if (isset($_GET["isbn"])) {
             $isbnLivre = $_GET["isbn"];
-        }
-        else{
-            if(isset($_POST["isbn"])){
+        } else {
+            if (isset($_POST["isbn"])) {
                 $isbnLivre = $_POST["isbn"];
             }
         }
@@ -204,26 +213,25 @@ class ControleurLivre
         echo $this->blade->run("livres.fiche", $tDonnees);
     }
 
-    public function ajouterCommentaire():void{
+    public function ajouterCommentaire(): void
+    {
         $idClientConnecte = $this->session->getItem("idClient");
         $arrErreurs = [];
         $formCommContientErreur = false;
 
         //Validation commentaire côté serveur
         $idClient = 0;
-        if(isset($_POST["idClient"])){
+        if (isset($_POST["idClient"])) {
             $idClientEntre = $_POST["idClient"];
 
             //Validation
-            if($idClientEntre == intval($idClientConnecte)){
+            if ($idClientEntre == intval($idClientConnecte)) {
                 $idClient = intval($idClientEntre);
-            }
-            else{
-                if($idClientEntre == ""){
+            } else {
+                if ($idClientEntre == "") {
                     $arrErreurs["idClient"] = $this->tMessages["idClient"]["vide"];
                     $formCommContientErreur = true;
-                }
-                else{
+                } else {
                     $arrErreurs["idClient"] = $this->tMessages["idClient"]["invalide"];
                     $formCommContientErreur = true;
                 }
@@ -231,18 +239,16 @@ class ControleurLivre
         }
 
         $isbn = "";
-        if(isset($_POST["isbn"])){
+        if (isset($_POST["isbn"])) {
             $isbnEntre = $_POST["isbn"];
 
-            if(Util::validerISBN($isbnEntre)){
+            if (Util::validerISBN($isbnEntre)) {
                 $isbn = $isbnEntre;
-            }
-            else{
-                if($isbnEntre == ""){
+            } else {
+                if ($isbnEntre == "") {
                     $arrErreurs["isbn"] = $this->tMessages["isbn"]["vide"];
                     $formCommContientErreur = true;
-                }
-                else{
+                } else {
                     $arrErreurs["isbn"] = $this->tMessages["isbn"]["invalide"];
                     $formCommContientErreur = true;
                 }
@@ -250,72 +256,66 @@ class ControleurLivre
         }
 
         $titre_commentaire = "";
-        if(isset($_POST["titre_commentaire"])){
+        if (isset($_POST["titre_commentaire"])) {
             $titre_commentaire = strip_tags($_POST["titre_commentaire"]);
 
-            if(strlen($titre_commentaire) > 50 ){
+            if (strlen($titre_commentaire) > 50) {
                 $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["long"];
                 $formCommContientErreur = true;
-            }
-            elseif(strlen($titre_commentaire) < 10){
+            } elseif (strlen($titre_commentaire) < 10) {
                 $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["court"];
                 $formCommContientErreur = true;
             }
-        }
-        else{
+        } else {
             $arrErreurs["titre_commentaire"] = $this->tMessages["titre_commentaire"]["vide"];
             $formCommContientErreur = true;
         }
 
         $texte_commentaire = "";
-        if(isset($_POST["texte_commentaire"])){
+        if (isset($_POST["texte_commentaire"])) {
             $texte_commentaire = strip_tags($_POST["texte_commentaire"]);
 
-            if(strlen($texte_commentaire) > 255 ){
+            if (strlen($texte_commentaire) > 255) {
                 $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["long"];
                 $formCommContientErreur = true;
-            }
-            elseif(strlen($texte_commentaire) < 10){
+            } elseif (strlen($texte_commentaire) < 10) {
                 $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["court"];
                 $formCommContientErreur = true;
             }
-        }
-        else{
+        } else {
             $arrErreurs["texte_commentaire"] = $this->tMessages["texte_commentaire"]["vide"];
             $formCommContientErreur = true;
         }
 
         $cote = "";
-        if(isset($_POST["cote"])){
+        if (isset($_POST["cote"])) {
             $coteEntree = $_POST["cote"];
 
-            if(intval($coteEntree) <= 1 && intval($coteEntree) >= 5){
+            if (intval($coteEntree) <= 1 && intval($coteEntree) >= 5) {
                 $arrErreurs["cote"] = $this->tMessages["cote"]["invalide"];
                 $formCommContientErreur = true;
-            }
-            else{
+            } else {
                 $cote = intval($coteEntree);
             }
-        }
-        else{
+        } else {
             $arrErreurs["cote"] = $this->tMessages["cote"]["vide"];
             $formCommContientErreur = true;
         }
 
         $achatVerif = 0;
-        if(isset($_POST["achatVerif"])){
-            if($_POST["achatVerif"] == "verifie"){
+        if (isset($_POST["achatVerif"])) {
+            if ($_POST["achatVerif"] == "verifie") {
                 $achatVerif = 1;
             }
         }
 
         $isAjax = false;
-        if(isset($_POST["isAjax"])){
+        if (isset($_POST["isAjax"])) {
             $isAjax = true;
         }
 
         //Insertion du nouveau commentaire
-        if(!$formCommContientErreur){
+        if (!$formCommContientErreur) {
             Commentaires::insererCommentaire($idClient, $isbn, $titre_commentaire, $texte_commentaire, $cote, $achatVerif);
         }
 
@@ -333,18 +333,18 @@ class ControleurLivre
             array("formCommContientErreur" => $formCommContientErreur)
         );
 
-        if($isAjax){
+        if ($isAjax) {
             echo $this->blade->run("livres.fragments.commentaires", $arrDonnees);
-        }
-        else{
+        } else {
             $this->fiche($arrErreurs);
         }
 
     }
 
-    public function fenetreModale():void{
+    public function fenetreModale(): void
+    {
         $isbn = "";
-        if(isset($_POST["isbn"])){
+        if (isset($_POST["isbn"])) {
             $isbn = $_POST["isbn"];
         }
 

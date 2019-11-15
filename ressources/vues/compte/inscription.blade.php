@@ -68,7 +68,7 @@
                 {{-- TELEPHONE --}}
                 <div class="closestdiv">
                     <label for="tel">Numero de telephone</label>
-                    <small class="inscription__formulaire__consignes">Ex: 418-999-9999</small>
+                    <small class="inscription__formulaire__consignes">Ex: 4186667777</small>
                     <input class="champ_formulaire js_inscription" type="number" name="tel" id="tel"
                            pattern="[0-9]{10}"
                            @if(!$tValidation["formulaireValide"])

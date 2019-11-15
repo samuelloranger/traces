@@ -1,39 +1,35 @@
+<!-- Si on est pas sur la première page et s'il y a plus d'une page -->
+@if ($numeroPage > 1)
+    <a class="catalogue__pagination__premierDernier" href="{!! $urlPagination . "&page=" . 1  !!}">Premier</a>
+@else
+    <span class="catalogue__pagination__premierDernier" style="color:#999">Premier</span>
+@endif
 
+&nbsp;|&nbsp;
 
-    <!-- Si on est pas sur la première page et s'il y a plus d'une page -->
-    @if ($numeroPage > 1)
-        <a href= "{!! $urlPagination . "&page=" . 1  !!}">Premier</a>
-    @else
-        <span style="color:#999">Premier</span>
-    @endif
+@if ($numeroPage > 1)
+    <a class="catalogue__pagination__fleche"
+       href="{!! $urlPagination . "&page=" . (htmlspecialchars($numeroPage) - 1) !!}">⇦</a>
+@else
+    <span class="catalogue__pagination__fleche" style="color:#999">⇦</span>
+@endif
 
-    &nbsp;|&nbsp;
+<p class="catalogue__pagination__numeroPage"><b>{{$numeroPage}}</b>  de  <b>{{$nombreTotalPages}}</b></p>
 
-    @if ($numeroPage > 1)
-        <a href="{!! $urlPagination . "&page=" . (htmlspecialchars($numeroPage) - 1) !!}">Précédent</a>
-    @else
-        <span style="color:#999">Précédent</span>
-    @endif
+@if ($numeroPage < $nombreTotalPages)
+    <a class="catalogue__pagination__fleche"
+       href="{!! $urlPagination . "&page=" . (htmlspecialchars($numeroPage) + 1)  !!}">⇨</a>
+@else
+    <span class="catalogue__pagination__fleche" style="color:#999">⇨</span>
+@endif
 
-    &nbsp;|&nbsp;
+&nbsp;|&nbsp;
 
-    {{"Page " . ($numeroPage) . " de " . ($nombreTotalPages)}}
-
-    &nbsp;|&nbsp;
-
-    @if ($numeroPage < $nombreTotalPages)
-        <a href="{!! $urlPagination . "&page=" . (htmlspecialchars($numeroPage) + 1)  !!}">Suivant</a>
-    @else
-        <span style="color:#999">Suivant</span>
-    @endif
-
-    &nbsp;|&nbsp;
-
-    @if ($numeroPage < $nombreTotalPages)
-        <a href="{!! $urlPagination . "&page=" . htmlspecialchars($nombreTotalPages) !!}">Dernier</a>
-    @else
-        <span style="color:#999">Dernier</span>
-    @endif
+@if ($numeroPage < $nombreTotalPages)
+    <a class="catalogue__pagination__premierDernier" href="{!! $urlPagination . "&page=" . htmlspecialchars($nombreTotalPages) !!}">Dernier</a>
+@else
+    <span class="catalogue__pagination__premierDernier" style="color:#999">Dernier</span>
+@endif
 
 
 

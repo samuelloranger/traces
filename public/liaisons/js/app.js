@@ -1,4 +1,4 @@
-define(["require", "exports", "./Menu", "./GestionPanier", "./GestionFiche", "./GestionAccueil", "./GestionCatalogue", "./GestionInscription", "./GestionConnexion"], function (require, exports, Menu_1, GestionPanier_1, GestionFiche_1, GestionAccueil_1, GestionCatalogue_1, GestionInscription_1, GestionConnexion_1) {
+define(["require", "exports", "./Menu", "./GestionPanier", "./GestionFiche", "./GestionAccueil", "./GestionCatalogue", "./GestionInscription", "./GestionConnexion", "./GestionPrint"], function (require, exports, Menu_1, GestionPanier_1, GestionFiche_1, GestionAccueil_1, GestionCatalogue_1, GestionInscription_1, GestionConnexion_1, GestionPrint_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     document.querySelector("body").classList.add("js");
@@ -9,5 +9,6 @@ define(["require", "exports", "./Menu", "./GestionPanier", "./GestionFiche", "./
     var gestionCatalogue = new GestionCatalogue_1.GestionCatalogue(gestionPanier);
     var gestionInscription = new GestionInscription_1.GestionInscription();
     var gestionConnexion = new GestionConnexion_1.GestionConnexion();
+    var gestionPrint = new GestionPrint_1.GestionPrint();
 });
 //# sourceMappingURL=app.js.map
