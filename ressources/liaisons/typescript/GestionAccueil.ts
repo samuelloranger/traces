@@ -16,7 +16,6 @@ export class GestionAccueil {
         this.ajouterEcouteursEvenements();
     }
 
-
     private ajouterEcouteursEvenements = () => {
         // Quantité : Bouton soustraire
         const controleur = this.urlParams.get('controleur');

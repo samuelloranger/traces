@@ -36,11 +36,6 @@ define(["require", "exports"], function (require, exports) {
                     panier.montrerFenetreModale(isbnLivre);
                 });
             };
-            this.recherche = function () {
-                console.log("ALLOO!!");
-                alert("HELLO WORLD");
-                document.querySelector("#resultat").innerHTML = "ALLOO";
-            };
             this.panier = panier;
             this.ajouterEcouteursEvenements();
         }
