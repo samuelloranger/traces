@@ -48,10 +48,4 @@ export class GestionCatalogue {
                 }
             )
     };
-
-    private recherche = () => {
-        console.log("ALLOO!!");
-        alert("HELLO WORLD");
-        document.querySelector("#resultat").innerHTML = "ALLOO";
-    };
 }
