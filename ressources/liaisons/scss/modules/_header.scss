@@ -247,6 +247,55 @@
                 background-image: url("../images/icones/icone-loupe.svg");
               }
             }
+
+            .conteneurZoneRecherche{
+              position: absolute;
+              right: 2%;
+              top: 100%;
+              transition: 0.25s ease-in-out;
+              filter: drop-shadow(2px 4px 6px black);
+
+              &--ferme{
+                top: 0;
+                opacity: 0;
+                pointer-events: none;
+              }
+
+              .zoneAction{
+                display: flex;
+
+                input{
+                  width: 80%;
+                }
+
+                .fermerZoneRecherche{
+                  width: 20%;
+                  color: white;
+                  border: none;
+                  background-color: $TURQUOISE;
+                }
+              }
+
+              .zoneRecherche{
+                background-color: white;
+                width: 300px;
+
+                ul{
+                  padding-left: 15px;
+                  overflow: scroll;
+                  max-height: 250px;
+
+                  li{
+                    padding: 6px 0;
+                    list-style-type: none;
+
+                    a{
+                      color: black;
+                    }
+                  }
+                }
+              }
+            }
           }
 
           .zoneLangue{
@@ -316,6 +365,8 @@
               }
             }
           }
+
+
         }
 
       }
@@ -383,6 +434,66 @@
             margin: 0;
             height: 100%;
             padding: 0 20px;
+
+            .recherche{
+              position: relative;
+
+              .conteneurZoneRecherche{
+                position: absolute;
+                right: 0;
+                top: 150%;
+                filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.6));
+                transition: 0.25s ease-in-out;
+
+                &--ferme{
+                  top: -200%;
+                  opacity: 0;
+                  pointer-events: none;
+                }
+
+                .zoneAction{
+                  display: flex;
+
+                  .fermerZoneRecherche{
+                    color: white;
+                    background-color: $TURQUOISE;
+                    border: none;
+                    width: 20%;
+
+                    &:focus{
+                      outline: none;
+                    }
+                  }
+
+                  input{
+                    width: 80%;
+                  }
+                }
+
+                .zoneRecherche{
+                  background: white;
+                  width: 300px;
+                  max-height: 250px;
+                  overflow: scroll;
+
+                  ul{
+                    padding-left: 15px;
+
+                    li{
+                      padding: 6px 0;
+
+                      a{
+                        color: black;
+
+                        &:hover{
+                          color: $ROUGE;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
 
             li{
               @include fontSize(13px);

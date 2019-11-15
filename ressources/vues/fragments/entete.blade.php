@@ -16,11 +16,15 @@
                 <li><a href="index.php?controleur=panier&action=panier" class="iconePanier" aria-label="Panier"><span
                                 aria-label="Panier" class="icone icone__panier"></span>@if(!$panierVide)<span
                                 class="nbrItemsPanier">{{ $nbrItemsPanier }}</span>@endif</a></li>
-                <li>
+                <li class="recherche">
                     <div role=”search”>
                         <span aria-label="Rechercher" class="icone icone__rechercher"></span>
-                        <div class="conteneurZoneRecherche">
-                            <input type="text" name="recherche" class="inputRecherche"/>
+
+                        <div class="conteneurZoneRecherche conteneurZoneRecherche--ferme">
+                            <div class="zoneAction">
+                                <input type="text" name="recherche" class="inputRecherche"/>
+                                <button class="fermerZoneRecherche">Fermer</button>
+                            </div>
                             <div class="zoneRecherche">
                                 @include("fragments.recherche")
                             </div>
@@ -60,6 +64,16 @@
                    class="iconePanier icone icone__panier">@if(!$panierVide)<span
                             class="nbrItemsPanier">{{ $nbrItemsPanier }}</span>@endif</a>
                 <span class="icone icone__rechercher"></span>
+
+                <div class="conteneurZoneRecherche conteneurZoneRecherche--ferme">
+                    <div class="zoneAction">
+                        <input type="text" name="recherche" class="inputRecherche"/>
+                        <button class="fermerZoneRecherche">Fermer</button>
+                    </div>
+                    <div class="zoneRecherche">
+                        @include("fragments.recherche")
+                    </div>
+                </div>
             </div>
 
             <span class="zoneLangue zoneLangue--inactif"><a

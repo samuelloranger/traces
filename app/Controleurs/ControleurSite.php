@@ -84,7 +84,14 @@ class ControleurSite
             $livreRecherche = $_POST['recherche'];
         }
 
-        $arrRecherche = Livre::rechercherParTitre($livreRecherche);
+        $arrRecherche = array();
+        if($livreRecherche !== ""){
+            $arrRecherche = Livre::rechercherParTitre($livreRecherche);
+        }
+
+        forEach($arrRecherche as $resultat){
+            $resultat->titre = Util::corrigerTitre($resultat->titre);
+        }
 
         // Echo
 //

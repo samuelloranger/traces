@@ -25,8 +25,11 @@ define(["require", "exports"], function (require, exports) {
             this.zoneLangue = document.querySelector(".zoneLangue");
             this.zoneIcones = document.querySelector(".navigation__mobile__top .zoneIcones");
             this.arrIcones = null;
-            this.inputRecherche = document.querySelector(".inputRecherche");
-            this.zoneRecherche = document.querySelector(".zoneRecherche");
+            this.inputRecherche = Array.apply(null, document.querySelectorAll(".inputRecherche"));
+            this.zoneRecherche = Array.apply(null, document.querySelectorAll(".zoneRecherche"));
+            this.iconeRecherche = Array.apply(null, document.querySelectorAll(".icone__rechercher"));
+            this.btnFermerRecherche = Array.apply(null, document.querySelectorAll(".fermerZoneRecherche"));
+            this.conteneurZoneRecherche = Array.apply(null, document.querySelectorAll(".conteneurZoneRecherche"));
             //Éléments personnalisation
             this.hauteurChangementMenuAccueil = 525;
             /**
@@ -38,8 +41,20 @@ define(["require", "exports"], function (require, exports) {
                     _this.btnMenu.addEventListener("click", function () {
                         _this.gererMenuMobile();
                     });
-                    _this.inputRecherche.addEventListener("keyup", function () {
-                        _this.executerAjax(_this.inputRecherche);
+                    _this.inputRecherche.forEach(function (element) {
+                        element.addEventListener("keyup", function () {
+                            _this.executerAjax(element);
+                        });
+                    });
+                    _this.iconeRecherche.forEach(function (element) {
+                        element.addEventListener("click", function () {
+                            _this.ouvrirFermerRecherche();
+                        });
+                    });
+                    _this.btnFermerRecherche.forEach(function (element) {
+                        element.addEventListener("click", function () {
+                            _this.ouvrirFermerRecherche();
+                        });
                     });
                 }
                 if (_this.getPageAccueil()) {
@@ -152,7 +167,9 @@ define(["require", "exports"], function (require, exports) {
                 });
             };
             this.retournerRecherche = function (data, textStatus, jqXHR) {
-                _this.zoneRecherche.innerHTML = data;
+                _this.zoneRecherche.forEach(function (element) {
+                    element.innerHTML = data;
+                });
             };
             /**
              * Méthodes utilitaires
@@ -172,6 +189,16 @@ define(["require", "exports"], function (require, exports) {
                 this.arrIcones = Array.apply(null, this.zoneIcones.querySelectorAll(".icone"));
             }
         }
+        Menu.prototype.ouvrirFermerRecherche = function () {
+            this.conteneurZoneRecherche.forEach(function (element) {
+                if (element.classList.contains("conteneurZoneRecherche--ferme")) {
+                    element.classList.remove("conteneurZoneRecherche--ferme");
+                }
+                else {
+                    element.classList.add("conteneurZoneRecherche--ferme");
+                }
+            });
+        };
         return Menu;
     }());
     exports.Menu = Menu;

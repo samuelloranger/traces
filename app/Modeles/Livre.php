@@ -252,6 +252,8 @@ class Livre
 
         $requetePreparee->bindParam(":livreId", $this->id, PDO::PARAM_INT);
 
+        $requetePreparee->execute();
+
         return $requetePreparee->fetch();
     }
 

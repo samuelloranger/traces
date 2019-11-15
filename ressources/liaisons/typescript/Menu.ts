@@ -17,9 +17,14 @@ export class Menu {
     private conteneneurMenu: HTMLElement = document.querySelector(".navigation__mobile__menu");
     private zoneLangue: HTMLElement = document.querySelector(".zoneLangue");
     private zoneIcones: HTMLElement = document.querySelector(".navigation__mobile__top .zoneIcones");
+
     private arrIcones: Array<HTMLElement> = null;
-    private inputRecherche: HTMLInputElement = document.querySelector(".inputRecherche");
-    private zoneRecherche: HTMLElement = document.querySelector(".zoneRecherche");
+
+    private inputRecherche:HTMLInputElement[] = Array.apply(null, document.querySelectorAll(".inputRecherche"));
+    private zoneRecherche:HTMLElement[] = Array.apply(null, document.querySelectorAll(".zoneRecherche"));
+    private iconeRecherche:HTMLElement[] =  Array.apply(null, document.querySelectorAll(".icone__rechercher"));
+    private btnFermerRecherche:HTMLElement[] =  Array.apply(null, document.querySelectorAll(".fermerZoneRecherche"));
+    private conteneurZoneRecherche:HTMLElement[] =  Array.apply(null, document.querySelectorAll(".conteneurZoneRecherche"));
 
     //Éléments personnalisation
     private hauteurChangementMenuAccueil = 525;
@@ -46,8 +51,22 @@ export class Menu {
                 this.gererMenuMobile();
             });
 
-            this.inputRecherche.addEventListener("keyup", () => {
-                this.executerAjax(this.inputRecherche);
+            this.inputRecherche.forEach((element) => {
+                element.addEventListener("keyup", () => {
+                    this.executerAjax(element);
+                });
+            });
+
+            this.iconeRecherche.forEach((element) => {
+                element.addEventListener("click", () => {
+                    this.ouvrirFermerRecherche();
+                });
+            });
+
+            this.btnFermerRecherche.forEach((element) => {
+                element.addEventListener("click", () => {
+                    this.ouvrirFermerRecherche();
+                });
             });
         }
 
@@ -159,8 +178,18 @@ export class Menu {
         }
     };
 
+    private ouvrirFermerRecherche():void{
+        this.conteneurZoneRecherche.forEach((element) => {
+            if(element.classList.contains("conteneurZoneRecherche--ferme")){
+                element.classList.remove("conteneurZoneRecherche--ferme");
+            }
+            else{
+                element.classList.add("conteneurZoneRecherche--ferme");
+            }
+        });
+    }
 
-    private executerAjax = (element) => {
+    private executerAjax = (element:HTMLInputElement):void => {
         const stringRecherche = element.value;
         const classe = this;
 
@@ -175,8 +204,10 @@ export class Menu {
             });
     };
 
-    private retournerRecherche = (data, textStatus, jqXHR) => {
-        this.zoneRecherche.innerHTML = data;
+    private retournerRecherche = (data, textStatus, jqXHR):void => {
+        this.zoneRecherche.forEach((element) => {
+            element.innerHTML = data;
+        });
     };
 
     /**
