@@ -64,29 +64,6 @@ class ControleurLivraison
         }
     }
 
-//    public function insererAdresseBD()
-//    {
-//
-//        $prenom = $_POST["prenom"];
-//        $nom = $_POST["nom"];
-//        $adresse = $_POST["adresse"];
-//        $ville = $_POST["ville"];
-//        $codePostal = $_POST["codePostal"];
-//        if (isset($_POST["estDefaut"])) {
-//            $estDefaut = 1;
-//        }
-//        $typeAdresse = "livraison";
-//        $abbrProvince = $_POST['abbrProvince'];
-//        $idClient = Adresse::trouverIdClient($_SESSION['courriel']);
-//
-//        Adresse::insererAdresse($prenom, $nom, $adresse, $ville, $codePostal, $estDefaut, $typeAdresse, $abbrProvince, $idClient);
-//        // Si le checkbox est coché change seulement le type d'adresse pour "facturation"
-//        if (isset($_POST['adresseFacturation'])) {
-//            var_dump("HELLOOO!");
-//            $typeAdresse = "facturation";
-//        }
-//    }
-
     public function validerAdresse(): array
     {
         $fichierJSON = file_get_contents('../ressources/liaisons/typescript/messagesLivraison.json');
