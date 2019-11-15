@@ -58,8 +58,13 @@ class ControleurValidation
         $arrInfosFacturation = $this->session->getItem("facturation");
         $controleurPanier = new ControleurPanier();
         $arrInfosPanier = $controleurPanier->panier(false, true);
+
+        // Insertion dans la BD
         self::insererAdresseBD();
         self::insererMethodePaiementBD();
+        self::insererModeLivraisonBD();
+        self::insererCommandeBD();
+
         $tDonnees = array_merge(
             ControleurSite::getDonneeFragmentPiedDePage(),
             array("nomPage" => "Confirmation"),
@@ -141,6 +146,25 @@ class ControleurValidation
         $idClient = intval(Adresse::trouverIdClient($courriel));
 
         Validation::insererMethodePaiement($estPaypal, $nomComplet, $noCarte, $typeCarte, $dateExpirationCarte, $code, $estDefaut, $idClient);
+    }
+
+    public function insererModeLivraisonBD(): void
+    {
+        $dateEstimmee = strval($this->session->getItem('dateLivraisonEstimee'));
+        $modeLivraison = strval($this->session->getItem('modeLivraison'));
+        $courriel = strval($this->session->getItem("courriel"));
+        $idClient = intval(Adresse::trouverIdClient($courriel));
+
+        Validation::insererModeLivraison($dateEstimmee, $modeLivraison, $idClient);
+    }
+    public function insererCommandeBD(): void
+    {
+        $dateEstimmee = strval($this->session->getItem('dateLivraisonEstimee'));
+        $modeLivraison = strval($this->session->getItem('modeLivraison'));
+        $courriel = strval($this->session->getItem("courriel"));
+        $idClient = intval(Adresse::trouverIdClient($courriel));
+
+        Validation::insererModeLivraison($dateEstimmee, $modeLivraison, $idClient);
     }
 
 }

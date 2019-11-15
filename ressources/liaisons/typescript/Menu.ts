@@ -20,11 +20,11 @@ export class Menu {
 
     private arrIcones: Array<HTMLElement> = null;
 
-    private inputRecherche:HTMLInputElement[] = Array.apply(null, document.querySelectorAll(".inputRecherche"));
-    private zoneRecherche:HTMLElement[] = Array.apply(null, document.querySelectorAll(".zoneRecherche"));
-    private iconeRecherche:HTMLElement[] =  Array.apply(null, document.querySelectorAll(".icone__rechercher"));
-    private btnFermerRecherche:HTMLElement[] =  Array.apply(null, document.querySelectorAll(".fermerZoneRecherche"));
-    private conteneurZoneRecherche:HTMLElement[] =  Array.apply(null, document.querySelectorAll(".conteneurZoneRecherche"));
+    private inputRecherche: HTMLInputElement[] = Array.apply(null, document.querySelectorAll(".inputRecherche"));
+    private zoneRecherche: HTMLElement[] = Array.apply(null, document.querySelectorAll(".zoneRecherche"));
+    private iconeRecherche: HTMLElement[] = Array.apply(null, document.querySelectorAll(".icone__rechercher"));
+    private btnFermerRecherche: HTMLElement[] = Array.apply(null, document.querySelectorAll(".fermerZoneRecherche"));
+    private conteneurZoneRecherche: HTMLElement[] = Array.apply(null, document.querySelectorAll(".conteneurZoneRecherche"));
 
     //Éléments personnalisation
     private hauteurChangementMenuAccueil = 525;
@@ -178,18 +178,20 @@ export class Menu {
         }
     };
 
-    private ouvrirFermerRecherche():void{
+    private ouvrirFermerRecherche(): void {
         this.conteneurZoneRecherche.forEach((element) => {
-            if(element.classList.contains("conteneurZoneRecherche--ferme")){
+            if (element.classList.contains("conteneurZoneRecherche--ferme")) {
                 element.classList.remove("conteneurZoneRecherche--ferme");
-            }
-            else{
+            } else {
                 element.classList.add("conteneurZoneRecherche--ferme");
             }
         });
     }
 
-    private executerAjax = (element:HTMLInputElement):void => {
+    //////////////////////////////////////////
+    // AJAX DU MANDAT B - ZACHARY NICOL-P. //
+    ////////////////////////////////////////
+    private executerAjax = (element: HTMLInputElement): void => {
         const stringRecherche = element.value;
         const classe = this;
 
@@ -204,7 +206,7 @@ export class Menu {
             });
     };
 
-    private retournerRecherche = (data, textStatus, jqXHR):void => {
+    private retournerRecherche = (data, textStatus, jqXHR): void => {
         this.zoneRecherche.forEach((element) => {
             element.innerHTML = data;
         });

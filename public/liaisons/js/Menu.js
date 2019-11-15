@@ -153,6 +153,9 @@ define(["require", "exports"], function (require, exports) {
                     });
                 }
             };
+            //////////////////////////////////////////
+            // AJAX DU MANDAT B - ZACHARY NICOL-P. //
+            ////////////////////////////////////////
             this.executerAjax = function (element) {
                 var stringRecherche = element.value;
                 var classe = _this;

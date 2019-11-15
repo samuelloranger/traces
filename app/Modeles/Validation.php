@@ -129,6 +129,23 @@ class Validation
         $requete->execute();
     }
 
+    public static function insererModeLivraison(string $dateEstimee, string $modeLivraison, int $idClient)
+    {
+        $pdo = App::getInstance()->getPDO();
+        //Construction de la chaine de requete
+        $chaineRequete = "INSERT INTO t_mode_livraison(date_estimee, mode_livraison, id_client) 
+                          VALUES (?, ?, ?)";
+        //Preparation de la requete
+        $requete = $pdo->prepare($chaineRequete);
+        //Attachement des valeurs personnalisees
+        $requete->bindParam(1, $dateEstimee, PDO::PARAM_STR);
+        $requete->bindParam(2, $modeLivraison, PDO::PARAM_STR);
+        $requete->bindParam(3, $idClient, PDO::PARAM_INT);
+
+        //Execution de la requete
+        $requete->execute();
+    }
+
     public function __get($property)
     {
         if (property_exists($this, $property)) {
