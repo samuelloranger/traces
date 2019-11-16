@@ -128,7 +128,7 @@
                         <a href="index.php?controleur=compte&action=connexion&panier=connexion" class="btn btnCommander">Passer la commande</a>
                     @endif
 
-                    <a href="" class="btn btnViderPanier">Vider le panier</a>
+                    <a href="index.php?controleur=panier&action=vider" class="btn btnViderPanier">Vider le panier</a>
                 </div>
             </div>
         </div>

@@ -207,6 +207,9 @@ class App
                 case "ajoutPanier":
                     $this->monControleur->ajoutPanier();
                     break;
+                case "vider":
+                    $this->monControleur->viderPanier();
+                    break;
                 case "nbrItemsPanier":
                     $this->monControleur->retournerNbrItemsPanier();
             }

@@ -14,7 +14,7 @@
   },
   "tel": {
     "vide": "Vous devez entrer votre numero de telephone",
-    "pattern": "Le numero de telephone dois respecter le modele suivant : (418) 999-9999"
+    "pattern": "Le numero de telephone dois respecter le modele suivant : 4189999999"
   },
   "mdp": {
     "vide": "Vous devez entrer un mot de passe",

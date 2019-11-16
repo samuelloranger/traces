@@ -100,6 +100,11 @@ class ControleurPanier
         }
     }
 
+    public function viderPanier():void{
+        $this->panier->supprimer();
+        header("Location: index.php?controleur=panier&action=panier");
+    }
+
     public function supprimerItem($isbnArgument = 0)
     {
         if (isset($_GET["isbn"])) {
