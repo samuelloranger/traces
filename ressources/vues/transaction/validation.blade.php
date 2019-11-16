@@ -1,7 +1,7 @@
 @extends('transaction.gabarit')
 
 @section('contenu')
-    {{$_SESSION}}
+{{--    {{$_SESSION["panier"]}}--}}
     <div class="transaction">
         <div class="validation__etape transaction__centrer">
             <p class="validation__etape__non-actif">1. Livraison</p>

@@ -146,6 +146,102 @@ class Validation
         $requete->execute();
     }
 
+    public static function insererCommande(string $date, string $courriel, int $idClient, int $idAdresseLivraison, int $idAdresseFacturation, int $idModePaiement, int $idModeLivraison)
+    {
+        $pdo = App::getInstance()->getPDO();
+        //Construction de la chaine de requete
+        $chaineRequete = "INSERT INTO t_commande(date, courriel, id_client, id_adresse_livraison, id_adresse_facturation, id_mode_paiement, id_mode_livraison) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?)";
+        //Preparation de la requete
+        $requete = $pdo->prepare($chaineRequete);
+        //Attachement des valeurs personnalisees
+        $requete->bindParam(1, $date, PDO::PARAM_STR);
+        $requete->bindParam(2, $courriel, PDO::PARAM_STR);
+        $requete->bindParam(3, $idClient, PDO::PARAM_INT);
+        $requete->bindParam(4, $idAdresseLivraison, PDO::PARAM_INT);
+        $requete->bindParam(5, $idAdresseFacturation, PDO::PARAM_INT);
+        $requete->bindParam(6, $idModePaiement, PDO::PARAM_INT);
+        $requete->bindParam(7, $idModeLivraison, PDO::PARAM_INT);
+
+        //Execution de la requete
+        $requete->execute();
+    }
+
+    public static function insererLigneCommande(string $isbn, float $prix, int $quantite, int $idCommande)
+    {
+        $pdo = App::getInstance()->getPDO();
+        //Construction de la chaine de requete
+        $chaineRequete = "INSERT INTO t_ligne_commande(isbn, prix, quantite, id_commande) 
+                          VALUES (?, ?, ?, ?)";
+        //Preparation de la requete
+        $requete = $pdo->prepare($chaineRequete);
+        //Attachement des valeurs personnalisees
+        $requete->bindParam(1, $isbn, PDO::PARAM_STR);
+        $requete->bindParam(2, $prix, PDO::PARAM_STR);
+        $requete->bindParam(3, $quantite, PDO::PARAM_INT);
+        $requete->bindParam(4, $idCommande, PDO::PARAM_INT);
+
+        //Execution de la requete
+        $requete->execute();
+    }
+
+    public static function trouverIdModePaiement(int $idClient): array
+    {
+        $pdo = App::getInstance()->getPDO();
+
+        // Définir la chaine SQL
+        $sql = "SELECT id_mode_paiement FROM t_mode_paiement WHERE t_mode_paiement.id_client = :idClient";
+        // Préparer la requête (optimisation)
+        $requetePreparee = $pdo->prepare($sql);
+        // Définir le mode de récupération
+        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Validation::class);
+        $requetePreparee->bindValue(":idClient", $idClient, PDO::PARAM_INT);
+        // Exécuter la requête
+        $requetePreparee->execute();
+        // Récupérer une seule occurrence à la fois
+        $intIdModePaiement = $requetePreparee->fetchAll();
+
+        return $intIdModePaiement;
+    }
+
+    public static function trouverIdModeLivraison(int $idClient): array
+    {
+        $pdo = App::getInstance()->getPDO();
+
+        // Définir la chaine SQL
+        $sql = "SELECT id_mode_livraison FROM t_mode_livraison WHERE t_mode_livraison.id_client = :idClient";
+        // Préparer la requête (optimisation)
+        $requetePreparee = $pdo->prepare($sql);
+        // Définir le mode de récupération
+        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Validation::class);
+        $requetePreparee->bindValue(":idClient", $idClient, PDO::PARAM_INT);
+        // Exécuter la requête
+        $requetePreparee->execute();
+        // Récupérer une seule occurrence à la fois
+        $intIdModeLivraison = $requetePreparee->fetchAll();
+
+        return $intIdModeLivraison;
+    }
+
+    public static function trouverIdCommande(): int
+    {
+        $pdo = App::getInstance()->getPDO();
+
+        // Définir la chaine SQL
+        $sql = "SELECT id_commande FROM t_commande ORDER BY id_commande";
+        // Préparer la requête (optimisation)
+        $requetePreparee = $pdo->prepare($sql);
+        // Définir le mode de récupération
+       // $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Validation::class);
+      //  $requetePreparee->bindValue(":idCommande", $idCommande, PDO::PARAM_INT);
+        // Exécuter la requête
+        $requetePreparee->execute();
+        // Récupérer une seule occurrence à la fois
+        $intIdCommande = $requetePreparee->fetch();
+
+        return intval($intIdCommande[0]);
+    }
+
     public function __get($property)
     {
         if (property_exists($this, $property)) {

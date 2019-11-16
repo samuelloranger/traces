@@ -64,6 +64,7 @@ class ControleurValidation
         self::insererMethodePaiementBD();
         self::insererModeLivraisonBD();
         self::insererCommandeBD();
+        self::insererLigneCommandeBD();
 
         $tDonnees = array_merge(
             ControleurSite::getDonneeFragmentPiedDePage(),
@@ -157,14 +158,32 @@ class ControleurValidation
 
         Validation::insererModeLivraison($dateEstimmee, $modeLivraison, $idClient);
     }
+
     public function insererCommandeBD(): void
     {
-        $dateEstimmee = strval($this->session->getItem('dateLivraisonEstimee'));
-        $modeLivraison = strval($this->session->getItem('modeLivraison'));
+        $date = date('Y/m/d');
         $courriel = strval($this->session->getItem("courriel"));
         $idClient = intval(Adresse::trouverIdClient($courriel));
+        $idAdresseLivraison = intval(Adresse::trouverIdAdresseLivraison($idClient));
+        $idAdresseFacturation = intval(Adresse::trouverIdAdresseFacturation($idClient));
+        $idModePaiement = intval(Validation::trouverIdModePaiement($idClient));
+        $idModeLivraison = intval(Validation::trouverIdModeLivraison($idClient));
 
-        Validation::insererModeLivraison($dateEstimmee, $modeLivraison, $idClient);
+        Validation::insererCommande($date, $courriel, $idClient, $idAdresseLivraison, $idAdresseFacturation, $idModePaiement, $idModeLivraison);
     }
 
+    public function insererLigneCommandeBD(): void
+    {
+        $arrLivres = $this->session->getItem('panier');
+//        var_dump($arrLivres);
+        foreach ($arrLivres as $livre) {
+            $isbn = $livre->livre->isbn;
+            $prix = floatval($livre->livre->prix);
+            $quantite = $livre->quantite;
+            $idCommande = intval(Validation::trouverIdCommande());
+
+            Validation::insererLigneCommande($isbn, $prix, $quantite, $idCommande);
+        }
+
+    }
 }
