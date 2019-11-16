@@ -226,7 +226,7 @@ class Validation
         $pdo = App::getInstance()->getPDO();
 
         // Définir la chaine SQL
-        $sql = "SELECT id_commande FROM t_commande ORDER BY id_commande";
+        $sql = "SELECT id_commande FROM t_commande ORDER BY id_commande DESC";
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);
 
