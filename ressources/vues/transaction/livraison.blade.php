@@ -35,16 +35,16 @@
                 <p class="livraison__label">Province :</p>
                 <select class="livraison__input" name="abbrProvince">
                     <option value="AB">Alberta</option>
-                    <option value="BC">British Columbia</option>
+                    <option value="BC">Colombie-Britannique</option>
                     <option value="MB">Manitoba</option>
-                    <option value="NB">New Brunswick</option>
-                    <option value="NL">Newfoundland and Labrador</option>
-                    <option value="NS">Nova Scotia</option>
+                    <option value="NB">Nouveau-Brunswick</option>
+                    <option value="NL">Terre-Neuve et Labrador</option>
+                    <option value="NS">Nouvelle-Écosse</option>
                     <option value="ON">Ontario</option>
-                    <option value="PE">Prince Edward Island</option>
-                    <option value="QC" selected>Quebec</option>
+                    <option value="PE">ïle-du-Prince-Edward</option>
+                    <option value="QC" selected>Québec</option>
                     <option value="SK">Saskatchewan</option>
-                    <option value="NT">Northwest Territories</option>
+                    <option value="NT">Territoires du Nord-Ouest</option>
                     <option value="NU">Nunavut</option>
                     <option value="YT">Yukon</option>
                 </select>

@@ -185,7 +185,7 @@ class Validation
         $requete->execute();
     }
 
-    public static function trouverIdModePaiement(int $idClient): array
+    public static function trouverIdModePaiement(int $idClient): int
     {
         $pdo = App::getInstance()->getPDO();
 
@@ -193,18 +193,17 @@ class Validation
         $sql = "SELECT id_mode_paiement FROM t_mode_paiement WHERE t_mode_paiement.id_client = :idClient";
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);
-        // Définir le mode de récupération
-        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Validation::class);
+
         $requetePreparee->bindValue(":idClient", $idClient, PDO::PARAM_INT);
         // Exécuter la requête
         $requetePreparee->execute();
         // Récupérer une seule occurrence à la fois
-        $intIdModePaiement = $requetePreparee->fetchAll();
+        $intIdModePaiement = $requetePreparee->fetch();
 
-        return $intIdModePaiement;
+        return intval($intIdModePaiement[0]);
     }
 
-    public static function trouverIdModeLivraison(int $idClient): array
+    public static function trouverIdModeLivraison(int $idClient): int
     {
         $pdo = App::getInstance()->getPDO();
 
@@ -212,15 +211,14 @@ class Validation
         $sql = "SELECT id_mode_livraison FROM t_mode_livraison WHERE t_mode_livraison.id_client = :idClient";
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);
-        // Définir le mode de récupération
-        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Validation::class);
+
         $requetePreparee->bindValue(":idClient", $idClient, PDO::PARAM_INT);
         // Exécuter la requête
         $requetePreparee->execute();
         // Récupérer une seule occurrence à la fois
-        $intIdModeLivraison = $requetePreparee->fetchAll();
+        $intIdModeLivraison = $requetePreparee->fetch();
 
-        return $intIdModeLivraison;
+        return intval($intIdModeLivraison[0]);
     }
 
     public static function trouverIdCommande(): int
@@ -231,10 +229,7 @@ class Validation
         $sql = "SELECT id_commande FROM t_commande ORDER BY id_commande";
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);
-        // Définir le mode de récupération
-       // $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Validation::class);
-      //  $requetePreparee->bindValue(":idCommande", $idCommande, PDO::PARAM_INT);
-        // Exécuter la requête
+
         $requetePreparee->execute();
         // Récupérer une seule occurrence à la fois
         $intIdCommande = $requetePreparee->fetch();

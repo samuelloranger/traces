@@ -84,7 +84,7 @@
                 </div>
                 <div class="facturation__infoContact">
                     <p class="transaction__sous-titre">Informations de contact</p>
-                    <p class="facturation__courriel"><i>Courriel :</i><b>{{ $courriel }}</b></p>
+                    <p class="facturation__courriel"><i>Courriel : </i><b>{{ $courriel }}</b></p>
                     <p class="facturation__telephone"><i>Téléphone : </i><b>+1 (418) 999-9999</b></p>
                 </div>
                 <input type="submit" class="transaction__centrer transaction__bouton" value="VALIDER LA COMMANDE"/>

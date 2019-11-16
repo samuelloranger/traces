@@ -63,7 +63,7 @@ class Adresse
 
     }
 
-    public static function trouverIdClient(string $courriel): array
+    public static function trouverIdClient(string $courriel): int
     {
         $pdo = App::getInstance()->getPDO();
 
@@ -71,18 +71,17 @@ class Adresse
         $sql = "SELECT id_client FROM t_client WHERE courriel = :courriel";
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);
-        // Définir le mode de récupération
-        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Adresse::class);
+
         $requetePreparee->bindValue(":courriel", $courriel, PDO::PARAM_STR);
         // Exécuter la requête
         $requetePreparee->execute();
         // Récupérer une seule occurrence à la fois
-        $intIdClient = $requetePreparee->fetchAll();
+        $intIdClient = $requetePreparee->fetch();
 
-        return $intIdClient;
+        return intval($intIdClient[0]);
     }
 
-    public static function trouverIdAdresseLivraison(int $idClient): array
+    public static function trouverIdAdresseLivraison(int $idClient): int
     {
         $pdo = App::getInstance()->getPDO();
 
@@ -91,17 +90,16 @@ class Adresse
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);
         // Définir le mode de récupération
-        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Adresse::class);
         $requetePreparee->bindValue(":idClient", $idClient, PDO::PARAM_INT);
         // Exécuter la requête
         $requetePreparee->execute();
         // Récupérer une seule occurrence à la fois
-        $intIdAdresseLivraison = $requetePreparee->fetchAll();
+        $intIdAdresseLivraison = $requetePreparee->fetch();
 
-        return $intIdAdresseLivraison;
+        return intval($intIdAdresseLivraison[0]);
     }
 
-    public static function trouverIdAdresseFacturation(int $idClient): array
+    public static function trouverIdAdresseFacturation(int $idClient): int
     {
         $pdo = App::getInstance()->getPDO();
 
@@ -109,15 +107,14 @@ class Adresse
         $sql = "SELECT id_adresse FROM t_adresse WHERE t_adresse.id_client = :idClient AND t_adresse.type = 'facturation'";
         // Préparer la requête (optimisation)
         $requetePreparee = $pdo->prepare($sql);
-        // Définir le mode de récupération
-        $requetePreparee->setFetchMode(PDO::FETCH_CLASS, Adresse::class);
+
         $requetePreparee->bindValue(":idClient", $idClient, PDO::PARAM_INT);
         // Exécuter la requête
         $requetePreparee->execute();
         // Récupérer une seule occurrence à la fois
-        $intIdAdresseFacturation = $requetePreparee->fetchAll();
+        $intIdAdresseFacturation = $requetePreparee->fetch();
 
-        return $intIdAdresseFacturation;
+        return intval($intIdAdresseFacturation[0]);
     }
 
     public function __get($property)
