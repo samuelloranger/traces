@@ -20,7 +20,7 @@
                 CATÉGORIES
             </p>
             <a href="index.php?controleur=livre&action=catalogue&categorie=0&trierPar={{$trierPar}}&nbParPages={{$livresParPage}}"
-               class="catalogue__btn catalogue__categories--reinitialiser">RÉINITIALISER CATÉGORIE</a>
+               class="catalogue__btn catalogue__btn--reinitialiser">RÉINITIALISER CATÉGORIE</a>
             <div class="catalogue__categories__contenu">
                 <ul class="catalogue__categories__liste">
                     @foreach($arrCategories as $categorie)

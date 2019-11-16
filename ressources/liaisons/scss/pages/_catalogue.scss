@@ -44,12 +44,9 @@
     margin-top: -10px;
     margin-bottom: 15px;
 
-    &:hover {
-      text-decoration: none;
-    }
-
     &--ajouterPanier {
       &:hover {
+        text-decoration: none;
         background-color: darken($TURQUOISE, 5);
         color: $BLANC;
       }
@@ -70,20 +67,22 @@
       margin: 8px;
 
       &:hover {
+        text-decoration: none;
         color: white;
         background-color: darken($TURQUOISE, 5);
       }
     }
 
     &--enSavoirPlus {
-      color: black;
-      background-color: $PEAU;
+      color: $BLANC;
+      background-color: $GRIS_FONCE;
       display: inline-block;
       margin-bottom: 20px;
 
       &:hover {
-        color: black;
-        background-color: darken($PEAU, 5);
+        text-decoration: none;
+        color: $BLANC;
+        background-color: darken($GRIS_FONCE, 5);
       }
 
       @media(min-width: $DESKTOP-NORMAL) {
@@ -99,20 +98,19 @@
 
     &--reinitialiser {
       color: white;
-      width: 70%;
       text-align: center;
-      margin-left: 15%;
       margin-top: 5%;
       padding: 10px 24px !important;
-      font-size: 12px !important;
+      font-size: 14px !important;
 
       &:hover {
-        color: white;
-        background-color: darken($TURQUOISE, 5);
+        text-decoration: none;
+        color: white !important;
+        background-color: darken($TURQUOISE, 5 )!important;
       }
 
       @media(min-width: $DESKTOP-NORMAL) {
-        padding: 2px 50px;
+        min-width: 200px;
       }
       @media(min-width: $DESKTOP-LARGE) {
         padding: 2px 74px;
@@ -148,7 +146,7 @@
     }
 
     &__titre {
-      padding: 10%;
+      padding: 10% 0 5% 0;
     }
 
     &__liste {
@@ -310,7 +308,7 @@
     font-size: 42px;
     color: white;
     @media(min-width: $DESKTOP-NORMAL) {
-      font-size: 16px;
+      font-size: 22px;
     }
   }
 
@@ -332,7 +330,7 @@
     }
 
     @media (min-width: $DESKTOP-NORMAL) {
-      font-size: 16px;
+      font-size: 18px;
       color: $BLANC;
       &:hover {
         color: $ROUGE;
